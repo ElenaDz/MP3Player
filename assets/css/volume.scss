@@ -1,0 +1,32 @@
+.volume {
+  .b_slider
+  {
+    display: inline-block;
+    box-sizing: content-box;
+    width: 90px;
+    height: 4px;
+    padding: 5px 0;
+    background-color: #f0f0f0;
+    background-clip: content-box;
+    cursor: pointer;
+
+    .value {
+      position: relative;
+      width: 0;
+      height: 100%;
+      background-color: #93bfed;
+
+      &:before {
+        content: '';
+        position: absolute;
+        right: -1 * 13px / 2;
+        top: -1 * (10px / 2 );
+        width: 13px;
+        height: 13px;
+        background-color: #1a81f6;
+        border-radius: 50%;
+        box-sizing: border-box;
+      }
+    }
+  }
+}

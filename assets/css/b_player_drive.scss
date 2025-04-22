@@ -1,0 +1,240 @@
+@import "progress";
+@import "volume";
+
+.b_player {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  width: auto;
+  height: 70px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  z-index: 10000;
+  border-top: 1px solid rgb(237, 237, 237) ;
+  box-shadow: 0 0 7px rgb(195, 195, 195);
+
+  button {
+    border: none;
+    cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .btns_play {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 170px;
+
+    .play {
+      button {
+        background-color: #f3f3f3;
+        border-radius: 50%;
+
+
+        &:hover {
+          background-color: #d7eaff;
+        }
+        span {
+          background-image: url("/assets/img/btn_play/play.svg");
+        }
+      }
+    }
+
+    .next {
+      button{
+        span {
+          background-image: url("/assets/img/btn_play/next.svg");
+
+          &:hover {
+            background-image: url("/assets/img/btn_play/next_grey.svg");
+          }
+        }
+      }
+    }
+
+    .prev {
+      button{
+        span {
+          background-image: url("/assets/img/btn_play/previous.svg");
+
+          &:hover {
+            background-image: url("/assets/img/btn_play/previous_grey.svg");
+          }
+        }
+      }
+    }
+
+  }
+
+  .play, .next, .prev, .shuffle, .repeat_playlist, .playlist, .hq, .equalizer, .like, .download, .options  {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+
+    button {
+      background-color: white;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      span {
+        width: 16px;
+        height: 16px;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+
+
+  .wrap_shuffle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .shuffle {
+      button{
+        span {
+          width: 20px;
+          height: 20px;
+          background-image: url("/assets/img/shuffle.svg");
+
+          &:hover {
+            background-image: url("/assets/img/shuffle_grey.svg");
+          }
+        }
+      }
+    }
+
+    .repeat_playlist {
+      button{
+        span {
+          width: 20px;
+          height: 20px;
+          background-image: url("/assets/img/repeat.svg");
+
+          &:hover {
+            background-image: url("/assets/img/repeat_grey.svg");
+          }
+        }
+      }
+    }
+  }
+
+  .playlist {
+    button{
+      span {
+        width: 25px;
+        height: 25px;
+        background-image: url("/assets/img/playlist.svg");
+
+        &:hover {
+          background-image: url("/assets/img/playlist_grey.svg");
+        }
+      }
+    }
+  }
+
+  .wrap_hq {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .hq {
+      button{
+        span {
+          width: 25px;
+          height: 25px;
+          background-image: url("/assets/img/hq_grey.svg");
+        }
+      }
+    }
+
+    .equalizer {
+      button{
+        span {
+          width: 20px;
+          height: 20px;
+          background-image: url("/assets/img/equalizer_grey.svg");
+        }
+      }
+    }
+  }
+  .like {
+    button{
+      span {
+        width: 25px;
+        height: 25px;
+        background-image: url("/assets/img/like_grey.svg");
+
+      }
+    }
+  }
+
+  .download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 5px;
+        background-color: #f7f7f7;
+
+        &:hover {
+          background-color: #d7eaff;
+        }
+
+        span {
+          display: flex;
+          width: 13px;
+          height: 13px;
+          background-image: url("/assets/img/download.svg");
+        }
+      }
+  }
+
+  .options {
+    button{
+      span {
+        background-image: url("/assets/img/options.svg");
+
+      }
+    }
+  }
+
+  .volume {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+
+    .volume_inner {
+      background-color: white;
+      width: 40px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      span {
+        width: 16px;
+        height: 16px;
+        background-repeat: no-repeat;
+        background-image: url("/assets/img/volume.svg");
+      }
+    }
+  }
+}
