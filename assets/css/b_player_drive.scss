@@ -1,6 +1,11 @@
+
+
+@import "_mixin";
 @import "progress";
 @import "volume";
 
+
+// fixme имя файла должно быть player.scss
 .b_player {
   display: flex;
   align-items: center;
@@ -26,6 +31,7 @@
     cursor: pointer;
   }
 
+  // fixme выносим в отдельный блок b_player_controls
   .btns_play {
     display: flex;
     justify-content: center;
@@ -37,10 +43,12 @@
         background-color: #f3f3f3;
         border-radius: 50%;
 
-
         &:hover {
           background-color: #d7eaff;
         }
+
+        // fixme обычно используют тег i (типа icon) а не span,
+        //  а здесь так как текста на кнопке нет можно вообще ни чего не использоваться просто background-image по центру c background-position
         span {
           background-image: url("/assets/img/btn_play/play.svg");
         }
@@ -73,6 +81,7 @@
 
   }
 
+  // fixme заведи класс .btn для этого
   .play, .next, .prev, .shuffle, .repeat_playlist, .playlist, .hq, .equalizer, .like, .download, .options  {
     width: 40px;
     height: 40px;
@@ -95,6 +104,7 @@
   }
 
 
+  // fixme выносим в отдельный блок b_player_playlist_order
   .wrap_shuffle {
     display: flex;
     align-items: center;
@@ -107,6 +117,7 @@
           height: 20px;
           background-image: url("/assets/img/shuffle.svg");
 
+          // fixme к сожалению так не пойдет, нужно заменить на прозрачность css opacity везде где hover
           &:hover {
             background-image: url("/assets/img/shuffle_grey.svg");
           }
@@ -129,6 +140,7 @@
     }
   }
 
+  // fixme выносим в отдельный блок b_player_playlist
   .playlist {
     button{
       span {
@@ -143,6 +155,7 @@
     }
   }
 
+  // fixme убираем у нас нету этого пока и будет очень не скоро если будет вообще
   .wrap_hq {
     display: flex;
     align-items: center;
@@ -168,6 +181,8 @@
       }
     }
   }
+
+  // fixme выносим в отдельный блок b_player_like
   .like {
     button{
       span {
@@ -179,6 +194,7 @@
     }
   }
 
+  // fixme выносим в отдельный блок b_player_download
   .download {
     display: flex;
     align-items: center;
@@ -206,6 +222,7 @@
       }
   }
 
+  // fixme удаляем нету
   .options {
     button{
       span {
@@ -215,6 +232,7 @@
     }
   }
 
+  // fixme выносим в отдельный блок b_player_volume
   .volume {
     display: flex;
     width: fit-content;

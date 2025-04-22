@@ -13,6 +13,7 @@
     }
 }
 
+// fixme вынести в отдельный класс b_slider, не создавать копий, модифицировать с помощью классов модификаторов
 .b_slider {
   display: inline-block;
   box-sizing: content-box;
@@ -24,6 +25,17 @@
   cursor: pointer;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
+
+  // пример класса модификатора
+  &.mini {
+    // здесь можно модифицировать некоторые свойства value
+    .value {
+      // а здесь before
+      &:before {
+
+      }
+    }
+  }
 
   .value {
     position: relative;

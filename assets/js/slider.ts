@@ -10,7 +10,7 @@ class Slider
 {
 	private static SELECTOR = '.b_slider';
 
-	public context:JQuery;
+	public context: JQuery;
 
 	private _start_move:boolean = false;
 
@@ -47,7 +47,6 @@ class Slider
 
 		$(this.SELECTOR, context).each((index, elem) =>
 		{
-			console.log(elem)
 			sliders.push(new this($(elem)));
 		});
 

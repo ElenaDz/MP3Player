@@ -77,17 +77,7 @@
     </div>
 
     <div class="wrap_hq">
-        <div class="hq">
-            <button>
-                <span></span>
-            </button>
-        </div>
-
-        <div class="equalizer">
-            <button>
-                <span></span>
-            </button>
-        </div>
+        <!-- Не нужны здесь кнопки пока -->
     </div>
 
     <div class="volume">
@@ -96,10 +86,10 @@
         </button>
 
         <div
-                id="slider_"
-                class="b_slider"
-                data-value_min="0"
-                data-value_max="15"
+            id="slider_"
+            class="b_slider"
+            data-value_min="0"
+            data-value_max="15"
         >
             <div class="value" style="width: 50%;"></div>
         </div>
@@ -129,10 +119,10 @@
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script src="SliderView.ts"></script>
+<script src="/assets/js/slider.js"></script>
 <script>
     $(function() {
-        let slader = Slider.create()
+        let slider = Slider.create()
 
     });
 </script>
