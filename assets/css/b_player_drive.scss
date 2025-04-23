@@ -1,9 +1,14 @@
+
+
+@import "_mixin";
 @import "progress";
 
 $opacity-grey-min: 0.3;
 $opacity-grey-middle: 0.7;
 $opacity-grey-max: 1;
 
+
+// fixme имя файла должно быть player.scss
 .b_player {
   position: fixed;
   width: auto;
@@ -35,8 +40,8 @@ $opacity-grey-max: 1;
     cursor: pointer;
     color: black;
   }
-
-  .d_flex_center, button {
+  // fixme выносим в отдельный блок b_player_controls
+  .btns_play {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,10 +65,12 @@ $opacity-grey-max: 1;
         background-color: #f3f3f3;
         border-radius: 50%;
 
-
         &:hover {
           background-color: #d7eaff;
         }
+
+        // fixme обычно используют тег i (типа icon) а не span,
+        //  а здесь так как текста на кнопке нет можно вообще ни чего не использоваться просто background-image по центру c background-position
         span {
           background-image: url("/assets/img/btn_play/play.svg");
         }
@@ -95,7 +102,7 @@ $opacity-grey-max: 1;
     }
 
   }
-
+  // fixme заведи класс .btn для этого
   .element_min_player  {
     width: 40px;
     height: 40px;
@@ -114,7 +121,7 @@ $opacity-grey-max: 1;
     }
   }
 
-
+  fixme выносим в отдельный блок b_player_playlist_order
   .b_shuffle {
     .shuffle {
       button{
@@ -122,6 +129,7 @@ $opacity-grey-max: 1;
           background-image: url("/assets/img/shuffle.svg");
           opacity: $opacity-grey-min;
 
+          // fixme к сожалению так не пойдет, нужно заменить на прозрачность css opacity везде где hover
           &:hover {
             opacity: $opacity-grey-middle;
           }
@@ -143,6 +151,7 @@ $opacity-grey-max: 1;
     }
   }
 
+  // fixme выносим в отдельный блок b_player_playlist
   .playlist {
     button{
       span {
@@ -156,7 +165,7 @@ $opacity-grey-max: 1;
     }
 
   }
-
+  // fixme убираем у нас нету этого пока и будет очень не скоро если будет вообще
   .popup {
     position: absolute;
     transform: translate(30%, -100%);
@@ -192,6 +201,9 @@ $opacity-grey-max: 1;
     }
   }
 
+
+
+  // fixme выносим в отдельный блок b_player_like
   .like {
     button{
       span {
@@ -205,6 +217,7 @@ $opacity-grey-max: 1;
     }
   }
 
+  // fixme выносим в отдельный блок b_player_download
   .download {
       a {
         width: 26px;
@@ -225,6 +238,7 @@ $opacity-grey-max: 1;
       }
   }
 
+  // fixme удаляем нету
   .options {
     button{
       span {
@@ -237,7 +251,7 @@ $opacity-grey-max: 1;
       }
     }
   }
-
+  // fixme выносим в отдельный блок b_player_volume
   .b_volume {
     width: fit-content;
 
