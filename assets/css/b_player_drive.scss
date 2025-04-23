@@ -41,7 +41,7 @@ $opacity-grey-max: 1;
     color: black;
   }
   // fixme выносим в отдельный блок b_player_controls
-  .b_btns_play {
+  .d_flex_center, button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -121,7 +121,7 @@ $opacity-grey-max: 1;
     }
   }
 
-  fixme выносим в отдельный блок b_player_playlist_order
+  // fixme выносим в отдельный блок b_player_playlist_order
   .b_shuffle {
     .shuffle {
       button{
