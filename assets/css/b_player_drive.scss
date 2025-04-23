@@ -1,18 +1,27 @@
 @import "progress";
-@import "volume";
+
+$opacity-grey-min: 0.3;
+$opacity-grey-middle: 0.7;
+$opacity-grey-max: 1;
 
 .b_player {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   position: fixed;
   width: auto;
   height: 70px;
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 2;
+}
+.inner_player {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  height: 100%;
   background-color: #fff;
-  z-index: 10000;
+
   border-top: 1px solid rgb(237, 237, 237) ;
   box-shadow: 0 0 7px rgb(195, 195, 195);
 
@@ -24,12 +33,26 @@
   a {
     text-decoration: none;
     cursor: pointer;
+    color: black;
   }
 
-  .btns_play {
+  .d_flex_center, button {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .w_h_25 {
+    width: 25px !important;
+    height: 25px !important;
+  }
+
+  .w_h_20 {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .b_btns_play {
     width: 170px;
 
     .play {
@@ -53,7 +76,7 @@
           background-image: url("/assets/img/btn_play/next.svg");
 
           &:hover {
-            background-image: url("/assets/img/btn_play/next_grey.svg");
+            opacity: $opacity-grey-middle;
           }
         }
       }
@@ -65,7 +88,7 @@
           background-image: url("/assets/img/btn_play/previous.svg");
 
           &:hover {
-            background-image: url("/assets/img/btn_play/previous_grey.svg");
+            opacity: $opacity-grey-middle;
           }
         }
       }
@@ -73,7 +96,7 @@
 
   }
 
-  .play, .next, .prev, .shuffle, .repeat_playlist, .playlist, .hq, .equalizer, .like, .download, .options  {
+  .element_min_player  {
     width: 40px;
     height: 40px;
     min-width: 40px;
@@ -82,33 +105,25 @@
       background-color: white;
       width: 100%;
       height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    }
 
-      span {
-        width: 16px;
-        height: 16px;
-        background-repeat: no-repeat;
-      }
+    span {
+      width: 16px;
+      height: 16px;
+      background-repeat: no-repeat;
     }
   }
 
 
-  .wrap_shuffle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+  .b_shuffle {
     .shuffle {
       button{
         span {
-          width: 20px;
-          height: 20px;
           background-image: url("/assets/img/shuffle.svg");
+          opacity: $opacity-grey-min;
 
           &:hover {
-            background-image: url("/assets/img/shuffle_grey.svg");
+            opacity: $opacity-grey-middle;
           }
         }
       }
@@ -117,12 +132,11 @@
     .repeat_playlist {
       button{
         span {
-          width: 20px;
-          height: 20px;
           background-image: url("/assets/img/repeat.svg");
+          opacity: $opacity-grey-min;
 
           &:hover {
-            background-image: url("/assets/img/repeat_grey.svg");
+            opacity: $opacity-grey-middle;
           }
         }
       }
@@ -132,28 +146,38 @@
   .playlist {
     button{
       span {
-        width: 25px;
-        height: 25px;
         background-image: url("/assets/img/playlist.svg");
+        opacity: $opacity-grey-middle;
 
         &:hover {
-          background-image: url("/assets/img/playlist_grey.svg");
+          opacity: $opacity-grey-max;
         }
       }
     }
+
   }
 
-  .wrap_hq {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .popup {
+    position: absolute;
+    transform: translate(30%, -100%);
+    width: 900px;
+    height: calc(-156px + 100vh);
+    background-color: #fff;
+    border: 1px solid #e3e3e3;
+    opacity: 1;
+    z-index: -1;
+    top: 15px;
+    padding-bottom: 15px;
+    transition-duration: .35s;
+    transition-property: height;
+  }
 
+  .b_hq {
     .hq {
       button{
         span {
-          width: 25px;
-          height: 25px;
-          background-image: url("/assets/img/hq_grey.svg");
+          background-image: url("/assets/img/hq.svg");
+          opacity: $opacity-grey-middle;
         }
       }
     }
@@ -161,33 +185,28 @@
     .equalizer {
       button{
         span {
-          width: 20px;
-          height: 20px;
-          background-image: url("/assets/img/equalizer_grey.svg");
+          background-image: url("/assets/img/equalizer.svg");
+          opacity: $opacity-grey-middle;
         }
       }
     }
   }
+
   .like {
     button{
       span {
-        width: 25px;
-        height: 25px;
-        background-image: url("/assets/img/like_grey.svg");
+        background-image: url("/assets/img/like.svg");
+        opacity: $opacity-grey-middle;
 
+        &:hover {
+          opacity: $opacity-grey-max;
+        }
       }
     }
   }
 
   .download {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
       a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
         width: 26px;
         height: 26px;
         border-radius: 5px;
@@ -210,30 +229,65 @@
     button{
       span {
         background-image: url("/assets/img/options.svg");
+        opacity: $opacity-grey-middle;
 
+        &:hover {
+          opacity: $opacity-grey-max;
+        }
       }
     }
   }
 
-  .volume {
-    display: flex;
+  .b_volume {
     width: fit-content;
-    align-items: center;
-    justify-content: center;
 
     .volume_inner {
       background-color: white;
       width: 40px;
       height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
 
       span {
-        width: 16px;
-        height: 16px;
-        background-repeat: no-repeat;
         background-image: url("/assets/img/volume.svg");
+      }
+    }
+  }
+
+  .b_info {
+    width: fit-content;
+    height: 100%;
+
+    .artist_img {
+      border-radius: 50%;
+      background-color: #f7f7f7;
+      margin-right: 10px;
+
+      span {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        opacity: $opacity-grey-min;
+        background-image: url("/assets/img/note.svg");
+      }
+    }
+
+    .names {
+      display: flex;
+      flex-direction: column;
+
+      .artist_name, .song_name {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        width: 100%;
+        height: 100%;
+      }
+
+      .artist_name {
+        font-weight: bold;
+
+        a {
+          margin-right: 5px;
+        }
       }
     }
   }

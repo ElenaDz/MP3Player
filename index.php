@@ -20,107 +20,121 @@
     <title>Проигрыватель</title>
 </head>
 <body>
-<div class="b_player">
-    <div class="btns_play">
-        <div class="prev">
+<div class="b_player d_flex_center">
+    <div class="inner_player">
+        <div class="b_btns_play d_flex_center">
+            <div class="prev element_min_player">
+                <button>
+                    <span></span>
+                </button>
+            </div>
+            <div class="play element_min_player">
+                <button>
+                    <span></span>
+                </button>
+            </div>
+            <div class="next element_min_player">
+                <button>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="b_shuffle d_flex_center">
+            <div class="shuffle element_min_player">
+                <button>
+                    <span class="w_h_20"></span>
+                </button>
+            </div>
+            <div class="repeat_playlist element_min_player">
+                <button>
+                    <span class="w_h_20"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="playlist element_min_player">
+            <button>
+                <span class="w_h_25"></span>
+            </button>
+        </div>
+        <div class="popup"></div>
+        <div class="b_progress d_flex_center">
+            <div class="time_current">
+                00:51
+            </div>
+            <div
+                    id="slider_progress"
+                    class="b_slider"
+                    data-value_min="0"
+                    data-value_max="100"
+            >
+                <div class="value" style="width: 50%;"></div>
+            </div>
+
+            <div class="time_duration">
+                03:57
+            </div>
+        </div>
+
+        <div class="b_hq d_flex_center">
+            <div class="hq element_min_player">
+                <button>
+                    <span class="w_h_25"></span>
+                </button>
+            </div>
+
+            <div class="equalizer element_min_player">
+                <button>
+                    <span class="w_h_20"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="b_volume d_flex_center element_min_player">
+            <button  class="volume_inner d_flex_center">
+                <span></span>
+            </button>
+
+            <div
+                    id="slider_volume"
+                    class="b_slider for_volume"
+                    data-value_min="0"
+                    data-value_max="15"
+            >
+                <div class="value" style="width: 50%;"></div>
+            </div>
+        </div>
+        <div class="b_info d_flex_center">
+            <div class="artist_img d_flex_center element_min_player">
+                <span></span>
+            </div>
+            <div class="names d_flex_center">
+                <div class="song_name">
+                    <a class="">Улетаю yf rhskmz[</a>
+                </div>
+                <div class="artist_name">
+                   <a href="#">Маракеш</a>
+                    feat. &nbsp
+                    <a href="#">T1One</a>
+                </div>
+            </div>
+        </div>
+        <div class="like element_min_player">
+            <button>
+                <span class="w_h_25"></span>
+            </button>
+        </div>
+        <div class="download d_flex_center element_min_player">
+            <a class="d_flex_center">
+                <span></span>
+            </a>
+        </div>
+        <div class="options element_min_player">
             <button>
                 <span></span>
             </button>
         </div>
-        <div class="play">
-            <button>
-                <span></span>
-            </button>
-        </div>
-        <div class="next">
-            <button>
-                <span></span>
-            </button>
-        </div>
-    </div>
-
-    <div class="wrap_shuffle">
-        <div class="shuffle">
-            <button>
-                <span></span>
-            </button>
-        </div>
-        <div class="repeat_playlist">
-            <button>
-                <span></span>
-            </button>
-        </div>
-    </div>
-
-    <div class="playlist">
-        <button>
-            <span></span>
-        </button>
-    </div>
-
-    <div class="progress">
-        <div class="time_current">
-            00:51
-        </div>
-        <div
-                id="slider_"
-                class="b_slider"
-                data-value_min="0"
-                data-value_max="100"
-        >
-            <div class="value" style="width: 50%;"></div>
-        </div>
-
-        <div class="time_duration">
-            03:57
-        </div>
-    </div>
-
-    <div class="wrap_hq">
-        <div class="hq">
-            <button>
-                <span></span>
-            </button>
-        </div>
-
-        <div class="equalizer">
-            <button>
-                <span></span>
-            </button>
-        </div>
-    </div>
-
-    <div class="volume">
-        <button  class="volume_inner">
-            <span></span>
-        </button>
-
-        <div
-                id="slider_"
-                class="b_slider"
-                data-value_min="0"
-                data-value_max="15"
-        >
-            <div class="value" style="width: 50%;"></div>
-        </div>
-    </div>
-    <div class="info">
-
-    </div>
-    <div class="like">
-        <button>
-            <span></span>
-        </button>
-    </div>
-    <div class="download">
-        <a>
-            <span></span>
-        </a>
-    </div>
-    <div class="options">
-        <button>
-            <span></span>
-        </button>
     </div>
 </div>
 
