@@ -2,7 +2,8 @@
   "compilerOptions":
   {
     "sourceMap": false,
-        "target": "es2015",
+    "target": "es2015",
     "module": "es6",
+    "outDir": "js"
   }
 }

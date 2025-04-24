@@ -1,0 +1,29 @@
+@import "mixin";
+
+.b_player_progress
+{
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include for_phone {
+    width: 100%;
+    order: 6;
+  }
+
+  .b_slider {
+    @include for_phone {
+      width: 100%;
+      margin: 0 10px;
+    }
+  }
+
+  .time_current, .time_duration {
+    width: 50px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

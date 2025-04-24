@@ -1,0 +1,224 @@
+@import "mixin";
+
+@import "slider";
+@import "progress";
+
+$opacity-grey-min: 0.3;
+$opacity-grey-middle: 0.7;
+$opacity-grey-max: 1;
+
+.b_player {
+  position: fixed;
+  width: auto;
+  height: 70px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+
+  @include for_phone {
+    height: 90px;
+  }
+
+  .inner_player {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 0 2vw;
+    height: 100%;
+    background-color: #fff;
+    border-top: 1px solid rgb(237, 237, 237);
+    box-shadow: 0 0 7px rgb(195, 195, 195);
+
+    @include for_phone {
+      flex-wrap: wrap;
+      align-items: normal;
+      padding: 5px 10px 0 10px;
+    }
+
+    > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      background-repeat: no-repeat;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-position: center;
+    }
+
+    a {
+      text-decoration: none;
+      cursor: pointer;
+      color: black;
+    }
+
+    .elem {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+    }
+
+    .b_player_controls {
+      width: 130px;
+
+      @include for_phone {
+        order: 3;
+      }
+
+      .play {
+        background-color: #f3f3f3;
+        border-radius: 50%;
+        background-image: url("/assets/img/btn_play/play.svg");
+
+        &:hover {
+          background-color: #d7eaff;
+        }
+      }
+
+      .next {
+        background-image: url("/assets/img/btn_play/next.svg");
+
+        &:hover {
+          opacity: $opacity-grey-middle;
+        }
+      }
+
+      .prev {
+        background-image: url("/assets/img/btn_play/previous.svg");
+
+        &:hover {
+          opacity: $opacity-grey-middle;
+        }
+      }
+    }
+
+    .b_player_playlist
+    {
+      @include for_phone {
+        order: 1;
+      };
+
+      .order
+      {
+        display: flex;
+
+        @include for_phone {
+          display: none;
+        }
+
+        .shuffle {
+          background-image: url("/assets/img/shuffle.svg");
+          opacity: $opacity-grey-min;
+
+          &:hover {
+            opacity: $opacity-grey-middle;
+          }
+        }
+
+        .repeat_playlist {
+          background-image: url("/assets/img/repeat.svg");
+          opacity: $opacity-grey-min;
+
+          &:hover {
+            opacity: $opacity-grey-middle;
+          }
+        }
+      }
+
+      .playlist {
+        background-image: url("/assets/img/playlist.svg");
+        opacity: $opacity-grey-min;
+
+        &:hover {
+          opacity: $opacity-grey-max;
+        }
+      }
+    }
+
+    .b_player_volume
+    {
+      @include for_phone {
+        display: none;
+      }
+
+      .volume_inner {
+        background-image: url("/assets/img/volume.svg");
+      }
+    }
+
+    .b_player_info {
+      width: fit-content;
+      height: 100%;
+
+      @include for_phone {
+        display: none;
+      }
+
+      .artist_img {
+        border-radius: 50%;
+        background-color: #f7f7f7;
+        margin-right: 10px;
+        opacity: $opacity-grey-min;
+        background-image: url("/assets/img/note.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .names {
+        display: flex;
+        flex-direction: column;
+
+        .artist_name, .song_name {
+          display: flex;
+          align-items: center;
+          justify-content: start;
+          width: 100%;
+          height: 100%;
+        }
+
+        .artist_name {
+          font-weight: bold;
+
+          a {
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+
+    .b_player_download
+    {
+      @include for_phone {
+        order: 5;
+      }
+
+      .download {
+        width: 26px;
+        height: 26px;
+        border-radius: 5px;
+        background-color: #f7f7f7;
+
+        &:hover {
+          background-color: #d7eaff;
+        }
+
+        i {
+          width: 100%;
+          height: 100%;
+          background-image: url("/assets/img/download.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      }
+    }
+  }
+}
+

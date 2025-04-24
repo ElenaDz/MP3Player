@@ -1,0 +1,6 @@
+
+@mixin for_phone {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
