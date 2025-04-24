@@ -1,8 +1,9 @@
-.b_progress {
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.b_player {
+  .b_player_progress {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     .time_current, .time_duration {
       width: 50px;
@@ -11,69 +12,86 @@
       align-items: center;
       justify-content: center;
     }
-}
+  }
 
-// fixme вынести в отдельный класс b_slider, не создавать копий, модифицировать с помощью классов модификаторов
-.b_slider {
-  $size: 14px;
+  // fixme вынести в отдельный класс b_slider, не создавать копий, модифицировать с помощью классов модификаторов ok
+  .b_slider
+  {
+    $height: 8px;
+    $size: 14px;
+    $border: 2px;
+    $border-radius: 3px;
+    $padding-gor: $size / 2 - 1;
+    $padding-ver: 5px;
 
-  display: inline-block;
-  box-sizing: content-box;
-  width: 300px;
-  height: 8px;
-  padding: 5px 0;
-  background-color: #f0f0f0;
-  background-clip: content-box;
-  cursor: pointer;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 30vw;
+    height: $height + ($padding-ver * 2);
+    padding: $padding-ver $padding-gor;
+    cursor: pointer;
+    position: relative;
+    background-color: white;
 
-  // пример класса модификатора
-  &.mini {
-    // здесь можно модифицировать некоторые свойства value
+
+
+    .slider {
+      $background-color: #f0f0f0;
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: $height;
+      background-color: $background-color;
+      border-radius: $border-radius;
+    }
+
     .value {
-      // а здесь before
-      &:before {
+      $background-color: #93bfed;
 
+      position: relative;
+      left: -1 * $padding-gor;
+      width: 0;
+      height:  $height;
+      background-color: $background-color;
+      border-left: $padding-gor solid $background-color;
+      border-radius: $border-radius;
+
+      &:before {
+        content: '';
+        position: absolute;
+        right: -1 * $size / 2;
+        top: -1 * ($size / 2 - (2 * $border));
+        width: $size;
+        height: $size;
+        box-sizing: border-box;
+        background-color:#1a81f6;
+        border: $border solid #1a81f6;
+        border-radius: 50%;
       }
     }
   }
 
-  .value {
-    position: relative;
-    width: 0;
-    height: 100%;
-    background-color: #93bfed;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
+  .mini {
+    .b_slider {
+      $size: 13px;
+      $height: 4px;
 
-    &:before {
-      content: '';
-      position: absolute;
-      right: -1 * $size / 2;
-      top: -1 * (6px / 2);
-      width: $size;
-      height: $size;
-      background-color: #1a81f6;
-      border-radius: 50%;
-      box-sizing: border-box;
-    }
-  }
-}
+      width: 90px;
+      height: $height;
 
-.b_volume {
-  $size: 13px;
+      .slider {
+        height: $height;
+      }
 
-  .for_volume {
-    width: 90px;
-    height: 4px;
+      .value {
+        height:  $height;
 
-    .value {
-      &:before {
-        right: -1 * $size / 2;
-        top: -1 * (10px / 2 );
-        width: $size;
-        height: $size;
+        &:before {
+          right: -1 * $size / 2;
+          top: -1 * (10px / 2 );
+          width: $size;
+          height: $size;
+        }
       }
     }
   }

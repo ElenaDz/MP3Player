@@ -10,7 +10,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/assets/css/b_player_drive.css?v=<?= filemtime(__DIR__.'/assets/css/b_player_drive.css') ?>">
+    <link rel="stylesheet" href="/assets/css/player.css?v=<?= filemtime(__DIR__.'/assets/css/player.css') ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=no">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,94 +22,63 @@
 <body>
 <div class="b_player d_flex_center">
     <div class="inner_player">
-        <div class="b_btns_play d_flex_center">
-            <div class="prev element_min_player">
-                <button>
-                    <span></span>
-                </button>
-            </div>
-            <div class="play element_min_player">
-                <button>
-                    <span></span>
-                </button>
-            </div>
-            <div class="next element_min_player">
-                <button>
-                    <span></span>
-                </button>
-            </div>
+        <div class="b_player_controls d_flex_center">
+            <button class="prev element_min_player"></button>
+            <button class="play element_min_player"></button>
+            <button class="next element_min_player"></button>
         </div>
 
-        <div class="b_shuffle d_flex_center">
-            <div class="shuffle element_min_player">
-                <button>
-                    <span class="w_h_20"></span>
-                </button>
-            </div>
-            <div class="repeat_playlist element_min_player">
-                <button>
-                    <span class="w_h_20"></span>
-                </button>
-            </div>
+        <div class="b_player_playlist_order d_flex_center">
+            <button class="shuffle  element_min_player"></button>
+            <button class="repeat_playlist element_min_player"></button>
         </div>
 
-        <div class="playlist element_min_player">
-            <button>
-                <span class="w_h_25"></span>
-            </button>
+        <div class="b_player_playlist">
+            <button  class="playlist element_min_player"></button>
         </div>
-        <div class="popup"></div>
-        <div class="b_progress d_flex_center">
-            <div class="time_current">
-                00:51
-            </div>
+
+        <div class="b_player_progress d_flex_center">
+            <div class="time_current">00:51</div>
             <div
                     id="slider_progress"
                     class="b_slider"
                     data-value_min="0"
                     data-value_max="100"
             >
+
+                <div class="slider"></div>
                 <div class="value" style="width: 50%;"></div>
             </div>
 
-            <div class="time_duration">
-                03:57
-            </div>
+            <div class="time_duration">03:57</div>
         </div>
 
-        <div class="b_hq d_flex_center">
-            <div class="hq element_min_player">
+        <div class="b_player_hq d_flex_center">
+            <div class="hq element_min_player ">
                 <!-- Не нужны здесь кнопки пока -->
-                <button>
-                    <span class="w_h_25"></span>
-                </button>
             </div>
 
-            <div class="equalizer element_min_player">
-                <button>
-                    <span class="w_h_20"></span>
-                </button>
-            </div>
+            <button class="equalizer element_min_player">
+            </button>
         </div>
 
-        <div class="b_volume d_flex_center element_min_player">
-            <button  class="volume_inner d_flex_center">
-                <span></span>
-            </button>
+        <div class="b_player_volume mini d_flex_center ">
+            <button  class="volume_inner element_min_player"></button>
 
             <div
                     id="slider_volume"
-                    class="b_slider for_volume"
+                    class="b_slider"
                     data-value_min="0"
-                    data-value_max="15"
+                    data-value_max="16"
             >
+
+                <div class="slider"></div>
                 <div class="value" style="width: 50%;"></div>
             </div>
         </div>
-        <div class="b_info d_flex_center">
-            <div class="artist_img d_flex_center element_min_player">
-                <span></span>
-            </div>
+        <div class="b_player_info d_flex_center">
+            <div class="artist_img d_flex_center element_min_player"></div>
+
             <div class="names d_flex_center">
                 <div class="song_name">
                     <a class="">Улетаю yf rhskmz[</a>
@@ -121,20 +90,19 @@
                 </div>
             </div>
         </div>
-        <div class="like element_min_player">
-            <button>
-                <span class="w_h_25"></span>
-            </button>
+
+        <div class="b_player_like">
+            <button class="like element_min_player"></button>
         </div>
-        <div class="download d_flex_center element_min_player">
-            <a class="d_flex_center">
-                <span></span>
+
+        <div class="b_player_download d_flex_center element_min_player">
+            <a class="download  d_flex_center">
+                <i></i>
             </a>
         </div>
-        <div class="options element_min_player">
-            <button>
-                <span></span>
-            </button>
+
+        <div class="b_player_options">
+            <button class="options element_min_player"></button>
         </div>
     </div>
 </div>
