@@ -1,35 +1,21 @@
-class BtnPlayer
-{
-    private $context: JQuery;
-    private player: Player;
-
-    constructor($context: JQuery)
-    {
+class BtnPlayer {
+    constructor($context) {
         this.$context = $context;
-
         // @ts-ignore
-        if (this.$context[0].BtnPlayer) return;
-
+        if (this.$context[0].BtnPlayer)
+            return;
         // @ts-ignore
         this.$context[0].BtnPlayer = this;
-
         this.player = Player.create();
-
-        this.$context.find('.play').on('click',() =>
-        {
+        this.$context.find('.play').on('click', () => {
             this.player.url = this.url;
             this.player.updateAction();
-
         });
     }
-
-    private get url(): string
-    {
+    get url() {
         return this.$context.data('url');
     }
-
-    public static create($context = $('.btn_player')): BtnPlayer
-    {
+    static create($context = $('.btn_player')) {
         return new BtnPlayer($context);
     }
 }

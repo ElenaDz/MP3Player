@@ -1,16 +1,18 @@
 @import "mixin";
 
+// fixme этому здесь не место это не является плеером
+@import "btn_player";
+
 @import "slider";
 @import "progress";
-@import "btn_player";
 @import "audio";
 
 $opacity-grey-min: 0.3;
 $opacity-grey-middle: 0.7;
 $opacity-grey-max: 1;
 
-
 .b_player {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   position: fixed;
   width: auto;
   height: 70px;

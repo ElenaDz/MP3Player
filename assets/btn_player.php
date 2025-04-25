@@ -1,14 +1,29 @@
-<div class="">
-    <div class="btn_player" data-url="5УТРА - Ромашки.mp3">
-        <button class="play"></button>
-        <div class="song">5УТРА - Ромашки.mp3</div>
-    </div>
-    <div class="btn_player"  data-url="Niletto - Счастливым.mp3">
-        <button class="play"></button>
-        <div class="song">Niletto - Счастливым.mp3</div>
-    </div>
-    <div class="btn_player"  data-url="5УТРА - Ромашки.mp3">
-        <button class="play"></button>
-        <div class="song">5УТРА - Ромашки.mp3</div>
-    </div>
+<?php
+/** @var string $file_name */
+
+$song_title = strstr($file_name, '.', true);
+
+list($artist_name, $song_name) = explode(' - ', $song_title);
+?>
+<!-- Повтор верстки как на drivemusic -->
+<div class="popular-play">
+
+	<div class="btn_player" data-url="/mp3s/<?= $file_name; ?>">
+		<button class="play"></button>
+	</div>
+
+	<div class="popular-play-name">
+		<a href="#" class="popular-play-author">
+			<?= htmlspecialchars($song_name); ?>
+		</a>
+		<div class="popular-play-composition">
+			<a href="#">
+				<?= htmlspecialchars($artist_name); ?>
+			</a>
+		</div>
+	</div>
+
 </div>
+
+<?php
+unset($file_name);

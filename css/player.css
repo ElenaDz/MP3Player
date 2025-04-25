@@ -1,3 +1,37 @@
+.popular-play {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.popular-play .btn_player {
+  display: flex;
+  height: fit-content;
+  border-radius: 10px;
+}
+.popular-play .btn_player .play {
+  border: none;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  background-color: #f3f3f3;
+  border-radius: 50%;
+  background-image: url("/assets/img/btn_play/play.svg");
+  margin: 5px 10px;
+}
+.popular-play .btn_player .play:hover {
+  background-color: #d7eaff;
+}
+.popular-play .popular-play-name .popular-play-composition {
+  font-weight: bold;
+}
+
 .b_slider {
   display: inline-block;
   box-sizing: border-box;
@@ -80,46 +114,14 @@
   justify-content: center;
 }
 
-.btn_player {
-  display: flex;
-  width: 300px;
-  height: fit-content;
-  border: 1px solid #93bfed;
-  margin-bottom: 10px;
-  border-radius: 10px;
-}
-.btn_player .play {
-  border: none;
-  cursor: pointer;
-  background-repeat: no-repeat;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-position: center;
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  background-color: #f3f3f3;
-  border-radius: 50%;
-  background-image: url("/assets/img/btn_play/play.svg");
-  margin: 5px 10px;
-}
-.btn_player .play:hover {
-  background-color: #d7eaff;
-}
-.btn_player .song {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .audio {
   position: fixed;
-  bottom: 100px;
-  left: 300px;
+  bottom: 75px;
+  left: 10px;
 }
 
 .b_player {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   position: fixed;
   width: auto;
   height: 70px;
@@ -141,8 +143,8 @@
   padding: 0 2vw;
   height: 100%;
   background-color: #fff;
-  border-top: 1px solid rgb(237, 237, 237);
-  box-shadow: 0 0 7px rgb(195, 195, 195);
+  border-top: 1px solid #ededed;
+  box-shadow: 0 0 7px #c3c3c3;
 }
 @media (max-width: 767px) {
   .b_player .inner_player {

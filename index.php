@@ -2,22 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="<?= '/css/player.css?v='.filemtime(__DIR__.'/css/player.css'); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=no">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-          rel="stylesheet">
-
     <title>Mp3Player</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="<?= '/css/player.css?v='.filemtime(__DIR__.'/css/player.css'); ?>">
 </head>
 
 <body>
 
-    <?php require __DIR__ . '/assets/btn_player.php'; ?>
+    <?php
+    $file_name = '5УТРА - Ромашки.mp3';
+    require __DIR__.'/assets/btn_player.php';
 
+    $file_name = 'Niletto - Счастливым.mp3';
+    require __DIR__.'/assets/btn_player.php';
+
+    $file_name = '5УТРА - Ромашки.mp3';
+    require __DIR__.'/assets/btn_player.php';
+    ?>
+
+
+    <!-- audio является часть блока b_player, перенести туда -->
     <div class="audio">
-        <audio id="audio_player" type="audio/mp3" controls="controls" preload="metadata"></audio>
+        <audio id="audio_player" controls="controls" preload="metadata"></audio>
     </div>
 
     <div class="b_player">
@@ -31,7 +39,7 @@
 
             <div class="b_player_playlist">
                 <div class="order">
-                    <button class="shuffle  elem"></button>
+                    <button class="shuffle elem"></button>
                     <button class="repeat_playlist elem"></button>
                 </div>
                 <button  class="playlist elem"></button>
@@ -54,7 +62,7 @@
 
                 <div class="names">
                     <div class="song_name">
-                        <a class="">Улетаю yf rhskmz[</a>
+                        <a class="">Улетаю</a>
                     </div>
                     <div class="artist_name">
                        <a href="#">Маракеш</a>
@@ -83,9 +91,10 @@
     <script src="<?= '/js/btn_player.js?v='.filemtime(__DIR__ . '/js/btn_player.js') ?>"></script>
     <script>
         $(function() {
+			// fixme слайдер должен создавать плеер как и все другие компоненты из которых он состоит
             let slider = Slider.create();
             let player = Player.create();
-            let btn_player = Btn_player.create();
+            let btn_player = BtnPlayer.create();
         });
     </script>
 </body>
