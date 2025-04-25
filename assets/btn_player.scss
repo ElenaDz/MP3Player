@@ -1,0 +1,35 @@
+.btn_player {
+  display: flex;
+  width: 300px;
+  height: fit-content;
+  border: 1px solid #93bfed;
+  margin-bottom: 10px;
+  border-radius: 10px;
+
+  .play {
+    border: none;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    background-color: #f3f3f3;
+    border-radius: 50%;
+    background-image: url("/assets/img/btn_play/play.svg");
+    margin: 5px 10px;
+
+    &:hover {
+      background-color: #d7eaff;
+    }
+  }
+
+  .song {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

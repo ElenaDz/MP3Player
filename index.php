@@ -13,69 +13,80 @@
 </head>
 
 <body>
-<div class="b_player ">
-    <div class="inner_player">
 
-        <div class="b_player_controls ">
-            <button class="prev elem"></button>
-            <button class="play elem"></button>
-            <button class="next elem"></button>
-        </div>
+    <?php require __DIR__ . '/assets/btn_player.php'; ?>
 
-        <div class="b_player_playlist">
-            <div class="order">
-                <button class="shuffle  elem"></button>
-                <button class="repeat_playlist elem"></button>
-            </div>
-            <button  class="playlist elem"></button>
-        </div>
-
-        <?php require __DIR__.'/assets/progress.php'; ?>
-
-        <div class="b_player_volume">
-            <button  class="volume_inner elem"></button>
-            <?php
-            $class = 'mini';
-            $min = 0;
-            $max = 1;
-            require __DIR__.'/assets/slider.php';
-            ?>
-        </div>
-
-        <div class="b_player_info">
-            <div class="artist_img elem"></div>
-
-            <div class="names">
-                <div class="song_name">
-                    <a class="">Улетаю yf rhskmz[</a>
-                </div>
-                <div class="artist_name">
-                   <a href="#">Маракеш</a>
-                    feat. &nbsp
-                    <a href="#">T1One</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="b_player_download elem">
-            <a class="download">
-                <i></i>
-            </a>
-        </div>
-
+    <div class="audio">
+        <audio id="audio_player" type="audio/mp3" controls="controls" preload="metadata"></audio>
     </div>
-</div>
+
+    <div class="b_player">
+        <div class="inner_player">
+
+            <div class="b_player_controls ">
+                <button class="prev elem"></button>
+                <button class="play elem"></button>
+                <button class="next elem"></button>
+            </div>
+
+            <div class="b_player_playlist">
+                <div class="order">
+                    <button class="shuffle  elem"></button>
+                    <button class="repeat_playlist elem"></button>
+                </div>
+                <button  class="playlist elem"></button>
+            </div>
+
+            <?php require __DIR__.'/assets/progress.php'; ?>
+
+            <div class="b_player_volume">
+                <button  class="volume_inner elem"></button>
+                <?php
+                $class = 'mini';
+                $min = 0;
+                $max = 1;
+                require __DIR__.'/assets/slider.php';
+                ?>
+            </div>
+
+            <div class="b_player_info">
+                <div class="artist_img elem"></div>
+
+                <div class="names">
+                    <div class="song_name">
+                        <a class="">Улетаю yf rhskmz[</a>
+                    </div>
+                    <div class="artist_name">
+                       <a href="#">Маракеш</a>
+                        feat. &nbsp
+                        <a href="#">T1One</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="b_player_download elem">
+                <a class="download">
+                    <i></i>
+                </a>
+            </div>
+
+        </div>
+    </div>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script src="<?= '/js/slider.js?v='.filemtime(__DIR__.'/js/slider.js') ?>"></script>
-<script>
-    $(function() {
-        let slider = Slider.create()
-    });
-</script>
+    <script src="<?= '/js/slider.js?v='.filemtime(__DIR__.'/js/slider.js') ?>"></script>
+    <script src="<?= '/js/player.js?v='.filemtime(__DIR__ . '/js/player.js') ?>"></script>
+    <script src="<?= '/js/btn_player.js?v='.filemtime(__DIR__ . '/js/btn_player.js') ?>"></script>
+    <script>
+        $(function() {
+            let slider = Slider.create();
+            let player = Player.create();
+            let btn_player = Btn_player.create();
+        });
+    </script>
 </body>
 </html>

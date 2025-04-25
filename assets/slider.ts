@@ -17,7 +17,6 @@ class Slider
 	private _value_min:number;
 	private _value_max:number;
 
-
 	constructor(context)
 	{
 		this.context = context;
