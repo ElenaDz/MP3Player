@@ -15,11 +15,11 @@ class BtnPlayer
 
         this.player = Player.create();
 
-        this.$context.find('.play').on('click',() =>
+        this.$context.find('button.play').on('click',() =>
         {
+            // fixme не правильно, правильно создать здесь методы play, pause и isPlaying и воспользоваться ими
             this.player.url = this.url;
             this.player.updateAction();
-
         });
     }
 
