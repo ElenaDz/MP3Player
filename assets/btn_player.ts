@@ -1,4 +1,4 @@
-class Btn_player
+class BtnPlayer
 {
     private $context: JQuery;
     private player: Player;
@@ -8,18 +8,18 @@ class Btn_player
         this.$context = $context;
 
         // @ts-ignore
-        if (this.$context[0].Btn_player) return;
+        if (this.$context[0].BtnPlayer) return;
 
         // @ts-ignore
-        this.$context[0].Btn_player = this;
+        this.$context[0].BtnPlayer = this;
 
         this.player = Player.create();
 
-        this.$context.find('.play').on('click',() =>
+        this.$context.find('button.play').on('click',() =>
         {
+            // fixme не правильно, правильно создать здесь методы play, pause и isPlaying и воспользоваться ими
             this.player.url = this.url;
             this.player.updateAction();
-
         });
     }
 
@@ -28,8 +28,8 @@ class Btn_player
         return this.$context.data('url');
     }
 
-    public static create($context = $('.btn_player')): Btn_player
+    public static create($context = $('.btn_player')): BtnPlayer
     {
-        return new Btn_player($context);
+        return new BtnPlayer($context);
     }
 }
