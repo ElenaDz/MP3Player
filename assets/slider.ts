@@ -6,11 +6,13 @@ enum SliderEvents
 	StartMove   = 'SliderEventStartMove'
 }
 
+// todo не менять этот класс, если возникло желание изменить, сперва пиши мне
 class Slider
 {
 	private static SELECTOR = '.b_slider';
 
 	public context: JQuery;
+	// fixme откуда здесь это? удалить Он ни чего не знает про плеер
 	private player: Player;
 
 	private _start_move:boolean = false;
@@ -56,8 +58,6 @@ class Slider
 
 	private init()
 	{
-		this.player = Player.create();
-
 		this.context.mousedown((e:JQueryMouseEventObject) =>
 		{
 			if (e.which !== 1) return;

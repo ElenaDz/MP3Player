@@ -3,13 +3,15 @@ class Controls {
         this.$context = $context;
         // @ts-ignore
         if (this.$context[0].Controls)
-            return;
+            return this.$context[0].Controls;
         // @ts-ignore
         this.$context[0].Controls = this;
         this.player = Player.create();
         this.$context.find('button.play').on('click', () => {
+            // fixme ты должна выдать ошибку если не задан url
+            // throw new Error('Не задан url');
             if (this.player.song_id) {
-                this.player.is_playing ? this.player.pause() : this.player.play();
+                this.player.playing ? this.player.pause() : this.player.play();
             }
         });
     }

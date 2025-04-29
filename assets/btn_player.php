@@ -5,10 +5,9 @@ $song_title = strstr($file_name, '.', true);
 
 list($artist_name, $song_name) = explode(' - ', $song_title);
 ?>
-<!-- Повтор верстки как на drivemusic -->
 <div class="popular-play">
 
-	<div class="btn_player" data-url="/mp3s/<?= $file_name; ?>">
+	<div class="btn_player" data-url="/mp3s/get.php?<?= urlencode($file_name); ?>">
 		<button class="play"></button>
 	</div>
 

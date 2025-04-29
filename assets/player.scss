@@ -1,9 +1,7 @@
 @import "mixin";
 
-// fixme этому здесь не место это не является плеером ok
 @import "slider";
 @import "progress";
-@import "audio";
 
 $opacity-grey-min: 0.3;
 $opacity-grey-middle: 0.7;
@@ -19,9 +17,14 @@ $opacity-grey-max: 1;
   right: 0;
   z-index: 2;
 
-
   @include for_phone {
     height: 90px;
+  }
+
+  .audio {
+    position: fixed;
+    bottom: 75px;
+    left: 10px;
   }
 
   .inner_player {

@@ -8,13 +8,12 @@ class Volume
         this.$context = $context;
 
         // @ts-ignore
-        if (this.$context[0].Progress) return;
+        if (this.$context[0].Volume) return this.$context[0].Volume;
 
         // @ts-ignore
-        this.$context[0].Progress = this;
+        this.$context[0].Volume = this;
 
         this.player = Player.create();
-
     }
 
 
