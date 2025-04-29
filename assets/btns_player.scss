@@ -29,6 +29,12 @@
         background-color: #d7eaff;
       }
     }
+
+    &.playing {
+      .play {
+        background-image: url("/assets/img/btn_play/pause.svg");
+      }
+    }
   }
 
   .popular-play-name {

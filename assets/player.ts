@@ -1,11 +1,15 @@
 class Player
 {
-    private $context: JQuery;
+    static readonly EVENT_UPDATE_ACTION = 'Player.EVENT_UPDATE_ACTION';
+
+    public $context: JQuery;
     private audio: HTMLAudioElement;
 
     constructor($context: JQuery)
     {
         this.$context = $context;
+
+        this.audio = <HTMLAudioElement>$('body').find('audio')[0];
 
         // @ts-ignore
         if (this.$context[0].Player) return;
@@ -13,66 +17,61 @@ class Player
         // @ts-ignore
         this.$context[0].Player = this;
 
-        this.audio = <HTMLAudioElement>$('body').find('audio')[0];
-
         this.initEventsAudio()
+
     }
 
     private initEventsAudio()
     {
         this.audio.onplay = () => {
-            // fixme наверное здесь ты хотели синхронизировать состоянии плеера audio с состоянием нашего плеером или что
-            this.playing = this.playing;
+            this.playing = !this.is_playing;
+            this.$context.trigger(Player.EVENT_UPDATE_ACTION)
         };
 
         this.audio.onpause = () => {
-            this.playing = this.playing;
+            this.playing = !this.is_playing;
+            this.$context.trigger(Player.EVENT_UPDATE_ACTION)
         };
-    }
 
-    // fixme ерунда какая-то, удалить, не нужно для такой проверки заводить отдельный метод делай ее в том месте где она понадобиться
-    public updateAction()
-    {
-        this.playing
-            ? this.pause()
-            : this.play();
+        this.audio.onloadedmetadata = () => {
+            this.playing = true;
+        }
     }
 
     // @ts-ignore
-    private get url(): string
+    public get song_id(): string
     {
-        // fixme так где все такие у нас храниться Url?
-        return this.$context.data('btn_player_url');
+        // fixme так где все такие у нас храниться Url? ok
+        return this.$context.data('url');
     }
 
     // @ts-ignore
-    public set url(url: string)
+    public set song_id(url: string)
     {
-       // fixme храним состояние в двух местах, не вижу причин создавать такую головную боль, удаляем
-       this.$context.data('btn_player_url');
-
-       this.audio.src = url;
+       // fixme храним состояние в двух местах, не вижу причин создавать такую головную боль, удаляем ok
+        this.$context.data('url', url);
     }
 
-    private play()
+    public play()
     {
-        this.audio.play();
+        this.audio.src = this.song_id;
+        this.audio.play()
     }
 
-    private pause()
+    public pause()
     {
         this.audio.pause();
     }
 
-    // fixme ерунда какая-то, ошибка логики, set playing=true привет к тому что get  playing вернет false
-    private set playing(playing: boolean)
+    // fixme ерунда какая-то, ошибка логики, set playing=true привет к тому что get  playing вернет false ok
+    public set playing(playing: boolean)
     {
         playing
-            ? this.$context.removeClass('playing')
-            : this.$context.addClass('playing');
+            ? this.$context.addClass('playing')
+            : this.$context.removeClass('playing');
     }
 
-    private get playing(): boolean
+    public get is_playing(): boolean
     {
         return this.$context.hasClass('playing');
     }

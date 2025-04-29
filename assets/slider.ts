@@ -11,6 +11,7 @@ class Slider
 	private static SELECTOR = '.b_slider';
 
 	public context: JQuery;
+	private player: Player;
 
 	private _start_move:boolean = false;
 
@@ -55,6 +56,8 @@ class Slider
 
 	private init()
 	{
+		this.player = Player.create();
+
 		this.context.mousedown((e:JQueryMouseEventObject) =>
 		{
 			if (e.which !== 1) return;

@@ -1,8 +1,6 @@
 @import "mixin";
 
-// fixme этому здесь не место это не является плеером
-@import "btn_player";
-
+// fixme этому здесь не место это не является плеером ok
 @import "slider";
 @import "progress";
 @import "audio";
@@ -95,6 +93,10 @@ $opacity-grey-max: 1;
         &:hover {
           opacity: $opacity-grey-middle;
         }
+        &:disabled {
+          opacity: 0.5;
+          cursor: default;
+        }
       }
 
       .prev {
@@ -102,6 +104,10 @@ $opacity-grey-max: 1;
 
         &:hover {
           opacity: $opacity-grey-middle;
+        }
+        &:disabled {
+          opacity: 0.5;
+          cursor: default;
         }
       }
     }

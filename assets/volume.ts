@@ -1,4 +1,4 @@
-class Progress
+class Volume
 {
     private $context: JQuery;
     private player: Player;
@@ -18,9 +18,9 @@ class Progress
     }
 
 
-    public static create($context = $('.b_player_progress')): Progress
+    public static create($context = $('.b_player_volume')): Volume
     {
-        return new Progress($context);
+        return new Volume($context);
     }
 
 }

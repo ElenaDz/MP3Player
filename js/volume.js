@@ -1,4 +1,4 @@
-class Progress {
+class Volume {
     constructor($context) {
         this.$context = $context;
         // @ts-ignore
@@ -8,7 +8,7 @@ class Progress {
         this.$context[0].Progress = this;
         this.player = Player.create();
     }
-    static create($context = $('.b_player_progress')) {
-        return new Progress($context);
+    static create($context = $('.b_player_volume')) {
+        return new Volume($context);
     }
 }

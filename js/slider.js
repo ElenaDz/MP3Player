@@ -25,6 +25,7 @@ class Slider {
         return sliders;
     }
     init() {
+        this.player = Player.create();
         this.context.mousedown((e) => {
             if (e.which !== 1)
                 return;

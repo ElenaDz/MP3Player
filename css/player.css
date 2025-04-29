@@ -1,37 +1,3 @@
-.popular-play {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-.popular-play .btn_player {
-  display: flex;
-  height: fit-content;
-  border-radius: 10px;
-}
-.popular-play .btn_player .play {
-  border: none;
-  cursor: pointer;
-  background-repeat: no-repeat;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-position: center;
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  background-color: #f3f3f3;
-  border-radius: 50%;
-  background-image: url("/assets/img/btn_play/play.svg");
-  margin: 5px 10px;
-}
-.popular-play .btn_player .play:hover {
-  background-color: #d7eaff;
-}
-.popular-play .popular-play-name .popular-play-composition {
-  font-weight: bold;
-}
-
 .b_slider {
   display: inline-block;
   box-sizing: border-box;
@@ -143,8 +109,8 @@
   padding: 0 2vw;
   height: 100%;
   background-color: #fff;
-  border-top: 1px solid #ededed;
-  box-shadow: 0 0 7px #c3c3c3;
+  border-top: 1px solid rgb(237, 237, 237);
+  box-shadow: 0 0 7px rgb(195, 195, 195);
 }
 @media (max-width: 767px) {
   .b_player .inner_player {
@@ -200,11 +166,19 @@
 .b_player .inner_player .b_player_controls .next:hover {
   opacity: 0.7;
 }
+.b_player .inner_player .b_player_controls .next:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
 .b_player .inner_player .b_player_controls .prev {
   background-image: url("/assets/img/btn_play/previous.svg");
 }
 .b_player .inner_player .b_player_controls .prev:hover {
   opacity: 0.7;
+}
+.b_player .inner_player .b_player_controls .prev:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 @media (max-width: 767px) {
   .b_player .inner_player .b_player_playlist {
