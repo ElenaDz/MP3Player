@@ -7,7 +7,7 @@ list($artist_name, $song_name) = explode(' - ', $song_title);
 ?>
 <div class="popular-play">
 
-	<div class="btn_player" data-url="/mp3s/get.php?<?= urlencode($file_name); ?>">
+	<div class="btn_player" data-url="http://mp3player/mp3s/get.php?<?= urlencode($file_name); ?>">
 		<button class="play"></button>
 	</div>
 

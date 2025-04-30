@@ -21,11 +21,11 @@ class BtnPlayer
             this.playing ? this.pause() : this.play();
         });
 
-        this.player.$context.on(Player.EVENT_UPDATE_ACTION,() =>
+        this.player.$context.on(Player.EVENT_UPDATE_PLAYING,() =>
         {
-            if (this.player.song_id == this.song_id) {
-                // fixme синхронизируй с состоянием плеера, а не просто пиши сомнительную логику, которая завтра сломается
-                this.playing = ! this.playing;
+            if (this.player.url == this.url) {
+                // fixme синхронизируй с состоянием плеера, а не просто пиши сомнительную логику, которая завтра сломается ok
+                this.playing = this.player.playing;
 
             } else  {
                 this.playing = false;
@@ -33,9 +33,9 @@ class BtnPlayer
         })
     }
 
-    // fixme тоже самое что я писал в блоке плеер
+    // fixme тоже самое что я писал в блоке плеер ok
     // @ts-ignore
-    private get song_id(): string
+    private get url(): string
     {
         return this.$context.data('url');
     }
@@ -43,8 +43,11 @@ class BtnPlayer
     private play()
     {
         // fixme из за этой строчки плеер работает не так как на https://muzyara.com/, нужно продолжать воспроизведение,
-        //  а не начинать сначала, если песня уже загружена в плеер
-        this.player.song_id = this.song_id;
+        //  а не начинать сначала, если песня уже загружена в плеер ok
+        if (this.player.url !== this.url) {
+            this.player.url = this.url;
+        }
+
         this.player.play();
     }
 

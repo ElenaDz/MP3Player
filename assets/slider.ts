@@ -13,7 +13,6 @@ class Slider
 
 	public context: JQuery;
 	// fixme откуда здесь это? удалить Он ни чего не знает про плеер
-	private player: Player;
 
 	private _start_move:boolean = false;
 

@@ -7,6 +7,7 @@ var SliderEvents;
 // todo не менять этот класс, если возникло желание изменить, сперва пиши мне
 class Slider {
     constructor(context) {
+        // fixme откуда здесь это? удалить Он ни чего не знает про плеер
         this._start_move = false;
         this.context = context;
         this.context.data('Slider', this);

@@ -47,6 +47,9 @@
 
     // todo добавь здесь еще один плеер в котором будет не существующий url для тестирования корректной работы плеера,
     //  когда плеер выдает ошибку
+
+    $file_name = '5УТРА - Test.mp3';
+    require __DIR__ . '/assets/btn_player.php';
     ?>
 
     <div class="b_player">
@@ -120,10 +123,7 @@
     <script>
         $(function() {
 			// fixme убрать все ниже стоящие вызовы кроме btns_player, пускай объекты создают те кому они нужны, нам нужен только btns_player
-            let slider = Slider.create();
-            let controls = Controls.create();
-            let progress = Progress.create();
-            let volume = Volume.create();
+
             let btns_player = BtnPlayer.create();
         });
     </script>
