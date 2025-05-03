@@ -23,7 +23,6 @@ class Player
         Volume.create();
 
         this.initEventsAudio();
-
     }
 
 
@@ -31,23 +30,18 @@ class Player
     private initEventsAudio()
     {
         this.audio.onplay = () => {
-            // fixme лучше синхронизировать состояние твоего плеера с audio, чем просто надеяться на логику работы, которая
-            //  сейчас работает, а завтра нет, потому что что то изменилось, для синхронизации используй свойство audio.paused
-            //  это касается все 3х обработчиков ok
-            // console.log('play');
-            this.playing = !this.audio.paused;
+            this.playing = ! this.audio.paused;
             this.$context.trigger(Player.EVENT_UPDATE_PLAYING)
         };
 
         this.audio.onpause = () => {
-            // console.log('pause');
-            this.playing = !this.audio.paused;
+            this.playing = ! this.audio.paused;
             this.$context.trigger(Player.EVENT_UPDATE_PLAYING)
         };
 
         this.audio.onloadedmetadata = () => {
-            // console.log('load', this.audio.paused);
             this.playing = true;
+            // fixme это нужно вызывать в setter playing
             this.$context.trigger(Player.EVENT_UPDATE_PLAYING)
         }
 
@@ -57,7 +51,6 @@ class Player
 
     }
 
-    // fixme заведи свойство url ok
     public get url()
     {
         return this.audio.src;
@@ -70,7 +63,6 @@ class Player
 
     public play()
     {
-        // fixme завтра song id будет цифрой, здесь должно быть обращение к свойству url ok
         this.audio.play();
     }
 
@@ -103,7 +95,7 @@ class Player
 
     public get playing(): boolean
     {
-        return !this.audio.paused;
+        return ! this.audio.paused;
     }
 
     public static create($context = $('.b_player')): Player

@@ -45,9 +45,6 @@
     $file_name = '5УТРА - Ромашки.mp3';
     require __DIR__ . '/assets/btn_player.php';
 
-    // todo добавь здесь еще один плеер в котором будет не существующий url для тестирования корректной работы плеера,
-    //  когда плеер выдает ошибку
-
     $file_name = '5УТРА - Test.mp3';
     require __DIR__ . '/assets/btn_player.php';
     ?>
@@ -60,11 +57,7 @@
 
         <div class="inner_player">
 
-            <div class="b_player_controls">
-                <button class="prev elem" disabled></button>
-                <button class="play elem"></button>
-                <button class="next elem" disabled></button>
-            </div>
+	        <?php require __DIR__.'/assets/controls.php'; ?>
 
             <div class="b_player_playlist">
                 <div class="order">
@@ -122,8 +115,6 @@
     <script src="<?= $getUrl(__DIR__ . '/js/volume.js') ?>"></script>
     <script>
         $(function() {
-			// fixme убрать все ниже стоящие вызовы кроме btns_player, пускай объекты создают те кому они нужны, нам нужен только btns_player
-
             let btns_player = BtnPlayer.create();
         });
     </script>

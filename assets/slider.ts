@@ -6,13 +6,12 @@ enum SliderEvents
 	StartMove   = 'SliderEventStartMove'
 }
 
-// todo не менять этот класс, если возникло желание изменить, сперва пиши мне
+// Внимание! Не менять этот класс, если возникло желание изменить, сперва пиши мне
 class Slider
 {
 	private static SELECTOR = '.b_slider';
 
 	public context: JQuery;
-	// fixme откуда здесь это? удалить Он ни чего не знает про плеер
 
 	private _start_move:boolean = false;
 

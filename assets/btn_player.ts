@@ -23,8 +23,9 @@ class BtnPlayer
 
         this.player.$context.on(Player.EVENT_UPDATE_PLAYING,() =>
         {
+            // fixme я просил завести свойство song id и использовать его для такой проверки, url'ов может быть несколько у одной
+            //  и той же песни например hd и обычное качество
             if (this.player.url == this.url) {
-                // fixme синхронизируй с состоянием плеера, а не просто пиши сомнительную логику, которая завтра сломается ok
                 this.playing = this.player.playing;
 
             } else  {
@@ -33,7 +34,6 @@ class BtnPlayer
         })
     }
 
-    // fixme тоже самое что я писал в блоке плеер ok
     // @ts-ignore
     private get url(): string
     {
@@ -42,8 +42,6 @@ class BtnPlayer
 
     private play()
     {
-        // fixme из за этой строчки плеер работает не так как на https://muzyara.com/, нужно продолжать воспроизведение,
-        //  а не начинать сначала, если песня уже загружена в плеер ok
         if (this.player.url !== this.url) {
             this.player.url = this.url;
         }

@@ -17,13 +17,11 @@ class Controls
 
         this.$context.find('button.play').on('click',() =>
         {
-            // fixme ты должна выдать ошибку если не задан url ok
-            // throw new Error('Не задан url');
-            if (this.player.url) {
-                this.player.playing ? this.player.pause() : this.player.play();
-            } else {
+            if ( ! this.player.url) {
                 throw new Error('Не задан url');
             }
+
+            this.player.playing ? this.player.pause() : this.player.play();
         });
     }
 

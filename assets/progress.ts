@@ -15,10 +15,12 @@ class Progress
         this.$context[0].Progress = this;
 
         this.player = Player.create();
-        // @ts-ignore
 
         this.slider = Slider.create(this.$context)[0];
 
+        // todo нужно подписаться на событие загрузки в плеер песни и по этому событию задавать value_max,
+        //  равное длительности песни в секундах
+        
         console.log(this.slider)
         this.player.$context.on(Player.EVENT_UPDATE_PLAYING,() =>
         {
@@ -51,7 +53,6 @@ class Progress
         this.$context.find('.time_duration').text(Progress.formatTime(duration));
     }
 
-    // код взят из проекта Player
     private static formatTime(sec = 0)
     {
         let min = (Math.floor(Math.trunc(sec / 60))).toString();
@@ -73,5 +74,4 @@ class Progress
     {
         return new Progress($context);
     }
-
 }
