@@ -15,7 +15,7 @@ class Controls
 
         this.player = Player.create();
 
-        this.makeAllDisabled();
+        this.disabled();
 
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
@@ -32,7 +32,7 @@ class Controls
         });
     }
 
-    private makeAllDisabled()
+    private disabled()
     {
         this.$context.find('button.play').attr('disabled', 1);
         this.$context.find('button.prev').attr('disabled', 1);

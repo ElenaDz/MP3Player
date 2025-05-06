@@ -38,17 +38,24 @@ class Player
             this.playing = ! this.audio.paused;
         };
 
-        this.audio.onloadedmetadata = () => {
+        this.audio.onloadedmetadata = () =>
+        {
             this.playing = true;
 
             this.$context.trigger(Player.EVENT_LOADED_META_DATA)
-            // fixme это нужно вызывать в setter playing ok
         }
 
         this.audio.ontimeupdate = () => {
             this.$context.trigger(Player.EVENT_UPDATE_TIME)
         };
 
+    }
+
+    public get songId()
+    {
+        let filename = this.url.split('/').reverse()[0];
+
+        return filename
     }
 
     public get url()

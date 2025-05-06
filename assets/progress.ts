@@ -18,9 +18,6 @@ class Progress
 
         this.slider = Slider.create(this.$context)[0];
 
-        // todo нужно подписаться на событие загрузки в плеер песни и по этому событию задавать value_max,
-        //  равное длительности песни в секундах ok
-
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
             this.slider.value_max = this.player.duration;
@@ -31,7 +28,6 @@ class Progress
         this.player.$context.on(Player.EVENT_UPDATE_TIME,() =>
         {
             this.currentTimeText = this.player.currentTime;
-
             this.slider.value = this.player.currentTime;
         })
 
@@ -39,7 +35,6 @@ class Progress
         {
             this.player.currentTime = this.slider.value;
         })
-
     }
 
     private set currentTimeText(current_time: number)

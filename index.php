@@ -45,6 +45,7 @@
     $file_name = '5УТРА - Ромашки.mp3';
     require __DIR__ . '/assets/btn_player.php';
 
+    // fixme в случае ошибки воспроизведения, как в этом случае, кнопка play в player должна быть заблокирована, как в audio
     $file_name = '5УТРА - Test.mp3';
     require __DIR__ . '/assets/btn_player.php';
     ?>
@@ -52,7 +53,7 @@
     <div class="b_player">
 
         <div class="audio">
-            <audio id="audio_player" controls="controls" preload="metadata" src="mp3s/5УТРА%20-%20Ромашки.mp3"></audio>
+            <audio id="audio_player" controls="controls" preload="metadata"></audio>
         </div>
 
         <div class="inner_player">

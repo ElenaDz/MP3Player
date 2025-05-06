@@ -7,7 +7,7 @@ class Controls {
         // @ts-ignore
         this.$context[0].Controls = this;
         this.player = Player.create();
-        this.makeAllDisabled();
+        this.disabled();
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
             this.$context.find('button.play').removeAttr('disabled');
         });
@@ -18,7 +18,7 @@ class Controls {
             this.player.playing ? this.player.pause() : this.player.play();
         });
     }
-    makeAllDisabled() {
+    disabled() {
         this.$context.find('button.play').attr('disabled', 1);
         this.$context.find('button.prev').attr('disabled', 1);
         this.$context.find('button.next').attr('disabled', 1);

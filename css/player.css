@@ -72,12 +72,15 @@
     margin: 0 10px;
   }
 }
-.b_player_progress .time_current, .b_player_progress .time_duration {
+.b_player_progress .time_current,
+.b_player_progress .time_duration {
   width: 50px;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: default;
+  user-select: none;
 }
 
 .b_player {
@@ -108,8 +111,8 @@
   padding: 0 2vw;
   height: 100%;
   background-color: #fff;
-  border-top: 1px solid rgb(237, 237, 237);
-  box-shadow: 0 0 7px rgb(195, 195, 195);
+  border-top: 1px solid #ededed;
+  box-shadow: 0 0 7px #c3c3c3;
 }
 @media (max-width: 767px) {
   .b_player .inner_player {
