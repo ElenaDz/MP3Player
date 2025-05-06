@@ -88,6 +88,12 @@ $opacity-grey-max: 1;
         &:hover {
           background-color: #d7eaff;
         }
+
+        &:disabled {
+          &:hover {
+            background-color: #f3f3f3;
+          }
+        }
       }
 
       .next {
@@ -95,10 +101,6 @@ $opacity-grey-max: 1;
 
         &:hover {
           opacity: $opacity-grey-middle;
-        }
-        &:disabled {
-          opacity: 0.5;
-          cursor: default;
         }
       }
 
@@ -108,9 +110,14 @@ $opacity-grey-max: 1;
         &:hover {
           opacity: $opacity-grey-middle;
         }
-        &:disabled {
+      }
+
+      button:disabled {
+        opacity: 0.5;
+        cursor: default;
+
+        &:hover {
           opacity: 0.5;
-          cursor: default;
         }
       }
     }
@@ -165,7 +172,13 @@ $opacity-grey-max: 1;
 
       .volume_inner {
         background-image: url("/assets/img/volume.svg");
+
+        &.mute {
+          background-image: url("/assets/img/mute.svg");
+        }
       }
+
+
     }
 
     .b_player_info {

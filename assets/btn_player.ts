@@ -15,7 +15,7 @@ class BtnPlayer
         this.$context[0].BtnPlayer = this;
 
         this.player = Player.create();
-
+        //
         this.$context.on('click',() =>
         {
             this.playing ? this.pause() : this.play();
@@ -32,6 +32,12 @@ class BtnPlayer
                 this.playing = false;
             }
         })
+    }
+
+    private get song_id(): string
+    {
+        // fixme не знаю откуда брать song id
+        return ;
     }
 
     // @ts-ignore

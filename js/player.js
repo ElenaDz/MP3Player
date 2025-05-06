@@ -15,16 +15,14 @@ class Player {
     initEventsAudio() {
         this.audio.onplay = () => {
             this.playing = !this.audio.paused;
-            this.$context.trigger(Player.EVENT_UPDATE_PLAYING);
         };
         this.audio.onpause = () => {
             this.playing = !this.audio.paused;
-            this.$context.trigger(Player.EVENT_UPDATE_PLAYING);
         };
         this.audio.onloadedmetadata = () => {
             this.playing = true;
-            // fixme это нужно вызывать в setter playing
-            this.$context.trigger(Player.EVENT_UPDATE_PLAYING);
+            this.$context.trigger(Player.EVENT_LOADED_META_DATA);
+            // fixme это нужно вызывать в setter playing ok
         };
         this.audio.ontimeupdate = () => {
             this.$context.trigger(Player.EVENT_UPDATE_TIME);
@@ -51,10 +49,17 @@ class Player {
     get duration() {
         return this.audio.duration;
     }
+    get volume() {
+        return this.audio.volume;
+    }
+    set volume(volume) {
+        this.audio.volume = volume;
+    }
     set playing(playing) {
         playing
             ? this.$context.addClass('playing')
             : this.$context.removeClass('playing');
+        this.$context.trigger(Player.EVENT_UPDATE_PLAYING);
     }
     get playing() {
         return !this.audio.paused;
@@ -65,3 +70,4 @@ class Player {
 }
 Player.EVENT_UPDATE_PLAYING = 'Player.EVENT_UPDATE_PLAYING';
 Player.EVENT_UPDATE_TIME = 'Player.EVENT_UPDATE_TIME';
+Player.EVENT_LOADED_META_DATA = 'Player.EVENT_LOADED_META_DATA';

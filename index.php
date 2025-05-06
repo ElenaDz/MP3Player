@@ -52,7 +52,7 @@
     <div class="b_player">
 
         <div class="audio">
-            <audio id="audio_player" controls="controls" preload="metadata"></audio>
+            <audio id="audio_player" controls="controls" preload="metadata" src="mp3s/5УТРА%20-%20Ромашки.mp3"></audio>
         </div>
 
         <div class="inner_player">
@@ -69,15 +69,8 @@
 
             <?php require __DIR__.'/assets/progress.php'; ?>
 
-            <div class="b_player_volume">
-                <button  class="volume_inner elem"></button>
-                <?php
-                $class = 'mini';
-                $min = 0;
-                $max = 1;
-                require __DIR__.'/assets/slider.php';
-                ?>
-            </div>
+            <?php require __DIR__.'/assets/volume.php'; ?>
+
 
             <div class="b_player_info">
                 <div class="artist_img elem"></div>

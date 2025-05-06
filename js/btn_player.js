@@ -7,6 +7,7 @@ class BtnPlayer {
         // @ts-ignore
         this.$context[0].BtnPlayer = this;
         this.player = Player.create();
+        //
         this.$context.on('click', () => {
             this.playing ? this.pause() : this.play();
         });
@@ -20,6 +21,10 @@ class BtnPlayer {
                 this.playing = false;
             }
         });
+    }
+    get song_id() {
+        // fixme не знаю откуда брать song id
+        return;
     }
     // @ts-ignore
     get url() {

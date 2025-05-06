@@ -2,6 +2,7 @@ class Player
 {
     static readonly EVENT_UPDATE_PLAYING = 'Player.EVENT_UPDATE_PLAYING';
     static readonly EVENT_UPDATE_TIME = 'Player.EVENT_UPDATE_TIME';
+    static readonly EVENT_LOADED_META_DATA = 'Player.EVENT_LOADED_META_DATA';
 
     public $context: JQuery;
     private audio: HTMLAudioElement;
@@ -31,18 +32,17 @@ class Player
     {
         this.audio.onplay = () => {
             this.playing = ! this.audio.paused;
-            this.$context.trigger(Player.EVENT_UPDATE_PLAYING)
         };
 
         this.audio.onpause = () => {
             this.playing = ! this.audio.paused;
-            this.$context.trigger(Player.EVENT_UPDATE_PLAYING)
         };
 
         this.audio.onloadedmetadata = () => {
             this.playing = true;
-            // fixme это нужно вызывать в setter playing
-            this.$context.trigger(Player.EVENT_UPDATE_PLAYING)
+
+            this.$context.trigger(Player.EVENT_LOADED_META_DATA)
+            // fixme это нужно вызывать в setter playing ok
         }
 
         this.audio.ontimeupdate = () => {
@@ -86,11 +86,23 @@ class Player
         return this.audio.duration;
     }
 
+    public get volume()
+    {
+        return this.audio.volume;
+    }
+
+    public set volume(volume: number)
+    {
+        this.audio.volume = volume;
+    }
+
     public set playing(playing: boolean)
     {
         playing
             ? this.$context.addClass('playing')
             : this.$context.removeClass('playing');
+
+        this.$context.trigger(Player.EVENT_UPDATE_PLAYING)
     }
 
     public get playing(): boolean
