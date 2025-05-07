@@ -73,6 +73,7 @@
             <?php require __DIR__.'/assets/volume.php'; ?>
 
             <div>
+                <!-- todo b_player_info и b_player_download объединить в один блок b_player_info -->
                 <div class="b_player_info">
                     <div class="artist_img elem"></div>
 

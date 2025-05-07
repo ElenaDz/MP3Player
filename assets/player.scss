@@ -73,6 +73,7 @@ $opacity-grey-max: 1;
       min-width: 40px;
     }
 
+    // fixme вынести в отдельный файл
     .b_player_controls {
       width: 130px;
 
@@ -165,6 +166,7 @@ $opacity-grey-max: 1;
       }
     }
 
+    // fixme вынести в отдельный файл
     .b_player_volume {
       @include for_phone {
         display: none;
@@ -172,12 +174,12 @@ $opacity-grey-max: 1;
 
       .volume_inner {
         background-image: url("/assets/img/volume.svg");
-
-
       }
 
       &.mute {
         .volume_inner {
+          // fixme переименовать в volume_mute, чтобы находились рядом на файловой системе
+          // fixme не подходящая иконка, конки громкости и "без звука" должны быть одинаковыми, а это явно разные (разные наборы иконок)
           background-image: url("/assets/img/mute.svg");
         }
       }

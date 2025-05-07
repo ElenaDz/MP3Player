@@ -28,7 +28,8 @@ class Player {
         };
     }
     get songId() {
-        return this.url.split('/').reverse()[0];
+        let filename = this.url.split('/').reverse()[0];
+        return filename;
     }
     get url() {
         return this.audio.src;

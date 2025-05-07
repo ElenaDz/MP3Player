@@ -50,7 +50,9 @@ class Player
 
     public get songId()
     {
-        return this.url.split('/').reverse()[0];
+        let filename = this.url.split('/').reverse()[0];
+
+        return filename;
     }
 
     public get url()
@@ -102,6 +104,7 @@ class Player
     {
         this.audio.muted = mute;
     }
+
     public get mute()
     {
         return this.audio.muted;

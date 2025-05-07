@@ -23,18 +23,21 @@ class Progress
             this.slider.value_max = this.player.duration;
             this.currentTimeText = this.player.currentTime;
             this.durationText = this.player.duration;
-        })
+        });
 
         this.player.$context.on(Player.EVENT_UPDATE_TIME,() =>
         {
             this.currentTimeText = this.player.currentTime;
             this.slider.value = this.player.currentTime;
-        })
+        });
 
         this.slider.context.on(SliderEvents.StopMove, () =>
         {
             this.player.currentTime = this.slider.value;
-        })
+        });
+
+        // fixme попробуй перемотать слайдер и после этого запустить песню с помощью мини плеера Получишь неожиданный результат
+        //  надо бы бы блокировал слайдер пока песня не задана, как в audio
     }
 
     private set currentTimeText(current_time: number)

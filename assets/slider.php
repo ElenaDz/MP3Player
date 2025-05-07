@@ -10,7 +10,7 @@
 	<?= isset($max) ? 'data-value_max="'.$max.'"' : ''; ?>
 >
 	<div class="slider"></div>
-	<div class="value" style=""></div>
+	<div class="value"></div>
 </div>
 
 <?php
