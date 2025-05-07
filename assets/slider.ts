@@ -86,7 +86,6 @@ class Slider
 			});
 	}
 
-
 	get value_min()
 	{
 		return this._value_min || this.context.data('value_min') || 0;

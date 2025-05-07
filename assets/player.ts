@@ -26,8 +26,6 @@ class Player
         this.initEventsAudio();
     }
 
-
-
     private initEventsAudio()
     {
         this.audio.onplay = () => {
@@ -48,14 +46,11 @@ class Player
         this.audio.ontimeupdate = () => {
             this.$context.trigger(Player.EVENT_UPDATE_TIME)
         };
-
     }
 
     public get songId()
     {
-        let filename = this.url.split('/').reverse()[0];
-
-        return filename
+        return this.url.split('/').reverse()[0];
     }
 
     public get url()
@@ -101,6 +96,15 @@ class Player
     public set volume(volume: number)
     {
         this.audio.volume = volume;
+    }
+
+    public set mute(mute: boolean)
+    {
+        this.audio.muted = mute;
+    }
+    public get mute()
+    {
+        return this.audio.muted;
     }
 
     public set playing(playing: boolean)

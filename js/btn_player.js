@@ -20,8 +20,7 @@ class BtnPlayer {
         });
     }
     get songId() {
-        let filename = this.url.split('/').reverse()[0];
-        return filename;
+        return this.url.split('/').reverse()[0];
     }
     // @ts-ignore
     get url() {

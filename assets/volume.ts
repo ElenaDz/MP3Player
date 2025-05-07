@@ -1,6 +1,6 @@
 class Volume
 {
-    private $context: JQuery;
+    private readonly $context: JQuery;
     private player: Player;
     private slider: Slider;
 
@@ -27,9 +27,29 @@ class Volume
         this.slider.context.on(SliderEvents.StopMove, () =>
         {
             this.player.volume = this.slider.value;
+            this.removeMute();
+            if (this.player.volume == 0) {
+                this.addMute();
+            }
+        })
+
+        this.$context.find('button.volume_inner').on('click', () =>
+        {
+            this.player.mute ? this.removeMute() : this.addMute();
         })
     }
 
+    private addMute() {
+        this.player.mute = true;
+        this.$context.addClass('mute');
+        this.slider.value = 0;
+    }
+
+    private removeMute() {
+        this.player.mute = false;
+        this.$context.removeClass('mute');
+        this.slider.value = this.player.volume;
+    }
 
     public static create($context = $('.b_player_volume')): Volume
     {

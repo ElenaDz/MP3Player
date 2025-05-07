@@ -173,18 +173,20 @@ $opacity-grey-max: 1;
       .volume_inner {
         background-image: url("/assets/img/volume.svg");
 
-        &.mute {
+
+      }
+
+      &.mute {
+        .volume_inner {
           background-image: url("/assets/img/mute.svg");
         }
       }
-
-
     }
 
     .b_player_info {
       width: fit-content;
       height: 100%;
-      display: none;
+      display: flex;
 
       @include for_phone {
         display: none;
@@ -192,7 +194,7 @@ $opacity-grey-max: 1;
 
       .artist_img {
         border-radius: 50%;
-        background-color: #f7f7f7;
+        background-color: #f7f5ff;
         margin-right: 10px;
         opacity: $opacity-grey-min;
         background-image: url("/assets/img/note.svg");
@@ -223,17 +225,20 @@ $opacity-grey-max: 1;
     }
 
     .b_player_download {
-      display: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       @include for_phone {
         order: 5;
       }
 
       .download {
+        display: flex;
         width: 26px;
         height: 26px;
         border-radius: 5px;
-        background-color: #f7f7f7;
+        background-color: #f7f5ff;
 
         &:hover {
           background-color: #d7eaff;

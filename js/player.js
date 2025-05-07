@@ -28,8 +28,7 @@ class Player {
         };
     }
     get songId() {
-        let filename = this.url.split('/').reverse()[0];
-        return filename;
+        return this.url.split('/').reverse()[0];
     }
     get url() {
         return this.audio.src;
@@ -57,6 +56,12 @@ class Player {
     }
     set volume(volume) {
         this.audio.volume = volume;
+    }
+    set mute(mute) {
+        this.audio.muted = mute;
+    }
+    get mute() {
+        return this.audio.muted;
     }
     set playing(playing) {
         playing

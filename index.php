@@ -72,26 +72,27 @@
 
             <?php require __DIR__.'/assets/volume.php'; ?>
 
+            <div>
+                <div class="b_player_info">
+                    <div class="artist_img elem"></div>
 
-            <div class="b_player_info">
-                <div class="artist_img elem"></div>
-
-                <div class="names">
-                    <div class="song_name">
-                        <a class="">Улетаю</a>
-                    </div>
-                    <div class="artist_name">
-                       <a href="#">Маракеш</a>
-                        feat. &nbsp
-                        <a href="#">T1One</a>
+                    <div class="names">
+                        <div class="song_name">
+                            <a class="">Улетаю</a>
+                        </div>
+                        <div class="artist_name">
+                            <a href="#">Маракеш</a>
+                            feat. &nbsp
+                            <a href="#">T1One</a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="b_player_download elem">
-                <a class="download">
-                    <i></i>
-                </a>
+                <div class="b_player_download elem">
+                    <a class="download">
+                        <i></i>
+                    </a>
+                </div>
             </div>
 
         </div>
