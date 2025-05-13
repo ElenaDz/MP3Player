@@ -12,10 +12,7 @@ class Volume {
             this.$context.find('.b_slider').removeClass('disabled');
             this.volume = this.player.volume;
         });
-        // fixme нужно чтобы уровень громкости менялся сразу при передвижении slider без необходимости отпускать кнопку мыши,
-        //  так как это происходить в самом audio ok
         this.slider.context.on(SliderEvents.ValueUpdate, () => {
-            // todo заведи свойство volume в этом классе и помети ниже стоящий код туда ok
             if (this.muted && this.volume === 0) {
                 this.mute = true;
                 return;
@@ -33,9 +30,7 @@ class Volume {
             this.mute = !this.mute;
         });
         // todo необходимо сохранять уровень громкости localStore для того чтобы он восстанавливался при повторном отрытии страницы
-        // fixme когда меняешь громкость в audio в player она не меняется, тоже с muted ok
     }
-    // fixme заменить эти два метода на свойство mute ok
     get mute() {
         return this.player.mute;
     }

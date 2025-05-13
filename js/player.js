@@ -13,9 +13,10 @@ class Player {
         this.initEventsAudio();
     }
     initEventsAudio() {
-        this.audio.onplay = () => {
+        this.audio.addEventListener('play', () => {
             this.playing = !this.audio.paused;
-        };
+        });
+        // fixme заменить все подобные конструкции на addEventListener как выше
         this.audio.onpause = () => {
             this.playing = !this.audio.paused;
         };

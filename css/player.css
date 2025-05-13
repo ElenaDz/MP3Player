@@ -139,7 +139,7 @@
   background-image: url("/assets/img/volume.svg");
 }
 .b_player_volume.mute .volume_mute {
-  background-image: url("/assets/img/mute.svg");
+  background-image: url("/assets/img/volume_mute.svg");
 }
 
 .b_player {
@@ -170,8 +170,8 @@
   padding: 0 2vw;
   height: 100%;
   background-color: #fff;
-  border-top: 1px solid rgb(237, 237, 237);
-  box-shadow: 0 0 7px rgb(195, 195, 195);
+  border-top: 1px solid #ededed;
+  box-shadow: 0 0 7px #c3c3c3;
 }
 @media (max-width: 767px) {
   .b_player .inner_player {
@@ -275,27 +275,27 @@
 .b_player .inner_player .b_player_info .names .artist_name a {
   margin-right: 5px;
 }
-.b_player .inner_player .b_player_download {
+.b_player .inner_player .b_player_info .download {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 @media (max-width: 767px) {
-  .b_player .inner_player .b_player_download {
+  .b_player .inner_player .b_player_info .download {
     order: 5;
   }
 }
-.b_player .inner_player .b_player_download .download {
+.b_player .inner_player .b_player_info .download .download {
   display: flex;
   width: 26px;
   height: 26px;
   border-radius: 5px;
   background-color: #f7f5ff;
 }
-.b_player .inner_player .b_player_download .download:hover {
+.b_player .inner_player .b_player_info .download .download:hover {
   background-color: #d7eaff;
 }
-.b_player .inner_player .b_player_download .download i {
+.b_player .inner_player .b_player_info .download .download i {
   display: flex;
   width: 100%;
   height: 100%;

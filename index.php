@@ -45,7 +45,7 @@
     $file_name = '5УТРА - Ромашки.mp3';
     require __DIR__ . '/assets/btn_player.php';
 
-    // fixme в случае ошибки воспроизведения, как в этом случае, кнопка play в player должна быть заблокирована, как в audio ok
+    // fixme в случае ошибки воспроизведения, кнопка play в player и все остальное должна быть заблокировано, как в audio
     $file_name = '5УТРА - Test.mp3';
     require __DIR__ . '/assets/btn_player.php';
     ?>
@@ -72,7 +72,6 @@
 
             <?php require __DIR__.'/assets/volume.php'; ?>
 
-            <!-- todo b_player_info и b_player_download объединить в один блок b_player_info ok -->
             <div class="b_player_info">
                 <div class="artist_img elem"></div>
 
@@ -87,12 +86,13 @@
                     </div>
                 </div>
 
-                <div class="b_player_download elem">
+                <div class="download elem">
                     <a class="download">
                         <i></i>
                     </a>
                 </div>
             </div>
+
         </div>
     </div>
 

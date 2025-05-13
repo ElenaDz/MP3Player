@@ -21,8 +21,6 @@ class Progress {
         this.slider.context.on(SliderEvents.StopMove, () => {
             this.player.currentTime = this.slider.value;
         });
-        // fixme попробуй перемотать слайдер и после этого запустить песню с помощью мини плеера Получишь неожиданный результат
-        //  надо бы бы блокировал слайдер пока песня не задана, как в audio ok
     }
     set currentTimeText(current_time) {
         this.$context.find('.time_current').text(Progress.formatTime(current_time));

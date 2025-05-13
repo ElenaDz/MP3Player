@@ -37,9 +37,6 @@ class Progress
         {
             this.player.currentTime = this.slider.value;
         });
-
-        // fixme попробуй перемотать слайдер и после этого запустить песню с помощью мини плеера Получишь неожиданный результат
-        //  надо бы бы блокировал слайдер пока песня не задана, как в audio ok
     }
 
     private set currentTimeText(current_time: number)

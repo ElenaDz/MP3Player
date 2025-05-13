@@ -26,11 +26,8 @@ class Volume
             this.volume = this.player.volume;
         });
 
-        // fixme нужно чтобы уровень громкости менялся сразу при передвижении slider без необходимости отпускать кнопку мыши,
-        //  так как это происходить в самом audio ok
         this.slider.context.on(SliderEvents.ValueUpdate, () =>
         {
-            // todo заведи свойство volume в этом классе и помети ниже стоящий код туда ok
             if (this.muted && this.volume === 0) {
                 this.mute = true;
                 return;
@@ -42,8 +39,8 @@ class Volume
         this.player.$context.on(Player.EVENT_UPDATE_VOLUME,() =>
         {
             if (this.muted && this.volume === 0) {
-            this.mute = true;
-            return;
+                this.mute = true;
+                return;
             }
 
             this.volume = this.player.volume;
@@ -51,22 +48,19 @@ class Volume
 
         this.$context.find('button.volume_mute').on('click', () =>
         {
-            this.mute = !this.mute;
-
+            this.mute = ! this.mute;
         });
 
         // todo необходимо сохранять уровень громкости localStore для того чтобы он восстанавливался при повторном отрытии страницы
-
-        // fixme когда меняешь громкость в audio в player она не меняется, тоже с muted ok
     }
 
-    // fixme заменить эти два метода на свойство mute ok
 
     private get mute() {
         return this.player.mute;
     }
 
-    private set mute(mute) {
+    private set mute(mute)
+    {
         this.player.mute = mute;
 
         if (mute) {
@@ -86,13 +80,13 @@ class Volume
         return this.slider.value;
     }
 
-    private set volume(volume) {
+    private set volume(volume)
+    {
         if (volume < 0 || volume > 1) {
             throw new Error(`Invalid volume "${volume}"`);
         }
 
         this.slider.value = volume;
-
     }
 
     public static create($context = $('.b_player_volume')): Volume

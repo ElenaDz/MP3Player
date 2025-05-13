@@ -77,8 +77,6 @@ $opacity-grey-max: 1;
       min-width: 40px;
     }
 
-    // fixme вынести в отдельный файл ok
-
     .b_player_playlist
     {
       @include for_phone {
@@ -122,9 +120,6 @@ $opacity-grey-max: 1;
       }
     }
 
-    // fixme вынести в отдельный файл ok
-
-
     .b_player_info {
       width: fit-content;
       height: 100%;
@@ -164,35 +159,35 @@ $opacity-grey-max: 1;
           }
         }
       }
-    }
-
-    .b_player_download {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      @include for_phone {
-        order: 5;
-      }
 
       .download {
         display: flex;
-        width: 26px;
-        height: 26px;
-        border-radius: 5px;
-        background-color: #f7f5ff;
+        justify-content: center;
+        align-items: center;
 
-        &:hover {
-          background-color: #d7eaff;
+        @include for_phone {
+          order: 5;
         }
 
-        i {
+        .download {
           display: flex;
-          width: 100%;
-          height: 100%;
-          background-image: url("/assets/img/download.svg");
-          background-repeat: no-repeat;
-          background-position: center;
+          width: 26px;
+          height: 26px;
+          border-radius: 5px;
+          background-color: #f7f5ff;
+
+          &:hover {
+            background-color: #d7eaff;
+          }
+
+          i {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            background-image: url("/assets/img/download.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+          }
         }
       }
     }
