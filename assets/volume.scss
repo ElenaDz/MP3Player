@@ -1,0 +1,25 @@
+@import "mixin";
+
+.b_player_volume {
+  @include for_phone {
+    display: none;
+  }
+
+  .disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .volume_mute {
+    background-image: url("/assets/img/volume.svg");
+  }
+
+  &.mute {
+    .volume_mute {
+      // fixme переименовать в volume_mute, чтобы находились рядом на файловой системе ok
+      // fixme не подходящая иконка, конки громкости и "без звука" должны быть одинаковыми, а это явно разные (разные наборы иконок) (одинаковые не нашла,
+      // актуальные иконки жду от дизайра, пока стоит заглушка
+      background-image: url("/assets/img/mute.svg");
+    }
+  }
+}

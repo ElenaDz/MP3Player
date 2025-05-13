@@ -60,6 +60,10 @@
   align-items: center;
   justify-content: center;
 }
+.b_player_progress .disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
 @media (max-width: 767px) {
   .b_player_progress {
     width: 100%;
@@ -81,6 +85,61 @@
   justify-content: center;
   cursor: default;
   user-select: none;
+}
+
+.b_player_controls {
+  width: 130px;
+}
+@media (max-width: 767px) {
+  .b_player_controls {
+    order: 3;
+  }
+}
+.b_player_controls .play {
+  background-color: #f3f3f3;
+  border-radius: 50%;
+  background-image: url("/assets/img/btn_play/play.svg");
+}
+.b_player_controls .play:hover {
+  background-color: #d7eaff;
+}
+.b_player_controls .play:disabled:hover {
+  background-color: #f3f3f3;
+}
+.b_player_controls .next {
+  background-image: url("/assets/img/btn_play/next.svg");
+}
+.b_player_controls .next:hover {
+  opacity: 0.7;
+}
+.b_player_controls .prev {
+  background-image: url("/assets/img/btn_play/previous.svg");
+}
+.b_player_controls .prev:hover {
+  opacity: 0.7;
+}
+.b_player_controls button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.b_player_controls button:disabled:hover {
+  opacity: 0.5;
+}
+
+@media (max-width: 767px) {
+  .b_player_volume {
+    display: none;
+  }
+}
+.b_player_volume .disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.b_player_volume .volume_mute {
+  background-image: url("/assets/img/volume.svg");
+}
+.b_player_volume.mute .volume_mute {
+  background-image: url("/assets/img/mute.svg");
 }
 
 .b_player {
@@ -111,8 +170,8 @@
   padding: 0 2vw;
   height: 100%;
   background-color: #fff;
-  border-top: 1px solid #ededed;
-  box-shadow: 0 0 7px #c3c3c3;
+  border-top: 1px solid rgb(237, 237, 237);
+  box-shadow: 0 0 7px rgb(195, 195, 195);
 }
 @media (max-width: 767px) {
   .b_player .inner_player {
@@ -145,44 +204,6 @@
   width: 40px;
   height: 40px;
   min-width: 40px;
-}
-.b_player .inner_player .b_player_controls {
-  width: 130px;
-}
-@media (max-width: 767px) {
-  .b_player .inner_player .b_player_controls {
-    order: 3;
-  }
-}
-.b_player .inner_player .b_player_controls .play {
-  background-color: #f3f3f3;
-  border-radius: 50%;
-  background-image: url("/assets/img/btn_play/play.svg");
-}
-.b_player .inner_player .b_player_controls .play:hover {
-  background-color: #d7eaff;
-}
-.b_player .inner_player .b_player_controls .play:disabled:hover {
-  background-color: #f3f3f3;
-}
-.b_player .inner_player .b_player_controls .next {
-  background-image: url("/assets/img/btn_play/next.svg");
-}
-.b_player .inner_player .b_player_controls .next:hover {
-  opacity: 0.7;
-}
-.b_player .inner_player .b_player_controls .prev {
-  background-image: url("/assets/img/btn_play/previous.svg");
-}
-.b_player .inner_player .b_player_controls .prev:hover {
-  opacity: 0.7;
-}
-.b_player .inner_player .b_player_controls button:disabled {
-  opacity: 0.5;
-  cursor: default;
-}
-.b_player .inner_player .b_player_controls button:disabled:hover {
-  opacity: 0.5;
 }
 @media (max-width: 767px) {
   .b_player .inner_player .b_player_playlist {
@@ -217,17 +238,6 @@
 }
 .b_player .inner_player .b_player_playlist .playlist:hover {
   opacity: 1;
-}
-@media (max-width: 767px) {
-  .b_player .inner_player .b_player_volume {
-    display: none;
-  }
-}
-.b_player .inner_player .b_player_volume .volume_inner {
-  background-image: url("/assets/img/volume.svg");
-}
-.b_player .inner_player .b_player_volume.mute .volume_inner {
-  background-image: url("/assets/img/mute.svg");
 }
 .b_player .inner_player .b_player_info {
   width: fit-content;

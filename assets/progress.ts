@@ -20,6 +20,8 @@ class Progress
 
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
+            this.$context.find('.b_slider').removeClass('disabled');
+
             this.slider.value_max = this.player.duration;
             this.currentTimeText = this.player.currentTime;
             this.durationText = this.player.duration;
@@ -37,7 +39,7 @@ class Progress
         });
 
         // fixme попробуй перемотать слайдер и после этого запустить песню с помощью мини плеера Получишь неожиданный результат
-        //  надо бы бы блокировал слайдер пока песня не задана, как в audio
+        //  надо бы бы блокировал слайдер пока песня не задана, как в audio ok
     }
 
     private set currentTimeText(current_time: number)

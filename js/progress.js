@@ -9,6 +9,7 @@ class Progress {
         this.player = Player.create();
         this.slider = Slider.create(this.$context)[0];
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+            this.$context.find('.b_slider').removeClass('disabled');
             this.slider.value_max = this.player.duration;
             this.currentTimeText = this.player.currentTime;
             this.durationText = this.player.duration;
@@ -21,7 +22,7 @@ class Progress {
             this.player.currentTime = this.slider.value;
         });
         // fixme попробуй перемотать слайдер и после этого запустить песню с помощью мини плеера Получишь неожиданный результат
-        //  надо бы бы блокировал слайдер пока песня не задана, как в audio
+        //  надо бы бы блокировал слайдер пока песня не задана, как в audio ok
     }
     set currentTimeText(current_time) {
         this.$context.find('.time_current').text(Progress.formatTime(current_time));

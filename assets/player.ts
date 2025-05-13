@@ -2,6 +2,7 @@ class Player
 {
     static readonly EVENT_UPDATE_PLAYING = 'Player.EVENT_UPDATE_PLAYING';
     static readonly EVENT_UPDATE_TIME = 'Player.EVENT_UPDATE_TIME';
+    static readonly EVENT_UPDATE_VOLUME = 'Player.EVENT_UPDATE_VOLUME';
     static readonly EVENT_LOADED_META_DATA = 'Player.EVENT_LOADED_META_DATA';
 
     public $context: JQuery;
@@ -46,6 +47,11 @@ class Player
         this.audio.ontimeupdate = () => {
             this.$context.trigger(Player.EVENT_UPDATE_TIME)
         };
+
+        this.audio.onvolumechange = () => {
+            this.$context.trigger(Player.EVENT_UPDATE_VOLUME)
+        };
+
     }
 
     public get songId()

@@ -21,44 +21,78 @@ class Volume
 
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
-            this.slider.value = this.player.volume;
+            this.$context.find('.b_slider').removeClass('disabled');
+
+            this.volume = this.player.volume;
         });
 
         // fixme нужно чтобы уровень громкости менялся сразу при передвижении slider без необходимости отпускать кнопку мыши,
-        //  так как это происходить в самом audio
-        this.slider.context.on(SliderEvents.StopMove, () =>
+        //  так как это происходить в самом audio ok
+        this.slider.context.on(SliderEvents.ValueUpdate, () =>
         {
-            // todo заведи свойство volume в этом классе и помети ниже стоящий код туда
-            this.player.volume = this.slider.value;
-
-            this.removeMute();
-
-            if (this.player.volume == 0) {
-                this.addMute();
+            // todo заведи свойство volume в этом классе и помети ниже стоящий код туда ok
+            if (this.muted && this.volume === 0) {
+                this.mute = true;
+                return;
             }
+
+            this.player.volume = this.volume;
         })
 
-        this.$context.find('button.volume_inner').on('click', () =>
+        this.player.$context.on(Player.EVENT_UPDATE_VOLUME,() =>
         {
-            this.player.mute ? this.removeMute() : this.addMute();
+            if (this.muted && this.volume === 0) {
+            this.mute = true;
+            return;
+            }
+
+            this.volume = this.player.volume;
+        });
+
+        this.$context.find('button.volume_mute').on('click', () =>
+        {
+            this.mute = !this.mute;
+
         });
 
         // todo необходимо сохранять уровень громкости localStore для того чтобы он восстанавливался при повторном отрытии страницы
 
-        // fixme когда меняешь громкость а audio в player она не меняется, тоже с muted
+        // fixme когда меняешь громкость в audio в player она не меняется, тоже с muted ok
     }
 
-    // fixme заменить эти два метода на свойство mute
-    private addMute() {
-        this.player.mute = true;
-        this.$context.addClass('mute');
-        this.slider.value = 0;
+    // fixme заменить эти два метода на свойство mute ok
+
+    private get mute() {
+        return this.player.mute;
     }
 
-    private removeMute() {
-        this.player.mute = false;
-        this.$context.removeClass('mute');
-        this.slider.value = this.player.volume;
+    private set mute(mute) {
+        this.player.mute = mute;
+
+        if (mute) {
+            this.volume = 0
+            this.$context.addClass('mute');
+        } else {
+            this.volume = this.player.volume;
+            this.$context.removeClass('mute');
+        }
+    }
+
+    private muted() {
+        this.mute = this.player.volume == 0;
+    }
+
+    private get volume() {
+        return this.slider.value;
+    }
+
+    private set volume(volume) {
+        if (volume < 0 || volume > 1) {
+            throw new Error(`Invalid volume "${volume}"`);
+        }
+
+        this.slider.value = volume;
+
     }
 
     public static create($context = $('.b_player_volume')): Volume

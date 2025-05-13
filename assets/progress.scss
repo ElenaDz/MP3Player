@@ -7,6 +7,11 @@
   align-items: center;
   justify-content: center;
 
+  .disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  
   @include for_phone {
     width: 100%;
     order: 6;

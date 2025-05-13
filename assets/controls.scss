@@ -1,0 +1,50 @@
+@import "mixin";
+
+.b_player_controls {
+  width: 130px;
+
+  @include for_phone {
+    order: 3;
+  }
+
+  .play {
+    background-color: #f3f3f3;
+    border-radius: 50%;
+    background-image: url("/assets/img/btn_play/play.svg");
+
+    &:hover {
+      background-color: #d7eaff;
+    }
+
+    &:disabled {
+      &:hover {
+        background-color: #f3f3f3;
+      }
+    }
+  }
+
+  .next {
+    background-image: url("/assets/img/btn_play/next.svg");
+
+    &:hover {
+      opacity: $opacity-grey-middle;
+    }
+  }
+
+  .prev {
+    background-image: url("/assets/img/btn_play/previous.svg");
+
+    &:hover {
+      opacity: $opacity-grey-middle;
+    }
+  }
+
+  button:disabled {
+    opacity: 0.5;
+    cursor: default;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}

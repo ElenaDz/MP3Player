@@ -26,6 +26,9 @@ class Player {
         this.audio.ontimeupdate = () => {
             this.$context.trigger(Player.EVENT_UPDATE_TIME);
         };
+        this.audio.onvolumechange = () => {
+            this.$context.trigger(Player.EVENT_UPDATE_VOLUME);
+        };
     }
     get songId() {
         let filename = this.url.split('/').reverse()[0];
@@ -79,4 +82,5 @@ class Player {
 }
 Player.EVENT_UPDATE_PLAYING = 'Player.EVENT_UPDATE_PLAYING';
 Player.EVENT_UPDATE_TIME = 'Player.EVENT_UPDATE_TIME';
+Player.EVENT_UPDATE_VOLUME = 'Player.EVENT_UPDATE_VOLUME';
 Player.EVENT_LOADED_META_DATA = 'Player.EVENT_LOADED_META_DATA';

@@ -1,5 +1,5 @@
-<div class="b_player_volume">
-    <button  class="volume_inner elem"></button>
+<div class="b_player_volume" disabled>
+    <button  class="volume_mute elem"></button>
     <?php
     $class = 'mini';
     $min = 0;

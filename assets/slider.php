@@ -5,7 +5,7 @@
 ?>
 
 <div
-	class="b_slider <?= $class; ?>"
+	class="b_slider <?= $class; ?> disabled"
 	<?= isset($min) ? 'data-value_min="'.$min.'"' : ''; ?>
 	<?= isset($max) ? 'data-value_max="'.$max.'"' : ''; ?>
 >
