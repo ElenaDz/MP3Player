@@ -1,4 +1,4 @@
-<div class="b_player_volume" disabled>
+<div class="b_player_volume" >
     <button  class="volume_mute elem"></button>
     <?php
     $class = 'mini';

@@ -29,7 +29,9 @@ class BtnPlayer {
     }
     play() {
         if (this.player.songId !== this.songId) {
-            this.player.url = this.url;
+            if (this.url) {
+                this.player.url = this.url;
+            }
         }
         this.player.play();
     }

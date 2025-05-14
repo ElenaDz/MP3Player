@@ -19,11 +19,15 @@ class Volume
 
         this.slider = Slider.create(this.$context)[0];
 
+        this.disabled();
+
+        this.volume = Player_store.getVolume();
+
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
             this.$context.find('.b_slider').removeClass('disabled');
 
-            this.volume = this.player.volume;
+            this.volume = Player_store.getVolume() ? Player_store.getVolume() : this.player.volume;
         });
 
         this.slider.context.on(SliderEvents.ValueUpdate, () =>
@@ -31,9 +35,13 @@ class Volume
             if (this.muted && this.volume === 0) {
                 this.mute = true;
                 return;
+            } else  {
+                this.mute = false;
             }
 
             this.player.volume = this.volume;
+
+            return;
         })
 
         this.player.$context.on(Player.EVENT_UPDATE_VOLUME,() =>
@@ -44,6 +52,10 @@ class Volume
             }
 
             this.volume = this.player.volume;
+
+            Player_store.setVolume(this.volume);
+
+            return;
         });
 
         this.$context.find('button.volume_mute').on('click', () =>
@@ -51,9 +63,19 @@ class Volume
             this.mute = ! this.mute;
         });
 
-        // todo необходимо сохранять уровень громкости localStore для того чтобы он восстанавливался при повторном отрытии страницы
+        this.player.$context.on(Player.EVENT_ERROR,() =>
+        {
+            this.disabled();
+        })
+
+        // todo необходимо сохранять уровень громкости localStore для того чтобы он восстанавливался при повторном отрытии страницы ok
     }
 
+
+    private disabled()
+    {
+        this.$context.find('.b_slider').addClass('disabled');
+    }
 
     private get mute() {
         return this.player.mute;

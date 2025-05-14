@@ -18,6 +18,8 @@ class Progress
 
         this.slider = Slider.create(this.$context)[0];
 
+        this.disabled();
+
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
             this.$context.find('.b_slider').removeClass('disabled');
@@ -37,6 +39,16 @@ class Progress
         {
             this.player.currentTime = this.slider.value;
         });
+
+        this.player.$context.on(Player.EVENT_ERROR,() =>
+        {
+            this.disabled();
+        })
+    }
+
+    private disabled()
+    {
+        this.$context.find('.b_slider').addClass('disabled');
     }
 
     private set currentTimeText(current_time: number)

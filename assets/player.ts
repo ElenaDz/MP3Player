@@ -4,6 +4,7 @@ class Player
     static readonly EVENT_UPDATE_TIME = 'Player.EVENT_UPDATE_TIME';
     static readonly EVENT_UPDATE_VOLUME = 'Player.EVENT_UPDATE_VOLUME';
     static readonly EVENT_LOADED_META_DATA = 'Player.EVENT_LOADED_META_DATA';
+    static readonly EVENT_ERROR = 'Player.EVENT_ERROR';
 
     public $context: JQuery;
     private audio: HTMLAudioElement;
@@ -23,6 +24,7 @@ class Player
         Controls.create();
         Progress.create();
         Volume.create();
+        Info.create();
 
         this.initEventsAudio();
     }
@@ -34,25 +36,35 @@ class Player
             this.playing = ! this.audio.paused;
         });
 
-        // fixme заменить все подобные конструкции на addEventListener как выше
-        this.audio.onpause = () => {
+        // fixme заменить все подобные конструкции на addEventListener как выше ok
+        this.audio.addEventListener('pause', () =>
+        {
             this.playing = ! this.audio.paused;
-        };
+        });
 
-        this.audio.onloadedmetadata = () =>
+        this.audio.addEventListener('loadedmetadata', () =>
         {
             this.playing = true;
 
             this.$context.trigger(Player.EVENT_LOADED_META_DATA)
-        }
+        });
 
-        this.audio.ontimeupdate = () => {
+        this.audio.addEventListener('timeupdate', () =>
+        {
             this.$context.trigger(Player.EVENT_UPDATE_TIME)
-        };
+        });
 
-        this.audio.onvolumechange = () => {
+        this.audio.addEventListener('volumechange', () =>
+        {
             this.$context.trigger(Player.EVENT_UPDATE_VOLUME)
-        };
+        });
+
+        this.audio.addEventListener('error', () =>
+        {
+            console.log('ERROR')
+            this.$context.trigger(Player.EVENT_ERROR)
+        });
+
 
     }
 

@@ -22,6 +22,11 @@ class Controls
             this.$context.find('button.play').removeAttr('disabled');
         })
 
+        this.player.$context.on(Player.EVENT_ERROR,() =>
+        {
+            this.disabled();
+        })
+
         this.$context.find('button.play').on('click',() =>
         {
             if ( ! this.player.url) {

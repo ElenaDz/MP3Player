@@ -8,6 +8,7 @@ class Progress {
         this.$context[0].Progress = this;
         this.player = Player.create();
         this.slider = Slider.create(this.$context)[0];
+        this.disabled();
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
             this.$context.find('.b_slider').removeClass('disabled');
             this.slider.value_max = this.player.duration;
@@ -21,6 +22,12 @@ class Progress {
         this.slider.context.on(SliderEvents.StopMove, () => {
             this.player.currentTime = this.slider.value;
         });
+        this.player.$context.on(Player.EVENT_ERROR, () => {
+            this.disabled();
+        });
+    }
+    disabled() {
+        this.$context.find('.b_slider').addClass('disabled');
     }
     set currentTimeText(current_time) {
         this.$context.find('.time_current').text(Progress.formatTime(current_time));

@@ -45,7 +45,7 @@
     $file_name = '5УТРА - Ромашки.mp3';
     require __DIR__ . '/assets/btn_player.php';
 
-    // fixme в случае ошибки воспроизведения, кнопка play в player и все остальное должна быть заблокировано, как в audio
+    // fixme в случае ошибки воспроизведения, кнопка play в player и все остальное должна быть заблокировано, как в audio ok
     $file_name = '5УТРА - Test.mp3';
     require __DIR__ . '/assets/btn_player.php';
     ?>
@@ -72,26 +72,7 @@
 
             <?php require __DIR__.'/assets/volume.php'; ?>
 
-            <div class="b_player_info">
-                <div class="artist_img elem"></div>
-
-                <div class="names">
-                    <div class="song_name">
-                        <a class="">Улетаю</a>
-                    </div>
-                    <div class="artist_name">
-                        <a href="#">Маракеш</a>
-                        feat. &nbsp
-                        <a href="#">T1One</a>
-                    </div>
-                </div>
-
-                <div class="download elem">
-                    <a class="download">
-                        <i></i>
-                    </a>
-                </div>
-            </div>
+            <?php require __DIR__.'/assets/info.php'; ?>
 
         </div>
     </div>
@@ -106,6 +87,8 @@
     <script src="<?= $getUrl(__DIR__ . '/js/controls.js') ?>"></script>
     <script src="<?= $getUrl(__DIR__ . '/js/progress.js') ?>"></script>
     <script src="<?= $getUrl(__DIR__ . '/js/volume.js') ?>"></script>
+    <script src="<?= $getUrl(__DIR__ . '/js/player_store.js') ?>"></script>
+    <script src="<?= $getUrl(__DIR__ . '/js/info.js') ?>"></script>
     <script>
         $(function() {
             let btns_player = BtnPlayer.create();
