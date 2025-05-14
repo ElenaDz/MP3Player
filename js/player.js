@@ -17,7 +17,6 @@ class Player {
         this.audio.addEventListener('play', () => {
             this.playing = !this.audio.paused;
         });
-        // fixme заменить все подобные конструкции на addEventListener как выше ok
         this.audio.addEventListener('pause', () => {
             this.playing = !this.audio.paused;
         });
@@ -43,8 +42,12 @@ class Player {
     get url() {
         return this.audio.src;
     }
+    // fixme сделай этот сетер приватным, а для загрузки песни в плеер используй метод loadSong который я создал ниже
     set url(url) {
         this.audio.src = url;
+    }
+    loadSong(song) {
+        this.url = song.url;
     }
     play() {
         this.audio.play();

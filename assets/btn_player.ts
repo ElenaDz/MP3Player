@@ -52,7 +52,12 @@ class BtnPlayer
         if (this.player.songId !== this.songId) {
 
             if (this.url) {
-                this.player.url = this.url;
+                this.player.loadSong({
+                    url: this.url,
+                    artist_name: '',
+                    song_name: '',
+                    url_song: ''
+                });
             }
         }
 

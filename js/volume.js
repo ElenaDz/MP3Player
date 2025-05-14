@@ -12,6 +12,9 @@ class Volume {
         this.volume = Player_store.getVolume();
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
             this.$context.find('.b_slider').removeClass('disabled');
+            // fixme перенеси эту логику в гетер volume
+            // fixme разве после загрузки песни громкость меняется, почему мы здесь снова меняем громкость?
+            //  мы же уже сделали это при создании этого объекта
             this.volume = Player_store.getVolume() ? Player_store.getVolume() : this.player.volume;
         });
         this.slider.context.on(SliderEvents.ValueUpdate, () => {
@@ -31,6 +34,7 @@ class Volume {
                 return;
             }
             this.volume = this.player.volume;
+            // fixme перенеси эту строку в сетер volume
             Player_store.setVolume(this.volume);
             return;
         });
@@ -40,7 +44,6 @@ class Volume {
         this.player.$context.on(Player.EVENT_ERROR, () => {
             this.disabled();
         });
-        // todo необходимо сохранять уровень громкости localStore для того чтобы он восстанавливался при повторном отрытии страницы ok
     }
     disabled() {
         this.$context.find('.b_slider').addClass('disabled');

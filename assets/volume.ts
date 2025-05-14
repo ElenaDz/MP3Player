@@ -27,6 +27,9 @@ class Volume
         {
             this.$context.find('.b_slider').removeClass('disabled');
 
+            // fixme перенеси эту логику в гетер volume
+            // fixme разве после загрузки песни громкость меняется, почему мы здесь снова меняем громкость?
+            //  мы же уже сделали это при создании этого объекта
             this.volume = Player_store.getVolume() ? Player_store.getVolume() : this.player.volume;
         });
 
@@ -53,6 +56,7 @@ class Volume
 
             this.volume = this.player.volume;
 
+            // fixme перенеси эту строку в сетер volume
             Player_store.setVolume(this.volume);
 
             return;
@@ -67,8 +71,6 @@ class Volume
         {
             this.disabled();
         })
-
-        // todo необходимо сохранять уровень громкости localStore для того чтобы он восстанавливался при повторном отрытии страницы ok
     }
 
 

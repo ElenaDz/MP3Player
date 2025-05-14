@@ -1,3 +1,11 @@
+
+interface SongPlayer {
+    url: string;
+    artist_name: string;
+    song_name: string;
+    url_song: string;
+}
+
 class Player
 {
     static readonly EVENT_UPDATE_PLAYING = 'Player.EVENT_UPDATE_PLAYING';
@@ -36,7 +44,6 @@ class Player
             this.playing = ! this.audio.paused;
         });
 
-        // fixme заменить все подобные конструкции на addEventListener как выше ok
         this.audio.addEventListener('pause', () =>
         {
             this.playing = ! this.audio.paused;
@@ -64,8 +71,6 @@ class Player
             console.log('ERROR')
             this.$context.trigger(Player.EVENT_ERROR)
         });
-
-
     }
 
     public get songId()
@@ -80,9 +85,16 @@ class Player
         return this.audio.src;
     }
 
+    // fixme сделай этот сетер приватным, а для загрузки песни в плеер используй метод loadSong который я создал ниже
     public set url(url)
     {
         this.audio.src = url;
+    }
+
+    public loadSong(song: SongPlayer)
+    {
+        this.url = song.url;
+
     }
 
     public play()

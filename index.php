@@ -45,7 +45,6 @@
     $file_name = '5УТРА - Ромашки.mp3';
     require __DIR__ . '/assets/btn_player.php';
 
-    // fixme в случае ошибки воспроизведения, кнопка play в player и все остальное должна быть заблокировано, как в audio ok
     $file_name = '5УТРА - Test.mp3';
     require __DIR__ . '/assets/btn_player.php';
     ?>
