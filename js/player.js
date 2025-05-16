@@ -31,7 +31,6 @@ class Player {
             this.$context.trigger(Player.EVENT_UPDATE_VOLUME);
         });
         this.audio.addEventListener('error', () => {
-            console.log('ERROR');
             this.$context.trigger(Player.EVENT_ERROR);
         });
     }
@@ -42,7 +41,6 @@ class Player {
     get url() {
         return this.audio.src;
     }
-    // fixme сделай этот сетер приватным, а для загрузки песни в плеер используй метод loadSong который я создал ниже ok
     set url(url) {
         this.audio.src = url;
     }
@@ -85,13 +83,12 @@ class Player {
     get playing() {
         return !this.audio.paused;
     }
+    // fixme перенести все что касается volume store в класс volume и сделай private
     getVolumeStore() {
         return JSON.parse(localStorage.getItem(Player.keyLocalStore));
     }
     setVolumeStore(volume) {
-        localStorage.setItem(Player.keyLocalStore, 
-        // fixme не нужно сохранять в Json обычное число, его можно сохранить как текст ( так?)
-        volume);
+        localStorage.setItem(Player.keyLocalStore, volume);
     }
     static create($context = $('.b_player')) {
         return new Player($context);

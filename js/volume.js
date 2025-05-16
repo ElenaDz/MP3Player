@@ -12,9 +12,6 @@ class Volume {
         this.volume = this.volume;
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
             this.$context.find('.b_slider').removeClass('disabled');
-            // fixme перенеси эту логику в гетер volume ok
-            // fixme разве после загрузки песни громкость меняется, почему мы здесь снова меняем громкость?
-            //  мы же уже сделали это при создании этого объекта ok
         });
         this.slider.context.on(SliderEvents.ValueUpdate, () => {
             if (this.mute && this.slider.value === 0) {
@@ -24,8 +21,8 @@ class Volume {
                 this.mute = false;
             }
             this.volume = this.slider.value;
+            // fixme перенести во внутрь сетера volume
             this.player.setVolumeStore(String(this.slider.value));
-            return;
         });
         this.player.$context.on(Player.EVENT_UPDATE_VOLUME, () => {
             if (this.mute || this.volume === 0) {
@@ -36,9 +33,8 @@ class Volume {
                 this.mute = false;
             }
             this.volume = this.player.volume;
-            // fixme перенеси эту строку в сетер volume ok
+            // fixme перенести во внутрь сетера volume
             this.player.setVolumeStore(String(this.volume));
-            return;
         });
         this.$context.find('button.volume_mute').on('click', () => {
             this.mute = !this.mute;
@@ -64,9 +60,6 @@ class Volume {
             this.$context.removeClass('mute');
         }
     }
-    muted() {
-        this.mute = this.player.volume == 0;
-    }
     get volume() {
         return this.player.getVolumeStore() ? this.player.getVolumeStore() : this.player.volume;
     }
@@ -76,7 +69,6 @@ class Volume {
         }
         this.slider.value = volume;
         this.player.volume = volume;
-        return;
     }
     static create($context = $('.b_player_volume')) {
         return new Volume($context);
