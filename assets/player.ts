@@ -14,6 +14,8 @@ class Player
     static readonly EVENT_LOADED_META_DATA = 'Player.EVENT_LOADED_META_DATA';
     static readonly EVENT_ERROR = 'Player.EVENT_ERROR';
 
+    static keyLocalStore = 'volume';
+
     public $context: JQuery;
     private audio: HTMLAudioElement;
 
@@ -85,8 +87,8 @@ class Player
         return this.audio.src;
     }
 
-    // fixme сделай этот сетер приватным, а для загрузки песни в плеер используй метод loadSong который я создал ниже
-    public set url(url)
+    // fixme сделай этот сетер приватным, а для загрузки песни в плеер используй метод loadSong который я создал ниже ok
+    private set url(url)
     {
         this.audio.src = url;
     }
@@ -154,6 +156,20 @@ class Player
     public get playing(): boolean
     {
         return ! this.audio.paused;
+    }
+
+    public getVolumeStore()
+    {
+        return JSON.parse(localStorage.getItem(Player.keyLocalStore));
+    }
+
+    public setVolumeStore(volume: string)
+    {
+        localStorage.setItem(
+            Player.keyLocalStore,
+            // fixme не нужно сохранять в Json обычное число, его можно сохранить как текст ( так?)
+            volume
+        );
     }
 
     public static create($context = $('.b_player')): Player

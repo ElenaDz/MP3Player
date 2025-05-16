@@ -11,10 +11,11 @@ class Info {
             // todo не нужно здесь получать каждое свойство по отдельности, получили из плеера объект SongPlayer и работай здесь с ним
         });
     }
-    // fixme используй здесь сетеры а не методы
-    setSong() {
+    set songName(song_name) {
     }
-    setArtists() {
+    set artistName(artist_name) {
+    }
+    set songUrl(song_url) {
     }
     static create($context = $('.b_player_info')) {
         return new Info($context);

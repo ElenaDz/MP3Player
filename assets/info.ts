@@ -21,13 +21,15 @@ class Info
         })
     }
 
-
-    // fixme используй здесь сетеры а не методы
-    private setSong() {
+    private set songName(song_name) {
 
     }
 
-    private  setArtists() {
+    private set artistName(artist_name) {
+
+    }
+
+    private set songUrl(song_url) {
 
     }
 

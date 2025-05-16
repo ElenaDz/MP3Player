@@ -27,6 +27,9 @@ class BtnPlayer {
     get url() {
         return this.$context.data('url');
     }
+    get songName() {
+        return;
+    }
     play() {
         if (this.player.songId !== this.songId) {
             if (this.url) {

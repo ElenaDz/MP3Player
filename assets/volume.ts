@@ -21,43 +21,47 @@ class Volume
 
         this.disabled();
 
-        this.volume = Player_store.getVolume();
+        this.volume =  this.volume;
 
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
             this.$context.find('.b_slider').removeClass('disabled');
 
-            // fixme перенеси эту логику в гетер volume
+            // fixme перенеси эту логику в гетер volume ok
             // fixme разве после загрузки песни громкость меняется, почему мы здесь снова меняем громкость?
-            //  мы же уже сделали это при создании этого объекта
-            this.volume = Player_store.getVolume() ? Player_store.getVolume() : this.player.volume;
+            //  мы же уже сделали это при создании этого объекта ok
+
         });
 
         this.slider.context.on(SliderEvents.ValueUpdate, () =>
         {
-            if (this.muted && this.volume === 0) {
-                this.mute = true;
+            if (this.mute && this.slider.value === 0) {
                 return;
             } else  {
                 this.mute = false;
             }
 
-            this.player.volume = this.volume;
+            this.volume = this.slider.value;
+
+            this.player.setVolumeStore(String(this.slider.value));
 
             return;
         })
 
         this.player.$context.on(Player.EVENT_UPDATE_VOLUME,() =>
         {
-            if (this.muted && this.volume === 0) {
+            if (this.mute || this.volume === 0) {
                 this.mute = true;
                 return;
+            } else  {
+                this.mute = false;
             }
 
             this.volume = this.player.volume;
 
-            // fixme перенеси эту строку в сетер volume
-            Player_store.setVolume(this.volume);
+            // fixme перенеси эту строку в сетер volume ok
+
+            this.player.setVolumeStore(String(this.volume));
 
             return;
         });
@@ -73,7 +77,6 @@ class Volume
         })
     }
 
-
     private disabled()
     {
         this.$context.find('.b_slider').addClass('disabled');
@@ -88,10 +91,11 @@ class Volume
         this.player.mute = mute;
 
         if (mute) {
-            this.volume = 0
+            this.slider.value = 0;
             this.$context.addClass('mute');
+
         } else {
-            this.volume = this.player.volume;
+            this.slider.value = this.player.volume;
             this.$context.removeClass('mute');
         }
     }
@@ -101,7 +105,7 @@ class Volume
     }
 
     private get volume() {
-        return this.slider.value;
+        return this.player.getVolumeStore() ?  this.player.getVolumeStore() : this.player.volume;
     }
 
     private set volume(volume)
@@ -111,6 +115,10 @@ class Volume
         }
 
         this.slider.value = volume;
+
+        this.player.volume = volume;
+
+        return;
     }
 
     public static create($context = $('.b_player_volume')): Volume

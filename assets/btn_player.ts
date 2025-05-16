@@ -46,6 +46,10 @@ class BtnPlayer
         return this.$context.data('url');
     }
 
+    private get songName()
+    {
+        return
+    }
     private play()
     {
 

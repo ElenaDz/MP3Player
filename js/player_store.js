@@ -5,8 +5,8 @@ class Player_store {
     }
     static setVolume(volume) {
         localStorage.setItem(Player_store.keyLocalStore, 
-        // fixme не нужно сохранять в Json обычное число, его можно сохранить как текст
-        JSON.stringify(volume));
+        // fixme не нужно сохранять в Json обычное число, его можно сохранить как текст ( так?)
+        volume);
     }
 }
 Player_store.keyLocalStore = 'volume';

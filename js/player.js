@@ -42,7 +42,7 @@ class Player {
     get url() {
         return this.audio.src;
     }
-    // fixme сделай этот сетер приватным, а для загрузки песни в плеер используй метод loadSong который я создал ниже
+    // fixme сделай этот сетер приватным, а для загрузки песни в плеер используй метод loadSong который я создал ниже ok
     set url(url) {
         this.audio.src = url;
     }
@@ -85,6 +85,14 @@ class Player {
     get playing() {
         return !this.audio.paused;
     }
+    getVolumeStore() {
+        return JSON.parse(localStorage.getItem(Player.keyLocalStore));
+    }
+    setVolumeStore(volume) {
+        localStorage.setItem(Player.keyLocalStore, 
+        // fixme не нужно сохранять в Json обычное число, его можно сохранить как текст ( так?)
+        volume);
+    }
     static create($context = $('.b_player')) {
         return new Player($context);
     }
@@ -94,3 +102,4 @@ Player.EVENT_UPDATE_TIME = 'Player.EVENT_UPDATE_TIME';
 Player.EVENT_UPDATE_VOLUME = 'Player.EVENT_UPDATE_VOLUME';
 Player.EVENT_LOADED_META_DATA = 'Player.EVENT_LOADED_META_DATA';
 Player.EVENT_ERROR = 'Player.EVENT_ERROR';
+Player.keyLocalStore = 'volume';
