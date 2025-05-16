@@ -21,17 +21,20 @@ class Info
         })
     }
 
-    private set songName(song_name) {
+    private setSongTitle(artist_name, song_name)
+    {
+        // todo set artist name
+        // todo set song name
 
+        if (navigator.mediaSession)
+        {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: song_name,
+                artist: artist_name,
+            });
+        }
     }
 
-    private set artistName(artist_name) {
-
-    }
-
-    private set songUrl(song_url) {
-
-    }
 
     public static create($context = $('.b_player_info'))
     {

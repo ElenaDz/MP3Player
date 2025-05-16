@@ -11,11 +11,15 @@ class Info {
             // todo не нужно здесь получать каждое свойство по отдельности, получили из плеера объект SongPlayer и работай здесь с ним
         });
     }
-    set songName(song_name) {
-    }
-    set artistName(artist_name) {
-    }
-    set songUrl(song_url) {
+    setSongTitle(artist_name, song_name) {
+        // todo set artist name
+        // todo set song name
+        if (navigator.mediaSession) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: song_name,
+                artist: artist_name,
+            });
+        }
     }
     static create($context = $('.b_player_info')) {
         return new Info($context);
