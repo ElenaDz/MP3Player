@@ -35,7 +35,7 @@ class BtnPlayer
 
     private get songId(): string
     {
-        let filename = this.url.split('/').reverse()[0];
+        let filename = this.url ? this.url.split('/').reverse()[0] : null;
 
         return filename;
     }
