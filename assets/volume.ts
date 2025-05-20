@@ -4,6 +4,8 @@ class Volume
     private player: Player;
     private slider: Slider;
 
+    // fixme это константа, для констант используется другая нотация
+    // @see https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Statements/const
     static keyLocalStore = 'volume';
 
     constructor($context: JQuery)
@@ -38,8 +40,6 @@ class Volume
             }
 
             this.volume = this.slider.value;
-
-            // fixme перенести во внутрь сетера volume ok
         });
 
         this.player.$context.on(Player.EVENT_UPDATE_VOLUME,() =>
@@ -52,8 +52,6 @@ class Volume
             }
 
             this.volume = this.player.volume;
-
-            // fixme перенести во внутрь сетера volume ok
         });
 
         this.$context.find('button.volume_mute').on('click', () =>
@@ -92,18 +90,17 @@ class Volume
 
 
     private get volume() {
-        return this.getVolumeStore() ?  this.getVolumeStore() : this.player.volume;
+        return this.volumeStore ?  this.volumeStore : this.player.volume;
     }
 
-    // fixme перенести все что касается volume store в класс volume и сделай private ok
-    private getVolumeStore()
+    private get volumeStore(): number
     {
-        return JSON.parse(localStorage.getItem(Volume.keyLocalStore));
+        return parseFloat(localStorage.getItem(Volume.keyLocalStore));
     }
 
-    public setVolumeStore(volume: string)
+    private set volumeStore(volume)
     {
-        localStorage.setItem(Volume.keyLocalStore, volume);
+        localStorage.setItem(Volume.keyLocalStore, String(volume));
     }
 
     private set volume(volume)
@@ -116,7 +113,7 @@ class Volume
 
         this.player.volume = volume;
 
-        this.setVolumeStore(String(volume));
+        this.volumeStore = volume;
     }
 
     public static create($context = $('.b_player_volume')): Volume

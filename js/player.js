@@ -39,7 +39,7 @@ class Player {
         });
     }
     getSongPlayer() {
-        return this.song;
+        return this.songPlayer;
     }
     get songId() {
         let filename = this.url.split('/').reverse()[0];
@@ -52,7 +52,7 @@ class Player {
         this.audio.src = url;
     }
     loadSong(song, playlist = []) {
-        this.song = song;
+        this.songPlayer = song;
         this.url = song.url;
     }
     play() {

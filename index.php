@@ -45,6 +45,7 @@
     $file_name = '5УТРА - Ромашки.mp3';
     require __DIR__ . '/assets/btn_player.php';
 
+    // fixme не появляется информация о песне с этой песней
     $file_name = '5УТРА - Test.mp3';
     require __DIR__ . '/assets/btn_player.php';
     ?>

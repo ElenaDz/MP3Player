@@ -63,7 +63,6 @@ class BtnPlayer
 
     private play()
     {
-
         if (this.player.songId !== this.songId) {
 
             if (this.url) {

@@ -15,7 +15,7 @@ class Player
     static readonly EVENT_ERROR = 'Player.EVENT_ERROR';
 
     public $context: JQuery;
-    public song: SongPlayer;
+    public songPlayer: SongPlayer;
     private audio: HTMLAudioElement;
 
     constructor($context: JQuery)
@@ -81,8 +81,9 @@ class Player
 
     public getSongPlayer(): SongPlayer
     {
-        return this.song;
+        return this.songPlayer;
     }
+
     public get songId()
     {
         let filename = this.url.split('/').reverse()[0];
@@ -102,7 +103,7 @@ class Player
 
     public loadSong(song: SongPlayer, playlist: SongPlayer[] = [])
     {
-        this.song = song;
+        this.songPlayer = song;
 
         this.url = song.url;
     }

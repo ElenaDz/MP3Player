@@ -8,14 +8,11 @@ class Info {
         this.$context[0].Info = this;
         this.player = Player.create();
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            // todo не нужно здесь получать каждое свойство по отдельности, получили из плеера объект SongPlayer и работай здесь с ним ok
-            this.setSongTitle(this.player.getSongPlayer());
+            this.setSongPlayer(this.player.getSongPlayer());
         });
     }
-    setSongTitle(song) {
-        // todo set artist name ok
+    setSongPlayer(song) {
         this.$context.find('.popular-play-composition').text(song.artist_html);
-        // todo set song name ok
         this.$context.find('.popular-play-author').text(song.song_name);
         this.$context.find('.popular-play-author').attr('href', song.url_song);
         if (navigator.mediaSession) {

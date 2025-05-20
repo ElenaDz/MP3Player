@@ -7,16 +7,18 @@ list($artist_name, $song_name) = explode(' - ', $song_title);
 ?>
 <div class="popular-play">
 
-	<div class="btn_player"
-         data-song_name="<?= htmlspecialchars($song_name); ?>"
-         data-url_song="#"
-         data-artist_html="<?= htmlspecialchars('Блок с артистами')?>"
-         data-url="/mp3s/<?= rawurlencode($file_name); ?>">
+	<div
+        class="btn_player"
+        data-song_name="<?= htmlspecialchars($song_name); ?>"
+        data-artist_html="<?= htmlspecialchars($artist_name)?>"
+        data-url_song="/mp3s/<?= rawurlencode($file_name); ?>"
+        data-url="/mp3s/<?= rawurlencode($file_name); ?>"
+    >
 		<button class="play"></button>
 	</div>
 
 	<div class="popular-play-name">
-		<a href="#" class="popular-play-author">
+		<a href="/mp3s/<?= rawurlencode($file_name); ?>" class="popular-play-author">
 			<?= htmlspecialchars($song_name); ?>
 		</a>
 		<div class="popular-play-composition">
