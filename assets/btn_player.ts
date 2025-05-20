@@ -48,8 +48,19 @@ class BtnPlayer
 
     private get songName()
     {
-        return
+        return this.$context.data('song_name')
     }
+
+    private get urlSong()
+    {
+        return this.$context.data('url_song')
+    }
+
+    private get artistHtml()
+    {
+        return this.$context.data('artist_html')
+    }
+
     private play()
     {
 
@@ -58,9 +69,9 @@ class BtnPlayer
             if (this.url) {
                 this.player.loadSong({
                     url: this.url,
-                    artist_name: '',
-                    song_name: '',
-                    url_song: ''
+                    artist_html: this.artistHtml,
+                    song_name: this.songName,
+                    url_song: this.urlSong
                 });
             }
         }

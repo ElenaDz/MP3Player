@@ -1,7 +1,7 @@
 
 interface SongPlayer {
     url: string;
-    artist_name: string;
+    artist_html: string;
     song_name: string;
     url_song: string;
 }
@@ -14,9 +14,8 @@ class Player
     static readonly EVENT_LOADED_META_DATA = 'Player.EVENT_LOADED_META_DATA';
     static readonly EVENT_ERROR = 'Player.EVENT_ERROR';
 
-    static keyLocalStore = 'volume';
-
     public $context: JQuery;
+    public song: SongPlayer;
     private audio: HTMLAudioElement;
 
     constructor($context: JQuery)
@@ -31,12 +30,18 @@ class Player
 
         this.audio = <HTMLAudioElement> this.$context.find('audio')[0];
 
+        this.initCreate();
+
+        this.initEventsAudio();
+    }
+
+    private initCreate()
+    {
         Controls.create();
         Progress.create();
         Volume.create();
         Info.create();
-
-        this.initEventsAudio();
+        Playlist.create();
     }
 
     private initEventsAudio()
@@ -74,6 +79,10 @@ class Player
         });
     }
 
+    public getSongPlayer(): SongPlayer
+    {
+        return this.song;
+    }
     public get songId()
     {
         let filename = this.url.split('/').reverse()[0];
@@ -91,8 +100,10 @@ class Player
         this.audio.src = url;
     }
 
-    public loadSong(song: SongPlayer)
+    public loadSong(song: SongPlayer, playlist: SongPlayer[] = [])
     {
+        this.song = song;
+
         this.url = song.url;
     }
 
@@ -153,17 +164,6 @@ class Player
     public get playing(): boolean
     {
         return ! this.audio.paused;
-    }
-
-    // fixme перенести все что касается volume store в класс volume и сделай private
-    public getVolumeStore()
-    {
-        return JSON.parse(localStorage.getItem(Player.keyLocalStore));
-    }
-
-    public setVolumeStore(volume: string)
-    {
-        localStorage.setItem(Player.keyLocalStore, volume);
     }
 
     public static create($context = $('.b_player')): Player

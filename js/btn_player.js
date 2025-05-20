@@ -28,16 +28,22 @@ class BtnPlayer {
         return this.$context.data('url');
     }
     get songName() {
-        return;
+        return this.$context.data('song_name');
+    }
+    get urlSong() {
+        return this.$context.data('url_song');
+    }
+    get artistHtml() {
+        return this.$context.data('artist_html');
     }
     play() {
         if (this.player.songId !== this.songId) {
             if (this.url) {
                 this.player.loadSong({
                     url: this.url,
-                    artist_name: '',
-                    song_name: '',
-                    url_song: ''
+                    artist_html: this.artistHtml,
+                    song_name: this.songName,
+                    url_song: this.urlSong
                 });
             }
         }

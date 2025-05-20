@@ -17,26 +17,32 @@ class Info
 
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
-            // todo не нужно здесь получать каждое свойство по отдельности, получили из плеера объект SongPlayer и работай здесь с ним
+            // todo не нужно здесь получать каждое свойство по отдельности, получили из плеера объект SongPlayer и работай здесь с ним ok
+
+            this.setSongTitle(this.player.getSongPlayer());
         })
     }
 
-    private setSongTitle(artist_name, song_name)
+    private setSongTitle(song: SongPlayer)
     {
-        // todo set artist name
-        // todo set song name
+        // todo set artist name ok
+        this.$context.find('.popular-play-composition').text(song.artist_html);
+
+        // todo set song name ok
+        this.$context.find('.popular-play-author').text(song.song_name);
+
+        this.$context.find('.popular-play-author').attr('href', song.url_song);
 
         if (navigator.mediaSession)
         {
             navigator.mediaSession.metadata = new MediaMetadata({
-                title: song_name,
-                artist: artist_name,
+                title: song.song_name,
+                artist: song.artist_html,
             });
         }
     }
 
-
-    public static create($context = $('.b_player_info'))
+    public static create($context = $('.b_player_info')): Info
     {
         return new Info($context);
     }

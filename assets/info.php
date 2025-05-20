@@ -3,12 +3,10 @@
 
     <div class="names">
         <div class="popular-play-name">
-            <a class="">Улетаю</a>
+            <a class="popular-play-author"></a>
         </div>
         <div class="popular-play-composition">
-            <a href="#">Маракеш</a>
-            feat. &nbsp
-            <a href="#">T1One</a>
+
         </div>
     </div>
 

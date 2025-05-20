@@ -4,6 +4,7 @@ class Volume
     private player: Player;
     private slider: Slider;
 
+    static keyLocalStore = 'volume';
 
     constructor($context: JQuery)
     {
@@ -38,8 +39,7 @@ class Volume
 
             this.volume = this.slider.value;
 
-            // fixme перенести во внутрь сетера volume
-            this.player.setVolumeStore(String(this.slider.value));
+            // fixme перенести во внутрь сетера volume ok
         });
 
         this.player.$context.on(Player.EVENT_UPDATE_VOLUME,() =>
@@ -53,8 +53,7 @@ class Volume
 
             this.volume = this.player.volume;
 
-            // fixme перенести во внутрь сетера volume
-            this.player.setVolumeStore(String(this.volume));
+            // fixme перенести во внутрь сетера volume ok
         });
 
         this.$context.find('button.volume_mute').on('click', () =>
@@ -93,7 +92,18 @@ class Volume
 
 
     private get volume() {
-        return this.player.getVolumeStore() ?  this.player.getVolumeStore() : this.player.volume;
+        return this.getVolumeStore() ?  this.getVolumeStore() : this.player.volume;
+    }
+
+    // fixme перенести все что касается volume store в класс volume и сделай private ok
+    private getVolumeStore()
+    {
+        return JSON.parse(localStorage.getItem(Volume.keyLocalStore));
+    }
+
+    public setVolumeStore(volume: string)
+    {
+        localStorage.setItem(Volume.keyLocalStore, volume);
     }
 
     private set volume(volume)
@@ -105,8 +115,9 @@ class Volume
         this.slider.value = volume;
 
         this.player.volume = volume;
-    }
 
+        this.setVolumeStore(String(volume));
+    }
 
     public static create($context = $('.b_player_volume')): Volume
     {

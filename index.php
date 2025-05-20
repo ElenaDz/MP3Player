@@ -59,13 +59,7 @@
 
 	        <?php require __DIR__.'/assets/controls.php'; ?>
 
-            <div class="b_player_playlist">
-                <div class="order">
-                    <button class="shuffle elem"></button>
-                    <button class="repeat_playlist elem"></button>
-                </div>
-                <button  class="playlist elem"></button>
-            </div>
+	        <?php require __DIR__.'/assets/playlist.php'; ?>
 
             <?php require __DIR__.'/assets/progress.php'; ?>
 
@@ -88,6 +82,7 @@
     <script src="<?= $getUrl(__DIR__ . '/js/volume.js') ?>"></script>
     <script src="<?= $getUrl(__DIR__ . '/js/player_store.js') ?>"></script>
     <script src="<?= $getUrl(__DIR__ . '/js/info.js') ?>"></script>
+    <script src="<?= $getUrl(__DIR__ . '/js/playlist.js') ?>"></script>
     <script>
         $(function() {
             let btns_player = BtnPlayer.create();

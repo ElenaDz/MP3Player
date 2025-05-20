@@ -7,11 +7,15 @@ class Player {
         // @ts-ignore
         this.$context[0].Player = this;
         this.audio = this.$context.find('audio')[0];
+        this.initCreate();
+        this.initEventsAudio();
+    }
+    initCreate() {
         Controls.create();
         Progress.create();
         Volume.create();
         Info.create();
-        this.initEventsAudio();
+        Playlist.create();
     }
     initEventsAudio() {
         this.audio.addEventListener('play', () => {
@@ -34,6 +38,9 @@ class Player {
             this.$context.trigger(Player.EVENT_ERROR);
         });
     }
+    getSongPlayer() {
+        return this.song;
+    }
     get songId() {
         let filename = this.url.split('/').reverse()[0];
         return filename;
@@ -44,7 +51,8 @@ class Player {
     set url(url) {
         this.audio.src = url;
     }
-    loadSong(song) {
+    loadSong(song, playlist = []) {
+        this.song = song;
         this.url = song.url;
     }
     play() {
@@ -83,13 +91,6 @@ class Player {
     get playing() {
         return !this.audio.paused;
     }
-    // fixme перенести все что касается volume store в класс volume и сделай private
-    getVolumeStore() {
-        return JSON.parse(localStorage.getItem(Player.keyLocalStore));
-    }
-    setVolumeStore(volume) {
-        localStorage.setItem(Player.keyLocalStore, volume);
-    }
     static create($context = $('.b_player')) {
         return new Player($context);
     }
@@ -99,4 +100,3 @@ Player.EVENT_UPDATE_TIME = 'Player.EVENT_UPDATE_TIME';
 Player.EVENT_UPDATE_VOLUME = 'Player.EVENT_UPDATE_VOLUME';
 Player.EVENT_LOADED_META_DATA = 'Player.EVENT_LOADED_META_DATA';
 Player.EVENT_ERROR = 'Player.EVENT_ERROR';
-Player.keyLocalStore = 'volume';

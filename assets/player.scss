@@ -8,6 +8,7 @@ $opacity-grey-max: 1;
 @import "progress";
 @import "controls";
 @import "volume";
+@import "playlist";
 
 
 
@@ -75,49 +76,6 @@ $opacity-grey-max: 1;
       width: 40px;
       height: 40px;
       min-width: 40px;
-    }
-
-    .b_player_playlist
-    {
-      @include for_phone {
-        order: 1;
-      };
-
-      .order
-      {
-        display: flex;
-
-        @include for_phone {
-          display: none;
-        }
-
-        .shuffle {
-          background-image: url("/assets/img/shuffle.svg");
-          opacity: $opacity-grey-min;
-
-          &:hover {
-            opacity: $opacity-grey-middle;
-          }
-        }
-
-        .repeat_playlist {
-          background-image: url("/assets/img/repeat.svg");
-          opacity: $opacity-grey-min;
-
-          &:hover {
-            opacity: $opacity-grey-middle;
-          }
-        }
-      }
-
-      .playlist {
-        background-image: url("/assets/img/playlist.svg");
-        opacity: $opacity-grey-min;
-
-        &:hover {
-          opacity: $opacity-grey-max;
-        }
-      }
     }
 
     .b_player_info {

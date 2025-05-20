@@ -21,8 +21,7 @@ class Volume {
                 this.mute = false;
             }
             this.volume = this.slider.value;
-            // fixme перенести во внутрь сетера volume
-            this.player.setVolumeStore(String(this.slider.value));
+            // fixme перенести во внутрь сетера volume ok
         });
         this.player.$context.on(Player.EVENT_UPDATE_VOLUME, () => {
             if (this.mute || this.volume === 0) {
@@ -33,8 +32,7 @@ class Volume {
                 this.mute = false;
             }
             this.volume = this.player.volume;
-            // fixme перенести во внутрь сетера volume
-            this.player.setVolumeStore(String(this.volume));
+            // fixme перенести во внутрь сетера volume ok
         });
         this.$context.find('button.volume_mute').on('click', () => {
             this.mute = !this.mute;
@@ -61,7 +59,14 @@ class Volume {
         }
     }
     get volume() {
-        return this.player.getVolumeStore() ? this.player.getVolumeStore() : this.player.volume;
+        return this.getVolumeStore() ? this.getVolumeStore() : this.player.volume;
+    }
+    // fixme перенести все что касается volume store в класс volume и сделай private ok
+    getVolumeStore() {
+        return JSON.parse(localStorage.getItem(Volume.keyLocalStore));
+    }
+    setVolumeStore(volume) {
+        localStorage.setItem(Volume.keyLocalStore, volume);
     }
     set volume(volume) {
         if (volume < 0 || volume > 1) {
@@ -69,8 +74,10 @@ class Volume {
         }
         this.slider.value = volume;
         this.player.volume = volume;
+        this.setVolumeStore(String(volume));
     }
     static create($context = $('.b_player_volume')) {
         return new Volume($context);
     }
 }
+Volume.keyLocalStore = 'volume';
