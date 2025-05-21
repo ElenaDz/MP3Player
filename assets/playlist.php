@@ -15,16 +15,14 @@
                 <div class="x"></div>
             </div>
 
-            <div class="playlist">
-
+            <ul class="playlist">
                 <template>
-                    <div class="playlist_item">
+                    <li>
 
-                    </div>
+                    </li>
                 </template>
 
-                <div class="playlist_item">
-
+                <li>
                     <div>
                         <button class="btn_player"></button>
                     </div>
@@ -40,10 +38,8 @@
                     </div>
 
                     <div class="download">download</div>
-
-                </div>
-
-            </div>
+                </li>
+            </ul>
 
         </div>
     </div>
