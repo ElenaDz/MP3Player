@@ -31,6 +31,6 @@
 .popular-play .btn_player.playing .play {
   background-image: url("/assets/img/btn_play/pause.svg");
 }
-.popular-play .popular-play-name .popular-play-composition {
+.popular-play .wrap_song .wrap_author {
   font-weight: bold;
 }

@@ -1,5 +1,8 @@
 class Volume {
     constructor($context) {
+        // fixme это константа, для констант используется другая нотация ok?
+        // @see https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Statements/const
+        this.KEY_LOCAL_STORE = 'volume';
         this.$context = $context;
         // @ts-ignore
         if (this.$context[0].Volume)
@@ -60,10 +63,10 @@ class Volume {
         return this.volumeStore ? this.volumeStore : this.player.volume;
     }
     get volumeStore() {
-        return parseFloat(localStorage.getItem(Volume.keyLocalStore));
+        return parseFloat(localStorage.getItem(this.KEY_LOCAL_STORE));
     }
     set volumeStore(volume) {
-        localStorage.setItem(Volume.keyLocalStore, String(volume));
+        localStorage.setItem(this.KEY_LOCAL_STORE, String(volume));
     }
     set volume(volume) {
         if (volume < 0 || volume > 1) {
@@ -77,6 +80,3 @@ class Volume {
         return new Volume($context);
     }
 }
-// fixme это константа, для констант используется другая нотация
-// @see https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Statements/const
-Volume.keyLocalStore = 'volume';

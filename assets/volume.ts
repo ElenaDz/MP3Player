@@ -4,9 +4,9 @@ class Volume
     private player: Player;
     private slider: Slider;
 
-    // fixme это константа, для констант используется другая нотация
+    // fixme это константа, для констант используется другая нотация ok?
     // @see https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Statements/const
-    static keyLocalStore = 'volume';
+    private KEY_LOCAL_STORE = 'volume';
 
     constructor($context: JQuery)
     {
@@ -95,12 +95,12 @@ class Volume
 
     private get volumeStore(): number
     {
-        return parseFloat(localStorage.getItem(Volume.keyLocalStore));
+        return parseFloat(localStorage.getItem(this.KEY_LOCAL_STORE));
     }
 
     private set volumeStore(volume)
     {
-        localStorage.setItem(Volume.keyLocalStore, String(volume));
+        localStorage.setItem(this.KEY_LOCAL_STORE, String(volume));
     }
 
     private set volume(volume)

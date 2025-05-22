@@ -17,11 +17,11 @@ list($artist_name, $song_name) = explode(' - ', $song_title);
 		<button class="play"></button>
 	</div>
 
-	<div class="popular-play-name">
+	<div class="wrap_song">
 		<a href="/mp3s/<?= rawurlencode($file_name); ?>" class="popular-play-author">
 			<?= htmlspecialchars($song_name); ?>
 		</a>
-		<div class="popular-play-composition">
+		<div class="wrap_author">
 			<a href="#">
 				<?= htmlspecialchars($artist_name); ?>
 			</a>
@@ -29,7 +29,5 @@ list($artist_name, $song_name) = explode(' - ', $song_title);
 	</div>
 
 </div>
-
-
 <?php
 unset($file_name);

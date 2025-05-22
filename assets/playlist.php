@@ -5,14 +5,14 @@
         <button class="repeat_playlist elem"></button>
     </div>
 
-    <button  class="playlist elem"></button>
+    <button  class="playlist_btn elem"></button>
 
     <div class="popup">
         <div class="inner_popup">
 
             <div class="header">
                 <div>Шапка</div>
-                <div class="x"></div>
+                <button class="close"></button>
             </div>
 
             <ul class="playlist">
@@ -28,8 +28,8 @@
                     </div>
 
                     <div class="song_title">
+                        <div class="song_name">song</div>
                         <div class="artist_name">artist</div>
-                        <div class="song_nam">song</div>
                     </div>
 
                     <div class="count_clicks">

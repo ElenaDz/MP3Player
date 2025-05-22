@@ -39,13 +39,13 @@
     $file_name = '5УТРА - Ромашки.mp3';
     require __DIR__ . '/assets/btn_player.php';
 
-    $file_name = 'Niletto - Счастливым.mp3';
+    $file_name = 'Niletto - Счастливым b ghjdthrf tf lkbye.mp3';
     require __DIR__ . '/assets/btn_player.php';
 
     $file_name = '5УТРА - Ромашки.mp3';
     require __DIR__ . '/assets/btn_player.php';
 
-    // fixme не появляется информация о песне с этой песней
+    // fixme не появляется информация о песне с этой песней ( этого трека же нет, зачем информация о нем?)
     $file_name = '5УТРА - Test.mp3';
     require __DIR__ . '/assets/btn_player.php';
     ?>

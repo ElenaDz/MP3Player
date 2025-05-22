@@ -12,9 +12,9 @@ class Info {
         });
     }
     setSongPlayer(song) {
-        this.$context.find('.popular-play-composition').text(song.artist_html);
-        this.$context.find('.popular-play-author').text(song.song_name);
-        this.$context.find('.popular-play-author').attr('href', song.url_song);
+        this.$context.find('.wrap_author').text(song.artist_html);
+        this.$context.find('.inner_song').text(song.song_name);
+        this.$context.find('.inner_song').attr('href', song.url_song);
         if (navigator.mediaSession) {
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: song.song_name,
