@@ -35,7 +35,7 @@ class Progress
             this.slider.value = this.player.currentTime;
         });
 
-        this.slider.context.on(SliderEvents.StopMove, () =>
+        this.slider.$context.on(SliderEvents.StopMove, () =>
         {
             this.player.currentTime = this.slider.value;
         });

@@ -164,7 +164,7 @@ $opacity-grey-max: 1;
     .inner_player {
       .b_player_controls {
         .play {
-          background-color: #d7eaff;
+          background-color: #d7eaff !important;
           background-image: url("/assets/img/btn_play/pause.svg") ;
         }
       }

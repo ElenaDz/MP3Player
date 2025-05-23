@@ -19,7 +19,7 @@ class Progress {
             this.currentTimeText = this.player.currentTime;
             this.slider.value = this.player.currentTime;
         });
-        this.slider.context.on(SliderEvents.StopMove, () => {
+        this.slider.$context.on(SliderEvents.StopMove, () => {
             this.player.currentTime = this.slider.value;
         });
         this.player.$context.on(Player.EVENT_ERROR, () => {

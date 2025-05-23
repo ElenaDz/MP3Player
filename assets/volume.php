@@ -2,8 +2,8 @@
     <button  class="volume_mute elem"></button>
     <?php
     $class = 'mini';
-    $min = 0;
-    $max = 1;
+    $value_min = 0;
+    $value_max = 1;
     require __DIR__.'/slider.php';
     ?>
 </div>

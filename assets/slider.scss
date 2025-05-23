@@ -1,78 +1,87 @@
-@import "mixin";
-
 .b_slider
 {
-  $height: 8px;
-  $size: 14px;
-  $border: 2px;
-  $border-radius: 3px;
-  $padding-gor: $size / 2 - 1;
-  $padding-ver: 5px;
+  // value
+  $background-color-value: #187FF8;
+  $background-color-slider-finish: #89BFFF;
+
+  // thumb
+  $background-color-thumb: $background-color-value;
+  $size-thumb: 16px;
+  $border-width-thumb: 0;
+  $border-color-thumb: #187FF8;
+
+  // slider
+  $background-color-slider: #EEEEEE;
+  $height-slider: $size-thumb / 2;
+
+  $padding-gor-slider: $size-thumb / 2 ;
+  $padding-ver-slider: ($size-thumb - $height-slider) / 2;
 
   display: inline-block;
   box-sizing: border-box;
-  width: 30vw;
-  height: $height + ($padding-ver * 2);
-  padding: $padding-ver $padding-gor;
+  width: 340px;
+  padding: $padding-ver-slider 0;
   cursor: pointer;
-  position: relative;
-  background-color: white;
+
+  &.ver {
+    width: auto;
+    min-width: auto;
+    min-height: 50px;
+    padding: 0 $padding-ver-slider;
+  }
+
+  &.disabled {
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.5;
+  }
 
   .slider {
-    $background-color: #f0f0f0;
-    position: absolute;
-    left: 0;
     width: 100%;
-    height: $height;
-    background-color: $background-color;
-    border-radius: $border-radius;
+    height: $height-slider;
+    background-color: $background-color-slider;
+    border-radius: $height-slider / 2;
+    border-left: $padding-gor-slider solid $background-color-slider-finish;
+    border-right: $padding-gor-slider solid $background-color-slider;
+    box-sizing: border-box;
+  }
+
+  &.ver .slider {
+    width: $height-slider;
+    height: 100%;
+    border-left: none;
+    border-right: none;
+    border-top: $padding-gor-slider solid $background-color-slider-finish;
+    border-bottom: $padding-gor-slider solid $background-color-slider;
   }
 
   .value {
-    $background-color: #93bfed;
-
     position: relative;
-    left: -1 * $padding-gor;
     width: 0;
-    height:  $height;
-    background-color: $background-color;
-    border-left: $padding-gor solid $background-color;
-    border-radius: $border-radius;
-
-    &:before {
-      content: '';
-      position: absolute;
-      right: -1 * $size / 2;
-      top: -1 * ($size / 2 - (2 * $border));
-      width: $size;
-      height: $size;
-      box-sizing: border-box;
-      background-color:#1a81f6;
-      border: $border solid #1a81f6;
-      border-radius: 50%;
-    }
+    height: 100%;
+    background-color: $background-color-slider-finish;
   }
 
-  &.mini {
-    $size: 13px;
-    $height: 4px;
+  &.ver .value {
+    width: 100%;
+    height: 0;
+  }
 
-    width: 90px;
-    height: $height;
+  .thumb {
+    position: absolute;
+    right: -1 * $size-thumb / 2;
+    top: -1 * ($size-thumb - $height-slider) / 2;
+    width: $size-thumb;
+    height: $size-thumb;
+    box-sizing: border-box;
+    background-color: $background-color-thumb;
+    border: $border-width-thumb solid $border-color-thumb;
+    border-radius: 50%;
+  }
 
-    .slider {
-      height: $height;
-    }
-
-    .value {
-      height:  $height;
-
-      &:before {
-        right: -1 * $size / 2;
-        top: -1 * (10px / 2 );
-        width: $size;
-        height: $size;
-      }
-    }
+  &.ver .thumb {
+    top: auto;
+    right: -1 * ($size-thumb - $height-slider) / 2;;
+    bottom: -1 * $size-thumb / 2;
   }
 }

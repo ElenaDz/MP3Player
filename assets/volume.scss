@@ -5,6 +5,26 @@
     display: none;
   }
 
+  .b_slider
+  {
+    $size-thumb: 12px;
+    $height-slider: $size-thumb / 3;
+    width: 94px;
+
+    .slider {
+      height: $height-slider;
+    }
+
+    .thumb {
+      position: absolute;
+      right: -1 * $size-thumb / 2;
+      top: -1 * ($size-thumb - $height-slider) / 2;
+      width: $size-thumb;
+      height: $size-thumb;
+    }
+
+  }
+
   .disabled {
     pointer-events: none;
     opacity: 0.5;

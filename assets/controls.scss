@@ -8,12 +8,12 @@
   }
 
   .play {
-    background-color: #f3f3f3;
+    background-color: #f3f3f3 !important;
     border-radius: 50%;
     background-image: url("/assets/img/btn_play/play.svg");
 
     &:hover {
-      background-color: #d7eaff;
+      background-color: #d7eaff !important;
     }
 
     &:disabled {

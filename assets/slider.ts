@@ -6,46 +6,23 @@ enum SliderEvents
 	StartMove   = 'SliderEventStartMove'
 }
 
-// Внимание! Не менять этот класс, если возникло желание изменить, сперва пиши мне
 class Slider
 {
 	private static SELECTOR = '.b_slider';
 
-	public context: JQuery;
+	public $context:JQuery;
 
 	private _start_move:boolean = false;
+	private _offset_left:number = null;
+	private _offset_top:number = null;
+	private _value:number;
 
-	private _value_min:number;
-	private _value_max:number;
 
-	constructor(context)
-	{
-		this.context = context;
-
-		this.context.data('Slider', this);
-
-		this.init();
-
-		this.context.on(
-			SliderEvents.StartMove,
-			() => {
-				$('body').css('user-select', 'none');
-			}
-		);
-
-		this.context.on(
-			SliderEvents.StopMove,
-			() => {
-				$('body').css('user-select', 'inherit');
-			}
-		);
-	}
-
-	public static create(context)
+	public static create($context:JQuery = $('body'))
 	{
 		let sliders = [];
 
-		$(this.SELECTOR, context).each((index, elem) =>
+		$(this.SELECTOR, $context).each((index, elem) =>
 		{
 			sliders.push(new this($(elem)));
 		});
@@ -53,72 +30,130 @@ class Slider
 		return sliders;
 	}
 
-
-	private init()
+	private constructor($context:JQuery)
 	{
-		this.context.mousedown((e:JQueryMouseEventObject) =>
+		this.$context = $context;
+
+		if (this.$context.data('Slider')) return this.$context.data('Slider');
+
+		this.$context.data('Slider', this);
+
+		this.value = this.$context.data('value');
+
+		this.$context.mousedown((e:JQueryMouseEventObject) =>
 		{
 			if (e.which !== 1) return;
 
 			this.start_move = true;
 
-			this.position = e.offsetX;
+			this.value_pct = this.getValuePctFromEvent(e);
+
+			$(window)
+				.on('mousemove.slider', (e:JQueryMouseEventObject) =>
+				{
+					if ( ! this.start_move) return;
+
+					this.value_pct = this.getValuePctFromEvent(e);
+				});
 
 			return this;
 		});
 
-		$('body')
-			.mouseup((e:JQueryMouseEventObject) =>
+		$(window)
+			.on('mouseup', (e:JQueryMouseEventObject) =>
 			{
 				if (e.which !== 1 || ! this.start_move) return;
 
 				this.start_move = false;
 
+				$(window).off('mousemove.slider')
+
 				return this;
-			})
-			.mousemove((e:JQueryMouseEventObject) =>
-			{
-				if ( ! this.start_move) return;
-
-				let position = e.pageX - this.context.offset().left ;
-
-				this.position = position;
 			});
+
+		this.$context.on(
+			SliderEvents.StartMove,
+			() => {
+				$('body').css('user-select', 'none');
+			}
+		);
+
+		this.$context.on(
+			SliderEvents.StopMove,
+			() => {
+				$('body').css('user-select', 'inherit');
+			}
+		);
 	}
 
-	get value_min()
+
+	public set vertical(vertical:boolean)
 	{
-		return this._value_min || this.context.data('value_min') || 0;
+		if (vertical) {
+			this.$context.addClass('ver');
+		} else {
+			this.$context.removeClass('ver');
+		}
 	}
 
-	set value_min(value)
+	public get vertical()
 	{
-		this._value_min = value;
+		return this.$context.hasClass('ver');
 	}
 
 
-	get value_max()
+	public set disabled(disabled:boolean)
 	{
-		return this._value_max || this.context.data('value_max') || this.position_max;
+		if (disabled) {
+			this.$context.addClass('disabled');
+
+		} else {
+			this.$context.removeClass('disabled');
+		}
 	}
 
-	set value_max(value)
+	public get disabled()
 	{
-		this._value_max = value;
+		return this.$context.hasClass('disabled');
 	}
 
 
-	get value()
+	public get value_min()
 	{
-		let position = this.position;
-		let position_rate = position / this.position_max;
-
-		let range = this.value_max - this.value_min;
-
-		return (range * position_rate) + this.value_min;
+		return parseFloat(this.$context.data('value_min')) || 0;
 	}
 
-	set value(value:number)
+	public set value_min(value_min:number)
+	{
+		if (this.value_min == value_min) return;
+
+		this.$context.data('value_min', value_min);
+
+		this.value = this._value;
+	}
+
+
+	public get value_max()
+	{
+		return parseFloat(this.$context.data('value_max')) || 1;
+	}
+
+	public set value_max(value_max:number)
+	{
+		if (this.value_max == value_max) return;
+
+		this.$context.data('value_max', value_max);
+
+		this.value = this._value;
+	}
+
+
+	public get value()
+	{
+		return (this.value_max - this.value_min) * (this.value_pct / 100) + this.value_min;
+	}
+
+	public set value(value:number)
 	{
 		if (this.start_move) return;
 
@@ -129,58 +164,93 @@ class Slider
 		let range = this.value_max - this.value_min;
 		let value_rate = ((value - this.value_min) / range);
 
-		let position = value_rate * this.position_max;
+		this.value_pct = value_rate * 100;
+	}
 
-		if (this.position === position) return;
-
-		this.position = position;
+	private get value_pct()
+	{
+		return (this.length_value / this.length_slider) * 100;
 	}
 
 
-	public get start_move()
+	private set value_pct(value_pct:number)
+	{
+		value_pct = value_pct < 0 ? 0 : value_pct;
+		value_pct = value_pct > 100 ? 100 : value_pct;
+
+		if (value_pct === this.value_pct && this._value === this.value) return;
+
+		let $value = this.$context.find('.value');
+		if (this.vertical) {
+			$value.height(value_pct+'%');
+		} else {
+			$value.width(value_pct+'%');
+		}
+
+		this._value = this.value;
+
+		this.$context.trigger(SliderEvents.ValueUpdate);
+	}
+
+
+	private get start_move()
 	{
 		return this._start_move;
 	}
 
-	public set start_move(value)
+	private set start_move(value)
 	{
 		if (this.start_move === true && value === false)
 		{
-			this.context.trigger(SliderEvents.StopMove);
+			this.$context.trigger(SliderEvents.StopMove);
 		}
 
 		if (this.start_move === false && value === true)
 		{
-			this.context.trigger(SliderEvents.StartMove);
+			this.$context.trigger(SliderEvents.StartMove);
 		}
 
 		this._start_move = value;
 	}
 
 
-	private get position()
+	private get length_value()
 	{
-		let position = this.context.find('.value').data('position');
+		let $value = this.$context.find('.value');
 
-		return position || this.context.find('.value').width();
+		return this.vertical ? $value.height() : $value.width();
 	}
 
-	private set position(position)
+	private get length_slider()
 	{
-		position = position < 0 ? 0 : position;
-		position = position > this.position_max ? this.position_max : position;
+		let $slider = this.$context.find('.slider');
 
-		if (position === this.position) return;
-
-		this.context.find('.value').width(position+'px');
-		this.context.find('.value').data('position', position);
-
-		this.context.trigger(SliderEvents.ValueUpdate);
+		return this.vertical ? $slider.height() : $slider.width();
 	}
 
 
-	private get position_max()
+	private getValuePctFromEvent(e:JQueryMouseEventObject)
 	{
-		return this.context.width();
+		let offset = this.vertical
+			? e.pageY - this.$context.offset().top - this.offset_top
+			: e.pageX - this.$context.offset().left - this.offset_left;
+
+		return (offset / this.length_slider) * 100;
+	}
+
+	private get offset_left()
+	{
+		if (this._offset_left === null) {
+			this._offset_left = parseInt(getComputedStyle(this.$context.find('.slider')[0]).borderLeft) || 0;
+		}
+		return this._offset_left;
+	}
+
+	private get offset_top()
+	{
+		if (this._offset_top === null) {
+			this._offset_top = parseInt(getComputedStyle(this.$context.find('.slider')[0]).borderTop) || 0;
+		}
+		return this._offset_top;
 	}
 }

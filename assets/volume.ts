@@ -31,7 +31,7 @@ class Volume
             this.$context.find('.b_slider').removeClass('disabled');
         });
 
-        this.slider.context.on(SliderEvents.ValueUpdate, () =>
+        this.slider.$context.on(SliderEvents.ValueUpdate, () =>
         {
             if (this.mute && this.slider.value === 0) {
                 return;
