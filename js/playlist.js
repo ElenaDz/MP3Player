@@ -14,7 +14,13 @@ class Playlist {
             this.is_active = !this.is_active;
         });
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+            this.getTemplate(this.player.songPlayer);
         });
+    }
+    getTemplate(song) {
+        let templ = this.$context.find('template').first();
+        templ.tmpl(song).appendTo('.playlist');
+        console.log(templ.tmpl(song));
     }
     set is_active(active) {
         active ? this.$context.addClass('active') : this.$context.removeClass('active');

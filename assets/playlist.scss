@@ -76,13 +76,22 @@
       width: 100%;
       height: 100%;
 
+      .playlist {
+        padding: 10px 30px;
+        margin: 0;
+      }
+
       .header {
-        height: 30px;
-        border-bottom: 1px solid #e3e3e3;
+        height: 50px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 2px 10px;
+        padding: 5px 30px 0 30px;
+
+        .name_chart {
+          font-weight: 700;
+          font-size: 20px;
+        }
 
         .close {
           display: flex;
@@ -100,10 +109,72 @@
         }
       }
 
+      .wrap_author {
+        font-weight: 700;
+      }
+
       .btns_player_list {
         padding: 10px;
 
       }
+    }
+  }
+
+  //TODO не работает
+  .item:first-child {
+    border-top: 1px solid #e3e3e3;
+  }
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e3e3e3;
+    padding: 10px 0;
+
+    .wrap_download {
+      display: flex;
+      width: 20%;
+      justify-content: end;
+
+      .download_song {
+        display: flex;
+        width: 26px;
+        height: 26px;
+        border-radius: 5px;
+        background-color: #f7f5ff;
+        align-items: center;
+
+        &:hover {
+          background-color: #d7eaff;
+        }
+
+        i {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          background-image: url("/assets/img/download.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      }
+    }
+  }
+
+  .count_clicks {
+    display: flex;
+    width: 80px;
+    align-items: center;
+    margin-right: 10px;
+    color: #746a74;
+
+    i {
+      display: flex;
+      margin-right: 5px;
+      width: 20px;
+      height: 20px;
+      background-repeat: no-repeat;
+      background-image: url("/assets/img/statistics.svg");
     }
   }
 }

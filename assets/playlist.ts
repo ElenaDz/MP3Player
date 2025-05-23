@@ -26,10 +26,19 @@ class Playlist
 
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
+           this.getTemplate(this.player.songPlayer)
 
         })
     }
 
+    private getTemplate(song: SongPlayer)
+    {
+        let templ = this.$context.find('template').first();
+
+        templ.tmpl(song).appendTo('.playlist')
+        console.log(templ.tmpl(song))
+
+    }
     private set is_active(active: boolean)
     {
         active ? this.$context.addClass('active') : this.$context.removeClass('active');

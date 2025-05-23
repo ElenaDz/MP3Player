@@ -29,6 +29,8 @@ class Info
 
         this.$context.find('.inner_song').attr('href', song.url_song);
 
+        this.$context.find('.download_song').attr('href', song.url_song);
+
         if (navigator.mediaSession)
         {
             navigator.mediaSession.metadata = new MediaMetadata({

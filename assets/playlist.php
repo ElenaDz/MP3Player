@@ -11,33 +11,79 @@
         <div class="inner_popup">
 
             <div class="header">
-                <div>Шапка</div>
+                <div class="name_chart">Сейчас играет: Чарт</div>
                 <button class="close"></button>
             </div>
 
             <ul class="playlist">
                 <template>
-                    <li>
+                    <li class="item">
+                        <div class="popular-play">
+                            <div class="btn_player">
+                                <button class="play"></button>
+                            </div>
 
+                            <div class="song_title">
+                                <div class="wrap_song">
+                                    <a href="#" class="inner_song">
+                                        ${song.song_name}
+                                    </a>
+                                </div>
+                                <div class="wrap_author">
+                                    <a href="#">
+                                        ${song.artist_html}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="wrap_download">
+                            <div class="count_clicks">
+                                <i></i>
+                                <span>12345</span>
+                            </div>
+
+                            <div class="download elem">
+                                <a class="download_song" href="{{song.song_name}}">
+                                    <i></i>
+                                </a>
+                            </div>
+                        </div>
                     </li>
                 </template>
 
-                <li>
-                    <div>
-                        <button class="btn_player"></button>
+                <li class="item">
+                    <div class="popular-play">
+                        <div class="btn_player">
+                            <button class="play"></button>
+                        </div>
+
+                        <div class="song_title">
+                            <div class="wrap_song">
+                                <a href="#" class="inner_song">
+                                    song
+                                </a>
+                            </div>
+                            <div class="wrap_author">
+                                <a href="#">
+                                    author
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="song_title">
-                        <div class="song_name">song</div>
-                        <div class="artist_name">artist</div>
-                    </div>
+                    <div class="wrap_download">
+                        <div class="count_clicks">
+                            <i></i>
+                            <span>12345</span>
+                        </div>
 
-                    <div class="count_clicks">
-                        <i></i>
-                        <span>XXXXX</span>
+                        <div class="download ">
+                            <a class="download_song">
+                                <i></i>
+                            </a>
+                        </div>
                     </div>
-
-                    <div class="download">download</div>
                 </li>
             </ul>
 

@@ -15,6 +15,7 @@ class Info {
         this.$context.find('.wrap_author').text(song.artist_html);
         this.$context.find('.inner_song').text(song.song_name);
         this.$context.find('.inner_song').attr('href', song.url_song);
+        this.$context.find('.download_song').attr('href', song.url_song);
         if (navigator.mediaSession) {
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: song.song_name,

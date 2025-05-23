@@ -16,7 +16,7 @@
 
     <!-- fixme ссылка на скачать не работает, а должна -->
     <div class="download elem">
-        <a class="download">
+        <a class="download_song">
             <i></i>
         </a>
     </div>
