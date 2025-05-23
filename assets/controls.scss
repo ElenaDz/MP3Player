@@ -12,6 +12,11 @@
     border-radius: 50%;
     background-image: url("/assets/img/btn_play/play.svg");
 
+    .b_player.playing & {
+      background-color: #d7eaff !important;
+      background-image: url("/assets/img/btn_play/pause.svg") ;
+    }
+
     &:hover {
       background-color: #d7eaff !important;
     }

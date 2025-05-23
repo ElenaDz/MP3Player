@@ -68,9 +68,9 @@ class BtnPlayer
             if (this.url) {
                 this.player.loadSong({
                     url: this.url,
-                    artist_html: this.artistHtml,
-                    song_name: this.songName,
-                    url_song: this.urlSong
+                    artistHtml: this.artistHtml,
+                    songName: this.songName,
+                    urlSong: this.urlSong
                 });
             }
         }

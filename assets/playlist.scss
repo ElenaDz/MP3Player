@@ -1,10 +1,10 @@
 @import "mixin";
 
-.b_player_playlist {
+.b_player_playlist
+{
   @include for_phone {
     order: 1;
   };
-
 
   &.active {
     .popup {
@@ -120,11 +120,6 @@
     }
   }
 
-  //TODO не работает
-  .item:first-child {
-    border-top: 1px solid #e3e3e3;
-  }
-
   .item {
     display: flex;
     justify-content: space-between;
@@ -132,7 +127,11 @@
     border-bottom: 1px solid #e3e3e3;
     padding: 10px 0;
 
-    .wrap_download {
+    &:first-of-type {
+      border-top: 1px solid #e3e3e3;
+    }
+
+    .wrap_right {
       display: flex;
       width: 20%;
       justify-content: end;

@@ -106,6 +106,10 @@
   border-radius: 50%;
   background-image: url("/assets/img/btn_play/play.svg");
 }
+.b_player.playing .b_player_controls .play {
+  background-color: #d7eaff !important;
+  background-image: url("/assets/img/btn_play/pause.svg");
+}
 .b_player_controls .play:hover {
   background-color: #d7eaff !important;
 }
@@ -258,9 +262,6 @@
 .b_player_playlist .popup .inner_popup .btns_player_list {
   padding: 10px;
 }
-.b_player_playlist .item:first-child {
-  border-top: 1px solid #e3e3e3;
-}
 .b_player_playlist .item {
   display: flex;
   justify-content: space-between;
@@ -268,12 +269,15 @@
   border-bottom: 1px solid #e3e3e3;
   padding: 10px 0;
 }
-.b_player_playlist .item .wrap_download {
+.b_player_playlist .item:first-of-type {
+  border-top: 1px solid #e3e3e3;
+}
+.b_player_playlist .item .wrap_right {
   display: flex;
   width: 20%;
   justify-content: end;
 }
-.b_player_playlist .item .wrap_download .download_song {
+.b_player_playlist .item .wrap_right .download_song {
   display: flex;
   width: 26px;
   height: 26px;
@@ -281,10 +285,10 @@
   background-color: #f7f5ff;
   align-items: center;
 }
-.b_player_playlist .item .wrap_download .download_song:hover {
+.b_player_playlist .item .wrap_right .download_song:hover {
   background-color: #d7eaff;
 }
-.b_player_playlist .item .wrap_download .download_song i {
+.b_player_playlist .item .wrap_right .download_song i {
   display: flex;
   width: 100%;
   height: 100%;
@@ -336,8 +340,8 @@
   padding: 0 2vw;
   height: 100%;
   background-color: #fff;
-  border-top: 1px solid rgb(237, 237, 237);
-  box-shadow: 0 0 7px rgb(195, 195, 195);
+  border-top: 1px solid #ededed;
+  box-shadow: 0 0 7px #c3c3c3;
 }
 @media (max-width: 767px) {
   .b_player .inner_player {
@@ -440,10 +444,6 @@
   background-image: url("/assets/img/download.svg");
   background-repeat: no-repeat;
   background-position: center;
-}
-.b_player.playing {
-  transition-duration: 2s;
-  transition-property: height;
 }
 .b_player.playing .inner_player .b_player_controls .play {
   background-color: #d7eaff !important;

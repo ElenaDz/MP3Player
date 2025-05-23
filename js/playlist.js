@@ -22,6 +22,7 @@ class Playlist {
         templ.tmpl(song).appendTo('.playlist');
         console.log(templ.tmpl(song));
     }
+    // fixme вместо этого свойства создай методы open close и свойство isOpen и имя класса переименуй в open
     set is_active(active) {
         active ? this.$context.addClass('active') : this.$context.removeClass('active');
     }

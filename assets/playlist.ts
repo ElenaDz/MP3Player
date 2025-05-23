@@ -21,14 +21,13 @@ class Playlist
 
         this.$context.find('button.playlist_btn').on('click',() =>
         {
-            this.is_active = !this.is_active;
+            this.is_active = ! this.is_active;
         });
 
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
-           this.getTemplate(this.player.songPlayer)
-
-        })
+           this.getTemplate(this.player.songPlayer);
+        });
     }
 
     private getTemplate(song: SongPlayer)
@@ -39,6 +38,8 @@ class Playlist
         console.log(templ.tmpl(song))
 
     }
+
+    // fixme вместо этого свойства создай методы open close и свойство isOpen и имя класса переименуй в open
     private set is_active(active: boolean)
     {
         active ? this.$context.addClass('active') : this.$context.removeClass('active');

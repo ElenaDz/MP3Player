@@ -1,9 +1,9 @@
 
 interface SongPlayer {
     url: string;
-    artist_html: string;
-    song_name: string;
-    url_song: string;
+    artistHtml: string;
+    songName: string;
+    urlSong: string;
 }
 
 class Player
@@ -79,10 +79,6 @@ class Player
         });
     }
 
-    public getSongPlayer(): SongPlayer
-    {
-        return this.songPlayer;
-    }
 
     public get songId()
     {
@@ -90,6 +86,7 @@ class Player
 
         return filename;
     }
+
 
     public get url()
     {
@@ -101,12 +98,19 @@ class Player
         this.audio.src = url;
     }
 
-    public loadSong(song: SongPlayer, playlist: SongPlayer[] = [])
-    {
-        this.songPlayer = song;
 
-        this.url = song.url;
+    public loadSong(songPlayer: SongPlayer, playlist: SongPlayer[] = [])
+    {
+        this.songPlayer = songPlayer;
+
+        this.url = songPlayer.url;
     }
+
+    public getSong(): SongPlayer
+    {
+        return this.songPlayer;
+    }
+
 
     public play()
     {
@@ -118,6 +122,7 @@ class Player
         this.audio.pause();
     }
 
+
     public set currentTime(current_time: number)
     {
         this.audio.currentTime = current_time;
@@ -128,10 +133,12 @@ class Player
         return this.audio.currentTime;
     }
 
+
     public get duration(): number
     {
         return this.audio.duration;
     }
+
 
     public get volume()
     {
@@ -143,6 +150,7 @@ class Player
         this.audio.volume = volume;
     }
 
+
     public set mute(mute: boolean)
     {
         this.audio.muted = mute;
@@ -152,6 +160,7 @@ class Player
     {
         return this.audio.muted;
     }
+
 
     public set playing(playing: boolean)
     {
@@ -166,6 +175,7 @@ class Player
     {
         return ! this.audio.paused;
     }
+
 
     public static create($context = $('.b_player')): Player
     {

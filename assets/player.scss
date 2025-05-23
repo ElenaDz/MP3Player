@@ -10,8 +10,6 @@ $opacity-grey-max: 1;
 @import "volume";
 @import "playlist";
 
-
-
 .b_player {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   position: fixed;
@@ -78,6 +76,7 @@ $opacity-grey-max: 1;
       min-width: 40px;
     }
 
+    // fixme вынести в отдельный файл
     .b_player_info {
       width: 230px;
       height: 100%;
@@ -157,10 +156,8 @@ $opacity-grey-max: 1;
     }
   }
 
+  // fixme удалить весь этот блок, он должен быть в controls.scss и я туда его перенес смотри 15 строку
   &.playing {
-    transition-duration: 2s;
-    transition-property: height;
-
     .inner_player {
       .b_player_controls {
         .play {
@@ -170,6 +167,5 @@ $opacity-grey-max: 1;
       }
     }
   }
-
 }
 

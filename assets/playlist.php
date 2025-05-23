@@ -37,7 +37,7 @@
                             </div>
                         </div>
 
-                        <div class="wrap_download">
+                        <div class="wrap_right">
                             <div class="count_clicks">
                                 <i></i>
                                 <span>12345</span>
@@ -72,7 +72,7 @@
                         </div>
                     </div>
 
-                    <div class="wrap_download">
+                    <div class="wrap_right">
                         <div class="count_clicks">
                             <i></i>
                             <span>12345</span>

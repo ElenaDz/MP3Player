@@ -38,9 +38,6 @@ class Player {
             this.$context.trigger(Player.EVENT_ERROR);
         });
     }
-    getSongPlayer() {
-        return this.songPlayer;
-    }
     get songId() {
         let filename = this.url ? this.url.split('/').reverse()[0] : null;
         return filename;
@@ -51,9 +48,12 @@ class Player {
     set url(url) {
         this.audio.src = url;
     }
-    loadSong(song, playlist = []) {
-        this.songPlayer = song;
-        this.url = song.url;
+    loadSong(songPlayer, playlist = []) {
+        this.songPlayer = songPlayer;
+        this.url = songPlayer.url;
+    }
+    getSong() {
+        return this.songPlayer;
     }
     play() {
         this.audio.play();
