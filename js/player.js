@@ -48,9 +48,16 @@ class Player {
     set url(url) {
         this.audio.src = url;
     }
-    loadSong(songPlayer, playlist = []) {
+    loadSong(songPlayer, playlist_id = '') {
         this.songPlayer = songPlayer;
         this.url = songPlayer.url;
+        this.playlist_id = playlist_id;
+    }
+    set playlist_id(playlist_id) {
+        this.$context.data('playlist_id', playlist_id);
+    }
+    get playlist_id() {
+        return this.$context.data('playlist_id');
     }
     getSong() {
         return this.songPlayer;

@@ -35,6 +35,7 @@
 
 <body>
 
+<div class="inline_player_playlist_main">
     <?php
     $file_name = '5УТРА - Ромашки.mp3';
     require __DIR__ . '/assets/btn_player.php';
@@ -49,6 +50,17 @@
     $file_name = '5УТРА - Test.mp3';
     require __DIR__ . '/assets/btn_player.php';
     ?>
+</div>
+<div style="border-top: 2px solid black"></div>
+<div class="inline_player_playlist_main">
+    <?php
+    $file_name = '5УТРА - Ромашки.mp3';
+    require __DIR__ . '/assets/btn_player.php';
+
+    $file_name = 'Niletto - Счастливым (длинное название).mp3';
+    require __DIR__ . '/assets/btn_player.php';
+    ?>
+</div>
 
     <div class="b_player">
 

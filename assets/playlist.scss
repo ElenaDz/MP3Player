@@ -6,7 +6,7 @@
     order: 1;
   };
 
-  &.active {
+  &.open {
     .popup {
       height: calc(-156px + 100vh);
     }
@@ -135,6 +135,12 @@
       display: flex;
       width: 20%;
       justify-content: end;
+
+      .download {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
       .download_song {
         display: flex;

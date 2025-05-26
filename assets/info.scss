@@ -1,0 +1,77 @@
+.b_player_info {
+  width: 230px;
+  height: 100%;
+  display: flex;
+
+  @include for_phone {
+    display: none;
+  }
+
+  .artist_img {
+    border-radius: 50%;
+    background-color: #f7f5ff;
+    margin-right: 10px;
+    opacity: $opacity-grey-min;
+    background-image: url("/assets/img/note.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .names {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .wrap_author, .wrap_song {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      width: 100%;
+      height: 100%;
+      max-height: 35px;
+      display: -webkit-box;
+      -webkit-line-clamp: 1; // количество строк
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .wrap_author {
+      font-weight: bold;
+
+      a {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .download {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include for_phone {
+      order: 5;
+    }
+
+    .download_song {
+      display: flex;
+      width: 26px;
+      height: 26px;
+      border-radius: 5px;
+      background-color: #f7f5ff;
+
+      &:hover {
+        background-color: #d7eaff;
+      }
+
+      i {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        background-image: url("/assets/img/download.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    }
+  }
+}

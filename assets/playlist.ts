@@ -16,38 +16,75 @@ class Playlist
 
         this.$context.find('button.close').on('click',() =>
         {
-            this.is_active = false;
+            this.close();
         });
 
         this.$context.find('button.playlist_btn').on('click',() =>
         {
-            this.is_active = ! this.is_active;
+            this.is_open ? this.close() : this.open();
         });
 
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
-           this.getTemplate(this.player.songPlayer);
+
+            this.$context.find('.playlist').prepend(this.getElement(this.player.songPlayer));
         });
     }
 
-    private getTemplate(song: SongPlayer)
+    private getElement(song: SongPlayer): string
     {
-        let templ = this.$context.find('template').first();
+        return `
+            <li class="item">
+                <div class="popular-play">
+                    <div class="btn_player">
+                        <button class="play"></button>
+                    </div>
 
-        templ.tmpl(song).appendTo('.playlist')
-        console.log(templ.tmpl(song))
+                    <div class="song_title">
+                        <div class="wrap_song">
+                            <a href="#" class="inner_song">
+                                ${song.songName}
+                            </a>
+                        </div>
+                        <div class="wrap_author">
+                            <a href="#">
+                                ${song.artistHtml}
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="wrap_right">
+                    <div class="count_clicks">
+                        <i></i>
+                        <span>12345</span>
+                    </div>
+
+                    <div class="download elem">
+                        <a class="download_song" href="${song.urlSong}">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        `;
     }
 
-    // fixme вместо этого свойства создай методы open close и свойство isOpen и имя класса переименуй в open
-    private set is_active(active: boolean)
+    private open()
     {
-        active ? this.$context.addClass('active') : this.$context.removeClass('active');
+        this.$context.addClass('open');
     }
 
-    private get is_active()
+    private close()
     {
-        return this.$context.hasClass('active');
+        this.$context.removeClass('open');
+    }
+
+    // fixme вместо этого свойства создай методы open close и свойство isOpen и имя класса переименуй в open ok
+
+    private get is_open()
+    {
+        return this.$context.hasClass('open');
     }
 
     public static create($context = $('.b_player_playlist')): Playlist

@@ -16,41 +16,6 @@
             </div>
 
             <ul class="playlist">
-                <template>
-                    <li class="item">
-                        <div class="popular-play">
-                            <div class="btn_player">
-                                <button class="play"></button>
-                            </div>
-
-                            <div class="song_title">
-                                <div class="wrap_song">
-                                    <a href="#" class="inner_song">
-                                        ${song.song_name}
-                                    </a>
-                                </div>
-                                <div class="wrap_author">
-                                    <a href="#">
-                                        ${song.artist_html}
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="wrap_right">
-                            <div class="count_clicks">
-                                <i></i>
-                                <span>12345</span>
-                            </div>
-
-                            <div class="download elem">
-                                <a class="download_song" href="{{song.song_name}}">
-                                    <i></i>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                </template>
 
                 <li class="item">
                     <div class="popular-play">
@@ -78,8 +43,8 @@
                             <span>12345</span>
                         </div>
 
-                        <div class="download ">
-                            <a class="download_song">
+                        <div class="download elem">
+                            <a class="download_song" href="#">
                                 <i></i>
                             </a>
                         </div>

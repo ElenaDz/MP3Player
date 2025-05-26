@@ -8,6 +8,15 @@ class BtnPlayer {
         this.$context[0].BtnPlayer = this;
         this.player = Player.create();
         this.$context.on('click', () => {
+            this.$playlist = this.$context.parents('.inline_player_playlist_main');
+            let playlist_id = '';
+            if (!this.$playlist.data('playlist_id')) {
+                this.$playlist.find('[data-song_name]').each((index, elem) => {
+                    let btn_player = $(elem);
+                    playlist_id = playlist_id + btn_player.data('song_name');
+                });
+                this.$playlist.data('playlist_id', playlist_id);
+            }
             this.playing ? this.pause() : this.play();
         });
         this.player.$context.on(Player.EVENT_UPDATE_PLAYING, () => {
@@ -44,7 +53,7 @@ class BtnPlayer {
                     artistHtml: this.artistHtml,
                     songName: this.songName,
                     urlSong: this.urlSong
-                });
+                }, this.$playlist.data('playlist_id'));
             }
         }
         this.player.play();
