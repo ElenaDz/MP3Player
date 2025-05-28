@@ -99,18 +99,21 @@ class Player
     }
 
 
-    public loadSong(songPlayer: SongPlayer, playlist_id: string = '')
+    public loadSong(songPlayer: SongPlayer)
     {
         this.songPlayer = songPlayer;
 
         this.url = songPlayer.url;
-
-        this.playlist_id = playlist_id;
     }
 
-    private set playlist_id(playlist_id)
+    public set playlist_id(playlist_id)
     {
-        this.$context.data('playlist_id', playlist_id)
+        if (this.playlist_id !== playlist_id) {
+
+            this.$context.data('playlist_id', playlist_id);
+        }
+
+        Playlist.create();
     }
 
     public get playlist_id()

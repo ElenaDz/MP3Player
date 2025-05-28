@@ -22,18 +22,18 @@ class BtnPlayer
         {
             this.$playlist = this.$context.parents('.inline_player_playlist_main');
 
-            let playlist_id = '';
+            if (!this.playlist_id) {
 
-            if (!this.$playlist.data('playlist_id')) {
+                let playlist_id = '';
 
-                this.$playlist.find('[data-song_name]').each((index, elem) =>
+                this.$playlist.find('[data-song_name]').each((index, player) =>
                 {
-                    let btn_player = $(elem);
+                    let btn_player = $(player);
 
                     playlist_id = playlist_id + btn_player.data('song_name');
                 })
 
-                this.$playlist.data('playlist_id', playlist_id);
+                this.playlist_id = playlist_id;
             }
 
             this.playing ? this.pause() : this.play();
@@ -51,7 +51,16 @@ class BtnPlayer
             }
         })
 
+    }
 
+    public set playlist_id(playlist_id)
+    {
+        this.$playlist.data('playlist_id', playlist_id)
+    }
+
+    public get playlist_id()
+    {
+        return this.$playlist.data('playlist_id');
     }
 
     private get songId(): string
@@ -84,6 +93,8 @@ class BtnPlayer
 
     private play()
     {
+        this.player.playlist_id = this.playlist_id;
+
         if (this.player.songId !== this.songId) {
 
             if (this.url) {
@@ -92,14 +103,13 @@ class BtnPlayer
                     artistHtml: this.artistHtml,
                     songName: this.songName,
                     urlSong: this.urlSong
-                },
-                    this.$playlist.data('playlist_id')
-                );
+                });
             }
         }
 
         this.player.play();
     }
+
 
     private pause()
     {
