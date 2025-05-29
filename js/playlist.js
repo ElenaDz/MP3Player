@@ -18,10 +18,16 @@ class Playlist {
                 let inline_playlist = $(playlist);
                 if (inline_playlist.data('playlist_id') == this.player.playlist_id) {
                     let btns_player = BtnPlayer.create(inline_playlist.find('.btn_player'));
-                    // btns_player.forEach()
+                    $(btns_player).each((i, btn_player) => {
+                        this.$context.find('.playlist').append(this.getElement({
+                            url: btn_player.url,
+                            artistHtml: btn_player.artistHtml,
+                            songName: btn_player.songName,
+                            urlSong: btn_player.urlSong
+                        }));
+                    });
                 }
             });
-            this.$context.find('.playlist').prepend(this.getElement(this.player.songPlayer));
         });
     }
     getElement(song) {

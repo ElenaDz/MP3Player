@@ -1,6 +1,6 @@
 class BtnPlayer
 {
-    private $context: JQuery;
+    public $context: JQuery;
     private $playlist: JQuery;
     private player: Player;
 
@@ -8,7 +8,6 @@ class BtnPlayer
     constructor($context: JQuery)
     {
         this.$context = $context;
-
 
         // @ts-ignore
         if (this.$context[0].BtnPlayer) return this.$context[0].BtnPlayer;
@@ -26,8 +25,7 @@ class BtnPlayer
 
                 let playlist_id = '';
 
-                this.$playlist.find('[data-song_name]').each((index, player) =>
-                {
+                this.$playlist.find('[data-song_name]').each((index, player) => {
                     let btn_player = $(player);
 
                     playlist_id = playlist_id + btn_player.data('song_name');
@@ -71,22 +69,22 @@ class BtnPlayer
     }
 
     // @ts-ignore
-    private get url(): string
+    public get url(): string
     {
         return this.$context.data('url');
     }
 
-    private get songName()
+    public get songName()
     {
         return this.$context.data('song_name')
     }
 
-    private get urlSong()
+    public get urlSong()
     {
         return this.$context.data('url_song')
     }
 
-    private get artistHtml()
+    public get artistHtml()
     {
         return this.$context.data('artist_html')
     }

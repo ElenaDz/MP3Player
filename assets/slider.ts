@@ -22,10 +22,9 @@ class Slider
 	{
 		let sliders = [];
 
-		$(this.SELECTOR, $context).each((index, elem) =>
-		{
-			sliders.push(new this($(elem)));
-		});
+		$(this.SELECTOR, $context).each((index, elem) => {
+            sliders.push(new this($(elem)));
+        });
 
 		return sliders;
 	}

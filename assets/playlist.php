@@ -17,39 +17,6 @@
 
             <ul class="playlist">
 
-                <li class="item">
-                    <div class="popular-play">
-                        <div class="btn_player">
-                            <button class="play"></button>
-                        </div>
-
-                        <div class="song_title">
-                            <div class="wrap_song">
-                                <a href="#" class="inner_song">
-                                    song
-                                </a>
-                            </div>
-                            <div class="wrap_author">
-                                <a href="#">
-                                    author
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="wrap_right">
-                        <div class="count_clicks">
-                            <i></i>
-                            <span>12345</span>
-                        </div>
-
-                        <div class="download elem">
-                            <a class="download_song" href="#">
-                                <i></i>
-                            </a>
-                        </div>
-                    </div>
-                </li>
             </ul>
 
         </div>

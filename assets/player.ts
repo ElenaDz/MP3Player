@@ -111,6 +111,8 @@ class Player
         if (this.playlist_id !== playlist_id) {
 
             this.$context.data('playlist_id', playlist_id);
+
+            this.$context.find('.playlist').empty();
         }
 
         Playlist.create();
