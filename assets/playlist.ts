@@ -31,7 +31,7 @@ class Playlist
                 let inline_playlist = $(playlist);
 
 
-                if (inline_playlist.data('playlist_id') == this.player.playlist_id) {
+                if (inline_playlist.data('playlist_id') == this.player.playlist_id && this.$context.find('.playlist').empty()) {
 
                     let btns_player = BtnPlayer.create(inline_playlist.find('.btn_player'))
 

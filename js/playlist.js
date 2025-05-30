@@ -16,7 +16,7 @@ class Playlist {
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
             $('.inline_player_playlist_main').each((i, playlist) => {
                 let inline_playlist = $(playlist);
-                if (inline_playlist.data('playlist_id') == this.player.playlist_id) {
+                if (inline_playlist.data('playlist_id') == this.player.playlist_id && this.$context.find('.playlist').empty()) {
                     let btns_player = BtnPlayer.create(inline_playlist.find('.btn_player'));
                     $(btns_player).each((i, btn_player) => {
                         this.$context.find('.playlist').append(this.getElement({
