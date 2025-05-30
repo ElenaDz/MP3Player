@@ -51,7 +51,10 @@
     require __DIR__ . '/assets/btn_player.php';
     ?>
 </div>
+
+<!-- fixme есть походящий тег hr для этого-->
 <div style="border-top: 2px solid black"></div>
+
 <div class="inline_player_playlist_main">
     <?php
     $file_name = '5УТРА - Ромашки.mp3';
@@ -86,6 +89,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
             integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- fixme удалить так как не используется -->
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
 
     <script src="<?= $getUrl(__DIR__ . '/js/slider.js'); ?>"></script>

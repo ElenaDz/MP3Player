@@ -26,6 +26,7 @@ $opacity-grey-max: 1;
   }
 
   .audio {
+    display: none;
     position: fixed;
     bottom: 75px;
     left: 10px;
@@ -76,10 +77,6 @@ $opacity-grey-max: 1;
       height: 40px;
       min-width: 40px;
     }
-
-    // fixme вынести в отдельный файл ok
   }
-
-  // fixme удалить весь этот блок, он должен быть в controls.scss и я туда его перенес смотри 15 строку ок
 }
 

@@ -1,4 +1,5 @@
 <div class="b_player_volume" >
+    <!-- fixme заблокировать пока песня не загружена -->
     <button  class="volume_mute elem"></button>
     <?php
     $class = 'mini';

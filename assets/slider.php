@@ -3,10 +3,10 @@
 /** @var integer $value_min */
 /** @var integer $value_max */
 /** @var boolean $vertical */
-/** @var string $class */
+/** @var string  $class */
 
 if (
-    ! is_null($value)
+        ! is_null($value)
     &&  ! is_null($value_min)
     &&  ! is_null($value_max)
 ) {
@@ -18,7 +18,7 @@ if (
 ?>
 
 <div
-        class="b_slider <?= $vertical ? 'ver' : null; ?> <?= $class; ?>"
+    class="b_slider <?= $vertical ? 'ver' : null; ?> <?= $class; ?>"
 
     <?php if (is_null($value_pct)): ?>
 
@@ -40,12 +40,12 @@ if (
 >
     <div class="slider">
         <div
-                class="value"
-                style="<?=
-                ( $value_pct )
-                    ? $vertical ? "height: {$value_pct}%" : "width: {$value_pct}%"
-                    : null;
-                ?>"
+            class="value"
+            style="<?=
+            ( $value_pct )
+                ? $vertical ? "height: {$value_pct}%" : "width: {$value_pct}%"
+                : null;
+            ?>"
         >
             <div class="thumb"></div>
         </div>

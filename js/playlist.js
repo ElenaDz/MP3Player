@@ -11,15 +11,19 @@ class Playlist {
             this.close();
         });
         this.$context.find('button.playlist_btn').on('click', () => {
-            this.is_open ? this.close() : this.open();
+            this.isOpen ? this.close() : this.open();
         });
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+            // fixme загрузка плейлиста должна быть вынесена в отдельную функцию load
             $('.inline_player_playlist_main').each((i, playlist) => {
                 let inline_playlist = $(playlist);
+                // fixme мы не работаем с dom мы работаем с объектами, здесь как то полный треш обращение к какому то inline_player_playlist_main
+                //  для которого у нас даже нету объекта
                 if (inline_playlist.data('playlist_id') == this.player.playlist_id && this.$context.find('.playlist').empty()) {
                     let btns_player = BtnPlayer.create(inline_playlist.find('.btn_player'));
                     $(btns_player).each((i, btn_player) => {
-                        this.$context.find('.playlist').append(this.getElement({
+                        // fixme использовать метод getSongPlayer
+                        this.$context.find('.playlist').append(this.getHtml({
                             url: btn_player.url,
                             artistHtml: btn_player.artistHtml,
                             songName: btn_player.songName,
@@ -30,7 +34,11 @@ class Playlist {
             });
         });
     }
-    getElement(song) {
+    // todo
+    load() {
+        // данные какие именно песни загружать должно быть взяты из плеера, а туда они попадут из Btn Player
+    }
+    getHtml(song) {
         return `
             <li class="item">
                 <div class="popular-play">
@@ -73,8 +81,7 @@ class Playlist {
     close() {
         this.$context.removeClass('open');
     }
-    // fixme вместо этого свойства создай методы open close и свойство isOpen и имя класса переименуй в open ok
-    get is_open() {
+    get isOpen() {
         return this.$context.hasClass('open');
     }
     static create($context = $('.b_player_playlist')) {

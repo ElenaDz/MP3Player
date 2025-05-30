@@ -99,7 +99,8 @@ class Player
     }
 
 
-    public loadSong(songPlayer: SongPlayer)
+    // todo передавать плейлист вместе с песней
+    public loadSong(songPlayer: SongPlayer, playlist: BtnPlayer[])
     {
         this.songPlayer = songPlayer;
 
@@ -193,6 +194,11 @@ class Player
         return ! this.audio.paused;
     }
 
+    // todo реализовать метод, использовать только его для получения плейлист айди
+    public static getPlaylistId(btn_player:BtnPlayer[])
+    {
+
+    }
 
     public static create($context = $('.b_player')): Player
     {

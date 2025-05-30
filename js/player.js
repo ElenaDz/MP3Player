@@ -48,7 +48,8 @@ class Player {
     set url(url) {
         this.audio.src = url;
     }
-    loadSong(songPlayer) {
+    // todo передавать плейлист вместе с песней
+    loadSong(songPlayer, playlist) {
         this.songPlayer = songPlayer;
         this.url = songPlayer.url;
     }
@@ -100,6 +101,9 @@ class Player {
     }
     get playing() {
         return !this.audio.paused;
+    }
+    // todo реализовать метод, использовать только его для получения плейлист айди
+    static getPlaylistId(btn_player) {
     }
     static create($context = $('.b_player')) {
         return new Player($context);
