@@ -17,7 +17,7 @@ class Info
 
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
-            this.setSongPlayer(this.player.getSong());
+            this.setSongPlayer(this.player.getSongPlayer());
         })
     }
 

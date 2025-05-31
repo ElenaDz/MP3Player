@@ -94,12 +94,12 @@ class BtnPlayer
 
     private play()
     {
-        this.player.playlist_id = this.playlist_id;
+        this.player.playlistId = this.playlist_id;
 
         if (this.player.songId !== this.songId) {
 
             if (this.url) {
-                this.player.loadSong(this.songPlayer);
+                this.player.loadSongPlayer(this.songPlayer, []);
             }
         }
 

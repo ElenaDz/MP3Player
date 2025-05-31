@@ -15,8 +15,11 @@ class Player
     static readonly EVENT_ERROR = 'Player.EVENT_ERROR';
 
     public $context: JQuery;
-    public songPlayer: SongPlayer;
+
+    private songPlayer: SongPlayer;
     private audio: HTMLAudioElement;
+    private _playlist: SongPlayer[] = [];
+
 
     constructor($context: JQuery)
     {
@@ -100,16 +103,36 @@ class Player
 
 
     // todo передавать плейлист вместе с песней
-    public loadSong(songPlayer: SongPlayer, playlist: BtnPlayer[])
+    public loadSongPlayer(songPlayer: SongPlayer, playlist: SongPlayer[])
     {
         this.songPlayer = songPlayer;
+        this.playlist = playlist;
 
         this.url = songPlayer.url;
     }
 
-    public set playlist_id(playlist_id)
+    public getSongPlayer(): SongPlayer
     {
-        if (this.playlist_id !== playlist_id) {
+        return this.songPlayer;
+    }
+
+
+    private get playlist(): SongPlayer[]
+    {
+        return this._playlist;
+    }
+
+
+    private set playlist(playlist:SongPlayer[])
+    {
+        this._playlist = playlist;
+    }
+
+
+    // fixme удалить
+    public set playlistId(playlist_id)
+    {
+        if (this.playlistId !== playlist_id) {
 
             this.$context.data('playlist_id', playlist_id);
 
@@ -119,14 +142,9 @@ class Player
         Playlist.create();
     }
 
-    public get playlist_id()
+    public get playlistId(): string
     {
-        return this.$context.data('playlist_id');
-    }
-
-    public getSong(): SongPlayer
-    {
-        return this.songPlayer;
+        return Player.getPlaylistId(this.playlist);
     }
 
 
@@ -194,11 +212,17 @@ class Player
         return ! this.audio.paused;
     }
 
-    // todo реализовать метод, использовать только его для получения плейлист айди
-    public static getPlaylistId(btn_player:BtnPlayer[])
-    {
 
+    // todo использовать только его для получения плейлист айди
+    public static getPlaylistId(playlist:SongPlayer[]): string
+    {
+        return playlist.map((songPlayer:SongPlayer) =>
+            {
+                songPlayer.songName
+            })
+            .join(' ');
     }
+
 
     public static create($context = $('.b_player')): Player
     {

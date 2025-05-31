@@ -8,7 +8,7 @@ class Info {
         this.$context[0].Info = this;
         this.player = Player.create();
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            this.setSongPlayer(this.player.getSong());
+            this.setSongPlayer(this.player.getSongPlayer());
         });
     }
     setSongPlayer(song) {

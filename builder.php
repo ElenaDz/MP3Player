@@ -22,7 +22,7 @@ function builder_assets(array $file_paths_input, string $file_path_output)
 			$content."\r\n\r\n".
 			file_get_contents($file_path);
 	}
-	
+
 	if ($mtime_input > $mtime_output) {
 		file_put_contents($file_path_output, $content);
 	}

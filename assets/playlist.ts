@@ -33,7 +33,7 @@ class Playlist
 
                 // fixme мы не работаем с dom мы работаем с объектами, здесь как то полный треш обращение к какому то inline_player_playlist_main
                 //  для которого у нас даже нету объекта
-                if (inline_playlist.data('playlist_id') == this.player.playlist_id && this.$context.find('.playlist').empty()) {
+                if (inline_playlist.data('playlist_id') == this.player.playlistId && this.$context.find('.playlist').empty()) {
 
                     let btns_player = BtnPlayer.create(inline_playlist.find('.btn_player'))
 
