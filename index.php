@@ -86,24 +86,32 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- fixme удалить так как не используется -->
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
 
-    <script src="<?= $getUrl(__DIR__ . '/js/slider.js'); ?>"></script>
-    <script src="<?= $getUrl(__DIR__ . '/js/player.js'); ?>"></script>
-    <script src="<?= $getUrl(__DIR__ . '/js/btn_player.js') ?>"></script>
-    <script src="<?= $getUrl(__DIR__ . '/js/controls.js') ?>"></script>
-    <script src="<?= $getUrl(__DIR__ . '/js/progress.js') ?>"></script>
-    <script src="<?= $getUrl(__DIR__ . '/js/volume.js') ?>"></script>
-    <script src="<?= $getUrl(__DIR__ . '/js/player_store.js') ?>"></script>
-    <script src="<?= $getUrl(__DIR__ . '/js/info.js') ?>"></script>
-    <script src="<?= $getUrl(__DIR__ . '/js/playlist.js') ?>"></script>
+<?php
+    require 'builder.php';
+
+    builder_assets(
+        [
+	        __DIR__ . '/js/slider.js',
+	        __DIR__ . '/js/player.js',
+	        __DIR__ . '/js/btn_player.js',
+	        __DIR__ . '/js/controls.js',
+	        __DIR__ . '/js/progress.js',
+	        __DIR__ . '/js/volume.js',
+	        __DIR__ . '/js/info.js',
+	        __DIR__ . '/js/playlist.js'
+        ],
+	    __DIR__ . '/js/player.one_file.js'
+    );
+?>
+
+    <script src="<?= $getUrl(__DIR__ . '/js/player.one_file.js'); ?>"></script>
     <script>
         $(function() {
-            let btns_player = BtnPlayer.create();
+            BtnPlayer.create();
         });
     </script>
 </body>
