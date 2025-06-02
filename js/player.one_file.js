@@ -166,6 +166,7 @@ Slider.SELECTOR = '.b_slider';
 
 class Player {
     constructor($context) {
+        this._playlist = [];
         this.$context = $context;
         // @ts-ignore
         if (this.$context[0].Player)
@@ -215,22 +216,30 @@ class Player {
         this.audio.src = url;
     }
     // todo передавать плейлист вместе с песней
-    loadSong(songPlayer, playlist) {
+    loadSongPlayer(songPlayer, playlist) {
         this.songPlayer = songPlayer;
+        this.playlist = playlist;
         this.url = songPlayer.url;
     }
-    set playlist_id(playlist_id) {
-        if (this.playlist_id !== playlist_id) {
+    getSongPlayer() {
+        return this.songPlayer;
+    }
+    get playlist() {
+        return this._playlist;
+    }
+    set playlist(playlist) {
+        this._playlist = playlist;
+    }
+    // fixme удалить
+    set playlistId(playlist_id) {
+        if (this.playlistId !== playlist_id) {
             this.$context.data('playlist_id', playlist_id);
             this.$context.find('.playlist').empty();
         }
         Playlist.create();
     }
-    get playlist_id() {
-        return this.$context.data('playlist_id');
-    }
-    getSong() {
-        return this.songPlayer;
+    get playlistId() {
+        return Player.getPlaylistId(this.playlist);
     }
     play() {
         this.audio.play();
@@ -268,8 +277,12 @@ class Player {
     get playing() {
         return !this.audio.paused;
     }
-    // todo реализовать метод, использовать только его для получения плейлист айди
-    static getPlaylistId(btn_player) {
+    // todo использовать только его для получения плейлист айди
+    static getPlaylistId(playlist) {
+        return playlist.map((songPlayer) => {
+            songPlayer.songName;
+        })
+            .join(' ');
     }
     static create($context = $('.b_player')) {
         return new Player($context);
@@ -340,10 +353,10 @@ class BtnPlayer {
         return this.$context.data('artist_html');
     }
     play() {
-        this.player.playlist_id = this.playlist_id;
+        this.player.playlistId = this.playlist_id;
         if (this.player.songId !== this.songId) {
             if (this.url) {
-                this.player.loadSong(this.songPlayer);
+                this.player.loadSongPlayer(this.songPlayer, []);
             }
         }
         this.player.play();
@@ -559,7 +572,7 @@ class Info {
         this.$context[0].Info = this;
         this.player = Player.create();
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            this.setSongPlayer(this.player.getSong());
+            this.setSongPlayer(this.player.getSongPlayer());
         });
     }
     setSongPlayer(song) {
@@ -601,7 +614,7 @@ class Playlist {
                 let inline_playlist = $(playlist);
                 // fixme мы не работаем с dom мы работаем с объектами, здесь как то полный треш обращение к какому то inline_player_playlist_main
                 //  для которого у нас даже нету объекта
-                if (inline_playlist.data('playlist_id') == this.player.playlist_id && this.$context.find('.playlist').empty()) {
+                if (inline_playlist.data('playlist_id') == this.player.playlistId && this.$context.find('.playlist').empty()) {
                     let btns_player = BtnPlayer.create(inline_playlist.find('.btn_player'));
                     $(btns_player).each((i, btn_player) => {
                         // fixme использовать метод getSongPlayer
