@@ -1,5 +1,5 @@
-<div class="b_player_volume" >
-    <!-- fixme заблокировать пока песня не загружена -->
+<div class="b_player_volume disabled" >
+    <!-- fixme заблокировать пока песня не загружена ok -->
     <button  class="volume_mute elem"></button>
     <?php
     $class = 'mini';

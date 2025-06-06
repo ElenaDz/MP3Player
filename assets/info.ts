@@ -15,10 +15,26 @@ class Info
 
         this.player = Player.create();
 
+        this.disabled();
+
+        this.player.$context.on(Player.EVENT_ERROR,() =>
+        {
+            this.disabled();
+
+            this.setSongPlayer(this.player.getSongPlayer());
+        })
+
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
             this.setSongPlayer(this.player.getSongPlayer());
+
+            this.$context.removeClass('disabled');
         })
+    }
+
+    private disabled()
+    {
+        this.$context.addClass('disabled');
     }
 
     private setSongPlayer(song: SongPlayer)

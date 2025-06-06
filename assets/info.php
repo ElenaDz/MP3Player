@@ -1,4 +1,4 @@
-<div class="b_player_info">
+<div class="b_player_info" >
     <div class="artist_img elem"></div>
 
     <div class="names">
@@ -11,7 +11,7 @@
     </div>
 
     <div class="download elem">
-        <!-- fixme должна быть заблокирована когда песня не загружена -->
+        <!-- fixme должна быть заблокирована когда песня не загружена ok-->
         <a class="download_song">
             <i></i>
         </a>

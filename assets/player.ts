@@ -82,14 +82,12 @@ class Player
         });
     }
 
-
     public get songId()
     {
         let filename = this.url ? this.url.split('/').reverse()[0] : null;
 
         return filename;
     }
-
 
     public get url()
     {
@@ -101,11 +99,11 @@ class Player
         this.audio.src = url;
     }
 
-
-    // todo передавать плейлист вместе с песней
+    // todo передавать плейлист вместе с песней ok
     public loadSongPlayer(songPlayer: SongPlayer, playlist: SongPlayer[])
     {
         this.songPlayer = songPlayer;
+
         this.playlist = playlist;
 
         this.url = songPlayer.url;
@@ -116,37 +114,15 @@ class Player
         return this.songPlayer;
     }
 
-
-    private get playlist(): SongPlayer[]
+    public get playlist(): SongPlayer[]
     {
         return this._playlist;
     }
 
-
-    private set playlist(playlist:SongPlayer[])
+    public set playlist(playlist:SongPlayer[])
     {
         this._playlist = playlist;
     }
-
-
-    // fixme удалить
-    public set playlistId(playlist_id)
-    {
-        if (this.playlistId !== playlist_id) {
-
-            this.$context.data('playlist_id', playlist_id);
-
-            this.$context.find('.playlist').empty();
-        }
-
-        Playlist.create();
-    }
-
-    public get playlistId(): string
-    {
-        return Player.getPlaylistId(this.playlist);
-    }
-
 
     public play()
     {
@@ -158,7 +134,6 @@ class Player
         this.audio.pause();
     }
 
-
     public set currentTime(current_time: number)
     {
         this.audio.currentTime = current_time;
@@ -169,12 +144,10 @@ class Player
         return this.audio.currentTime;
     }
 
-
     public get duration(): number
     {
         return this.audio.duration;
     }
-
 
     public get volume()
     {
@@ -186,7 +159,6 @@ class Player
         this.audio.volume = volume;
     }
 
-
     public set mute(mute: boolean)
     {
         this.audio.muted = mute;
@@ -196,7 +168,6 @@ class Player
     {
         return this.audio.muted;
     }
-
 
     public set playing(playing: boolean)
     {
@@ -212,8 +183,7 @@ class Player
         return ! this.audio.paused;
     }
 
-
-    // todo использовать только его для получения плейлист айди
+    // todo использовать только его для получения плейлист айди ok
     public static getPlaylistId(playlist:SongPlayer[]): string
     {
         return playlist.map((songPlayer:SongPlayer) =>
@@ -222,7 +192,6 @@ class Player
             })
             .join(' ');
     }
-
 
     public static create($context = $('.b_player')): Player
     {

@@ -5,6 +5,24 @@
     display: none;
   }
 
+  &.disabled {
+    .b_slider {
+      pointer-events: none;
+      opacity: $opacity-grey-min;
+    }
+
+    .volume_mute {
+      pointer-events: none;
+      opacity: $opacity-grey-min;
+    }
+
+    &.mute {
+      .volume_mute {
+        background-image: url("/assets/img/volume.svg");
+      }
+    }
+  }
+
   .b_slider
   {
     $size-thumb: 12px;
@@ -25,10 +43,6 @@
 
   }
 
-  .disabled {
-    pointer-events: none;
-    opacity: 0.5;
-  }
 
   .volume_mute {
     background-image: url("/assets/img/volume.svg");

@@ -7,9 +7,18 @@ class Info {
         // @ts-ignore
         this.$context[0].Info = this;
         this.player = Player.create();
-        this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+        this.disabled();
+        this.player.$context.on(Player.EVENT_ERROR, () => {
+            this.disabled();
             this.setSongPlayer(this.player.getSongPlayer());
         });
+        this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+            this.setSongPlayer(this.player.getSongPlayer());
+            this.$context.removeClass('disabled');
+        });
+    }
+    disabled() {
+        this.$context.addClass('disabled');
     }
     setSongPlayer(song) {
         this.$context.find('.wrap_author').text(song.artistHtml);

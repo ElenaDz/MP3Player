@@ -26,7 +26,7 @@ class Volume
 
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
-            this.$context.find('.b_slider').removeClass('disabled');
+            this.$context.removeClass('disabled');
         });
 
         this.slider.$context.on(SliderEvents.ValueUpdate, () =>
@@ -65,7 +65,7 @@ class Volume
 
     private disabled()
     {
-        this.$context.find('.b_slider').addClass('disabled');
+        this.$context.addClass('disabled');
     }
 
     private get mute() {

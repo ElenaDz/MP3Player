@@ -215,10 +215,10 @@ class Player {
     set url(url) {
         this.audio.src = url;
     }
-    // todo передавать плейлист вместе с песней
+    // todo передавать плейлист вместе с песней ok
     loadSongPlayer(songPlayer, playlist) {
         this.songPlayer = songPlayer;
-        this.playlist = playlist;
+        // this.playlist = playlist;
         this.url = songPlayer.url;
     }
     getSongPlayer() {
@@ -229,17 +229,6 @@ class Player {
     }
     set playlist(playlist) {
         this._playlist = playlist;
-    }
-    // fixme удалить
-    set playlistId(playlist_id) {
-        if (this.playlistId !== playlist_id) {
-            this.$context.data('playlist_id', playlist_id);
-            this.$context.find('.playlist').empty();
-        }
-        Playlist.create();
-    }
-    get playlistId() {
-        return Player.getPlaylistId(this.playlist);
     }
     play() {
         this.audio.play();
@@ -277,7 +266,7 @@ class Player {
     get playing() {
         return !this.audio.paused;
     }
-    // todo использовать только его для получения плейлист айди
+    // todo использовать только его для получения плейлист айди ok
     static getPlaylistId(playlist) {
         return playlist.map((songPlayer) => {
             songPlayer.songName;
@@ -305,18 +294,6 @@ class BtnPlayer {
         this.$context[0].BtnPlayer = this;
         this.player = Player.create();
         this.$context.on('click', () => {
-            // fixme весь этот блок касающийся получения плейлист айди должен быть в гетере плейлист айди
-            this.$playlist = this.$context.parents('.inline_player_playlist_main');
-            if (!this.playlist_id) {
-                let playlist_id = '';
-                // fixme мы не работаем с dom мы работаем с свойствами объектов, правильно методом create создать все
-                //  объекты btn player в плейлисте и обращаться к его свойствам,
-                this.$playlist.find('[data-song_name]').each((index, player) => {
-                    let btn_player = $(player);
-                    playlist_id = playlist_id + btn_player.data('song_name');
-                });
-                this.playlist_id = playlist_id;
-            }
             this.playing ? this.pause() : this.play();
         });
         this.player.$context.on(Player.EVENT_UPDATE_PLAYING, () => {
@@ -327,13 +304,6 @@ class BtnPlayer {
                 this.playing = false;
             }
         });
-    }
-    set playlist_id(playlist_id) {
-        this.$playlist.data('playlist_id', playlist_id);
-    }
-    // fixme соблюдай нотацию
-    get playlist_id() {
-        return this.$playlist.data('playlist_id');
     }
     get songId() {
         let filename = this.url ? this.url.split('/').reverse()[0] : null;
@@ -353,13 +323,21 @@ class BtnPlayer {
         return this.$context.data('artist_html');
     }
     play() {
-        this.player.playlistId = this.playlist_id;
+        this.load();
+        this.player.play();
+    }
+    load() {
+        let btns_player = BtnPlayer.create($(this.$context.parents('.inline_player_playlist_main')));
+        let playlist = [];
+        btns_player.forEach((btn_player) => {
+            playlist.push(btn_player.songPlayer);
+        });
+        this.player.playlist = playlist;
         if (this.player.songId !== this.songId) {
             if (this.url) {
-                this.player.loadSongPlayer(this.songPlayer, []);
+                this.player.loadSongPlayer(this.songPlayer, playlist);
             }
         }
-        this.player.play();
     }
     get songPlayer() {
         return {
@@ -380,12 +358,15 @@ class BtnPlayer {
     get playing() {
         return this.$context.hasClass('playing');
     }
-    // fixme не правильно здесь определен $context, $context это контекст в котором мы хотим найти все btn player и создать их например body или плейлист
-    static create($context = $('.btn_player')) {
-        // @ts-ignore
-        return $context.map((index, element) => {
-            return new BtnPlayer($(element));
+    // fixme не правильно здесь определен $context, $context это контекст в котором мы хотим найти все btn player и создать их например body или плейлист(ok?)
+    // @ts-ignore
+    static create($context = $('.inline_player_playlist_main')) {
+        let $playlists = $context;
+        let btns_player = [];
+        $playlists.find('.btn_player').each((index, element) => {
+            btns_player.push(new BtnPlayer($(element)));
         });
+        return btns_player;
     }
 }
 
@@ -494,7 +475,7 @@ class Volume {
         this.disabled();
         this.volume = this.volume;
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            this.$context.find('.b_slider').removeClass('disabled');
+            this.$context.removeClass('disabled');
         });
         this.slider.$context.on(SliderEvents.ValueUpdate, () => {
             if (this.mute && this.slider.value === 0) {
@@ -523,7 +504,7 @@ class Volume {
         });
     }
     disabled() {
-        this.$context.find('.b_slider').addClass('disabled');
+        this.$context.addClass('disabled');
     }
     get mute() {
         return this.player.mute;
@@ -571,9 +552,18 @@ class Info {
         // @ts-ignore
         this.$context[0].Info = this;
         this.player = Player.create();
-        this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+        this.disabled();
+        this.player.$context.on(Player.EVENT_ERROR, () => {
+            this.disabled();
             this.setSongPlayer(this.player.getSongPlayer());
         });
+        this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+            this.setSongPlayer(this.player.getSongPlayer());
+            this.$context.removeClass('disabled');
+        });
+    }
+    disabled() {
+        this.$context.addClass('disabled');
     }
     setSongPlayer(song) {
         this.$context.find('.wrap_author').text(song.artistHtml);
@@ -609,29 +599,18 @@ class Playlist {
             this.isOpen ? this.close() : this.open();
         });
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            // fixme загрузка плейлиста должна быть вынесена в отдельную функцию load
-            $('.inline_player_playlist_main').each((i, playlist) => {
-                let inline_playlist = $(playlist);
-                // fixme мы не работаем с dom мы работаем с объектами, здесь как то полный треш обращение к какому то inline_player_playlist_main
-                //  для которого у нас даже нету объекта
-                if (inline_playlist.data('playlist_id') == this.player.playlistId && this.$context.find('.playlist').empty()) {
-                    let btns_player = BtnPlayer.create(inline_playlist.find('.btn_player'));
-                    $(btns_player).each((i, btn_player) => {
-                        // fixme использовать метод getSongPlayer
-                        this.$context.find('.playlist').append(this.getHtml({
-                            url: btn_player.url,
-                            artistHtml: btn_player.artistHtml,
-                            songName: btn_player.songName,
-                            urlSong: btn_player.urlSong
-                        }));
-                    });
-                }
-            });
+            // fixme загрузка плейлиста должна быть вынесена в отдельную функцию load ok
+            this.load();
         });
     }
     // todo
     load() {
-        // данные какие именно песни загружать должно быть взяты из плеера, а туда они попадут из Btn Player
+        // данные какие именно песни загружать должно быть взяты из плеера, а туда они попадут из Btn Player ok
+        this.$context.find('.playlist').empty();
+        console.log(this.player.playlist);
+        this.player.playlist.forEach((song_player) => {
+            this.$context.find('.playlist').append(this.getHtml(song_player));
+        });
     }
     getHtml(song) {
         return `

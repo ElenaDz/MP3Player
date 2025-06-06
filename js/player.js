@@ -49,7 +49,7 @@ class Player {
     set url(url) {
         this.audio.src = url;
     }
-    // todo передавать плейлист вместе с песней
+    // todo передавать плейлист вместе с песней ok
     loadSongPlayer(songPlayer, playlist) {
         this.songPlayer = songPlayer;
         this.playlist = playlist;
@@ -63,17 +63,6 @@ class Player {
     }
     set playlist(playlist) {
         this._playlist = playlist;
-    }
-    // fixme удалить
-    set playlistId(playlist_id) {
-        if (this.playlistId !== playlist_id) {
-            this.$context.data('playlist_id', playlist_id);
-            this.$context.find('.playlist').empty();
-        }
-        Playlist.create();
-    }
-    get playlistId() {
-        return Player.getPlaylistId(this.playlist);
     }
     play() {
         this.audio.play();
@@ -111,7 +100,7 @@ class Player {
     get playing() {
         return !this.audio.paused;
     }
-    // todo использовать только его для получения плейлист айди
+    // todo использовать только его для получения плейлист айди ok
     static getPlaylistId(playlist) {
         return playlist.map((songPlayer) => {
             songPlayer.songName;

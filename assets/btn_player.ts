@@ -1,9 +1,7 @@
 class BtnPlayer
 {
     public $context: JQuery;
-    private $playlist: JQuery;
     private player: Player;
-
 
     constructor($context: JQuery)
     {
@@ -19,25 +17,7 @@ class BtnPlayer
 
         this.$context.on('click',() =>
         {
-            // fixme весь этот блок касающийся получения плейлист айди должен быть в гетере плейлист айди
-            this.$playlist = this.$context.parents('.inline_player_playlist_main');
-
-            if ( ! this.playlist_id) {
-
-                let playlist_id = '';
-
-                // fixme мы не работаем с dom мы работаем с свойствами объектов, правильно методом create создать все
-                //  объекты btn player в плейлисте и обращаться к его свойствам,
-                this.$playlist.find('[data-song_name]').each((index, player) => {
-                    let btn_player = $(player);
-                    playlist_id = playlist_id + btn_player.data('song_name');
-                })
-
-                this.playlist_id = playlist_id;
-            }
-
             this.playing ? this.pause() : this.play();
-
         });
 
         this.player.$context.on(Player.EVENT_UPDATE_PLAYING,() =>
@@ -50,18 +30,6 @@ class BtnPlayer
                 this.playing = false;
             }
         })
-
-    }
-
-    public set playlist_id(playlist_id)
-    {
-        this.$playlist.data('playlist_id', playlist_id)
-    }
-
-    // fixme соблюдай нотацию
-    public get playlist_id()
-    {
-        return this.$playlist.data('playlist_id');
     }
 
     private get songId(): string
@@ -94,16 +62,33 @@ class BtnPlayer
 
     private play()
     {
-        this.player.playlistId = this.playlist_id;
+        this.load();
 
+        this.player.play();
+    }
+
+    private load()
+    {
         if (this.player.songId !== this.songId) {
 
             if (this.url) {
-                this.player.loadSongPlayer(this.songPlayer, []);
+                this.player.loadSongPlayer(this.songPlayer,  this.getPlaylist());
             }
         }
+    }
 
-        this.player.play();
+    private getPlaylist()
+    {
+        let btns_player = BtnPlayer.create($(this.$context.parents('.inline_player_playlist_main')))
+
+        let playlist = [];
+
+        btns_player.forEach((btn_player) => {
+
+            playlist.push(btn_player.songPlayer)
+        })
+
+        return  playlist;
     }
 
     public get songPlayer(): SongPlayer
@@ -133,14 +118,17 @@ class BtnPlayer
         return this.$context.hasClass('playing');
     }
 
-    // fixme не правильно здесь определен $context, $context это контекст в котором мы хотим найти все btn player и создать их например body или плейлист
-    public static create($context = $('.btn_player')): BtnPlayer[]
+    // fixme не правильно здесь определен $context, $context это контекст в котором мы хотим найти все btn player и создать их например body или плейлист(ok?)
+    // @ts-ignore
+    public static create($context = $('.inline_player_playlist_main')): BtnPlayer []
     {
-        // @ts-ignore
-        return $context.map(
-            (index, element) : BtnPlayer => {
-                return new BtnPlayer($(element))
-            }
-        );
+        let $playlists = $context;
+
+        let btns_player: BtnPlayer [] = [];
+
+        $playlists.find('.btn_player').each((index, element) => {
+            btns_player.push(new BtnPlayer($(element)));
+        })
+        return btns_player;
     }
 }

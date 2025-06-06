@@ -3,6 +3,19 @@
   height: 100%;
   display: flex;
 
+  &.disabled {
+    .download {
+      opacity: $opacity-grey-min;
+      .download_song {
+        pointer-events: none;
+
+        &:hover {
+          background-color: #f7f5ff!important;
+        }
+      }
+    }
+  }
+
   @include for_phone {
     display: none;
   }
