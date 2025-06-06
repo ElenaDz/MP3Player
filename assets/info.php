@@ -11,7 +11,6 @@
     </div>
 
     <div class="download elem">
-        <!-- fixme должна быть заблокирована когда песня не загружена ok-->
         <a class="download_song">
             <i></i>
         </a>

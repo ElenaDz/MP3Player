@@ -11,7 +11,10 @@
         <div class="inner_popup">
 
             <div class="header">
-                <div class="name_chart">Сейчас играет: Чарт</div>
+                <div class="name_chart">
+                    Сейчас играет:
+                    <!-- todo здесь нужно вставлять заголовок плейлиста из h2 -->
+                </div>
                 <button class="close"></button>
             </div>
 

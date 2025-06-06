@@ -49,7 +49,6 @@ class Player {
     set url(url) {
         this.audio.src = url;
     }
-    // todo передавать плейлист вместе с песней ok
     loadSongPlayer(songPlayer, playlist) {
         this.songPlayer = songPlayer;
         this.playlist = playlist;
@@ -100,7 +99,7 @@ class Player {
     get playing() {
         return !this.audio.paused;
     }
-    // todo использовать только его для получения плейлист айди ok
+    // fixme метод не используется, а должен
     static getPlaylistId(playlist) {
         return playlist.map((songPlayer) => {
             songPlayer.songName;

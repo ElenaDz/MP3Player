@@ -118,15 +118,13 @@ class BtnPlayer
         return this.$context.hasClass('playing');
     }
 
-    // fixme не правильно здесь определен $context, $context это контекст в котором мы хотим найти все btn player и создать их например body или плейлист(ok?)
+    // fixme здесь не должно быть значения по-умолчанию для контекста
     // @ts-ignore
     public static create($context = $('.inline_player_playlist_main')): BtnPlayer []
     {
-        let $playlists = $context;
-
         let btns_player: BtnPlayer [] = [];
 
-        $playlists.find('.btn_player').each((index, element) => {
+        $context.find('.btn_player').each((index, element) => {
             btns_player.push(new BtnPlayer($(element)));
         })
         return btns_player;

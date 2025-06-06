@@ -46,13 +46,13 @@
     $file_name = '5УТРА - Ромашки.mp3';
     require __DIR__ . '/assets/btn_player.php';
 
-    // fixme не появляется информация о песне с этой песней ok
+    // fixme заблокирована кнопка скачивания песни, а не должна
     $file_name = '5УТРА - Test.mp3';
     require __DIR__ . '/assets/btn_player.php';
     ?>
 </div>
 
-<!-- fixme есть походящий тег hr для этого ok-->
+
 <hr>
 
 <div class="inline_player_playlist_main">
@@ -87,8 +87,6 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <!-- fixme удалить так как не используется ок -->
-
 <?php
     require 'builder.php';
 

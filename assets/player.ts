@@ -99,7 +99,6 @@ class Player
         this.audio.src = url;
     }
 
-    // todo передавать плейлист вместе с песней ok
     public loadSongPlayer(songPlayer: SongPlayer, playlist: SongPlayer[])
     {
         this.songPlayer = songPlayer;
@@ -119,7 +118,7 @@ class Player
         return this._playlist;
     }
 
-    public set playlist(playlist:SongPlayer[])
+    private set playlist(playlist:SongPlayer[])
     {
         this._playlist = playlist;
     }
@@ -183,7 +182,7 @@ class Player
         return ! this.audio.paused;
     }
 
-    // todo использовать только его для получения плейлист айди ok
+    // fixme метод не используется, а должен
     public static getPlaylistId(playlist:SongPlayer[]): string
     {
         return playlist.map((songPlayer:SongPlayer) =>

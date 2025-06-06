@@ -14,12 +14,10 @@ class Playlist {
             this.isOpen ? this.close() : this.open();
         });
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            // fixme загрузка плейлиста должна быть вынесена в отдельную функцию load ok
             this.load();
         });
     }
     load() {
-        // данные какие именно песни загружать должно быть взяты из плеера, а туда они попадут из Btn Player ok
         this.$context.find('.playlist').empty();
         this.player.playlist.forEach((song_player) => {
             this.$context.find('.playlist').append(this.getHtml(song_player));

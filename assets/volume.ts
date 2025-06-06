@@ -74,6 +74,7 @@ class Volume
 
     private set mute(mute)
     {
+        // fixme в этой строке происходит зацикливание смотри консоль хрома, там ошибка "Maximum call stack size"
         this.player.mute = mute;
 
         if (mute) {

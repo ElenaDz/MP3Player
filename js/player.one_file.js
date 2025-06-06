@@ -215,10 +215,9 @@ class Player {
     set url(url) {
         this.audio.src = url;
     }
-    // todo передавать плейлист вместе с песней ok
     loadSongPlayer(songPlayer, playlist) {
         this.songPlayer = songPlayer;
-        // this.playlist = playlist;
+        this.playlist = playlist;
         this.url = songPlayer.url;
     }
     getSongPlayer() {
@@ -266,7 +265,7 @@ class Player {
     get playing() {
         return !this.audio.paused;
     }
-    // todo использовать только его для получения плейлист айди ok
+    // fixme метод не используется, а должен
     static getPlaylistId(playlist) {
         return playlist.map((songPlayer) => {
             songPlayer.songName;
@@ -327,17 +326,19 @@ class BtnPlayer {
         this.player.play();
     }
     load() {
+        if (this.player.songId !== this.songId) {
+            if (this.url) {
+                this.player.loadSongPlayer(this.songPlayer, this.getPlaylist());
+            }
+        }
+    }
+    getPlaylist() {
         let btns_player = BtnPlayer.create($(this.$context.parents('.inline_player_playlist_main')));
         let playlist = [];
         btns_player.forEach((btn_player) => {
             playlist.push(btn_player.songPlayer);
         });
-        this.player.playlist = playlist;
-        if (this.player.songId !== this.songId) {
-            if (this.url) {
-                this.player.loadSongPlayer(this.songPlayer, playlist);
-            }
-        }
+        return playlist;
     }
     get songPlayer() {
         return {
@@ -358,12 +359,11 @@ class BtnPlayer {
     get playing() {
         return this.$context.hasClass('playing');
     }
-    // fixme не правильно здесь определен $context, $context это контекст в котором мы хотим найти все btn player и создать их например body или плейлист(ok?)
+    // fixme здесь не должно быть значения по-умолчанию для контекста
     // @ts-ignore
     static create($context = $('.inline_player_playlist_main')) {
-        let $playlists = $context;
         let btns_player = [];
-        $playlists.find('.btn_player').each((index, element) => {
+        $context.find('.btn_player').each((index, element) => {
             btns_player.push(new BtnPlayer($(element)));
         });
         return btns_player;
@@ -510,6 +510,7 @@ class Volume {
         return this.player.mute;
     }
     set mute(mute) {
+        // fixme в этой строке происходит зацикливание смотри консоль хрома, там ошибка "Maximum call stack size"
         this.player.mute = mute;
         if (mute) {
             this.slider.value = 0;
@@ -599,15 +600,11 @@ class Playlist {
             this.isOpen ? this.close() : this.open();
         });
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            // fixme загрузка плейлиста должна быть вынесена в отдельную функцию load ok
             this.load();
         });
     }
-    // todo
     load() {
-        // данные какие именно песни загружать должно быть взяты из плеера, а туда они попадут из Btn Player ok
         this.$context.find('.playlist').empty();
-        console.log(this.player.playlist);
         this.player.playlist.forEach((song_player) => {
             this.$context.find('.playlist').append(this.getHtml(song_player));
         });
