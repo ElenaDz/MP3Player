@@ -1,4 +1,4 @@
-class Player_volume
+class PlayerVolume
 {
     private readonly $context: JQuery;
     private player: Player;
@@ -75,6 +75,7 @@ class Player_volume
     private set mute(mute)
     {
         // fixme в этой строке происходит зацикливание смотри консоль хрома, там ошибка "Maximum call stack size"
+        //  используй debugger;
         this.player.mute = mute;
 
         if (mute) {
@@ -115,8 +116,8 @@ class Player_volume
         this.volumeStore = volume;
     }
 
-    public static create($context = $('.b_player_volume')): Player_volume
+    public static create($context = $('.b_player_volume')): PlayerVolume
     {
-        return new Player_volume($context);
+        return new PlayerVolume($context);
     }
 }

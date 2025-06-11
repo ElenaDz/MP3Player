@@ -1,4 +1,4 @@
-class Player_info {
+class PlayerInfo {
     constructor($context) {
         this.$context = $context;
         // @ts-ignore
@@ -16,25 +16,28 @@ class Player_info {
         });
     }
     load() {
-        this.setSongPlayer(this.player.getSongPlayer());
-        this.$context.removeClass('disabled');
-    }
-    disabled() {
-        this.$context.addClass('disabled');
-    }
-    setSongPlayer(song) {
-        this.$context.find('.wrap_author').text(song.artistHtml);
-        this.$context.find('.inner_song').text(song.songName);
-        this.$context.find('.inner_song').attr('href', song.urlSong);
-        this.$context.find('.download_song').attr('href', song.urlSong);
+        let songPlayer = this.player.songPlayer;
+        this.$context.find('.wrap_author').text(songPlayer.artistHtml);
+        this.$context.find('.inner_song').text(songPlayer.songName);
+        this.$context.find('.inner_song').attr('href', songPlayer.urlSong);
+        this.$context.find('.download_song').attr('href', songPlayer.urlSong);
         if (navigator.mediaSession) {
             navigator.mediaSession.metadata = new MediaMetadata({
-                title: song.songName,
-                artist: song.artistHtml,
+                title: songPlayer.songName,
+                artist: songPlayer.artistHtml,
             });
+        }
+        this.disabled(false);
+    }
+    disabled(disabled = true) {
+        if (disabled) {
+            this.$context.addClass('disabled');
+        }
+        else {
+            this.$context.removeClass('disabled');
         }
     }
     static create($context = $('.b_player_info')) {
-        return new Player_info($context);
+        return new PlayerInfo($context);
     }
 }

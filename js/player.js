@@ -1,6 +1,5 @@
 class Player {
     constructor($context) {
-        this._playlist = [];
         this.$context = $context;
         // @ts-ignore
         if (this.$context[0].Player)
@@ -12,11 +11,11 @@ class Player {
         this.initEventsAudio();
     }
     initCreate() {
-        Player_controls.create();
-        Player_progress.create();
-        Player_volume.create();
-        Player_info.create();
-        Player_playlist.create();
+        PlayerControls.create();
+        PlayerProgress.create();
+        PlayerVolume.create();
+        PlayerInfo.create();
+        PlayerPlaylist.create();
     }
     initEventsAudio() {
         this.audio.addEventListener('play', () => {
@@ -49,20 +48,13 @@ class Player {
     set url(url) {
         this.audio.src = url;
     }
-    loadSongPlayer(songPlayer, playlist, playlist_title) {
-        this.songPlayer = songPlayer;
+    loadSongPlayer(songPlayer, playlist) {
+        this._songPlayer = songPlayer;
         this.playlist = playlist;
         this.url = songPlayer.url;
-        this.playlist_title = playlist_title;
     }
-    set playlist_title(playlist_title) {
-        this._playlist_title = playlist_title;
-    }
-    get playlist_title() {
-        return this._playlist_title;
-    }
-    getSongPlayer() {
-        return this.songPlayer;
+    get songPlayer() {
+        return this._songPlayer;
     }
     get playlist() {
         return this._playlist;
@@ -105,13 +97,6 @@ class Player {
     }
     get playing() {
         return !this.audio.paused;
-    }
-    // fixme метод не используется, а должен (зачем?, я сравниваю плейлисты при загрузки песни)
-    static getPlaylistId(playlist) {
-        return playlist.map((songPlayer) => {
-            songPlayer.songName;
-        })
-            .join(' ');
     }
     static create($context = $('.b_player')) {
         return new Player($context);

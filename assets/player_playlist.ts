@@ -1,9 +1,10 @@
-class Player_playlist
+class PlayerPlaylist
 {
     private $context: JQuery;
     private player: Player;
 
-    constructor($context: JQuery) {
+    constructor($context: JQuery)
+    {
         this.$context = $context;
 
         // @ts-ignore
@@ -11,8 +12,6 @@ class Player_playlist
 
         // @ts-ignore
         this.$context[0].Playlist = this;
-
-
 
         this.disabled();
 
@@ -50,17 +49,16 @@ class Player_playlist
     {
         this.$context.find('.playlist').empty();
 
-        this.player.playlist.forEach((song_player) => {
-            this.$context.find('.playlist').append(this.getHtml(song_player))
+        this.player.playlist.songsPlayer.forEach((song_player: SongPlayer) =>
+        {
+            this.$context.find('.playlist')
+                .append(this.getHtml(song_player))
         })
 
-        this.setTitle();
+        this.$context.find('.music_title')
+            .text('Сейчас играет:' + this.player.playlist.title);
     }
 
-    private setTitle()
-    {
-        this.$context.find('.music_title').text('Сейчас играет:' + this.player.playlist_title)
-    }
 
     private getHtml(song: SongPlayer): string
     {
@@ -116,8 +114,8 @@ class Player_playlist
         return this.$context.hasClass('open');
     }
 
-    public static create($context = $('.b_player_playlist')): Player_playlist
+    public static create($context = $('.b_player_playlist')): PlayerPlaylist
     {
-        return new Player_playlist($context);
+        return new PlayerPlaylist($context);
     }
 }

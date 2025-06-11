@@ -47,7 +47,6 @@
         $file_name = '5УТРА - Ромашки.mp3';
         require __DIR__ . '/assets/btn_player.php';
 
-        // fixme заблокирована кнопка скачивания песни, а не должна ok
         $file_name = '5УТРА - Test.mp3';
         require __DIR__ . '/assets/btn_player.php';
         ?>
@@ -98,6 +97,7 @@
     builder_assets(
         [
 	        __DIR__ . '/js/slider.js',
+	        __DIR__ . '/js/playlist.js',
 	        __DIR__ . '/js/player.js',
 	        __DIR__ . '/js/btn_player.js',
 	        __DIR__ . '/js/player_controls.js',

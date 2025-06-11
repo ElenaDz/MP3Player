@@ -1,23 +1,46 @@
+
+interface ClicksPlaylist
+{
+	song_id: number;
+	count: number;
+}
+
 class Playlist
 {
-    private $context: JQuery;
-    private player: Player;
+	private _songsPlayer:SongPlayer[];
+	private _title: string;
+	private _clicks: ClicksPlaylist[];
 
-    constructor($context: JQuery)
-    {
-        this.$context = $context;
+	constructor(songsPlayer: SongPlayer[], title: string = null, clicks: ClicksPlaylist[] = [])
+	{
+	}
 
-        // @ts-ignore
-        if (this.$context[0].Controls) return this.$context[0].Playlist;
 
-        // @ts-ignore
-        this.$context[0].Playlist = this;
+	public get id(): string
+	{
+		return this.songsPlayer
+			.map((songPlayer:SongPlayer) =>
+			{
+				songPlayer.songName
+			})
+			.join(' ');
+	}
 
-        this.player = Player.create();
-    }
 
-    public static create($context = $('.playlist'))
-    {
-        return new Playlist($context);
-    }
+	public get songsPlayer(): SongPlayer[]
+	{
+		return this._songsPlayer;
+	}
+
+
+	public get title(): string
+	{
+		return this._title
+	}
+
+
+	public get clicks(): ClicksPlaylist[]
+	{
+		return this._clicks;
+	}
 }

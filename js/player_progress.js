@@ -1,4 +1,4 @@
-class Player_progress {
+class PlayerProgress {
     constructor($context) {
         this.$context = $context;
         // @ts-ignore
@@ -30,10 +30,10 @@ class Player_progress {
         this.$context.find('.b_slider').addClass('disabled');
     }
     set currentTimeText(current_time) {
-        this.$context.find('.time_current').text(Player_progress.formatTime(current_time));
+        this.$context.find('.time_current').text(PlayerProgress.formatTime(current_time));
     }
     set durationText(duration) {
-        this.$context.find('.time_duration').text(Player_progress.formatTime(duration));
+        this.$context.find('.time_duration').text(PlayerProgress.formatTime(duration));
     }
     static formatTime(sec = 0) {
         let min = (Math.floor(Math.trunc(sec / 60))).toString();
@@ -49,6 +49,6 @@ class Player_progress {
         }
     }
     static create($context = $('.b_player_progress')) {
-        return new Player_progress($context);
+        return new PlayerProgress($context);
     }
 }

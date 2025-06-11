@@ -1,4 +1,4 @@
-class Player_controls {
+class PlayerControls {
     constructor($context) {
         this.$context = $context;
         // @ts-ignore
@@ -27,6 +27,6 @@ class Player_controls {
         this.$context.find('button.next').attr('disabled', 1);
     }
     static create($context = $('.b_player_controls')) {
-        return new Player_controls($context);
+        return new PlayerControls($context);
     }
 }

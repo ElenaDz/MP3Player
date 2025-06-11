@@ -164,9 +164,30 @@ class Slider {
 Slider.SELECTOR = '.b_slider';
 
 
+class Playlist {
+    constructor(songsPlayer, title = null, clicks = []) {
+    }
+    get id() {
+        return this.songsPlayer
+            .map((songPlayer) => {
+            songPlayer.songName;
+        })
+            .join(' ');
+    }
+    get songsPlayer() {
+        return this._songsPlayer;
+    }
+    get title() {
+        return this._title;
+    }
+    get clicks() {
+        return this._clicks;
+    }
+}
+
+
 class Player {
     constructor($context) {
-        this._playlist = [];
         this.$context = $context;
         // @ts-ignore
         if (this.$context[0].Player)
@@ -178,11 +199,11 @@ class Player {
         this.initEventsAudio();
     }
     initCreate() {
-        Player_controls.create();
-        Player_progress.create();
-        Player_volume.create();
-        Player_info.create();
-        Player_playlist.create();
+        PlayerControls.create();
+        PlayerProgress.create();
+        PlayerVolume.create();
+        PlayerInfo.create();
+        PlayerPlaylist.create();
     }
     initEventsAudio() {
         this.audio.addEventListener('play', () => {
@@ -215,20 +236,13 @@ class Player {
     set url(url) {
         this.audio.src = url;
     }
-    loadSongPlayer(songPlayer, playlist, playlist_title) {
-        this.songPlayer = songPlayer;
+    loadSongPlayer(songPlayer, playlist) {
+        this._songPlayer = songPlayer;
         this.playlist = playlist;
         this.url = songPlayer.url;
-        this.playlist_title = playlist_title;
     }
-    set playlist_title(playlist_title) {
-        this._playlist_title = playlist_title;
-    }
-    get playlist_title() {
-        return this._playlist_title;
-    }
-    getSongPlayer() {
-        return this.songPlayer;
+    get songPlayer() {
+        return this._songPlayer;
     }
     get playlist() {
         return this._playlist;
@@ -271,13 +285,6 @@ class Player {
     }
     get playing() {
         return !this.audio.paused;
-    }
-    // fixme метод не используется, а должен
-    static getPlaylistId(playlist) {
-        return playlist.map((songPlayer) => {
-            songPlayer.songName;
-        })
-            .join(' ');
     }
     static create($context = $('.b_player')) {
         return new Player($context);
@@ -333,20 +340,25 @@ class BtnPlayer {
         this.player.play();
     }
     load() {
-        let playlist_title = this.$context.parents('.inline_player_playlist_main').parent().find('h2').text();
-        if (this.player.songId !== this.songId || this.getPlaylist() !== this.player.playlist) {
+        if (this.player.songId !== this.songId || this.getPlaylist().id !== this.player.playlist.id) {
             if (this.url) {
-                this.player.loadSongPlayer(this.songPlayer, this.getPlaylist(), playlist_title);
+                this.player.loadSongPlayer(this.songPlayer, this.getPlaylist());
             }
         }
     }
     getPlaylist() {
         let btns_player = BtnPlayer.create($(this.$context.parents('.inline_player_playlist_main')));
-        let playlist = [];
+        let songsPlayer = [];
         btns_player.forEach((btn_player) => {
-            playlist.push(btn_player.songPlayer);
+            songsPlayer.push(btn_player.songPlayer);
         });
-        return playlist;
+        let title = this.$context
+            .parents('.inline_player_playlist_main')
+            .parent()
+            .find('h2')
+            .text();
+        // fixme добавить недостающие clicks
+        return new Playlist(songsPlayer, title);
     }
     get songPlayer() {
         return {
@@ -367,8 +379,6 @@ class BtnPlayer {
     get playing() {
         return this.$context.hasClass('playing');
     }
-    // fixme здесь не должно быть значения по-умолчанию для контекста ok
-    // @ts-ignore
     static create($context) {
         let btns_player = [];
         $context.find('.btn_player').each((index, element) => {
@@ -379,7 +389,7 @@ class BtnPlayer {
 }
 
 
-class Player_controls {
+class PlayerControls {
     constructor($context) {
         this.$context = $context;
         // @ts-ignore
@@ -408,12 +418,12 @@ class Player_controls {
         this.$context.find('button.next').attr('disabled', 1);
     }
     static create($context = $('.b_player_controls')) {
-        return new Player_controls($context);
+        return new PlayerControls($context);
     }
 }
 
 
-class Player_progress {
+class PlayerProgress {
     constructor($context) {
         this.$context = $context;
         // @ts-ignore
@@ -445,10 +455,10 @@ class Player_progress {
         this.$context.find('.b_slider').addClass('disabled');
     }
     set currentTimeText(current_time) {
-        this.$context.find('.time_current').text(Player_progress.formatTime(current_time));
+        this.$context.find('.time_current').text(PlayerProgress.formatTime(current_time));
     }
     set durationText(duration) {
-        this.$context.find('.time_duration').text(Player_progress.formatTime(duration));
+        this.$context.find('.time_duration').text(PlayerProgress.formatTime(duration));
     }
     static formatTime(sec = 0) {
         let min = (Math.floor(Math.trunc(sec / 60))).toString();
@@ -464,12 +474,12 @@ class Player_progress {
         }
     }
     static create($context = $('.b_player_progress')) {
-        return new Player_progress($context);
+        return new PlayerProgress($context);
     }
 }
 
 
-class Player_volume {
+class PlayerVolume {
     constructor($context) {
         this.KEY_LOCAL_STORE_VOLUME = 'volume';
         this.$context = $context;
@@ -519,6 +529,7 @@ class Player_volume {
     }
     set mute(mute) {
         // fixme в этой строке происходит зацикливание смотри консоль хрома, там ошибка "Maximum call stack size"
+        //  используй debugger;
         this.player.mute = mute;
         if (mute) {
             this.slider.value = 0;
@@ -547,12 +558,12 @@ class Player_volume {
         this.volumeStore = volume;
     }
     static create($context = $('.b_player_volume')) {
-        return new Player_volume($context);
+        return new PlayerVolume($context);
     }
 }
 
 
-class Player_info {
+class PlayerInfo {
     constructor($context) {
         this.$context = $context;
         // @ts-ignore
@@ -570,31 +581,34 @@ class Player_info {
         });
     }
     load() {
-        this.setSongPlayer(this.player.getSongPlayer());
-        this.$context.removeClass('disabled');
-    }
-    disabled() {
-        this.$context.addClass('disabled');
-    }
-    setSongPlayer(song) {
-        this.$context.find('.wrap_author').text(song.artistHtml);
-        this.$context.find('.inner_song').text(song.songName);
-        this.$context.find('.inner_song').attr('href', song.urlSong);
-        this.$context.find('.download_song').attr('href', song.urlSong);
+        let songPlayer = this.player.songPlayer;
+        this.$context.find('.wrap_author').text(songPlayer.artistHtml);
+        this.$context.find('.inner_song').text(songPlayer.songName);
+        this.$context.find('.inner_song').attr('href', songPlayer.urlSong);
+        this.$context.find('.download_song').attr('href', songPlayer.urlSong);
         if (navigator.mediaSession) {
             navigator.mediaSession.metadata = new MediaMetadata({
-                title: song.songName,
-                artist: song.artistHtml,
+                title: songPlayer.songName,
+                artist: songPlayer.artistHtml,
             });
+        }
+        this.disabled(false);
+    }
+    disabled(disabled = true) {
+        if (disabled) {
+            this.$context.addClass('disabled');
+        }
+        else {
+            this.$context.removeClass('disabled');
         }
     }
     static create($context = $('.b_player_info')) {
-        return new Player_info($context);
+        return new PlayerInfo($context);
     }
 }
 
 
-class Player_playlist {
+class PlayerPlaylist {
     constructor($context) {
         this.$context = $context;
         // @ts-ignore
@@ -623,10 +637,12 @@ class Player_playlist {
     }
     load() {
         this.$context.find('.playlist').empty();
-        this.player.playlist.forEach((song_player) => {
-            this.$context.find('.playlist').append(this.getHtml(song_player));
+        this.player.playlist.songsPlayer.forEach((song_player) => {
+            this.$context.find('.playlist')
+                .append(this.getHtml(song_player));
         });
-        this.$context.find('.music_title').text('Сейчас играет:' + this.player.playlist_title);
+        this.$context.find('.music_title')
+            .text('Сейчас играет:' + this.player.playlist.title);
     }
     getHtml(song) {
         return `
@@ -675,6 +691,6 @@ class Player_playlist {
         return this.$context.hasClass('open');
     }
     static create($context = $('.b_player_playlist')) {
-        return new Player_playlist($context);
+        return new PlayerPlaylist($context);
     }
 }

@@ -1,4 +1,4 @@
-class Player_playlist {
+class PlayerPlaylist {
     constructor($context) {
         this.$context = $context;
         // @ts-ignore
@@ -27,13 +27,12 @@ class Player_playlist {
     }
     load() {
         this.$context.find('.playlist').empty();
-        this.player.playlist.forEach((song_player) => {
-            this.$context.find('.playlist').append(this.getHtml(song_player));
+        this.player.playlist.songsPlayer.forEach((song_player) => {
+            this.$context.find('.playlist')
+                .append(this.getHtml(song_player));
         });
-        this.setTitle();
-    }
-    setTitle() {
-        this.$context.find('.music_title').text('Сейчас играет:' + this.player.playlist_title);
+        this.$context.find('.music_title')
+            .text('Сейчас играет:' + this.player.playlist.title);
     }
     getHtml(song) {
         return `
@@ -82,6 +81,6 @@ class Player_playlist {
         return this.$context.hasClass('open');
     }
     static create($context = $('.b_player_playlist')) {
-        return new Player_playlist($context);
+        return new PlayerPlaylist($context);
     }
 }

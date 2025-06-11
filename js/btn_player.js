@@ -41,20 +41,25 @@ class BtnPlayer {
         this.player.play();
     }
     load() {
-        let playlist_title = this.$context.parents('.inline_player_playlist_main').parent().find('h2').text();
-        if (this.player.songId !== this.songId || this.getPlaylist() !== this.player.playlist) {
+        if (this.player.songId !== this.songId || this.getPlaylist().id !== this.player.playlist.id) {
             if (this.url) {
-                this.player.loadSongPlayer(this.songPlayer, this.getPlaylist(), playlist_title);
+                this.player.loadSongPlayer(this.songPlayer, this.getPlaylist());
             }
         }
     }
     getPlaylist() {
         let btns_player = BtnPlayer.create($(this.$context.parents('.inline_player_playlist_main')));
-        let playlist = [];
+        let songsPlayer = [];
         btns_player.forEach((btn_player) => {
-            playlist.push(btn_player.songPlayer);
+            songsPlayer.push(btn_player.songPlayer);
         });
-        return playlist;
+        let title = this.$context
+            .parents('.inline_player_playlist_main')
+            .parent()
+            .find('h2')
+            .text();
+        // fixme добавить недостающие clicks
+        return new Playlist(songsPlayer, title);
     }
     get songPlayer() {
         return {
@@ -75,8 +80,6 @@ class BtnPlayer {
     get playing() {
         return this.$context.hasClass('playing');
     }
-    // fixme здесь не должно быть значения по-умолчанию для контекста ok
-    // @ts-ignore
     static create($context) {
         let btns_player = [];
         $context.find('.btn_player').each((index, element) => {

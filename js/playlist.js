@@ -1,14 +1,20 @@
 class Playlist {
-    constructor($context) {
-        this.$context = $context;
-        // @ts-ignore
-        if (this.$context[0].Controls)
-            return this.$context[0].Playlist;
-        // @ts-ignore
-        this.$context[0].Playlist = this;
-        this.player = Player.create();
+    constructor(songsPlayer, title = null, clicks = []) {
     }
-    static create($context = $('.playlist')) {
-        return new Playlist($context);
+    get id() {
+        return this.songsPlayer
+            .map((songPlayer) => {
+            songPlayer.songName;
+        })
+            .join(' ');
+    }
+    get songsPlayer() {
+        return this._songsPlayer;
+    }
+    get title() {
+        return this._title;
+    }
+    get clicks() {
+        return this._clicks;
     }
 }

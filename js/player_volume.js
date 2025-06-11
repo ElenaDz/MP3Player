@@ -1,4 +1,4 @@
-class Player_volume {
+class PlayerVolume {
     constructor($context) {
         this.KEY_LOCAL_STORE_VOLUME = 'volume';
         this.$context = $context;
@@ -48,6 +48,7 @@ class Player_volume {
     }
     set mute(mute) {
         // fixme в этой строке происходит зацикливание смотри консоль хрома, там ошибка "Maximum call stack size"
+        //  используй debugger;
         this.player.mute = mute;
         if (mute) {
             this.slider.value = 0;
@@ -76,6 +77,6 @@ class Player_volume {
         this.volumeStore = volume;
     }
     static create($context = $('.b_player_volume')) {
-        return new Player_volume($context);
+        return new PlayerVolume($context);
     }
 }

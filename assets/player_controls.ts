@@ -1,4 +1,4 @@
-class Player_controls
+class PlayerControls
 {
     private $context: JQuery;
     private player: Player;
@@ -46,6 +46,6 @@ class Player_controls
 
     public static create($context = $('.b_player_controls'))
     {
-        return new Player_controls($context);
+        return new PlayerControls($context);
     }
 }

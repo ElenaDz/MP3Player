@@ -1,4 +1,4 @@
-<div class="b_player_info" >
+<div class="b_player_info">
     <div class="artist_img elem"></div>
 
     <div class="names">

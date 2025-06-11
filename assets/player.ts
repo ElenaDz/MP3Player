@@ -1,5 +1,7 @@
 
 interface SongPlayer {
+    // fixme убрать знак "?" чтобы сделать это свойство обязательным, ну и добавить его везде где нужно
+    song_id?: number;
     url: string;
     artistHtml: string;
     songName: string;
@@ -16,10 +18,9 @@ class Player
 
     public $context: JQuery;
 
-    private songPlayer: SongPlayer;
     private audio: HTMLAudioElement;
-    private _playlist: SongPlayer[] = [];
-    private _playlist_title: string;
+    private _songPlayer: SongPlayer;
+    private _playlist: Playlist;
 
 
     constructor($context: JQuery)
@@ -41,11 +42,11 @@ class Player
 
     private initCreate()
     {
-        Player_controls.create();
-        Player_progress.create();
-        Player_volume.create();
-        Player_info.create();
-        Player_playlist.create();
+        PlayerControls.create();
+        PlayerProgress.create();
+        PlayerVolume.create();
+        PlayerInfo.create();
+        PlayerPlaylist.create();
     }
 
     private initEventsAudio()
@@ -100,37 +101,27 @@ class Player
         this.audio.src = url;
     }
 
-    public loadSongPlayer(songPlayer: SongPlayer, playlist: SongPlayer[], playlist_title: string)
+    public loadSongPlayer(songPlayer: SongPlayer, playlist: Playlist)
     {
-        this.songPlayer = songPlayer;
+        this._songPlayer = songPlayer;
 
         this.playlist = playlist;
 
         this.url = songPlayer.url;
-
-        this.playlist_title = playlist_title;
     }
 
-    private set playlist_title(playlist_title: string)
+
+    public get songPlayer(): SongPlayer
     {
-        this._playlist_title = playlist_title;
+        return this._songPlayer;
     }
 
-    public get playlist_title(): string
-    {
-        return this._playlist_title;
-    }
-    public getSongPlayer(): SongPlayer
-    {
-        return this.songPlayer;
-    }
-
-    public get playlist(): SongPlayer[]
+    public get playlist(): Playlist
     {
         return this._playlist;
     }
 
-    private set playlist(playlist:SongPlayer[])
+    private set playlist(playlist: Playlist)
     {
         this._playlist = playlist;
     }
@@ -194,15 +185,6 @@ class Player
         return ! this.audio.paused;
     }
 
-    // fixme метод не используется, а должен (зачем?, я сравниваю плейлисты при загрузки песни)
-    public static getPlaylistId(playlist:SongPlayer[]): string
-    {
-        return playlist.map((songPlayer:SongPlayer) =>
-            {
-                songPlayer.songName
-            })
-            .join(' ');
-    }
 
     public static create($context = $('.b_player')): Player
     {
