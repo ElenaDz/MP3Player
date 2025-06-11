@@ -9,14 +9,15 @@ list($artist_name, $song_name) = explode(' - ', $song_title);
     <div class="music-popular__item">
         <div class="popular-play">
 
-            <!-- todo добавить еще один дата атрибут с количеством прослушиваний, нужно для плейлиста -->
+            <!-- todo добавить еще один дата атрибут с количеством прослушиваний, нужно для плейлиста ok-->
             <div
                 class="btn_player"
                 data-song_name="<?= htmlspecialchars($song_name); ?>"
                 data-artist_html="<?= htmlspecialchars($artist_name)?>"
                 data-url_song="/mp3s/<?= rawurlencode($file_name); ?>"
                 data-url="/mp3s/<?= rawurlencode($file_name); ?>"
-                
+                data-download_number=""
+
             >
                 <button class="play"></button>
             </div>

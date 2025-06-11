@@ -1,0 +1,11 @@
+@media (max-width: 767px) {
+  .b_player_volume {
+    display: none;
+  }
+}
+.b_player_volume .volume_mute {
+  background-image: url("/assets/img/volume.svg");
+}
+.b_player_volume.mute .volume_mute {
+  background-image: url("/assets/img/mute.svg");
+}

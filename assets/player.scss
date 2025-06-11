@@ -5,11 +5,11 @@ $opacity-grey-middle: 0.7;
 $opacity-grey-max: 1;
 
 @import "slider";
-@import "progress";
-@import "controls";
-@import "volume";
-@import "playlist";
-@import "info";
+@import "player_progress";
+@import "player_controls";
+@import "player_volume";
+@import "player_playlist";
+@import "player_info";
 
 .b_player {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";

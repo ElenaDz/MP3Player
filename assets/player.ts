@@ -19,6 +19,7 @@ class Player
     private songPlayer: SongPlayer;
     private audio: HTMLAudioElement;
     private _playlist: SongPlayer[] = [];
+    private _playlist_title: string;
 
 
     constructor($context: JQuery)
@@ -40,11 +41,11 @@ class Player
 
     private initCreate()
     {
-        Controls.create();
-        Progress.create();
-        Volume.create();
-        Info.create();
-        Playlist.create();
+        Player_controls.create();
+        Player_progress.create();
+        Player_volume.create();
+        Player_info.create();
+        Player_playlist.create();
     }
 
     private initEventsAudio()
@@ -99,15 +100,26 @@ class Player
         this.audio.src = url;
     }
 
-    public loadSongPlayer(songPlayer: SongPlayer, playlist: SongPlayer[])
+    public loadSongPlayer(songPlayer: SongPlayer, playlist: SongPlayer[], playlist_title: string)
     {
         this.songPlayer = songPlayer;
 
         this.playlist = playlist;
 
         this.url = songPlayer.url;
+
+        this.playlist_title = playlist_title;
     }
 
+    private set playlist_title(playlist_title: string)
+    {
+        this._playlist_title = playlist_title;
+    }
+
+    public get playlist_title(): string
+    {
+        return this._playlist_title;
+    }
     public getSongPlayer(): SongPlayer
     {
         return this.songPlayer;
@@ -182,7 +194,7 @@ class Player
         return ! this.audio.paused;
     }
 
-    // fixme метод не используется, а должен
+    // fixme метод не используется, а должен (зачем?, я сравниваю плейлисты при загрузки песни)
     public static getPlaylistId(playlist:SongPlayer[]): string
     {
         return playlist.map((songPlayer:SongPlayer) =>

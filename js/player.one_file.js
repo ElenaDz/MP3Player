@@ -178,11 +178,11 @@ class Player {
         this.initEventsAudio();
     }
     initCreate() {
-        Controls.create();
-        Progress.create();
-        Volume.create();
-        Info.create();
-        Playlist.create();
+        Player_controls.create();
+        Player_progress.create();
+        Player_volume.create();
+        Player_info.create();
+        Player_playlist.create();
     }
     initEventsAudio() {
         this.audio.addEventListener('play', () => {
@@ -215,10 +215,17 @@ class Player {
     set url(url) {
         this.audio.src = url;
     }
-    loadSongPlayer(songPlayer, playlist) {
+    loadSongPlayer(songPlayer, playlist, playlist_title) {
         this.songPlayer = songPlayer;
         this.playlist = playlist;
         this.url = songPlayer.url;
+        this.playlist_title = playlist_title;
+    }
+    set playlist_title(playlist_title) {
+        this._playlist_title = playlist_title;
+    }
+    get playlist_title() {
+        return this._playlist_title;
     }
     getSongPlayer() {
         return this.songPlayer;
@@ -326,9 +333,10 @@ class BtnPlayer {
         this.player.play();
     }
     load() {
-        if (this.player.songId !== this.songId) {
+        let playlist_title = this.$context.parents('.inline_player_playlist_main').parent().find('h2').text();
+        if (this.player.songId !== this.songId || this.getPlaylist() !== this.player.playlist) {
             if (this.url) {
-                this.player.loadSongPlayer(this.songPlayer, this.getPlaylist());
+                this.player.loadSongPlayer(this.songPlayer, this.getPlaylist(), playlist_title);
             }
         }
     }
@@ -359,9 +367,9 @@ class BtnPlayer {
     get playing() {
         return this.$context.hasClass('playing');
     }
-    // fixme здесь не должно быть значения по-умолчанию для контекста
+    // fixme здесь не должно быть значения по-умолчанию для контекста ok
     // @ts-ignore
-    static create($context = $('.inline_player_playlist_main')) {
+    static create($context) {
         let btns_player = [];
         $context.find('.btn_player').each((index, element) => {
             btns_player.push(new BtnPlayer($(element)));
@@ -371,7 +379,7 @@ class BtnPlayer {
 }
 
 
-class Controls {
+class Player_controls {
     constructor($context) {
         this.$context = $context;
         // @ts-ignore
@@ -400,12 +408,12 @@ class Controls {
         this.$context.find('button.next').attr('disabled', 1);
     }
     static create($context = $('.b_player_controls')) {
-        return new Controls($context);
+        return new Player_controls($context);
     }
 }
 
 
-class Progress {
+class Player_progress {
     constructor($context) {
         this.$context = $context;
         // @ts-ignore
@@ -437,10 +445,10 @@ class Progress {
         this.$context.find('.b_slider').addClass('disabled');
     }
     set currentTimeText(current_time) {
-        this.$context.find('.time_current').text(Progress.formatTime(current_time));
+        this.$context.find('.time_current').text(Player_progress.formatTime(current_time));
     }
     set durationText(duration) {
-        this.$context.find('.time_duration').text(Progress.formatTime(duration));
+        this.$context.find('.time_duration').text(Player_progress.formatTime(duration));
     }
     static formatTime(sec = 0) {
         let min = (Math.floor(Math.trunc(sec / 60))).toString();
@@ -456,12 +464,12 @@ class Progress {
         }
     }
     static create($context = $('.b_player_progress')) {
-        return new Progress($context);
+        return new Player_progress($context);
     }
 }
 
 
-class Volume {
+class Player_volume {
     constructor($context) {
         this.KEY_LOCAL_STORE_VOLUME = 'volume';
         this.$context = $context;
@@ -539,12 +547,12 @@ class Volume {
         this.volumeStore = volume;
     }
     static create($context = $('.b_player_volume')) {
-        return new Volume($context);
+        return new Player_volume($context);
     }
 }
 
 
-class Info {
+class Player_info {
     constructor($context) {
         this.$context = $context;
         // @ts-ignore
@@ -555,13 +563,15 @@ class Info {
         this.player = Player.create();
         this.disabled();
         this.player.$context.on(Player.EVENT_ERROR, () => {
-            this.disabled();
-            this.setSongPlayer(this.player.getSongPlayer());
+            this.load();
         });
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            this.setSongPlayer(this.player.getSongPlayer());
-            this.$context.removeClass('disabled');
+            this.load();
         });
+    }
+    load() {
+        this.setSongPlayer(this.player.getSongPlayer());
+        this.$context.removeClass('disabled');
     }
     disabled() {
         this.$context.addClass('disabled');
@@ -579,12 +589,12 @@ class Info {
         }
     }
     static create($context = $('.b_player_info')) {
-        return new Info($context);
+        return new Player_info($context);
     }
 }
 
 
-class Playlist {
+class Player_playlist {
     constructor($context) {
         this.$context = $context;
         // @ts-ignore
@@ -592,6 +602,7 @@ class Playlist {
             return this.$context[0].Playlist;
         // @ts-ignore
         this.$context[0].Playlist = this;
+        this.disabled();
         this.player = Player.create();
         this.$context.find('button.close').on('click', () => {
             this.close();
@@ -600,14 +611,22 @@ class Playlist {
             this.isOpen ? this.close() : this.open();
         });
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+            this.$context.removeClass('disabled');
             this.load();
         });
+        this.player.$context.on(Player.EVENT_ERROR, () => {
+            this.disabled();
+        });
+    }
+    disabled() {
+        this.$context.addClass('disabled');
     }
     load() {
         this.$context.find('.playlist').empty();
         this.player.playlist.forEach((song_player) => {
             this.$context.find('.playlist').append(this.getHtml(song_player));
         });
+        this.$context.find('.music_title').text('Сейчас играет:' + this.player.playlist_title);
     }
     getHtml(song) {
         return `
@@ -656,6 +675,6 @@ class Playlist {
         return this.$context.hasClass('open');
     }
     static create($context = $('.b_player_playlist')) {
-        return new Playlist($context);
+        return new Player_playlist($context);
     }
 }

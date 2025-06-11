@@ -12,8 +12,8 @@
 
             <div class="header">
                 <div class="name_chart">
-                    Сейчас играет:
-                    <!-- todo здесь нужно вставлять заголовок плейлиста из h2 -->
+                    <h2 class="music_title">Сейчас играет:</h2>
+                    <!-- todo здесь нужно вставлять заголовок плейлиста из h2 ok-->
                 </div>
                 <button class="close"></button>
             </div>

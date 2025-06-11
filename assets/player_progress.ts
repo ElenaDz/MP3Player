@@ -1,4 +1,4 @@
-class Progress
+class Player_progress
 {
     private $context: JQuery;
     private player: Player;
@@ -53,12 +53,12 @@ class Progress
 
     private set currentTimeText(current_time: number)
     {
-        this.$context.find('.time_current').text(Progress.formatTime(current_time));
+        this.$context.find('.time_current').text(Player_progress.formatTime(current_time));
     }
 
     private set durationText(duration: number)
     {
-        this.$context.find('.time_duration').text(Progress.formatTime(duration));
+        this.$context.find('.time_duration').text(Player_progress.formatTime(duration));
     }
 
     private static formatTime(sec = 0)
@@ -78,8 +78,8 @@ class Progress
         }
     }
 
-    public static create($context = $('.b_player_progress')): Progress
+    public static create($context = $('.b_player_progress')): Player_progress
     {
-        return new Progress($context);
+        return new Player_progress($context);
     }
 }

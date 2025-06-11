@@ -34,37 +34,42 @@
 </head>
 
 <body>
+<div>
+    <h2 class="music-title"> Заголовок 2</h2>
+    <div class="inline_player_playlist_main">
+        <?php
+        $file_name = '5УТРА - Ромашки.mp3';
+        require __DIR__ . '/assets/btn_player.php';
 
-<div class="inline_player_playlist_main">
-    <?php
-    $file_name = '5УТРА - Ромашки.mp3';
-    require __DIR__ . '/assets/btn_player.php';
+        $file_name = 'Niletto - Счастливым (длинное название).mp3';
+        require __DIR__ . '/assets/btn_player.php';
 
-    $file_name = 'Niletto - Счастливым (длинное название).mp3';
-    require __DIR__ . '/assets/btn_player.php';
+        $file_name = '5УТРА - Ромашки.mp3';
+        require __DIR__ . '/assets/btn_player.php';
 
-    $file_name = '5УТРА - Ромашки.mp3';
-    require __DIR__ . '/assets/btn_player.php';
+        // fixme заблокирована кнопка скачивания песни, а не должна ok
+        $file_name = '5УТРА - Test.mp3';
+        require __DIR__ . '/assets/btn_player.php';
+        ?>
+    </div>
+</div>
 
-    // fixme заблокирована кнопка скачивания песни, а не должна
-    $file_name = '5УТРА - Test.mp3';
-    require __DIR__ . '/assets/btn_player.php';
-    ?>
+<hr>
+<div>
+    <h2 class="music-title"> Заголовок 1</h2>
+    <div class="inline_player_playlist_main">
+        <?php
+        $file_name = '5УТРА - Ромашки.mp3';
+        require __DIR__ . '/assets/btn_player.php';
+
+        $file_name = 'Niletto - Счастливым (длинное название).mp3';
+        require __DIR__ . '/assets/btn_player.php';
+        ?>
+    </div>
 </div>
 
 
 <hr>
-
-<div class="inline_player_playlist_main">
-    <?php
-    $file_name = '5УТРА - Ромашки.mp3';
-    require __DIR__ . '/assets/btn_player.php';
-
-    $file_name = 'Niletto - Счастливым (длинное название).mp3';
-    require __DIR__ . '/assets/btn_player.php';
-    ?>
-</div>
-
     <div class="b_player">
 
         <div class="audio">
@@ -73,15 +78,15 @@
 
         <div class="inner_player">
 
-	        <?php require __DIR__.'/assets/controls.php'; ?>
+	        <?php require __DIR__ . '/assets/player_controls.php'; ?>
 
-	        <?php require __DIR__.'/assets/playlist.php'; ?>
+	        <?php require __DIR__ . '/assets/player_playlist.php'; ?>
 
-            <?php require __DIR__.'/assets/progress.php'; ?>
+            <?php require __DIR__ . '/assets/player_progress.php'; ?>
 
-            <?php require __DIR__.'/assets/volume.php'; ?>
+            <?php require __DIR__ . '/assets/player_volume.php'; ?>
 
-            <?php require __DIR__.'/assets/info.php'; ?>
+            <?php require __DIR__ . '/assets/player_info.php'; ?>
 
         </div>
     </div>
@@ -95,11 +100,11 @@
 	        __DIR__ . '/js/slider.js',
 	        __DIR__ . '/js/player.js',
 	        __DIR__ . '/js/btn_player.js',
-	        __DIR__ . '/js/controls.js',
-	        __DIR__ . '/js/progress.js',
-	        __DIR__ . '/js/volume.js',
-	        __DIR__ . '/js/info.js',
-	        __DIR__ . '/js/playlist.js'
+	        __DIR__ . '/js/player_controls.js',
+	        __DIR__ . '/js/player_progress.js',
+	        __DIR__ . '/js/player_volume.js',
+	        __DIR__ . '/js/player_info.js',
+	        __DIR__ . '/js/player_playlist.js'
         ],
 	    __DIR__ . '/js/player.one_file.js'
     );
@@ -108,7 +113,7 @@
     <script src="<?= $getUrl(__DIR__ . '/js/player.one_file.js'); ?>"></script>
     <script>
         $(function() {
-            BtnPlayer.create();
+            BtnPlayer.create($('body'));
         });
     </script>
 </body>

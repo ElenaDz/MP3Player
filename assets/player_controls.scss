@@ -22,6 +22,8 @@
     }
 
     &:disabled {
+      pointer-events: none;
+
       &:hover {
         background-color:  #f3f3f3 !important;
       }
@@ -46,7 +48,7 @@
 
   button:disabled {
     opacity: 0.5;
-    cursor: default;
+    pointer-events: none;
 
     &:hover {
       opacity: 0.5;

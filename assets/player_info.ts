@@ -1,4 +1,4 @@
-class Info
+class Player_info
 {
     private $context: JQuery;
     private player: Player;
@@ -19,17 +19,20 @@ class Info
 
         this.player.$context.on(Player.EVENT_ERROR,() =>
         {
-            this.disabled();
-
-            this.setSongPlayer(this.player.getSongPlayer());
+            this.load();
         })
 
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
-            this.setSongPlayer(this.player.getSongPlayer());
-
-            this.$context.removeClass('disabled');
+            this.load();
         })
+    }
+
+    private load()
+    {
+        this.setSongPlayer(this.player.getSongPlayer());
+
+        this.$context.removeClass('disabled');
     }
 
     private disabled()
@@ -56,8 +59,8 @@ class Info
         }
     }
 
-    public static create($context = $('.b_player_info')): Info
+    public static create($context = $('.b_player_info')): Player_info
     {
-        return new Info($context);
+        return new Player_info($context);
     }
 }

@@ -113,6 +113,9 @@
 .b_player_controls .play:hover {
   background-color: #d7eaff !important;
 }
+.b_player_controls .play:disabled {
+  pointer-events: none;
+}
 .b_player_controls .play:disabled:hover {
   background-color: #f3f3f3 !important;
 }
@@ -130,7 +133,7 @@
 }
 .b_player_controls button:disabled {
   opacity: 0.5;
-  cursor: default;
+  pointer-events: none;
 }
 .b_player_controls button:disabled:hover {
   opacity: 0.5;
@@ -176,6 +179,10 @@
   .b_player_playlist {
     order: 1;
   }
+}
+.b_player_playlist.disabled .playlist_btn, .b_player_playlist.disabled .shuffle, .b_player_playlist.disabled .repeat_playlist {
+  pointer-events: none;
+  opacity: 0.3;
 }
 .b_player_playlist.open .popup {
   height: calc(-156px + 100vh);
@@ -433,8 +440,8 @@
   padding: 0 2vw;
   height: 100%;
   background-color: #fff;
-  border-top: 1px solid #ededed;
-  box-shadow: 0 0 7px #c3c3c3;
+  border-top: 1px solid rgb(237, 237, 237);
+  box-shadow: 0 0 7px rgb(195, 195, 195);
 }
 @media (max-width: 767px) {
   .b_player .inner_player {

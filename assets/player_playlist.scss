@@ -6,6 +6,13 @@
     order: 1;
   };
 
+  &.disabled {
+    .playlist_btn, .shuffle, .repeat_playlist {
+      pointer-events: none;
+      opacity: $opacity-grey-min;
+    }
+  }
+
   &.open {
     .popup {
       height: calc(-156px + 100vh);

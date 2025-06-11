@@ -12,11 +12,11 @@ class Player {
         this.initEventsAudio();
     }
     initCreate() {
-        Controls.create();
-        Progress.create();
-        Volume.create();
-        Info.create();
-        Playlist.create();
+        Player_controls.create();
+        Player_progress.create();
+        Player_volume.create();
+        Player_info.create();
+        Player_playlist.create();
     }
     initEventsAudio() {
         this.audio.addEventListener('play', () => {
@@ -49,10 +49,17 @@ class Player {
     set url(url) {
         this.audio.src = url;
     }
-    loadSongPlayer(songPlayer, playlist) {
+    loadSongPlayer(songPlayer, playlist, playlist_title) {
         this.songPlayer = songPlayer;
         this.playlist = playlist;
         this.url = songPlayer.url;
+        this.playlist_title = playlist_title;
+    }
+    set playlist_title(playlist_title) {
+        this._playlist_title = playlist_title;
+    }
+    get playlist_title() {
+        return this._playlist_title;
     }
     getSongPlayer() {
         return this.songPlayer;
@@ -99,7 +106,7 @@ class Player {
     get playing() {
         return !this.audio.paused;
     }
-    // fixme метод не используется, а должен
+    // fixme метод не используется, а должен (зачем?, я сравниваю плейлисты при загрузки песни)
     static getPlaylistId(playlist) {
         return playlist.map((songPlayer) => {
             songPlayer.songName;
