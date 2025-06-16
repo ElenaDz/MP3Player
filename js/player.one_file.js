@@ -165,7 +165,9 @@ Slider.SELECTOR = '.b_slider';
 
 
 class Playlist {
-    constructor(songsPlayer, title = null, clicks = []) {
+    constructor(songsPlayer, title = null) {
+        this._songsPlayer = songsPlayer;
+        this._title = title;
     }
     get id() {
         return this.songsPlayer
@@ -179,9 +181,6 @@ class Playlist {
     }
     get title() {
         return this._title;
-    }
-    get clicks() {
-        return this._clicks;
     }
 }
 
@@ -227,7 +226,6 @@ class Player {
         });
     }
     get songId() {
-        // let filename = this.url ? this.url.split('/').reverse()[0] : null;
         return this.songPlayer ? this.songPlayer.song_id : null;
     }
     get url() {
@@ -319,9 +317,6 @@ class BtnPlayer {
         });
     }
     get songId() {
-        // let filename = this.url ? this.url.split('/').reverse()[0] : null;
-        //
-        // return filename;
         return +this.$context.data('song_id');
     }
     // @ts-ignore
@@ -329,7 +324,7 @@ class BtnPlayer {
         return this.$context.data('url');
     }
     get clicks() {
-        return this.$context.data('clicks');
+        return +this.$context.data('clicks');
     }
     get songName() {
         return this.$context.data('song_name');
@@ -354,21 +349,15 @@ class BtnPlayer {
     getPlaylist() {
         let btns_player = BtnPlayer.create($(this.$context.parents('.inline_player_playlist_main')));
         let songs_player = [];
-        let clicks_playlist = [];
         btns_player.forEach((btn_player) => {
             songs_player.push(btn_player.songPlayer);
-            clicks_playlist.push({
-                song_id: btn_player.songId,
-                count: +btn_player.clicks
-            });
         });
         let title = this.$context
             .parents('.inline_player_playlist_main')
             .parent()
             .find('h2')
             .text();
-        // fixme добавить недостающие clicks
-        return new Playlist(songs_player, title, clicks_playlist);
+        return new Playlist(songs_player, title);
     }
     get songPlayer() {
         return {
@@ -376,7 +365,8 @@ class BtnPlayer {
             url: this.url,
             artistHtml: this.artistHtml,
             songName: this.songName,
-            urlSong: this.urlSong
+            urlSong: this.urlSong,
+            clicks: this.clicks
         };
     }
     pause() {
@@ -545,9 +535,9 @@ class PlayerVolume {
         if (mute) {
             this.slider.value = 0;
             this.$context.addClass('mute');
+            return;
         }
         else {
-            this.slider.value = this.player.volume;
             this.$context.removeClass('mute');
         }
     }
@@ -564,6 +554,8 @@ class PlayerVolume {
         if (volume < 0 || volume > 1) {
             throw new Error(`Invalid volume "${volume}"`);
         }
+        if (this.slider.value == this.player.volume)
+            return;
         this.slider.value = volume;
         this.player.volume = volume;
         this.volumeStore = volume;
@@ -680,7 +672,7 @@ class PlayerPlaylist {
                 <div class="wrap_right">
                     <div class="count_clicks">
                         <i></i>
-                        <span>12345</span>
+                        <span>${song.clicks}</span>
                     </div>
 
                     <div class="download elem">

@@ -59,7 +59,7 @@ class PlayerPlaylist {
                 <div class="wrap_right">
                     <div class="count_clicks">
                         <i></i>
-                        <span>12345</span>
+                        <span>${song.clicks}</span>
                     </div>
 
                     <div class="download elem">

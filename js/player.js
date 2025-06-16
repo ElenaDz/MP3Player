@@ -39,7 +39,6 @@ class Player {
         });
     }
     get songId() {
-        // let filename = this.url ? this.url.split('/').reverse()[0] : null;
         return this.songPlayer ? this.songPlayer.song_id : null;
     }
     get url() {

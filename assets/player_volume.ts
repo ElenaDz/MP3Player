@@ -45,7 +45,8 @@ class PlayerVolume
             if (this.mute || this.volume === 0) {
                 this.mute = true;
                 return;
-            } else  {
+
+            } else {
                 this.mute = false;
             }
 
@@ -75,15 +76,16 @@ class PlayerVolume
     private set mute(mute)
     {
         // fixme в этой строке происходит зацикливание смотри консоль хрома, там ошибка "Maximum call stack size"
-        //  используй debugger;
+        //  используй debugger; ok
+
         this.player.mute = mute;
 
         if (mute) {
             this.slider.value = 0;
             this.$context.addClass('mute');
+            return;
 
         } else {
-            this.slider.value = this.player.volume;
             this.$context.removeClass('mute');
         }
     }
@@ -108,6 +110,8 @@ class PlayerVolume
         if (volume < 0 || volume > 1) {
             throw new Error(`Invalid volume "${volume}"`);
         }
+
+        if ( this.slider.value == this.player.volume) return;
 
         this.slider.value = volume;
 

@@ -34,9 +34,6 @@ class BtnPlayer
 
     private get songId(): number
     {
-        // let filename = this.url ? this.url.split('/').reverse()[0] : null;
-        //
-        // return filename;
         return +this.$context.data('song_id');
     }
 
@@ -46,9 +43,9 @@ class BtnPlayer
         return this.$context.data('url');
     }
 
-    private get clicks(): string
+    private get clicks(): number
     {
-        return this.$context.data('clicks');
+        return +this.$context.data('clicks');
     }
 
     public get songName()
@@ -88,15 +85,9 @@ class BtnPlayer
         let btns_player = BtnPlayer.create($(this.$context.parents('.inline_player_playlist_main')))
 
         let songs_player: SongPlayer[] = [];
-        let clicks_playlist: ClicksPlaylist[] = [];
 
         btns_player.forEach((btn_player) => {
             songs_player.push(btn_player.songPlayer)
-
-            clicks_playlist.push({
-                song_id: btn_player.songId,
-                count: +btn_player.clicks
-            })
         });
 
         let title = this.$context
@@ -105,8 +96,7 @@ class BtnPlayer
             .find('h2')
             .text();
 
-        // fixme добавить недостающие clicks
-        return new Playlist(songs_player, title, clicks_playlist);
+        return new Playlist(songs_player, title);
     }
 
     public get songPlayer(): SongPlayer
@@ -116,7 +106,8 @@ class BtnPlayer
             url: this.url,
             artistHtml: this.artistHtml,
             songName: this.songName,
-            urlSong: this.urlSong
+            urlSong: this.urlSong,
+            clicks: this.clicks
         }
     }
 

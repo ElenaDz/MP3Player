@@ -11,8 +11,8 @@ list($artist_name, $song_name) = explode(' - ', $song_title);
     <div class="music-popular__item">
         <div class="popular-play">
 
-            <!-- todo добавить еще один дата атрибут с song_id, нужен везде, отказываемся от url в качестве song id -->
-            <!-- todo добавить еще один дата атрибут с количеством прослушиваний, нужно для плейлиста-->
+            <!-- todo добавить еще один дата атрибут с song_id, нужен везде, отказываемся от url в качестве song id ok-->
+            <!-- todo добавить еще один дата атрибут с количеством прослушиваний, нужно для плейлиста ok-->
             <div
                 class="btn_player"
                 data-song_id="<?= rawurlencode($song_id); ?>"

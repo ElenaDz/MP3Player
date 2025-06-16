@@ -1,5 +1,7 @@
 class Playlist {
-    constructor(songsPlayer, title = null, clicks = []) {
+    constructor(songsPlayer, title = null) {
+        this._songsPlayer = songsPlayer;
+        this._title = title;
     }
     get id() {
         return this.songsPlayer
@@ -13,8 +15,5 @@ class Playlist {
     }
     get title() {
         return this._title;
-    }
-    get clicks() {
-        return this._clicks;
     }
 }

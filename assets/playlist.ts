@@ -1,18 +1,12 @@
-
-interface ClicksPlaylist
-{
-	song_id: number;
-	count: number;
-}
-
 class Playlist
 {
 	private _songsPlayer:SongPlayer[];
 	private _title: string;
-	private _clicks: ClicksPlaylist[];
 
-	constructor(songsPlayer: SongPlayer[], title: string = null, clicks: ClicksPlaylist[] = [])
+	constructor(songsPlayer: SongPlayer[], title: string = null)
 	{
+		this._songsPlayer = songsPlayer;
+		this._title = title;
 	}
 
 
@@ -36,11 +30,5 @@ class Playlist
 	public get title(): string
 	{
 		return this._title
-	}
-
-
-	public get clicks(): ClicksPlaylist[]
-	{
-		return this._clicks;
 	}
 }

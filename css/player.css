@@ -427,7 +427,6 @@
   }
 }
 .b_player .audio {
-  display: none;
   position: fixed;
   bottom: 75px;
   left: 10px;
