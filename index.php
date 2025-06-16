@@ -39,14 +39,22 @@
     <div class="inline_player_playlist_main">
         <?php
         $file_name = '5УТРА - Ромашки.mp3';
+        $song_id = '1';
+        $clicks = '12345';
         require __DIR__ . '/assets/btn_player.php';
 
+        $song_id = '2';
+        $clicks = '4';
         $file_name = 'Niletto - Счастливым (длинное название).mp3';
         require __DIR__ . '/assets/btn_player.php';
 
+        $song_id = '1';
+        $clicks = '12345';
         $file_name = '5УТРА - Ромашки.mp3';
         require __DIR__ . '/assets/btn_player.php';
 
+        $song_id = '3';
+        $clicks = '15';
         $file_name = '5УТРА - Test.mp3';
         require __DIR__ . '/assets/btn_player.php';
         ?>
@@ -59,9 +67,13 @@
     <div class="inline_player_playlist_main">
         <?php
         $file_name = '5УТРА - Ромашки.mp3';
+        $song_id = '1';
+        $clicks = '12345';
         require __DIR__ . '/assets/btn_player.php';
 
         $file_name = 'Niletto - Счастливым (длинное название).mp3';
+        $song_id = '2';
+        $clicks = '4';
         require __DIR__ . '/assets/btn_player.php';
         ?>
     </div>

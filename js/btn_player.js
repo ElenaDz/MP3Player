@@ -20,12 +20,17 @@ class BtnPlayer {
         });
     }
     get songId() {
-        let filename = this.url ? this.url.split('/').reverse()[0] : null;
-        return filename;
+        // let filename = this.url ? this.url.split('/').reverse()[0] : null;
+        //
+        // return filename;
+        return +this.$context.data('song_id');
     }
     // @ts-ignore
     get url() {
         return this.$context.data('url');
+    }
+    get clicks() {
+        return this.$context.data('clicks');
     }
     get songName() {
         return this.$context.data('song_name');
@@ -49,9 +54,14 @@ class BtnPlayer {
     }
     getPlaylist() {
         let btns_player = BtnPlayer.create($(this.$context.parents('.inline_player_playlist_main')));
-        let songsPlayer = [];
+        let songs_player = [];
+        let clicks_playlist = [];
         btns_player.forEach((btn_player) => {
-            songsPlayer.push(btn_player.songPlayer);
+            songs_player.push(btn_player.songPlayer);
+            clicks_playlist.push({
+                song_id: btn_player.songId,
+                count: +btn_player.clicks
+            });
         });
         let title = this.$context
             .parents('.inline_player_playlist_main')
@@ -59,10 +69,11 @@ class BtnPlayer {
             .find('h2')
             .text();
         // fixme добавить недостающие clicks
-        return new Playlist(songsPlayer, title);
+        return new Playlist(songs_player, title, clicks_playlist);
     }
     get songPlayer() {
         return {
+            song_id: this.songId,
             url: this.url,
             artistHtml: this.artistHtml,
             songName: this.songName,

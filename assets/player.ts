@@ -1,7 +1,7 @@
 
 interface SongPlayer {
     // fixme убрать знак "?" чтобы сделать это свойство обязательным, ну и добавить его везде где нужно
-    song_id?: number;
+    song_id: number;
     url: string;
     artistHtml: string;
     songName: string;
@@ -86,9 +86,9 @@ class Player
 
     public get songId()
     {
-        let filename = this.url ? this.url.split('/').reverse()[0] : null;
+        // let filename = this.url ? this.url.split('/').reverse()[0] : null;
 
-        return filename;
+        return this.songPlayer ? this.songPlayer.song_id : null;
     }
 
     public get url()
