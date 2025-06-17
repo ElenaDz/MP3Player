@@ -75,9 +75,6 @@ class PlayerVolume
 
     private set mute(mute)
     {
-        // fixme в этой строке происходит зацикливание смотри консоль хрома, там ошибка "Maximum call stack size"
-        //  используй debugger; ok
-
         this.player.mute = mute;
 
         if (mute) {
@@ -91,7 +88,8 @@ class PlayerVolume
     }
 
 
-    private get volume() {
+    private get volume()
+    {
         return this.volumeStore ?  this.volumeStore : this.player.volume;
     }
 

@@ -58,6 +58,7 @@ class Player {
     get playlist() {
         return this._playlist;
     }
+    // fixme удали, задаем плейлист в методе loadSongPlayer
     set playlist(playlist) {
         this._playlist = playlist;
     }

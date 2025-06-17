@@ -35,7 +35,7 @@ class BtnPlayer
 
     public get songId(): number
     {
-        return +this.$context.data('song_id');
+        return parseInt(this.$context.data('song_id'));
     }
 
     // @ts-ignore
@@ -46,7 +46,7 @@ class BtnPlayer
 
     private get clicks(): number
     {
-        return +this.$context.data('clicks');
+        return parseInt(this.$context.data('clicks'));
     }
 
     public get songName()

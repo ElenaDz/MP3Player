@@ -9,10 +9,10 @@ class Playlist
 		this._title = title;
 	}
 
-	//  перепесила, т.к. возвращал пустую строку до этого
 	public get id(): string
 	{
 		let id = '';
+
 		this.songsPlayer.map((songPlayer:SongPlayer) => {
 			id = id + songPlayer.songName
 		});

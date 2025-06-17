@@ -1,6 +1,5 @@
 
 interface SongPlayer {
-    // fixme убрать знак "?" чтобы сделать это свойство обязательным, ну и добавить его везде где нужно ok
     song_id: number;
     url: string;
     artistHtml: string;
@@ -120,6 +119,7 @@ class Player
         return this._playlist;
     }
 
+    // fixme удали, задаем плейлист в методе loadSongPlayer
     private set playlist(playlist: Playlist)
     {
         this._playlist = playlist;

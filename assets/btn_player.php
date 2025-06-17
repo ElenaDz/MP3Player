@@ -11,8 +11,6 @@ list($artist_name, $song_name) = explode(' - ', $song_title);
     <div class="music-popular__item">
         <div class="popular-play">
 
-            <!-- todo добавить еще один дата атрибут с song_id, нужен везде, отказываемся от url в качестве song id ok-->
-            <!-- todo добавить еще один дата атрибут с количеством прослушиваний, нужно для плейлиста ok-->
             <div
                 class="btn_player"
                 data-song_id="<?= rawurlencode($song_id); ?>"
@@ -32,19 +30,6 @@ list($artist_name, $song_name) = explode(' - ', $song_title);
                 <div class="wrap_author">
                     <a href="#">
                         <?= htmlspecialchars($artist_name); ?>
-                    </a>
-                </div>
-            </div>
-
-            <div class="wrap_right">
-                <div class="count_clicks">
-                    <i></i>
-                    <span><?= rawurlencode($clicks); ?></span>
-                </div>
-
-                <div class="download elem">
-                    <a class="download_song" href="/mp3s/<?= rawurlencode($file_name); ?>">
-                        <i></i>
                     </a>
                 </div>
             </div>

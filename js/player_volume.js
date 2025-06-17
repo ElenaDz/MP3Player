@@ -47,8 +47,6 @@ class PlayerVolume {
         return this.player.mute;
     }
     set mute(mute) {
-        // fixme в этой строке происходит зацикливание смотри консоль хрома, там ошибка "Maximum call stack size"
-        //  используй debugger; ok
         this.player.mute = mute;
         if (mute) {
             this.slider.value = 0;

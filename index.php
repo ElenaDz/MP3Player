@@ -40,21 +40,21 @@
         <?php
         $file_name = '5УТРА - Ромашки.mp3';
         $song_id = '1';
-        $clicks = '12345';
+        $clicks = 1;
         require __DIR__ . '/assets/btn_player.php';
 
         $song_id = '2';
-        $clicks = '4';
+        $clicks = 2;
         $file_name = 'Niletto - Счастливым (длинное название).mp3';
         require __DIR__ . '/assets/btn_player.php';
 
         $song_id = '1';
-        $clicks = '12345';
+        $clicks = 3;
         $file_name = '5УТРА - Ромашки.mp3';
         require __DIR__ . '/assets/btn_player.php';
 
         $song_id = '3';
-        $clicks = '15';
+        $clicks = 4;
         $file_name = '5УТРА - Test.mp3';
         require __DIR__ . '/assets/btn_player.php';
         ?>
@@ -68,12 +68,12 @@
         <?php
         $file_name = '5УТРА - Ромашки.mp3';
         $song_id = '1';
-        $clicks = '12345';
+        $clicks = 3;
         require __DIR__ . '/assets/btn_player.php';
 
         $file_name = 'Niletto - Счастливым (длинное название).mp3';
         $song_id = '2';
-        $clicks = '4';
+        $clicks = 2;
         require __DIR__ . '/assets/btn_player.php';
         ?>
     </div>
@@ -89,17 +89,11 @@
         </div>
 
         <div class="inner_player">
-
 	        <?php require __DIR__ . '/assets/player_controls.php'; ?>
-
 	        <?php require __DIR__ . '/assets/player_playlist.php'; ?>
-
             <?php require __DIR__ . '/assets/player_progress.php'; ?>
-
             <?php require __DIR__ . '/assets/player_volume.php'; ?>
-
             <?php require __DIR__ . '/assets/player_info.php'; ?>
-
         </div>
     </div>
 

@@ -20,14 +20,14 @@ class BtnPlayer {
         });
     }
     get songId() {
-        return +this.$context.data('song_id');
+        return parseInt(this.$context.data('song_id'));
     }
     // @ts-ignore
     get url() {
         return this.$context.data('url');
     }
     get clicks() {
-        return +this.$context.data('clicks');
+        return parseInt(this.$context.data('clicks'));
     }
     get songName() {
         return this.$context.data('song_name');

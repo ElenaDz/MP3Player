@@ -169,7 +169,6 @@ class Playlist {
         this._songsPlayer = songsPlayer;
         this._title = title;
     }
-    //  перепесила, т.к. возвращал пустую строку до этого
     get id() {
         let id = '';
         this.songsPlayer.map((songPlayer) => {
@@ -246,6 +245,7 @@ class Player {
     get playlist() {
         return this._playlist;
     }
+    // fixme удали, задаем плейлист в методе loadSongPlayer
     set playlist(playlist) {
         this._playlist = playlist;
     }
@@ -318,14 +318,14 @@ class BtnPlayer {
         });
     }
     get songId() {
-        return +this.$context.data('song_id');
+        return parseInt(this.$context.data('song_id'));
     }
     // @ts-ignore
     get url() {
         return this.$context.data('url');
     }
     get clicks() {
-        return +this.$context.data('clicks');
+        return parseInt(this.$context.data('clicks'));
     }
     get songName() {
         return this.$context.data('song_name');
@@ -530,8 +530,6 @@ class PlayerVolume {
         return this.player.mute;
     }
     set mute(mute) {
-        // fixme в этой строке происходит зацикливание смотри консоль хрома, там ошибка "Maximum call stack size"
-        //  используй debugger; ok
         this.player.mute = mute;
         if (mute) {
             this.slider.value = 0;
@@ -629,9 +627,11 @@ class PlayerPlaylist {
             this.isOpen ? this.close() : this.open();
         });
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+            // fixme перенести внутрь метода load
             this.$context.removeClass('disabled');
             this.load();
             let btns = BtnPlayer.create(this.$context.find('.playlist'));
+            // fixme не правильно, играет BtnPlayer или нет должен решать сам BtnPlayer в конструкторе, а не плейлист, удалить
             btns.forEach((btn) => {
                 if (this.player.songId == btn.songId) {
                     btn.playing = this.player.playing;
@@ -645,20 +645,28 @@ class PlayerPlaylist {
     disabled() {
         this.$context.addClass('disabled');
     }
+    // fixme мне кажется код будет легче и понятнее если это будет метод
+    //  private loadPlaylist(playlist: Playlist)
     load() {
         console.log(this.player.playlist.id);
         console.log(this.id);
+        // todo здесь должна быть защита от постоянной перезагрузки плейлиста, сколько не вызывай метод,
+        //  перезагрузка должна выполняться только когда плейлист новый
         if (this.player.playlist.id !== this.id) {
             this.$context.find('.playlist').empty();
         }
+        // fixme плейлист загружается каждый раз при запуске а должен только когда плейлист новый
+        console.log('load');
         this.id = this.player.playlist.id;
         this.player.playlist.songsPlayer.forEach((song_player) => {
             this.$context.find('.playlist')
                 .append(this.getHtml(song_player));
         });
         this.$context.find('.music_title')
+            // fixme убери "Сейчас играет:" и добавь этот текст с помощью css :before это починит логику работы заголовков
             .text('Сейчас играет:' + this.player.playlist.title);
     }
+    // fixme избавься от этого сетера так он только усложняет код, задается id плейлиста в методе выше и больше ни где
     set id(id) {
         this._id = id;
     }

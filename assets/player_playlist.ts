@@ -2,6 +2,7 @@ class PlayerPlaylist
 {
     private $context: JQuery;
     private player: Player;
+    // fixme переименовать это не player_playlist_id это playlist_id
     private _id: string;
 
     constructor($context: JQuery)
@@ -30,14 +31,16 @@ class PlayerPlaylist
 
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
+            // fixme перенести внутрь метода load
             this.$context.removeClass('disabled');
 
             this.load();
 
             let btns = BtnPlayer.create(this.$context.find('.playlist'));
 
-            btns.forEach((btn) => {
-
+            // fixme не правильно, играет BtnPlayer или нет должен решать сам BtnPlayer в конструкторе, а не плейлист, удалить
+            btns.forEach((btn) =>
+            {
                 if (this.player.songId == btn.songId) {
 
                     btn.playing = this.player.playing;
@@ -56,14 +59,21 @@ class PlayerPlaylist
         this.$context.addClass('disabled');
     }
 
+    // fixme мне кажется код будет легче и понятнее если это будет метод
+    //  private loadPlaylist(playlist: Playlist)
     private load()
     {
         console.log(this.player.playlist.id)
         console.log(this.id)
 
+        // todo здесь должна быть защита от постоянной перезагрузки плейлиста, сколько не вызывай метод,
+        //  перезагрузка должна выполняться только когда плейлист новый
         if (this.player.playlist.id !== this.id) {
             this.$context.find('.playlist').empty();
         }
+
+        // fixme плейлист загружается каждый раз при запуске а должен только когда плейлист новый
+        console.log('load');
 
         this.id = this.player.playlist.id;
 
@@ -74,9 +84,11 @@ class PlayerPlaylist
         })
 
         this.$context.find('.music_title')
+            // fixme убери "Сейчас играет:" и добавь этот текст с помощью css :before это починит логику работы заголовков
             .text('Сейчас играет:' + this.player.playlist.title);
     }
 
+    // fixme избавься от этого сетера так он только усложняет код, задается id плейлиста в методе выше и больше ни где
     private set id(id: string)
     {
         this._id = id;
