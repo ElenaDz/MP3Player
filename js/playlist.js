@@ -3,12 +3,13 @@ class Playlist {
         this._songsPlayer = songsPlayer;
         this._title = title;
     }
+    //  перепесила, т.к. возвращал пустую строку до этого
     get id() {
-        return this.songsPlayer
-            .map((songPlayer) => {
-            songPlayer.songName;
-        })
-            .join(' ');
+        let id = '';
+        this.songsPlayer.map((songPlayer) => {
+            id = id + songPlayer.songName;
+        });
+        return id;
     }
     get songsPlayer() {
         return this._songsPlayer;

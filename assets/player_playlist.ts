@@ -2,6 +2,7 @@ class PlayerPlaylist
 {
     private $context: JQuery;
     private player: Player;
+    private _id: string;
 
     constructor($context: JQuery)
     {
@@ -32,6 +33,16 @@ class PlayerPlaylist
             this.$context.removeClass('disabled');
 
             this.load();
+
+            let btns = BtnPlayer.create(this.$context.find('.playlist'));
+
+            btns.forEach((btn) => {
+
+                if (this.player.songId == btn.songId) {
+
+                    btn.playing = this.player.playing;
+                }
+            })
         });
 
         this.player.$context.on(Player.EVENT_ERROR,() =>
@@ -47,7 +58,14 @@ class PlayerPlaylist
 
     private load()
     {
-        this.$context.find('.playlist').empty();
+        console.log(this.player.playlist.id)
+        console.log(this.id)
+
+        if (this.player.playlist.id !== this.id) {
+            this.$context.find('.playlist').empty();
+        }
+
+        this.id = this.player.playlist.id;
 
         this.player.playlist.songsPlayer.forEach((song_player: SongPlayer) =>
         {
@@ -59,13 +77,30 @@ class PlayerPlaylist
             .text('Сейчас играет:' + this.player.playlist.title);
     }
 
+    private set id(id: string)
+    {
+        this._id = id;
+    }
+
+    private get id()
+    {
+        return this._id;
+    }
 
     private getHtml(song: SongPlayer): string
     {
         return `
             <li class="item">
                 <div class="popular-play">
-                    <div class="btn_player">
+                    <div
+                        class="btn_player"
+                        data-song_id=" ${song.song_id}"
+                        data-song_name=" ${song.songName}"
+                        data-artist_html="${song.artistHtml}"
+                        data-url_song="${song.urlSong}"
+                        data-url="${song.url}"
+                        data-clicks="${song.clicks}"
+                    >    
                         <button class="play"></button>
                     </div>
 

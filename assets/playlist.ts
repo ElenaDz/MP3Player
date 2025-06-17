@@ -9,23 +9,21 @@ class Playlist
 		this._title = title;
 	}
 
-
+	//  перепесила, т.к. возвращал пустую строку до этого
 	public get id(): string
 	{
-		return this.songsPlayer
-			.map((songPlayer:SongPlayer) =>
-			{
-				songPlayer.songName
-			})
-			.join(' ');
-	}
+		let id = '';
+		this.songsPlayer.map((songPlayer:SongPlayer) => {
+			id = id + songPlayer.songName
+		});
 
+		return id;
+	}
 
 	public get songsPlayer(): SongPlayer[]
 	{
 		return this._songsPlayer;
 	}
-
 
 	public get title(): string
 	{

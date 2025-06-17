@@ -17,6 +17,12 @@ class PlayerPlaylist {
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
             this.$context.removeClass('disabled');
             this.load();
+            let btns = BtnPlayer.create(this.$context.find('.playlist'));
+            btns.forEach((btn) => {
+                if (this.player.songId == btn.songId) {
+                    btn.playing = this.player.playing;
+                }
+            });
         });
         this.player.$context.on(Player.EVENT_ERROR, () => {
             this.disabled();
@@ -26,7 +32,12 @@ class PlayerPlaylist {
         this.$context.addClass('disabled');
     }
     load() {
-        this.$context.find('.playlist').empty();
+        console.log(this.player.playlist.id);
+        console.log(this.id);
+        if (this.player.playlist.id !== this.id) {
+            this.$context.find('.playlist').empty();
+        }
+        this.id = this.player.playlist.id;
         this.player.playlist.songsPlayer.forEach((song_player) => {
             this.$context.find('.playlist')
                 .append(this.getHtml(song_player));
@@ -34,11 +45,25 @@ class PlayerPlaylist {
         this.$context.find('.music_title')
             .text('Сейчас играет:' + this.player.playlist.title);
     }
+    set id(id) {
+        this._id = id;
+    }
+    get id() {
+        return this._id;
+    }
     getHtml(song) {
         return `
             <li class="item">
                 <div class="popular-play">
-                    <div class="btn_player">
+                    <div
+                        class="btn_player"
+                        data-song_id=" ${song.song_id}"
+                        data-song_name=" ${song.songName}"
+                        data-artist_html="${song.artistHtml}"
+                        data-url_song="${song.urlSong}"
+                        data-url="${song.url}"
+                        data-clicks="${song.clicks}"
+                    >    
                         <button class="play"></button>
                     </div>
 

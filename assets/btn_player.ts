@@ -30,9 +30,10 @@ class BtnPlayer
                 this.playing = false;
             }
         })
+
     }
 
-    private get songId(): number
+    public get songId(): number
     {
         return +this.$context.data('song_id');
     }
@@ -116,14 +117,14 @@ class BtnPlayer
         this.player.pause();
     }
 
-    private set playing(playing: boolean)
+    public set playing(playing: boolean)
     {
         playing
             ? this.$context.addClass('playing')
             : this.$context.removeClass('playing');
     }
 
-    private get playing(): boolean
+    public get playing(): boolean
     {
         return this.$context.hasClass('playing');
     }

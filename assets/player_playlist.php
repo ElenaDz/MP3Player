@@ -17,7 +17,7 @@
                 <button class="close"></button>
             </div>
 
-            <ul class="playlist">
+            <ul class="playlist inline_player_playlist_main">
 
             </ul>
 
