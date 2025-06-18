@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .b_slider {
   display: inline-block;
   box-sizing: border-box;
@@ -182,7 +183,7 @@
 }
 .b_player_playlist.disabled .playlist_btn, .b_player_playlist.disabled .shuffle, .b_player_playlist.disabled .repeat_playlist {
   pointer-events: none;
-  opacity: 0.3;
+  opacity: 0.3 !important;
 }
 .b_player_playlist.open .popup {
   height: calc(-156px + 100vh);
@@ -203,21 +204,21 @@
 }
 .b_player_playlist .order .shuffle {
   background-image: url("/assets/img/shuffle.svg");
-  opacity: 0.3;
+  opacity: 0.7;
 }
 .b_player_playlist .order .shuffle:hover {
-  opacity: 0.7;
+  opacity: 1;
 }
 .b_player_playlist .order .repeat_playlist {
   background-image: url("/assets/img/repeat.svg");
-  opacity: 0.3;
+  opacity: 0.7;
 }
 .b_player_playlist .order .repeat_playlist:hover {
-  opacity: 0.7;
+  opacity: 1;
 }
 .b_player_playlist .playlist_btn {
   background-image: url("/assets/img/playlist.svg");
-  opacity: 0.3;
+  opacity: 0.7;
 }
 .b_player_playlist .playlist_btn:hover {
   opacity: 1;
@@ -256,6 +257,9 @@
 .b_player_playlist .popup .inner_popup .header .name_chart {
   font-weight: 700;
   font-size: 20px;
+}
+.b_player_playlist .popup .inner_popup .header .name_chart .music_title::before {
+  content: "Сейчас играет:";
 }
 .b_player_playlist .popup .inner_popup .header .close {
   display: flex;
@@ -427,6 +431,7 @@
   }
 }
 .b_player .audio {
+  display: none;
   position: fixed;
   bottom: 75px;
   left: 10px;
@@ -439,8 +444,8 @@
   padding: 0 2vw;
   height: 100%;
   background-color: #fff;
-  border-top: 1px solid #ededed;
-  box-shadow: 0 0 7px #c3c3c3;
+  border-top: 1px solid rgb(237, 237, 237);
+  box-shadow: 0 0 7px rgb(195, 195, 195);
 }
 @media (max-width: 767px) {
   .b_player .inner_player {

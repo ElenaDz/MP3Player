@@ -10,7 +10,7 @@
   &.disabled {
     .playlist_btn, .shuffle, .repeat_playlist {
       pointer-events: none;
-      opacity: $opacity-grey-min;
+      opacity: $opacity-grey-min !important;
     }
   }
 
@@ -38,26 +38,26 @@
 
     .shuffle {
       background-image: url("/assets/img/shuffle.svg");
-      opacity: $opacity-grey-min;
+      opacity: $opacity-grey-middle;
 
       &:hover {
-        opacity: $opacity-grey-middle;
+        opacity: $opacity-grey-max;
       }
     }
 
     .repeat_playlist {
       background-image: url("/assets/img/repeat.svg");
-      opacity: $opacity-grey-min;
+      opacity: $opacity-grey-middle;
 
       &:hover {
-        opacity: $opacity-grey-middle;
+        opacity: $opacity-grey-max;
       }
     }
   }
 
   .playlist_btn {
     background-image: url("/assets/img/playlist.svg");
-    opacity: $opacity-grey-min;
+    opacity: $opacity-grey-middle;
 
     &:hover {
       opacity: $opacity-grey-max;
@@ -99,6 +99,10 @@
         .name_chart {
           font-weight: 700;
           font-size: 20px;
+
+          .music_title::before {
+            content: "Сейчас играет:";
+          }
         }
 
         .close {

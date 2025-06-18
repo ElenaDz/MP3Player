@@ -2,8 +2,8 @@ class PlayerPlaylist
 {
     private $context: JQuery;
     private player: Player;
-    // fixme переименовать это не player_playlist_id это playlist_id
-    private _id: string;
+    // fixme переименовать это не player_playlist_id это playlist_id ok
+    private _playlist_id: string;
 
     constructor($context: JQuery)
     {
@@ -31,10 +31,8 @@ class PlayerPlaylist
 
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
-            // fixme перенести внутрь метода load
-            this.$context.removeClass('disabled');
-
-            this.load();
+            // fixme перенести внутрь метода load ok
+            this.loadPlaylist(this.player.playlist);
 
             let btns = BtnPlayer.create(this.$context.find('.playlist'));
 
@@ -60,43 +58,38 @@ class PlayerPlaylist
     }
 
     // fixme мне кажется код будет легче и понятнее если это будет метод
-    //  private loadPlaylist(playlist: Playlist)
-    private load()
+    //  private loadPlaylist(playlist: Playlist) ok
+    private loadPlaylist(playlist: Playlist)
     {
-        console.log(this.player.playlist.id)
-        console.log(this.id)
+        this.$context.removeClass('disabled');
 
         // todo здесь должна быть защита от постоянной перезагрузки плейлиста, сколько не вызывай метод,
-        //  перезагрузка должна выполняться только когда плейлист новый
-        if (this.player.playlist.id !== this.id) {
+        //  перезагрузка должна выполняться только когда плейлист новый ok
+        if (playlist.id !== this.playlist_id) {
             this.$context.find('.playlist').empty();
+        } else {
+            return;
         }
-
-        // fixme плейлист загружается каждый раз при запуске а должен только когда плейлист новый
+        // fixme плейлист загружается каждый раз при запуске а должен только когда плейлист новый ok
         console.log('load');
 
-        this.id = this.player.playlist.id;
+        this._playlist_id = playlist.id;
 
-        this.player.playlist.songsPlayer.forEach((song_player: SongPlayer) =>
+        playlist.songsPlayer.forEach((song_player: SongPlayer) =>
         {
             this.$context.find('.playlist')
                 .append(this.getHtml(song_player))
         })
 
         this.$context.find('.music_title')
-            // fixme убери "Сейчас играет:" и добавь этот текст с помощью css :before это починит логику работы заголовков
-            .text('Сейчас играет:' + this.player.playlist.title);
+            // fixme убери "Сейчас играет:" и добавь этот текст с помощью css :before это починит логику работы заголовков ok
+            .text(playlist.title);
     }
 
-    // fixme избавься от этого сетера так он только усложняет код, задается id плейлиста в методе выше и больше ни где
-    private set id(id: string)
+    // fixme избавься от этого сетера так он только усложняет код, задается playlist_id плейлиста в методе выше и больше ни где ok
+    private get playlist_id()
     {
-        this._id = id;
-    }
-
-    private get id()
-    {
-        return this._id;
+        return this._playlist_id;
     }
 
     private getHtml(song: SongPlayer): string

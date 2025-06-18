@@ -34,9 +34,60 @@ class Player {
         this.audio.addEventListener('volumechange', () => {
             this.$context.trigger(Player.EVENT_UPDATE_VOLUME);
         });
+        this.audio.addEventListener('ended', () => {
+            this.$context.trigger(Player.EVENT_ENDED);
+        });
         this.audio.addEventListener('error', () => {
             this.$context.trigger(Player.EVENT_ERROR);
         });
+    }
+    hesNextSong() {
+        let has_next_song;
+        this._playlist.songsPlayer.map((song_player, index) => {
+            if (this.songId == song_player.song_id) {
+                has_next_song = index != this.getLastIndex();
+            }
+        });
+        return has_next_song;
+    }
+    hesPreviousSong() {
+        let has_previous_song;
+        this._playlist.songsPlayer.map((song_player, index) => {
+            if (this.songId == song_player.song_id) {
+                has_previous_song = index != 0;
+            }
+        });
+        return has_previous_song;
+    }
+    getLastIndex() {
+        return this._playlist.songsPlayer.length - 1;
+    }
+    next() {
+        let target_index = this.getIndexSong() + 1;
+        this.loadSongPlayer(this.getTargetSong(target_index), this._playlist);
+    }
+    previous() {
+        let target_index = this.getIndexSong() - 1;
+        this.loadSongPlayer(this.getTargetSong(target_index), this._playlist);
+    }
+    getTargetSong(target_index) {
+        let target_song;
+        this._playlist.songsPlayer.map((song_player, index) => {
+            if (index == target_index) {
+                target_song = song_player;
+            }
+        });
+        return target_song;
+    }
+    getIndexSong() {
+        let index_active_song;
+        this._playlist.songsPlayer.map((song_player, index) => {
+            if (song_player.song_id == this.songId) {
+                index_active_song = index;
+                return;
+            }
+        });
+        return index_active_song;
     }
     get songId() {
         return this.songPlayer ? this.songPlayer.song_id : null;
@@ -49,7 +100,7 @@ class Player {
     }
     loadSongPlayer(songPlayer, playlist) {
         this._songPlayer = songPlayer;
-        this.playlist = playlist;
+        this._playlist = playlist;
         this.url = songPlayer.url;
     }
     get songPlayer() {
@@ -58,10 +109,7 @@ class Player {
     get playlist() {
         return this._playlist;
     }
-    // fixme удали, задаем плейлист в методе loadSongPlayer
-    set playlist(playlist) {
-        this._playlist = playlist;
-    }
+    // fixme удали, задаем плейлист в методе loadSongPlayer ok
     play() {
         this.audio.play();
     }
@@ -107,3 +155,4 @@ Player.EVENT_UPDATE_TIME = 'Player.EVENT_UPDATE_TIME';
 Player.EVENT_UPDATE_VOLUME = 'Player.EVENT_UPDATE_VOLUME';
 Player.EVENT_LOADED_META_DATA = 'Player.EVENT_LOADED_META_DATA';
 Player.EVENT_ERROR = 'Player.EVENT_ERROR';
+Player.EVENT_ENDED = 'Player.EVENT_ENDED';

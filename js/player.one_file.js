@@ -221,9 +221,61 @@ class Player {
         this.audio.addEventListener('volumechange', () => {
             this.$context.trigger(Player.EVENT_UPDATE_VOLUME);
         });
+        this.audio.addEventListener('ended', () => {
+            this.$context.trigger(Player.EVENT_ENDED);
+        });
         this.audio.addEventListener('error', () => {
             this.$context.trigger(Player.EVENT_ERROR);
         });
+    }
+    hesNextSong() {
+        let has_next_song;
+        this._playlist.songsPlayer.map((song_player, index) => {
+            if (this.songId == song_player.song_id) {
+                has_next_song = index != this.getLastIndex();
+            }
+        });
+        return has_next_song;
+    }
+    hesPreviousSong() {
+        let has_previous_song;
+        this._playlist.songsPlayer.map((song_player, index) => {
+            if (this.songId == song_player.song_id) {
+                has_previous_song = index != 0;
+            }
+        });
+        return has_previous_song;
+    }
+    getLastIndex() {
+        return this._playlist.songsPlayer.length - 1;
+    }
+    next() {
+        let target_index = this.getIndexSong() + 1;
+        this.loadSongPlayer(this.getTargetSong(target_index), this._playlist);
+    }
+    previous() {
+        let target_index = this.getIndexSong() - 1;
+        this.loadSongPlayer(this.getTargetSong(target_index), this._playlist);
+    }
+    getTargetSong(target_index) {
+        let target_song;
+        this._playlist.songsPlayer.map((song_player, index) => {
+            if (index == target_index) {
+                target_song = song_player;
+            }
+        });
+        return target_song;
+    }
+    // @ts-ignore
+    getIndexSong() {
+        let index_active_song;
+        this._playlist.songsPlayer.map((song_player, index) => {
+            if (song_player.song_id == this.songId) {
+                index_active_song = index;
+                return;
+            }
+        });
+        return index_active_song;
     }
     get songId() {
         return this.songPlayer ? this.songPlayer.song_id : null;
@@ -236,7 +288,7 @@ class Player {
     }
     loadSongPlayer(songPlayer, playlist) {
         this._songPlayer = songPlayer;
-        this.playlist = playlist;
+        this._playlist = playlist;
         this.url = songPlayer.url;
     }
     get songPlayer() {
@@ -245,10 +297,7 @@ class Player {
     get playlist() {
         return this._playlist;
     }
-    // fixme удали, задаем плейлист в методе loadSongPlayer
-    set playlist(playlist) {
-        this._playlist = playlist;
-    }
+    // fixme удали, задаем плейлист в методе loadSongPlayer ok
     play() {
         this.audio.play();
     }
@@ -294,6 +343,7 @@ Player.EVENT_UPDATE_TIME = 'Player.EVENT_UPDATE_TIME';
 Player.EVENT_UPDATE_VOLUME = 'Player.EVENT_UPDATE_VOLUME';
 Player.EVENT_LOADED_META_DATA = 'Player.EVENT_LOADED_META_DATA';
 Player.EVENT_ERROR = 'Player.EVENT_ERROR';
+Player.EVENT_ENDED = 'Player.EVENT_ENDED';
 
 
 class BtnPlayer {
@@ -402,7 +452,7 @@ class PlayerControls {
         this.player = Player.create();
         this.disabled();
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            this.$context.find('button.play').removeAttr('disabled');
+            this.removeDisabled();
         });
         this.player.$context.on(Player.EVENT_ERROR, () => {
             this.disabled();
@@ -413,11 +463,29 @@ class PlayerControls {
             }
             this.player.playing ? this.player.pause() : this.player.play();
         });
+        this.$context.find('button.prev').on('click', () => {
+            this.player.previous();
+            this.player.play();
+        });
+        this.$context.find('button.next').on('click', () => {
+            this.player.next();
+            this.player.play();
+        });
     }
     disabled() {
         this.$context.find('button.play').attr('disabled', 1);
         this.$context.find('button.prev').attr('disabled', 1);
         this.$context.find('button.next').attr('disabled', 1);
+    }
+    removeDisabled() {
+        this.disabled();
+        this.$context.find('button.play').removeAttr('disabled');
+        if (this.player.hesNextSong()) {
+            this.$context.find('button.next').removeAttr('disabled');
+        }
+        if (this.player.hesPreviousSong()) {
+            this.$context.find('button.prev').removeAttr('disabled');
+        }
     }
     static create($context = $('.b_player_controls')) {
         return new PlayerControls($context);
@@ -627,9 +695,8 @@ class PlayerPlaylist {
             this.isOpen ? this.close() : this.open();
         });
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            // fixme перенести внутрь метода load
-            this.$context.removeClass('disabled');
-            this.load();
+            // fixme перенести внутрь метода load ok
+            this.loadPlaylist(this.player.playlist);
             let btns = BtnPlayer.create(this.$context.find('.playlist'));
             // fixme не правильно, играет BtnPlayer или нет должен решать сам BtnPlayer в конструкторе, а не плейлист, удалить
             btns.forEach((btn) => {
@@ -646,32 +713,31 @@ class PlayerPlaylist {
         this.$context.addClass('disabled');
     }
     // fixme мне кажется код будет легче и понятнее если это будет метод
-    //  private loadPlaylist(playlist: Playlist)
-    load() {
-        console.log(this.player.playlist.id);
-        console.log(this.id);
+    //  private loadPlaylist(playlist: Playlist) ok
+    loadPlaylist(playlist) {
+        this.$context.removeClass('disabled');
         // todo здесь должна быть защита от постоянной перезагрузки плейлиста, сколько не вызывай метод,
-        //  перезагрузка должна выполняться только когда плейлист новый
-        if (this.player.playlist.id !== this.id) {
+        //  перезагрузка должна выполняться только когда плейлист новый ok
+        if (playlist.id !== this.playlist_id) {
             this.$context.find('.playlist').empty();
         }
-        // fixme плейлист загружается каждый раз при запуске а должен только когда плейлист новый
+        else {
+            return;
+        }
+        // fixme плейлист загружается каждый раз при запуске а должен только когда плейлист новый ok
         console.log('load');
-        this.id = this.player.playlist.id;
-        this.player.playlist.songsPlayer.forEach((song_player) => {
+        this._playlist_id = playlist.id;
+        playlist.songsPlayer.forEach((song_player) => {
             this.$context.find('.playlist')
                 .append(this.getHtml(song_player));
         });
         this.$context.find('.music_title')
-            // fixme убери "Сейчас играет:" и добавь этот текст с помощью css :before это починит логику работы заголовков
-            .text('Сейчас играет:' + this.player.playlist.title);
+            // fixme убери "Сейчас играет:" и добавь этот текст с помощью css :before это починит логику работы заголовков ok
+            .text(playlist.title);
     }
-    // fixme избавься от этого сетера так он только усложняет код, задается id плейлиста в методе выше и больше ни где
-    set id(id) {
-        this._id = id;
-    }
-    get id() {
-        return this._id;
+    // fixme избавься от этого сетера так он только усложняет код, задается playlist_id плейлиста в методе выше и больше ни где ok
+    get playlist_id() {
+        return this._playlist_id;
     }
     getHtml(song) {
         return `

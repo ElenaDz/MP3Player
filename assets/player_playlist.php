@@ -1,6 +1,6 @@
 <div class="b_player_playlist">
 
-    <!-- fixme 3 кнопки ниже не отличаются по виду в заблокированном и разблокированном состоянии, а должны -->
+    <!-- fixme 3 кнопки ниже не отличаются по виду в заблокированном и разблокированном состоянии, а должны ok -->
     <div class="order">
         <button class="shuffle elem"></button>
         <button class="repeat_playlist elem"></button>

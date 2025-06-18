@@ -48,13 +48,8 @@
         $file_name = 'Niletto - Счастливым (длинное название).mp3';
         require __DIR__ . '/assets/btn_player.php';
 
-        $song_id = '1';
-        $clicks = 3;
-        $file_name = '5УТРА - Ромашки.mp3';
-        require __DIR__ . '/assets/btn_player.php';
-
         $song_id = '3';
-        $clicks = 4;
+        $clicks = 3;
         $file_name = '5УТРА - Test.mp3';
         require __DIR__ . '/assets/btn_player.php';
         ?>

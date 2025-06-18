@@ -9,7 +9,7 @@ class PlayerControls {
         this.player = Player.create();
         this.disabled();
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            this.$context.find('button.play').removeAttr('disabled');
+            this.removeDisabled();
         });
         this.player.$context.on(Player.EVENT_ERROR, () => {
             this.disabled();
@@ -20,11 +20,29 @@ class PlayerControls {
             }
             this.player.playing ? this.player.pause() : this.player.play();
         });
+        this.$context.find('button.prev').on('click', () => {
+            this.player.previous();
+            this.player.play();
+        });
+        this.$context.find('button.next').on('click', () => {
+            this.player.next();
+            this.player.play();
+        });
     }
     disabled() {
         this.$context.find('button.play').attr('disabled', 1);
         this.$context.find('button.prev').attr('disabled', 1);
         this.$context.find('button.next').attr('disabled', 1);
+    }
+    removeDisabled() {
+        this.disabled();
+        this.$context.find('button.play').removeAttr('disabled');
+        if (this.player.hesNextSong()) {
+            this.$context.find('button.next').removeAttr('disabled');
+        }
+        if (this.player.hesPreviousSong()) {
+            this.$context.find('button.prev').removeAttr('disabled');
+        }
     }
     static create($context = $('.b_player_controls')) {
         return new PlayerControls($context);
