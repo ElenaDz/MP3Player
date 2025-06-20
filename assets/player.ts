@@ -1,6 +1,6 @@
 
 interface SongPlayer {
-    song_id: number;
+    songId: number;
     url: string;
     artistHtml: string;
     songName: string;
@@ -97,7 +97,7 @@ class Player
 
         this._playlist.songsPlayer.map((song_player, index) =>
         {
-            if (this.songId == song_player.song_id) {
+            if (this.songId == song_player.songId) {
                 has_next_song = index != this.getLastIndex();
             }
         })
@@ -111,7 +111,7 @@ class Player
 
         this._playlist.songsPlayer.map((song_player, index) =>
         {
-            if (this.songId == song_player.song_id) {
+            if (this.songId == song_player.songId) {
                 has_previous_song = index != 0;
             }
         })
@@ -159,7 +159,7 @@ class Player
 
         this._playlist.songsPlayer.map((song_player, index) =>
         {
-            if (song_player.song_id == this.songId) {
+            if (song_player.songId == this.songId) {
 
                 index_active_song = index;
                 return;
@@ -171,7 +171,7 @@ class Player
 
     public get songId()
     {
-        return this.songPlayer ? this.songPlayer.song_id : null;
+        return this.songPlayer ? this.songPlayer.songId : null;
     }
 
     public get url()
@@ -204,7 +204,6 @@ class Player
         return this._playlist;
     }
 
-    // fixme удали, задаем плейлист в методе loadSongPlayer ok
 
     public play()
     {

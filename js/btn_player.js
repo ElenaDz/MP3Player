@@ -7,6 +7,11 @@ class BtnPlayer {
         // @ts-ignore
         this.$context[0].BtnPlayer = this;
         this.player = Player.create();
+        if (this.player.songPlayer
+            && this.player.playing
+            && this.player.songPlayer.songId === this.songId) {
+            this.playing = true;
+        }
         this.$context.on('click', () => {
             this.playing ? this.pause() : this.play();
         });
@@ -64,7 +69,7 @@ class BtnPlayer {
     }
     get songPlayer() {
         return {
-            song_id: this.songId,
+            songId: this.songId,
             url: this.url,
             artistHtml: this.artistHtml,
             songName: this.songName,

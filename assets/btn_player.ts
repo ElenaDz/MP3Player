@@ -15,6 +15,14 @@ class BtnPlayer
 
         this.player = Player.create();
 
+        if (
+                this.player.songPlayer
+            &&  this.player.playing
+            &&  this.player.songPlayer.songId === this.songId
+        ) {
+            this.playing = true;
+        }
+
         this.$context.on('click',() =>
         {
             this.playing ? this.pause() : this.play();
@@ -103,7 +111,7 @@ class BtnPlayer
     public get songPlayer(): SongPlayer
     {
         return {
-            song_id: this.songId,
+            songId: this.songId,
             url: this.url,
             artistHtml: this.artistHtml,
             songName: this.songName,

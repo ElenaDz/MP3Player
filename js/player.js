@@ -44,7 +44,7 @@ class Player {
     hesNextSong() {
         let has_next_song;
         this._playlist.songsPlayer.map((song_player, index) => {
-            if (this.songId == song_player.song_id) {
+            if (this.songId == song_player.songId) {
                 has_next_song = index != this.getLastIndex();
             }
         });
@@ -53,7 +53,7 @@ class Player {
     hesPreviousSong() {
         let has_previous_song;
         this._playlist.songsPlayer.map((song_player, index) => {
-            if (this.songId == song_player.song_id) {
+            if (this.songId == song_player.songId) {
                 has_previous_song = index != 0;
             }
         });
@@ -82,7 +82,7 @@ class Player {
     getIndexSong() {
         let index_active_song;
         this._playlist.songsPlayer.map((song_player, index) => {
-            if (song_player.song_id == this.songId) {
+            if (song_player.songId == this.songId) {
                 index_active_song = index;
                 return;
             }
@@ -90,7 +90,7 @@ class Player {
         return index_active_song;
     }
     get songId() {
-        return this.songPlayer ? this.songPlayer.song_id : null;
+        return this.songPlayer ? this.songPlayer.songId : null;
     }
     get url() {
         return this.audio.src;
@@ -109,7 +109,6 @@ class Player {
     get playlist() {
         return this._playlist;
     }
-    // fixme удали, задаем плейлист в методе loadSongPlayer ok
     play() {
         this.audio.play();
     }
