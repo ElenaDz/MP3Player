@@ -31,14 +31,32 @@ class PlayerPlaylist
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
             this.loadPlaylist(this.player.playlist);
-
-            let btns = BtnPlayer.create(this.$context.find('.playlist'));
         });
 
         this.player.$context.on(Player.EVENT_ERROR,() =>
         {
             this.disabled();
         })
+
+        this.$context.find('button.repeat_playlist').on('click',() =>
+        {
+            this.player.repeat_playlist = !this.player.repeat_playlist;
+
+            this.setActiveRepeat();
+
+        });
+
+        this.$context.find('button.shuffle').on('click',() =>
+        {
+           this.player.shufflePlaylist();
+        });
+    }
+
+    private setActiveRepeat()
+    {
+        this.player.repeat_playlist
+            ? this.$context.find('button.repeat_playlist').addClass('active')
+            : this.$context.find('button.repeat_playlist').removeClass('active');
     }
 
     private disabled()
@@ -62,8 +80,9 @@ class PlayerPlaylist
                 .append(this.getHtml(song_player))
         })
 
-        this.$context.find('.music_title')
-            .text(playlist.title);
+        this.$context.find('.music_title').text(playlist.title);
+
+        BtnPlayer.create(this.$context.find('.playlist'));
     }
 
     private get playlist_id()

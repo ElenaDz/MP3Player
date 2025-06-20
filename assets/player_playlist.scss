@@ -52,6 +52,14 @@
       &:hover {
         opacity: $opacity-grey-max;
       }
+
+      &.active{
+        opacity: $opacity-grey-max;
+
+        &:hover {
+          opacity: $opacity-grey-middle;
+        }
+      }
     }
   }
 

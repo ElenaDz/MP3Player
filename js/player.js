@@ -41,6 +41,24 @@ class Player {
             this.$context.trigger(Player.EVENT_ERROR);
         });
     }
+    // https://www.google.com/search?q=%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D1%88%D0%B0%D1%82%D1%8C+%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2+%D1%81%D1%82%D1%80%D0%BE%D0%BA+jquery&sca_esv=eee3cc9543ede721&sxsrf=AE3TifOXsQIy-ouBYZA-M4VXuTQWdnzhWw%3A1750415220958&ei=dDdVaIWdOsmn1fIPkbGvyQM&oq=%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D1%88%D0%B0%D1%82%D1%8C+%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2+cnhjr&gs_lp=Egxnd3Mtd2l6LXNlcnAiJ9C_0LXRgNC10LzQtdGI0LDRgtGMINC80LDRgdGB0LjQsiBjbmhqcioCCAAyCRAhGKABGAoYKjIHECEYoAEYCjIHECEYoAEYCkj-MlDuHVi8KnABeAOQAQCYAVqgAYQDqgEBNrgBA8gBAPgBAZgCCaAClAPCAgQQABhHwgIFEAAYgATCAggQABiABBiiBMICBRAAGO8FmAMA4gMFEgExIECIBgGQBgiSBwE5oAfGHrIHATa4B40DwgcDNS40yAcK&sclient=gws-wiz-serp
+    shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+        }
+        return array;
+    }
+    shufflePlaylist() {
+        this.shuffleArray(this.playlist.songsPlayer);
+        this.loadSongPlayer(this.songPlayer, this.playlist);
+    }
+    set repeat_playlist(repeat_playlist) {
+        this._repeat_playlist = repeat_playlist;
+    }
+    get repeat_playlist() {
+        return this._repeat_playlist;
+    }
     hesNextSong() {
         let has_next_song;
         this._playlist.songsPlayer.map((song_player, index) => {
@@ -48,7 +66,7 @@ class Player {
                 has_next_song = index != this.getLastIndex();
             }
         });
-        return has_next_song;
+        return this._repeat_playlist ? true : has_next_song;
     }
     hesPreviousSong() {
         let has_previous_song;
@@ -57,7 +75,7 @@ class Player {
                 has_previous_song = index != 0;
             }
         });
-        return has_previous_song;
+        return this._repeat_playlist ? true : has_previous_song;
     }
     getLastIndex() {
         return this._playlist.songsPlayer.length - 1;

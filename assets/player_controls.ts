@@ -49,6 +49,7 @@ class PlayerControls
 
             this.player.play();
         });
+
     }
 
     private disabled()
