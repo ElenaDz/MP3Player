@@ -77,6 +77,8 @@
 
 <hr>
 
+    <!-- fixme из-за того что в html плеера нет disabled на долю секунды при загрузке странице все элементы становятся
+          разблокироваными пока из не заблокирует js, на сайте это будет -->
     <div class="b_player">
 
         <div class="audio">
@@ -90,6 +92,7 @@
             <?php require __DIR__ . '/assets/player_volume.php'; ?>
             <?php require __DIR__ . '/assets/player_info.php'; ?>
         </div>
+
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

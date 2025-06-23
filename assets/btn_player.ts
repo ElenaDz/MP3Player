@@ -14,6 +14,7 @@ class BtnPlayer
         this.$context[0].BtnPlayer = this;
 
         this.player = Player.create();
+        console.log(this.player);
 
         if (
                 this.player.songPlayer

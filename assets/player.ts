@@ -93,6 +93,7 @@ class Player
 
     }
 
+    // fixme сделать static и убрать в самый низ класса, так как она вспомогательная и к этому классу не относиться
     // https://www.google.com/search?q=%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D1%88%D0%B0%D1%82%D1%8C+%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2+%D1%81%D1%82%D1%80%D0%BE%D0%BA+jquery&sca_esv=eee3cc9543ede721&sxsrf=AE3TifOXsQIy-ouBYZA-M4VXuTQWdnzhWw%3A1750415220958&ei=dDdVaIWdOsmn1fIPkbGvyQM&oq=%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D1%88%D0%B0%D1%82%D1%8C+%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2+cnhjr&gs_lp=Egxnd3Mtd2l6LXNlcnAiJ9C_0LXRgNC10LzQtdGI0LDRgtGMINC80LDRgdGB0LjQsiBjbmhqcioCCAAyCRAhGKABGAoYKjIHECEYoAEYCjIHECEYoAEYCkj-MlDuHVi8KnABeAOQAQCYAVqgAYQDqgEBNrgBA8gBAPgBAZgCCaAClAPCAgQQABhHwgIFEAAYgATCAggQABiABBiiBMICBRAAGO8FmAMA4gMFEgExIECIBgGQBgiSBwE5oAfGHrIHATa4B40DwgcDNS40yAcK&sclient=gws-wiz-serp
     private shuffleArray(array)
     {
@@ -100,11 +101,15 @@ class Player
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]]; // Swap elements
         }
+        // fixme не используется
         return array;
     }
 
+    // fixme этого быть в этом классе не должно, плеер не должен ни чего знать про шафл это функция объекта PlayerPlaylist
     public shufflePlaylist()
     {
+        // fixme нужно добавить проверку что обновленный плейлист отличается от старого так как иногда при нажатии кнопки
+        //  ни чего не происходит, из за того что старый плейлист не отличается от нового, так не должно быть
         this.shuffleArray(this.playlist.songsPlayer);
 
         this.loadSongPlayer(this.songPlayer, this.playlist);
@@ -119,6 +124,9 @@ class Player
     {
         return this._repeat_playlist;
     }
+
+    
+    // fixme кажется этот метод можно упростить просто сделав проверку что текущий индекс не равен последнему индексу
     public hesNextSong(): boolean
     {
         let has_next_song: boolean;
@@ -133,6 +141,7 @@ class Player
         return this._repeat_playlist ? true : has_next_song;
     }
 
+    // fixme кажется этот метод можно упростить просто сделав проверку что текущий индекс не равен 0
     public hesPreviousSong(): boolean
     {
         let has_previous_song: boolean;
@@ -142,11 +151,17 @@ class Player
             if (this.songId == song_player.songId) {
                 has_previous_song = index != 0;
             }
-        })
+        });
 
+        // fixme здесь стоило использовать свойство repeat_playlist, а не внутреннюю переменную _repeat_playlist,
+        //  getter repeat_playlist может содержать дополнительную логику, например инициализировать состояние переменной
+        //  если она пуста, а мы этим не воспользуемся если будем обращаться напрямую к переменной а не getter у
+        //  исправь везде
+        // fixme эту проверку нужно делать первой, не бойся иметь несколько return в функции это норм
         return this._repeat_playlist ? true : has_previous_song;
     }
 
+    // fixme избавься от этой функции в ней нет необходимости
     private getLastIndex(): number
     {
         return this._playlist.songsPlayer.length - 1;
@@ -166,14 +181,15 @@ class Player
         this.loadSongPlayer(this.getTargetSong(target_index), this._playlist);
     }
 
-    private  getTargetSong(target_index: number): SongPlayer
+    private getTargetSong(target_index: number): SongPlayer
     {
         let target_song: SongPlayer;
 
+        // fixme а не проще сделать так this.playlist.songsPlayer[index] ?
+        //  тогда можно будет совсем избавиться от этой функции
         this._playlist.songsPlayer.map((song_player, index) =>
         {
             if (index == target_index) {
-
                 target_song = song_player;
             }
         })

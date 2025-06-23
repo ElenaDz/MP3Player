@@ -14,6 +14,9 @@ class PlayerPlaylist
         // @ts-ignore
         this.$context[0].Playlist = this;
 
+        // todo так как у нас тут 3 отдельных кнопки не плохо было бы разбит конструктор на initRepeat, initPlaylist,
+        //  initShuffle
+
         this.disabled();
 
         this.player = Player.create();
@@ -48,7 +51,8 @@ class PlayerPlaylist
 
         this.$context.find('button.shuffle').on('click',() =>
         {
-           this.player.shufflePlaylist();
+            // fixme нажатие на шафл приводит к тому что воспроизведение останавливается, такого не должно быть
+            this.player.shufflePlaylist();
         });
     }
 
@@ -109,6 +113,7 @@ class PlayerPlaylist
 
                     <div class="song_title">
                         <div class="wrap_song">
+                            <!-- fixme на drivemusic ссылка при наведении меняет цвет, у тебя нет -->
                             <a href="#" class="inner_song">
                                 ${song.songName}
                             </a>
@@ -123,6 +128,7 @@ class PlayerPlaylist
 
                 <div class="wrap_right">
                     <div class="count_clicks">
+                        <!-- todo это иконку можно взять на drivemusic она там сделана на css -->
                         <i></i>
                         <span>${song.clicks}</span>
                     </div>

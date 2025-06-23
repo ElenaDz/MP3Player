@@ -228,19 +228,22 @@ class Player {
             this.$context.trigger(Player.EVENT_ERROR);
         });
     }
+    // fixme сделать static
     // https://www.google.com/search?q=%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D1%88%D0%B0%D1%82%D1%8C+%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2+%D1%81%D1%82%D1%80%D0%BE%D0%BA+jquery&sca_esv=eee3cc9543ede721&sxsrf=AE3TifOXsQIy-ouBYZA-M4VXuTQWdnzhWw%3A1750415220958&ei=dDdVaIWdOsmn1fIPkbGvyQM&oq=%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D1%88%D0%B0%D1%82%D1%8C+%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2+cnhjr&gs_lp=Egxnd3Mtd2l6LXNlcnAiJ9C_0LXRgNC10LzQtdGI0LDRgtGMINC80LDRgdGB0LjQsiBjbmhqcioCCAAyCRAhGKABGAoYKjIHECEYoAEYCjIHECEYoAEYCkj-MlDuHVi8KnABeAOQAQCYAVqgAYQDqgEBNrgBA8gBAPgBAZgCCaAClAPCAgQQABhHwgIFEAAYgATCAggQABiABBiiBMICBRAAGO8FmAMA4gMFEgExIECIBgGQBgiSBwE5oAfGHrIHATa4B40DwgcDNS40yAcK&sclient=gws-wiz-serp
     shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]]; // Swap elements
         }
+        // fixme не используется
         return array;
     }
+    // fixme этого быть в этом классе не должно, плеер не должен ни чего знать про шафл это функция объекта PlayerPlaylist
     shufflePlaylist() {
+        // fixme нужно добавить проверку что обновленный плейлист отличается от старого так как иногда при нажатии кнопки
+        //  ни чего не происходит, из за того что старый плейлист не отличается от нового, так не должно быть
         this.shuffleArray(this.playlist.songsPlayer);
         this.loadSongPlayer(this.songPlayer, this.playlist);
-        if (this.playing)
-            this.play();
     }
     set repeat_playlist(repeat_playlist) {
         this._repeat_playlist = repeat_playlist;
@@ -264,8 +267,14 @@ class Player {
                 has_previous_song = index != 0;
             }
         });
+        // fixme здесь стоило использовать свойство repeat_playlist, а не внутреннюю переменную _repeat_playlist,
+        //  getter repeat_playlist может содержать дополнительную логику, например инициализировать состояние переменной
+        //  если она пуста, а мы этим не воспользуемся если будем обращаться напрямую к переменной а не getter у
+        //  исправь везде
+        // fixme эту проверку нужно делать первой, не бойся иметь несколько return в функции это норм
         return this._repeat_playlist ? true : has_previous_song;
     }
+    // fixme избавься от этой функции в ней нет необходимости
     getLastIndex() {
         return this._playlist.songsPlayer.length - 1;
     }
@@ -373,6 +382,7 @@ class BtnPlayer {
         // @ts-ignore
         this.$context[0].BtnPlayer = this;
         this.player = Player.create();
+        console.log(this.player);
         if (this.player.songPlayer
             && this.player.playing
             && this.player.songPlayer.songId === this.songId) {
@@ -541,6 +551,7 @@ class PlayerProgress {
             this.player.currentTime = this.slider.value;
         });
         this.player.$context.on(Player.EVENT_ERROR, () => {
+            // fixme здесь блокируется на ошибке и не разблокируется когда запускается другая песня
             this.disabled();
         });
     }
@@ -709,6 +720,8 @@ class PlayerPlaylist {
             return this.$context[0].Playlist;
         // @ts-ignore
         this.$context[0].Playlist = this;
+        // todo так как у нас тут 3 отдельных кнопки не плохо было бы разбит конструктор на initRepeat, initPlaylist,
+        //  initShuffle
         this.disabled();
         this.player = Player.create();
         this.$context.find('button.close').on('click', () => {
@@ -728,6 +741,7 @@ class PlayerPlaylist {
             this.setActiveRepeat();
         });
         this.$context.find('button.shuffle').on('click', () => {
+            // fixme нажатие на шафл приводит к тому что воспроизведение останавливается, такого не должно быть
             this.player.shufflePlaylist();
         });
     }
@@ -773,6 +787,7 @@ class PlayerPlaylist {
 
                     <div class="song_title">
                         <div class="wrap_song">
+                            <!-- fixme на drivemusic ссылка при наведении меняет цвет, у тебя нет -->
                             <a href="#" class="inner_song">
                                 ${song.songName}
                             </a>
@@ -787,6 +802,7 @@ class PlayerPlaylist {
 
                 <div class="wrap_right">
                     <div class="count_clicks">
+                        <!-- todo это иконку можно взять на drivemusic она там сделана на css -->
                         <i></i>
                         <span>${song.clicks}</span>
                     </div>

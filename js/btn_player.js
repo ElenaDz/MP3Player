@@ -7,6 +7,7 @@ class BtnPlayer {
         // @ts-ignore
         this.$context[0].BtnPlayer = this;
         this.player = Player.create();
+        console.log(this.player);
         if (this.player.songPlayer
             && this.player.playing
             && this.player.songPlayer.songId === this.songId) {

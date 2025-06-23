@@ -23,6 +23,7 @@ class PlayerProgress {
             this.player.currentTime = this.slider.value;
         });
         this.player.$context.on(Player.EVENT_ERROR, () => {
+            // fixme здесь блокируется на ошибке и не разблокируется когда запускается другая песня
             this.disabled();
         });
     }
