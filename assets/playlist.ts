@@ -5,7 +5,7 @@ class Playlist
 
 	constructor(songsPlayer: SongPlayer[], title: string = null)
 	{
-		this._songsPlayer = songsPlayer;
+		this.songsPlayer = songsPlayer;
 		this._title = title;
 	}
 
@@ -23,6 +23,11 @@ class Playlist
 	public get songsPlayer(): SongPlayer[]
 	{
 		return this._songsPlayer;
+	}
+
+	public set songsPlayer(songsPlayer: SongPlayer[])
+	{
+		this._songsPlayer = songsPlayer;
 	}
 
 	public get title(): string

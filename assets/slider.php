@@ -18,7 +18,7 @@ if (
 ?>
 
 <div
-    class="b_slider <?= $vertical ? 'ver' : null; ?> <?= $class; ?>"
+    class="b_slider disabled <?= $vertical ? 'ver' : null; ?> <?= $class; ?>"
 
     <?php if (is_null($value_pct)): ?>
 

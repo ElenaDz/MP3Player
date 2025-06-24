@@ -1,6 +1,6 @@
 class Playlist {
     constructor(songsPlayer, title = null) {
-        this._songsPlayer = songsPlayer;
+        this.songsPlayer = songsPlayer;
         this._title = title;
     }
     get id() {
@@ -12,6 +12,9 @@ class Playlist {
     }
     get songsPlayer() {
         return this._songsPlayer;
+    }
+    set songsPlayer(songsPlayer) {
+        this._songsPlayer = songsPlayer;
     }
     get title() {
         return this._title;
