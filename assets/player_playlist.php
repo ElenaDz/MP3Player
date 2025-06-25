@@ -1,11 +1,9 @@
 <div class="b_player_playlist disabled">
 
     <div class="order">
-        <!-- fixme добавить атрибут title Перемешать ok-->
         <button class="shuffle elem" title="Перемешать"></button>
         <!-- fixme это кнопка в нажатом положении не должна реагировать на наведение мыши, так как hover и active
               прозрачность равна 1 -->
-        <!-- fixme добавить атрибут title Повторять плейлист ok-->
         <button class="repeat_playlist elem" title="Повторять плейлист"></button>
     </div>
 

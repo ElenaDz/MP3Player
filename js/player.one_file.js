@@ -259,11 +259,6 @@ class Player {
                 has_previous_song = index != 0;
             }
         });
-        // fixme здесь стоило использовать свойство repeat_playlist, а не внутреннюю переменную _repeat_playlist,
-        //  getter repeat_playlist может содержать дополнительную логику, например инициализировать состояние переменной
-        //  если она пуста, а мы этим не воспользуемся если будем обращаться напрямую к переменной а не getter у
-        //  исправь везде ok
-        // fixme эту проверку нужно делать первой, не бойся иметь несколько return в функции это норм ok
         return has_previous_song;
     }
     next() {
@@ -531,7 +526,6 @@ class PlayerProgress {
             this.player.currentTime = this.slider.value;
         });
         this.player.$context.on(Player.EVENT_ERROR, () => {
-            // fixme здесь блокируется на ошибке и не разблокируется когда запускается другая песня ( у меня прогресс разблоки
             this.disabled();
         });
     }
@@ -573,6 +567,7 @@ class PlayerVolume {
         // @ts-ignore
         this.$context[0].Volume = this;
         this.player = Player.create();
+        // fixme slider заблокирован все время
         this.slider = Slider.create(this.$context)[0];
         this.disabled();
         this.volume = this.volume;
@@ -714,6 +709,7 @@ class PlayerPlaylist {
             this.loadPlaylist(this.player.playlist);
         });
         this.player.$context.on(Player.EVENT_ERROR, () => {
+            // fixme здесь блокируется на ошибке и не разблокируется когда запускается другая песня из того же плейлиста
             this.disabled();
         });
         this.$context.find('button.repeat_playlist').on('click', () => {
@@ -721,12 +717,10 @@ class PlayerPlaylist {
             this.setActiveRepeat();
         });
         this.$context.find('button.shuffle').on('click', () => {
-            // fixme нажатие на шафл приводит к тому что воспроизведение останавливается, такого не должно быть ok
             this.shufflePlaylist();
             this.loadPlaylist(this.player.playlist);
         });
     }
-    // fixme этого быть в этом классе не должно, плеер не должен ни чего знать про шафл это функция объекта PlayerPlaylist ok
     shufflePlaylist() {
         // fixme нужно добавить проверку что обновленный плейлист отличается от старого так как иногда при нажатии кнопки
         //  ни чего не происходит, из за того что старый плейлист не отличается от нового, так не должно быть
@@ -813,8 +807,6 @@ class PlayerPlaylist {
     get isOpen() {
         return this.$context.hasClass('open');
     }
-    // fixme сделать static и убрать в самый низ класса, так как она вспомогательная и к этому классу не относиться ok
-    // https://www.google.com/search?q=%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D1%88%D0%B0%D1%82%D1%8C+%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2+%D1%81%D1%82%D1%80%D0%BE%D0%BA+jquery&sca_esv=eee3cc9543ede721&sxsrf=AE3TifOXsQIy-ouBYZA-M4VXuTQWdnzhWw%3A1750415220958&ei=dDdVaIWdOsmn1fIPkbGvyQM&oq=%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D1%88%D0%B0%D1%82%D1%8C+%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2+cnhjr&gs_lp=Egxnd3Mtd2l6LXNlcnAiJ9C_0LXRgNC10LzQtdGI0LDRgtGMINC80LDRgdGB0LjQsiBjbmhqcioCCAAyCRAhGKABGAoYKjIHECEYoAEYCjIHECEYoAEYCkj-MlDuHVi8KnABeAOQAQCYAVqgAYQDqgEBNrgBA8gBAPgBAZgCCaAClAPCAgQQABhHwgIFEAAYgATCAggQABiABBiiBMICBRAAGO8FmAMA4gMFEgExIECIBgGQBgiSBwE5oAfGHrIHATa4B40DwgcDNS40yAcK&sclient=gws-wiz-serp
     static shuffleArray(array, active_index) {
         let activeElement = array[active_index];
         delete array[active_index];

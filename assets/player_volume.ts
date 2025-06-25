@@ -18,6 +18,7 @@ class PlayerVolume
 
         this.player = Player.create();
 
+        // fixme slider заблокирован все время
         this.slider = Slider.create(this.$context)[0];
 
         this.disabled();

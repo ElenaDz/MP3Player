@@ -42,7 +42,6 @@ class PlayerProgress
 
         this.player.$context.on(Player.EVENT_ERROR,() =>
         {
-            // fixme здесь блокируется на ошибке и не разблокируется когда запускается другая песня ( у меня разблокируется)
             this.disabled();
         })
     }
