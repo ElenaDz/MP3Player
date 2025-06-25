@@ -840,9 +840,12 @@ class PlayerPlaylist {
     get isOpen() {
         return this.$context.hasClass('open');
     }
-    // fixme не правильно, этот метод ни как не относиться к нашему проекту поэтому он static,
+    static shufflePlaylist(playlist) {
+        return playlist;
+    }
+    // fixme не правильно, этот метод просто перемешивает любой массив,
     //  он может быть использован в любом проекте где нужен shuffle, а ты перенесла сюда логику "всплывания" текущей песни
-    //  на первое место, что специфично конкретно для этого проекта, эту логику нужно вернуть в проект, а отсюда убрать
+    //  на первое место, что специфично конкретно для этого проекта, для этой логики я завел метод shufflePlaylist выше, реализуй его
     static shuffleArray(array, active_index) {
         let activeElement = array[active_index];
         delete array[active_index];
