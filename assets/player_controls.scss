@@ -33,17 +33,19 @@
 
   .next {
     background-image: url("/assets/img/btn_play/next.svg");
+    opacity: $opacity-grey-middle;
 
     &:hover {
-      opacity: $opacity-grey-middle;
+      opacity: $opacity-grey-max;
     }
   }
 
   .prev {
     background-image: url("/assets/img/btn_play/previous.svg");
+    opacity: $opacity-grey-middle;
 
     &:hover {
-      opacity: $opacity-grey-middle;
+      opacity: $opacity-grey-max;
     }
   }
 

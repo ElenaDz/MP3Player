@@ -238,38 +238,40 @@ class Player {
     get repeat_playlist() {
         return this._repeat_playlist;
     }
-    // fixme ошибка в названии должно быть has
-    // fixme перенеси эту логику в метод getNextSong и используй здесь вызов getNextSong, если что то вернул значит true
-    hesNextSong() {
-        if (this.repeat_playlist)
-            return true;
-        return this.getIndexSongCurrent() != this.getIndexSongLast();
+    // fixme ошибка в названии должно быть has ok
+    // fixme перенеси эту логику в метод getNextSong и используй здесь вызов getNextSong, если что то вернул значит true ok
+    hasNextSong() {
+        return !!this.getNextSong();
     }
-    // fixme ошибка в названии должно быть has
-    // fixme перенеси эту логику в метод getPreviousSong и используй здесь вызов getPreviousSong, если что то вернул значит true
-    hesPreviousSong() {
-        if (this.repeat_playlist)
-            return true;
-        return this.getIndexSongCurrent() != 0;
+    // fixme ошибка в названии должно быть has ok
+    // fixme перенеси эту логику в метод getPreviousSong и используй здесь вызов getPreviousSong, если что то вернул значит true ok
+    hasPreviousSong() {
+        return !!this.getPreviousSong();
     }
     next() {
-        // fixme что то очень сложное, замени на вызов метода getNextSong
+        // fixme что то очень сложное, замени на вызов метода getNextSong ok
+        this.loadSongPlayer(this.getNextSong(), this.playlist);
+    }
+    previous() {
+        // fixme что то очень сложное, замени на вызов метода getPreviousSong ok
+        this.loadSongPlayer(this.getPreviousSong(), this.playlist);
+    }
+    getNextSong() {
         let target_index = (this.repeat_playlist && (this.getIndexSongCurrent() == this.getIndexSongLast()))
             ? 0
             : this.getIndexSongCurrent() + 1;
-        this.loadSongPlayer(this.playlist.songsPlayer[target_index], this._playlist);
+        return this.playlist.songsPlayer[target_index];
     }
-    previous() {
-        // fixme что то очень сложное, замени на вызов метода getPreviousSong
+    getPreviousSong() {
         let target_index = (this.repeat_playlist && (this.getIndexSongCurrent() == 0))
             ? this.getIndexSongLast() :
             this.getIndexSongCurrent() - 1;
-        this.loadSongPlayer(this.playlist.songsPlayer[target_index], this._playlist);
+        return this.playlist.songsPlayer[target_index];
     }
     getIndexSongCurrent() {
         let index_active_song;
-        // fixme используй свойство а не внутреннюю переменную _playlist, исправить везде
-        this._playlist.songsPlayer.map((song_player, index) => {
+        // fixme используй свойство а не внутреннюю переменную _playlist, исправить везде ok
+        this.playlist.songsPlayer.map((song_player, index) => {
             if (song_player.songId == this.songId) {
                 index_active_song = index;
                 return;
@@ -278,7 +280,7 @@ class Player {
         return index_active_song;
     }
     getIndexSongLast() {
-        return this._playlist.songsPlayer.length - 1;
+        return this.playlist.songsPlayer.length - 1;
     }
     get songId() {
         return this.songPlayer ? this.songPlayer.songId : null;
@@ -499,10 +501,10 @@ class PlayerControls {
     removeDisabled() {
         this.disabled();
         this.$context.find('button.play').removeAttr('disabled');
-        if (this.player.hesNextSong()) {
+        if (this.player.hasNextSong()) {
             this.$context.find('button.next').removeAttr('disabled');
         }
-        if (this.player.hesPreviousSong()) {
+        if (this.player.hasPreviousSong()) {
             this.$context.find('button.prev').removeAttr('disabled');
         }
     }

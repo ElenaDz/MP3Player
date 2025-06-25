@@ -46,10 +46,10 @@ class PlayerControls {
     removeDisabled() {
         this.disabled();
         this.$context.find('button.play').removeAttr('disabled');
-        if (this.player.hesNextSong()) {
+        if (this.player.hasNextSong()) {
             this.$context.find('button.next').removeAttr('disabled');
         }
-        if (this.player.hesPreviousSong()) {
+        if (this.player.hasPreviousSong()) {
             this.$context.find('button.prev').removeAttr('disabled');
         }
     }
