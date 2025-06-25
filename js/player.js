@@ -43,41 +43,38 @@ class Player {
     }
     set repeat_playlist(repeat_playlist) {
         this._repeat_playlist = repeat_playlist;
+        this.$context.trigger(Player.EVENT_UPDATE_REPEAT_PLAYLIST);
     }
     get repeat_playlist() {
         return this._repeat_playlist;
     }
-    // fixme кажется этот метод можно упростить просто сделав проверку что текущий индекс не равен последнему индексу
+    // fixme кажется этот метод можно упростить просто сделав проверку что текущий индекс не равен последнему индексу ok
     hesNextSong() {
         if (this.repeat_playlist)
             return true;
-        let has_next_song;
-        this._playlist.songsPlayer.map((song_player, index) => {
-            if (this.songId == song_player.songId) {
-                has_next_song = index != (this._playlist.songsPlayer.length - 1);
-            }
-        });
-        return has_next_song;
+        return this.getIndexSong() != this.getLastIndex();
     }
-    // fixme кажется этот метод можно упростить просто сделав проверку что текущий индекс не равен 0
+    // fixme кажется этот метод можно упростить просто сделав проверку что текущий индекс не равен 0 ok
     hesPreviousSong() {
         if (this.repeat_playlist)
             return true;
-        let has_previous_song;
-        this._playlist.songsPlayer.map((song_player, index) => {
-            if (this.songId == song_player.songId) {
-                has_previous_song = index != 0;
-            }
-        });
-        return has_previous_song;
+        return this.getIndexSong() != 0;
     }
     next() {
-        let target_index = this.getIndexSong() + 1;
+        let target_index = (this.repeat_playlist && (this.getIndexSong() == this.getLastIndex()))
+            ? 0
+            : this.getIndexSong() + 1;
         this.loadSongPlayer(this.playlist.songsPlayer[target_index], this._playlist);
     }
     previous() {
-        let target_index = this.getIndexSong() - 1;
+        let target_index = (this.repeat_playlist && (this.getIndexSong() == 0))
+            ? this.getLastIndex() :
+            this.getIndexSong() - 1;
         this.loadSongPlayer(this.playlist.songsPlayer[target_index], this._playlist);
+    }
+    // используется в нескольких местах
+    getLastIndex() {
+        return this._playlist.songsPlayer.length - 1;
     }
     getIndexSong() {
         let index_active_song;
@@ -152,6 +149,7 @@ class Player {
     }
 }
 Player.EVENT_UPDATE_PLAYING = 'Player.EVENT_UPDATE_PLAYING';
+Player.EVENT_UPDATE_REPEAT_PLAYLIST = 'Player.EVENT_UPDATE_REPEAT_PLAYLIST';
 Player.EVENT_UPDATE_TIME = 'Player.EVENT_UPDATE_TIME';
 Player.EVENT_UPDATE_VOLUME = 'Player.EVENT_UPDATE_VOLUME';
 Player.EVENT_LOADED_META_DATA = 'Player.EVENT_LOADED_META_DATA';

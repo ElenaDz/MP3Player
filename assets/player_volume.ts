@@ -18,7 +18,7 @@ class PlayerVolume
 
         this.player = Player.create();
 
-        // fixme slider заблокирован все время
+        // fixme slider заблокирован все время ok
         this.slider = Slider.create(this.$context)[0];
 
         this.disabled();
@@ -27,7 +27,7 @@ class PlayerVolume
 
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
-            this.$context.removeClass('disabled');
+            this.removeDisabled();
         });
 
         this.slider.$context.on(SliderEvents.ValueUpdate, () =>
@@ -68,6 +68,12 @@ class PlayerVolume
     private disabled()
     {
         this.$context.addClass('disabled');
+    }
+
+    private removeDisabled()
+    {
+        this.$context.removeClass('disabled');
+        this.slider.$context.removeClass('disabled');
     }
 
     private get mute() {

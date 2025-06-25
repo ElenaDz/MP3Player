@@ -8,12 +8,12 @@ class PlayerVolume {
         // @ts-ignore
         this.$context[0].Volume = this;
         this.player = Player.create();
-        // fixme slider заблокирован все время
+        // fixme slider заблокирован все время ok
         this.slider = Slider.create(this.$context)[0];
         this.disabled();
         this.volume = this.volume;
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            this.$context.removeClass('disabled');
+            this.removeDisabled();
         });
         this.slider.$context.on(SliderEvents.ValueUpdate, () => {
             if (this.mute && this.slider.value === 0) {
@@ -43,6 +43,10 @@ class PlayerVolume {
     }
     disabled() {
         this.$context.addClass('disabled');
+    }
+    removeDisabled() {
+        this.$context.removeClass('disabled');
+        this.slider.$context.removeClass('disabled');
     }
     get mute() {
         return this.player.mute;

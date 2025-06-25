@@ -17,7 +17,7 @@ class PlayerControls
 
         this.disabled();
 
-        this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
+        this.player.$context.on(Player.EVENT_LOADED_META_DATA +' '+ Player.EVENT_UPDATE_REPEAT_PLAYLIST,() =>
         {
             this.removeDisabled();
         })
@@ -27,6 +27,13 @@ class PlayerControls
             this.disabled();
         })
 
+        this.initPlay();
+        this.initNext();
+        this.initPrev();
+    }
+
+    private initPlay()
+    {
         this.$context.find('button.play').on('click',() =>
         {
             if ( ! this.player.url) {
@@ -35,23 +42,27 @@ class PlayerControls
 
             this.player.playing ? this.player.pause() : this.player.play();
         });
+    }
 
-        this.$context.find('button.prev').on('click',() =>
-        {
-            this.player.previous();
-
-            this.player.play();
-        });
-
+    private initNext()
+    {
         this.$context.find('button.next').on('click',() =>
         {
             this.player.next();
 
             this.player.play();
         });
-
     }
 
+    private initPrev()
+    {
+        this.$context.find('button.prev').on('click',() =>
+        {
+            this.player.previous();
+
+            this.player.play();
+        });
+    }
     private disabled()
     {
         this.$context.find('button.play').attr('disabled', 1);

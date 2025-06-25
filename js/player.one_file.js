@@ -233,41 +233,38 @@ class Player {
     }
     set repeat_playlist(repeat_playlist) {
         this._repeat_playlist = repeat_playlist;
+        this.$context.trigger(Player.EVENT_UPDATE_REPEAT_PLAYLIST);
     }
     get repeat_playlist() {
         return this._repeat_playlist;
     }
-    // fixme кажется этот метод можно упростить просто сделав проверку что текущий индекс не равен последнему индексу
+    // fixme кажется этот метод можно упростить просто сделав проверку что текущий индекс не равен последнему индексу ok
     hesNextSong() {
         if (this.repeat_playlist)
             return true;
-        let has_next_song;
-        this._playlist.songsPlayer.map((song_player, index) => {
-            if (this.songId == song_player.songId) {
-                has_next_song = index != (this._playlist.songsPlayer.length - 1);
-            }
-        });
-        return has_next_song;
+        return this.getIndexSong() != this.getLastIndex();
     }
-    // fixme кажется этот метод можно упростить просто сделав проверку что текущий индекс не равен 0
+    // fixme кажется этот метод можно упростить просто сделав проверку что текущий индекс не равен 0 ok
     hesPreviousSong() {
         if (this.repeat_playlist)
             return true;
-        let has_previous_song;
-        this._playlist.songsPlayer.map((song_player, index) => {
-            if (this.songId == song_player.songId) {
-                has_previous_song = index != 0;
-            }
-        });
-        return has_previous_song;
+        return this.getIndexSong() != 0;
     }
     next() {
-        let target_index = this.getIndexSong() + 1;
+        let target_index = (this.repeat_playlist && (this.getIndexSong() == this.getLastIndex()))
+            ? 0
+            : this.getIndexSong() + 1;
         this.loadSongPlayer(this.playlist.songsPlayer[target_index], this._playlist);
     }
     previous() {
-        let target_index = this.getIndexSong() - 1;
+        let target_index = (this.repeat_playlist && (this.getIndexSong() == 0))
+            ? this.getLastIndex() :
+            this.getIndexSong() - 1;
         this.loadSongPlayer(this.playlist.songsPlayer[target_index], this._playlist);
+    }
+    // используется в нескольких местах
+    getLastIndex() {
+        return this._playlist.songsPlayer.length - 1;
     }
     getIndexSong() {
         let index_active_song;
@@ -342,6 +339,7 @@ class Player {
     }
 }
 Player.EVENT_UPDATE_PLAYING = 'Player.EVENT_UPDATE_PLAYING';
+Player.EVENT_UPDATE_REPEAT_PLAYLIST = 'Player.EVENT_UPDATE_REPEAT_PLAYLIST';
 Player.EVENT_UPDATE_TIME = 'Player.EVENT_UPDATE_TIME';
 Player.EVENT_UPDATE_VOLUME = 'Player.EVENT_UPDATE_VOLUME';
 Player.EVENT_LOADED_META_DATA = 'Player.EVENT_LOADED_META_DATA';
@@ -459,24 +457,33 @@ class PlayerControls {
         this.$context[0].Controls = this;
         this.player = Player.create();
         this.disabled();
-        this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+        this.player.$context.on(Player.EVENT_LOADED_META_DATA + ' ' + Player.EVENT_UPDATE_REPEAT_PLAYLIST, () => {
             this.removeDisabled();
         });
         this.player.$context.on(Player.EVENT_ERROR, () => {
             this.disabled();
         });
+        this.initPlay();
+        this.initNext();
+        this.initPrev();
+    }
+    initPlay() {
         this.$context.find('button.play').on('click', () => {
             if (!this.player.url) {
                 throw new Error('Не задан url');
             }
             this.player.playing ? this.player.pause() : this.player.play();
         });
-        this.$context.find('button.prev').on('click', () => {
-            this.player.previous();
-            this.player.play();
-        });
+    }
+    initNext() {
         this.$context.find('button.next').on('click', () => {
             this.player.next();
+            this.player.play();
+        });
+    }
+    initPrev() {
+        this.$context.find('button.prev').on('click', () => {
+            this.player.previous();
             this.player.play();
         });
     }
@@ -567,12 +574,12 @@ class PlayerVolume {
         // @ts-ignore
         this.$context[0].Volume = this;
         this.player = Player.create();
-        // fixme slider заблокирован все время
+        // fixme slider заблокирован все время ok
         this.slider = Slider.create(this.$context)[0];
         this.disabled();
         this.volume = this.volume;
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            this.$context.removeClass('disabled');
+            this.removeDisabled();
         });
         this.slider.$context.on(SliderEvents.ValueUpdate, () => {
             if (this.mute && this.slider.value === 0) {
@@ -602,6 +609,10 @@ class PlayerVolume {
     }
     disabled() {
         this.$context.addClass('disabled');
+    }
+    removeDisabled() {
+        this.$context.removeClass('disabled');
+        this.slider.$context.removeClass('disabled');
     }
     get mute() {
         return this.player.mute;
@@ -696,26 +707,35 @@ class PlayerPlaylist {
         // @ts-ignore
         this.$context[0].Playlist = this;
         // todo так как у нас тут 3 отдельных кнопки не плохо было бы разбит конструктор на initRepeat, initPlaylist,
-        //  initShuffle
+        //  initShuffle ok
         this.disabled();
         this.player = Player.create();
         this.$context.find('button.close').on('click', () => {
             this.close();
         });
-        this.$context.find('button.playlist_btn').on('click', () => {
-            this.isOpen ? this.close() : this.open();
-        });
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
             this.loadPlaylist(this.player.playlist);
         });
         this.player.$context.on(Player.EVENT_ERROR, () => {
-            // fixme здесь блокируется на ошибке и не разблокируется когда запускается другая песня из того же плейлиста
+            // fixme здесь блокируется на ошибке и не разблокируется когда запускается другая песня из того же плейлиста ok
             this.disabled();
         });
+        this.initPlaylist();
+        this.initRepeat();
+        this.initShuffle();
+    }
+    initPlaylist() {
+        this.$context.find('button.playlist_btn').on('click', () => {
+            this.isOpen ? this.close() : this.open();
+        });
+    }
+    initRepeat() {
         this.$context.find('button.repeat_playlist').on('click', () => {
             this.player.repeat_playlist = !this.player.repeat_playlist;
             this.setActiveRepeat();
         });
+    }
+    initShuffle() {
         this.$context.find('button.shuffle').on('click', () => {
             this.shufflePlaylist();
             this.loadPlaylist(this.player.playlist);
@@ -723,8 +743,12 @@ class PlayerPlaylist {
     }
     shufflePlaylist() {
         // fixme нужно добавить проверку что обновленный плейлист отличается от старого так как иногда при нажатии кнопки
-        //  ни чего не происходит, из за того что старый плейлист не отличается от нового, так не должно быть
+        //  ни чего не происходит, из за того что старый плейлист не отличается от нового, так не должно быть ok
+        const prev_playlist = Object.assign([], this.player.playlist.songsPlayer);
         this.player.playlist.songsPlayer = PlayerPlaylist.shuffleArray(this.player.playlist.songsPlayer, this.player.getIndexSong());
+        if (JSON.stringify(prev_playlist) == JSON.stringify(this.player.playlist.songsPlayer) && this.player.playlist.songsPlayer.length > 2) {
+            this.shufflePlaylist();
+        }
         this.player.loadSongPlayer(this.player.songPlayer, this.player.playlist);
     }
     setActiveRepeat() {
@@ -736,9 +760,9 @@ class PlayerPlaylist {
         this.$context.addClass('disabled');
     }
     loadPlaylist(playlist) {
+        this.$context.removeClass('disabled');
         if (playlist.id === this.playlist_id)
             return;
-        this.$context.removeClass('disabled');
         this.$context.find('.playlist').empty();
         this._playlist_id = playlist.id;
         playlist.songsPlayer.forEach((song_player) => {

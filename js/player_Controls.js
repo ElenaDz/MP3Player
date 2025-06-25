@@ -8,24 +8,33 @@ class PlayerControls {
         this.$context[0].Controls = this;
         this.player = Player.create();
         this.disabled();
-        this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+        this.player.$context.on(Player.EVENT_LOADED_META_DATA + ' ' + Player.EVENT_UPDATE_REPEAT_PLAYLIST, () => {
             this.removeDisabled();
         });
         this.player.$context.on(Player.EVENT_ERROR, () => {
             this.disabled();
         });
+        this.initPlay();
+        this.initNext();
+        this.initPrev();
+    }
+    initPlay() {
         this.$context.find('button.play').on('click', () => {
             if (!this.player.url) {
                 throw new Error('Не задан url');
             }
             this.player.playing ? this.player.pause() : this.player.play();
         });
-        this.$context.find('button.prev').on('click', () => {
-            this.player.previous();
-            this.player.play();
-        });
+    }
+    initNext() {
         this.$context.find('button.next').on('click', () => {
             this.player.next();
+            this.player.play();
+        });
+    }
+    initPrev() {
+        this.$context.find('button.prev').on('click', () => {
+            this.player.previous();
             this.player.play();
         });
     }

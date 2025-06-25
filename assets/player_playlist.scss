@@ -54,10 +54,10 @@
       }
 
       &.active{
-        opacity: $opacity-grey-max;
+        opacity: unset;
 
         &:hover {
-          opacity: $opacity-grey-middle;
+          opacity: unset;
         }
       }
     }

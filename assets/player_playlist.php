@@ -3,7 +3,7 @@
     <div class="order">
         <button class="shuffle elem" title="Перемешать"></button>
         <!-- fixme это кнопка в нажатом положении не должна реагировать на наведение мыши, так как hover и active
-              прозрачность равна 1 -->
+              прозрачность равна 1 ok-->
         <button class="repeat_playlist elem" title="Повторять плейлист"></button>
     </div>
 

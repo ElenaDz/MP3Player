@@ -15,7 +15,7 @@ class PlayerPlaylist
         this.$context[0].Playlist = this;
 
         // todo так как у нас тут 3 отдельных кнопки не плохо было бы разбит конструктор на initRepeat, initPlaylist,
-        //  initShuffle
+        //  initShuffle ok
 
         this.disabled();
 
@@ -26,11 +26,6 @@ class PlayerPlaylist
             this.close();
         });
 
-        this.$context.find('button.playlist_btn').on('click',() =>
-        {
-            this.isOpen ? this.close() : this.open();
-        });
-
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
             this.loadPlaylist(this.player.playlist);
@@ -38,18 +33,35 @@ class PlayerPlaylist
 
         this.player.$context.on(Player.EVENT_ERROR,() =>
         {
-            // fixme здесь блокируется на ошибке и не разблокируется когда запускается другая песня из того же плейлиста
+            // fixme здесь блокируется на ошибке и не разблокируется когда запускается другая песня из того же плейлиста ok
             this.disabled();
         })
 
+        this.initPlaylist();
+        this.initRepeat();
+        this.initShuffle();
+    }
+
+    private initPlaylist()
+    {
+        this.$context.find('button.playlist_btn').on('click',() =>
+        {
+            this.isOpen ? this.close() : this.open();
+        });
+    }
+
+    private initRepeat()
+    {
         this.$context.find('button.repeat_playlist').on('click',() =>
         {
             this.player.repeat_playlist = !this.player.repeat_playlist;
 
             this.setActiveRepeat();
-
         });
+    }
 
+    private initShuffle()
+    {
         this.$context.find('button.shuffle').on('click',() =>
         {
             this.shufflePlaylist();
@@ -61,14 +73,22 @@ class PlayerPlaylist
     private shufflePlaylist()
     {
         // fixme нужно добавить проверку что обновленный плейлист отличается от старого так как иногда при нажатии кнопки
-        //  ни чего не происходит, из за того что старый плейлист не отличается от нового, так не должно быть
+        //  ни чего не происходит, из за того что старый плейлист не отличается от нового, так не должно быть ok
+        const prev_playlist = Object.assign([], this.player.playlist.songsPlayer)
+
         this.player.playlist.songsPlayer = PlayerPlaylist.shuffleArray(
             this.player.playlist.songsPlayer,
             this.player.getIndexSong()
         );
 
+        if (JSON.stringify(prev_playlist) == JSON.stringify(this.player.playlist.songsPlayer) && this.player.playlist.songsPlayer.length > 2)
+        {
+            this.shufflePlaylist();
+        }
+
         this.player.loadSongPlayer(this.player.songPlayer, this.player.playlist)
     }
+
 
     private setActiveRepeat()
     {
@@ -84,9 +104,9 @@ class PlayerPlaylist
 
     private loadPlaylist(playlist: Playlist)
     {
-        if (playlist.id === this.playlist_id) return;
-
         this.$context.removeClass('disabled');
+
+        if (playlist.id === this.playlist_id) return;
 
         this.$context.find('.playlist').empty();
 
