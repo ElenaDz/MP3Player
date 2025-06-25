@@ -238,36 +238,37 @@ class Player {
     get repeat_playlist() {
         return this._repeat_playlist;
     }
-    // fixme кажется этот метод можно упростить просто сделав проверку что текущий индекс не равен последнему индексу ok
+    // fixme ошибка в названии должно быть has
+    // fixme перенеси эту логику в метод getNextSong и используй здесь вызов getNextSong, если что то вернул значит true
     hesNextSong() {
         if (this.repeat_playlist)
             return true;
-        return this.getIndexSong() != this.getLastIndex();
+        return this.getIndexSongCurrent() != this.getIndexSongLast();
     }
-    // fixme кажется этот метод можно упростить просто сделав проверку что текущий индекс не равен 0 ok
+    // fixme ошибка в названии должно быть has
+    // fixme перенеси эту логику в метод getPreviousSong и используй здесь вызов getPreviousSong, если что то вернул значит true
     hesPreviousSong() {
         if (this.repeat_playlist)
             return true;
-        return this.getIndexSong() != 0;
+        return this.getIndexSongCurrent() != 0;
     }
     next() {
-        let target_index = (this.repeat_playlist && (this.getIndexSong() == this.getLastIndex()))
+        // fixme что то очень сложное, замени на вызов метода getNextSong
+        let target_index = (this.repeat_playlist && (this.getIndexSongCurrent() == this.getIndexSongLast()))
             ? 0
-            : this.getIndexSong() + 1;
+            : this.getIndexSongCurrent() + 1;
         this.loadSongPlayer(this.playlist.songsPlayer[target_index], this._playlist);
     }
     previous() {
-        let target_index = (this.repeat_playlist && (this.getIndexSong() == 0))
-            ? this.getLastIndex() :
-            this.getIndexSong() - 1;
+        // fixme что то очень сложное, замени на вызов метода getPreviousSong
+        let target_index = (this.repeat_playlist && (this.getIndexSongCurrent() == 0))
+            ? this.getIndexSongLast() :
+            this.getIndexSongCurrent() - 1;
         this.loadSongPlayer(this.playlist.songsPlayer[target_index], this._playlist);
     }
-    // используется в нескольких местах
-    getLastIndex() {
-        return this._playlist.songsPlayer.length - 1;
-    }
-    getIndexSong() {
+    getIndexSongCurrent() {
         let index_active_song;
+        // fixme используй свойство а не внутреннюю переменную _playlist, исправить везде
         this._playlist.songsPlayer.map((song_player, index) => {
             if (song_player.songId == this.songId) {
                 index_active_song = index;
@@ -275,6 +276,9 @@ class Player {
             }
         });
         return index_active_song;
+    }
+    getIndexSongLast() {
+        return this._playlist.songsPlayer.length - 1;
     }
     get songId() {
         return this.songPlayer ? this.songPlayer.songId : null;
@@ -574,7 +578,6 @@ class PlayerVolume {
         // @ts-ignore
         this.$context[0].Volume = this;
         this.player = Player.create();
-        // fixme slider заблокирован все время ok
         this.slider = Slider.create(this.$context)[0];
         this.disabled();
         this.volume = this.volume;
@@ -641,10 +644,12 @@ class PlayerVolume {
         if (volume < 0 || volume > 1) {
             throw new Error(`Invalid volume "${volume}"`);
         }
-        if (this.slider.value == this.player.volume)
-            return;
-        this.slider.value = volume;
-        this.player.volume = volume;
+        if (this.slider.value != this.player.volume) {
+            this.slider.value = volume;
+        }
+        if (this.player.volume.toFixed(2) != volume.toFixed(2)) {
+            this.player.volume = volume;
+        }
         this.volumeStore = volume;
     }
     static create($context = $('.b_player_volume')) {
@@ -698,6 +703,7 @@ class PlayerInfo {
 }
 
 
+// fixme не начинает играть следующая песня после того как закончила играть предыдущая
 class PlayerPlaylist {
     constructor($context) {
         this.$context = $context;
@@ -706,18 +712,9 @@ class PlayerPlaylist {
             return this.$context[0].Playlist;
         // @ts-ignore
         this.$context[0].Playlist = this;
-        // todo так как у нас тут 3 отдельных кнопки не плохо было бы разбит конструктор на initRepeat, initPlaylist,
-        //  initShuffle ok
         this.disabled();
         this.player = Player.create();
-        this.$context.find('button.close').on('click', () => {
-            this.close();
-        });
-        this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            this.loadPlaylist(this.player.playlist);
-        });
         this.player.$context.on(Player.EVENT_ERROR, () => {
-            // fixme здесь блокируется на ошибке и не разблокируется когда запускается другая песня из того же плейлиста ok
             this.disabled();
         });
         this.initPlaylist();
@@ -725,13 +722,22 @@ class PlayerPlaylist {
         this.initShuffle();
     }
     initPlaylist() {
+        this.$context.find('button.close').on('click', () => {
+            this.close();
+        });
         this.$context.find('button.playlist_btn').on('click', () => {
             this.isOpen ? this.close() : this.open();
+        });
+        this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+            this.loadPlaylist(this.player.playlist);
         });
     }
     initRepeat() {
         this.$context.find('button.repeat_playlist').on('click', () => {
             this.player.repeat_playlist = !this.player.repeat_playlist;
+            // fixme не нужно выносить в отдельную функцию так как не представляю когда я должен захотеть ее вызывать
+            // fixme и делать это нужно не здесь а когда сработало событие обновления repeat_playlist, то что собираешься
+            //  помнить что каждый раз когда ты устанавливаешь repeat_playlist тебе нужно не забыть вызвать эту функцию?
             this.setActiveRepeat();
         });
     }
@@ -742,11 +748,11 @@ class PlayerPlaylist {
         });
     }
     shufflePlaylist() {
-        // fixme нужно добавить проверку что обновленный плейлист отличается от старого так как иногда при нажатии кнопки
-        //  ни чего не происходит, из за того что старый плейлист не отличается от нового, так не должно быть ok
+        // fixme магия какая-то, просто сохрани здесь json плейлиста раз уж ты сравниваешь json ы
         const prev_playlist = Object.assign([], this.player.playlist.songsPlayer);
-        this.player.playlist.songsPlayer = PlayerPlaylist.shuffleArray(this.player.playlist.songsPlayer, this.player.getIndexSong());
-        if (JSON.stringify(prev_playlist) == JSON.stringify(this.player.playlist.songsPlayer) && this.player.playlist.songsPlayer.length > 2) {
+        this.player.playlist.songsPlayer = PlayerPlaylist.shuffleArray(this.player.playlist.songsPlayer, this.player.getIndexSongCurrent());
+        if (JSON.stringify(prev_playlist) == JSON.stringify(this.player.playlist.songsPlayer)
+            && this.player.playlist.songsPlayer.length > 2) {
             this.shufflePlaylist();
         }
         this.player.loadSongPlayer(this.player.songPlayer, this.player.playlist);

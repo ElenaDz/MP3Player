@@ -18,7 +18,6 @@ class PlayerVolume
 
         this.player = Player.create();
 
-        // fixme slider заблокирован все время ok
         this.slider = Slider.create(this.$context)[0];
 
         this.disabled();
@@ -116,11 +115,13 @@ class PlayerVolume
             throw new Error(`Invalid volume "${volume}"`);
         }
 
-        if ( this.slider.value == this.player.volume) return;
+        if (this.slider.value != this.player.volume) {
+            this.slider.value = volume;
+        }
 
-        this.slider.value = volume;
-
-        this.player.volume = volume;
+        if (this.player.volume.toFixed(2) != volume.toFixed(2)) {
+            this.player.volume = volume;
+        }
 
         this.volumeStore = volume;
     }

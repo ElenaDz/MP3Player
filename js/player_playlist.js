@@ -1,3 +1,4 @@
+// fixme не начинает играть следующая песня после того как закончила играть предыдущая
 class PlayerPlaylist {
     constructor($context) {
         this.$context = $context;
@@ -6,18 +7,9 @@ class PlayerPlaylist {
             return this.$context[0].Playlist;
         // @ts-ignore
         this.$context[0].Playlist = this;
-        // todo так как у нас тут 3 отдельных кнопки не плохо было бы разбит конструктор на initRepeat, initPlaylist,
-        //  initShuffle ok
         this.disabled();
         this.player = Player.create();
-        this.$context.find('button.close').on('click', () => {
-            this.close();
-        });
-        this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            this.loadPlaylist(this.player.playlist);
-        });
         this.player.$context.on(Player.EVENT_ERROR, () => {
-            // fixme здесь блокируется на ошибке и не разблокируется когда запускается другая песня из того же плейлиста ok
             this.disabled();
         });
         this.initPlaylist();
@@ -25,13 +17,22 @@ class PlayerPlaylist {
         this.initShuffle();
     }
     initPlaylist() {
+        this.$context.find('button.close').on('click', () => {
+            this.close();
+        });
         this.$context.find('button.playlist_btn').on('click', () => {
             this.isOpen ? this.close() : this.open();
+        });
+        this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+            this.loadPlaylist(this.player.playlist);
         });
     }
     initRepeat() {
         this.$context.find('button.repeat_playlist').on('click', () => {
             this.player.repeat_playlist = !this.player.repeat_playlist;
+            // fixme не нужно выносить в отдельную функцию так как не представляю когда я должен захотеть ее вызывать
+            // fixme и делать это нужно не здесь а когда сработало событие обновления repeat_playlist, то что собираешься
+            //  помнить что каждый раз когда ты устанавливаешь repeat_playlist тебе нужно не забыть вызвать эту функцию?
             this.setActiveRepeat();
         });
     }
@@ -42,11 +43,15 @@ class PlayerPlaylist {
         });
     }
     shufflePlaylist() {
-        // fixme нужно добавить проверку что обновленный плейлист отличается от старого так как иногда при нажатии кнопки
-        //  ни чего не происходит, из за того что старый плейлист не отличается от нового, так не должно быть ok
+        // fixme магия какая-то, просто сохрани здесь json плейлиста раз уж ты сравниваешь json ы
         const prev_playlist = Object.assign([], this.player.playlist.songsPlayer);
-        this.player.playlist.songsPlayer = PlayerPlaylist.shuffleArray(this.player.playlist.songsPlayer, this.player.getIndexSong());
-        if (JSON.stringify(prev_playlist) == JSON.stringify(this.player.playlist.songsPlayer) && this.player.playlist.songsPlayer.length > 2) {
+        // fixme не правильно, ты должна перемешивать здесь копию плейлиста, а не тот плейлист что уже в плеере, так как
+        //  мы хотим загружать плейлист с помощью метода loadPlaylist который как раз принимает аргумент playlist,
+        //  а у тебя получает ты загружает тот же плейлист что ты уже перемешала получается ни какой загрузки на самом деле
+        //  так как он уже там, все работает но логика нарушена, нужно делать правильно чтобы все работало правильно всегда, а не пока
+        this.player.playlist.songsPlayer = PlayerPlaylist.shuffleArray(this.player.playlist.songsPlayer, this.player.getIndexSongCurrent());
+        if (JSON.stringify(prev_playlist) == JSON.stringify(this.player.playlist.songsPlayer)
+            && this.player.playlist.songsPlayer.length > 2) {
             this.shufflePlaylist();
         }
         this.player.loadSongPlayer(this.player.songPlayer, this.player.playlist);
@@ -131,6 +136,9 @@ class PlayerPlaylist {
     get isOpen() {
         return this.$context.hasClass('open');
     }
+    // fixme не правильно, этот метод ни как не относиться к нашему проекту поэтому он static,
+    //  он может быть использован в любом проекте где нужен shuffle, а ты перенесла сюда логику "всплывания" текущей песни
+    //  на первое место, что специфично конкретно для этого проекта, эту логику нужно вернуть в проект, а отсюда убрать
     static shuffleArray(array, active_index) {
         let activeElement = array[active_index];
         delete array[active_index];
