@@ -644,9 +644,8 @@ class PlayerVolume {
         if (volume < 0 || volume > 1) {
             throw new Error(`Invalid volume "${volume}"`);
         }
-        if (this.slider.value != this.player.volume) {
-            this.slider.value = volume;
-        }
+        this.slider.value = volume;
+        // fixme перенеси эту проверку внутрь setter volume, так будет правильнее
         if (this.player.volume.toFixed(2) != volume.toFixed(2)) {
             this.player.volume = volume;
         }
@@ -750,6 +749,10 @@ class PlayerPlaylist {
     shufflePlaylist() {
         // fixme магия какая-то, просто сохрани здесь json плейлиста раз уж ты сравниваешь json ы
         const prev_playlist = Object.assign([], this.player.playlist.songsPlayer);
+        // fixme не правильно, ты должна перемешивать здесь копию плейлиста, а не тот плейлист что уже в плеере, так как
+        //  мы хотим загружать плейлист с помощью метода loadPlaylist который как раз принимает аргумент playlist,
+        //  а у тебя получает ты загружает тот же плейлист что ты уже перемешала получается ни какой загрузки на самом деле
+        //  так как он уже там, все работает но логика нарушена, нужно делать правильно чтобы все работало правильно всегда, а не пока
         this.player.playlist.songsPlayer = PlayerPlaylist.shuffleArray(this.player.playlist.songsPlayer, this.player.getIndexSongCurrent());
         if (JSON.stringify(prev_playlist) == JSON.stringify(this.player.playlist.songsPlayer)
             && this.player.playlist.songsPlayer.length > 2) {
@@ -837,6 +840,9 @@ class PlayerPlaylist {
     get isOpen() {
         return this.$context.hasClass('open');
     }
+    // fixme не правильно, этот метод ни как не относиться к нашему проекту поэтому он static,
+    //  он может быть использован в любом проекте где нужен shuffle, а ты перенесла сюда логику "всплывания" текущей песни
+    //  на первое место, что специфично конкретно для этого проекта, эту логику нужно вернуть в проект, а отсюда убрать
     static shuffleArray(array, active_index) {
         let activeElement = array[active_index];
         delete array[active_index];
