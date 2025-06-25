@@ -105,53 +105,56 @@ class Player
         return this._repeat_playlist;
     }
 
-
-    // fixme ошибка в названии должно быть has
-    // fixme перенеси эту логику в метод getNextSong и используй здесь вызов getNextSong, если что то вернул значит true
-    public hesNextSong(): boolean
+    // fixme ошибка в названии должно быть has ok
+    // fixme перенеси эту логику в метод getNextSong и используй здесь вызов getNextSong, если что то вернул значит true ok
+    public hasNextSong(): boolean
     {
-        if (this.repeat_playlist) return true;
-
-        return this.getIndexSongCurrent() != this.getIndexSongLast();
+        return !!this.getNextSong();
     }
 
-
-    // fixme ошибка в названии должно быть has
-    // fixme перенеси эту логику в метод getPreviousSong и используй здесь вызов getPreviousSong, если что то вернул значит true
-    public hesPreviousSong(): boolean
+    // fixme ошибка в названии должно быть has ok
+    // fixme перенеси эту логику в метод getPreviousSong и используй здесь вызов getPreviousSong, если что то вернул значит true ok
+    public hasPreviousSong(): boolean
     {
-        if (this.repeat_playlist) return true;
-
-        return this.getIndexSongCurrent() != 0;
+        return !!this.getPreviousSong();
     }
 
     public next()
     {
-        // fixme что то очень сложное, замени на вызов метода getNextSong
-        let target_index = (this.repeat_playlist && (this.getIndexSongCurrent() == this.getIndexSongLast()))
-            ? 0
-            : this.getIndexSongCurrent() + 1;
-
-        this.loadSongPlayer(this.playlist.songsPlayer[target_index], this._playlist);
+        // fixme что то очень сложное, замени на вызов метода getNextSong ok
+        this.loadSongPlayer(this.getNextSong(), this.playlist);
     }
 
     public previous()
     {
-        // fixme что то очень сложное, замени на вызов метода getPreviousSong
+        // fixme что то очень сложное, замени на вызов метода getPreviousSong ok
+        this.loadSongPlayer(this.getPreviousSong(), this.playlist);
+    }
+
+    private getNextSong()
+    {
+        let target_index = (this.repeat_playlist && (this.getIndexSongCurrent() == this.getIndexSongLast()))
+            ? 0
+            : this.getIndexSongCurrent() + 1;
+
+        return this.playlist.songsPlayer[target_index];
+    }
+
+    private getPreviousSong()
+    {
         let target_index = (this.repeat_playlist && (this.getIndexSongCurrent() == 0))
             ? this.getIndexSongLast() :
             this.getIndexSongCurrent() - 1;
 
-        this.loadSongPlayer(this.playlist.songsPlayer[target_index], this._playlist);
+        return this.playlist.songsPlayer[target_index]
     }
-
 
     public getIndexSongCurrent(): number
     {
         let index_active_song: number;
 
-        // fixme используй свойство а не внутреннюю переменную _playlist, исправить везде
-        this._playlist.songsPlayer.map((song_player, index) =>
+        // fixme используй свойство а не внутреннюю переменную _playlist, исправить везде ok
+        this.playlist.songsPlayer.map((song_player, index) =>
         {
             if (song_player.songId == this.songId)
             {
@@ -165,7 +168,7 @@ class Player
 
     private getIndexSongLast()
     {
-        return this._playlist.songsPlayer.length - 1;
+        return this.playlist.songsPlayer.length - 1;
     }
 
 

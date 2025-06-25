@@ -122,15 +122,17 @@
 }
 .b_player_controls .next {
   background-image: url("/assets/img/btn_play/next.svg");
+  opacity: 0.7;
 }
 .b_player_controls .next:hover {
-  opacity: 0.7;
+  opacity: 1;
 }
 .b_player_controls .prev {
   background-image: url("/assets/img/btn_play/previous.svg");
+  opacity: 0.7;
 }
 .b_player_controls .prev:hover {
-  opacity: 0.7;
+  opacity: 1;
 }
 .b_player_controls button:disabled {
   opacity: 0.5;
