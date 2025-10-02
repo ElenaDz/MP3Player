@@ -105,29 +105,25 @@ class Player
         return this._repeat_playlist;
     }
 
-    // fixme ошибка в названии должно быть has ok
-    // fixme перенеси эту логику в метод getNextSong и используй здесь вызов getNextSong, если что то вернул значит true ok
+
     public hasNextSong(): boolean
     {
-        return !!this.getNextSong();
+        return !! this.getNextSong();
     }
 
-    // fixme ошибка в названии должно быть has ok
-    // fixme перенеси эту логику в метод getPreviousSong и используй здесь вызов getPreviousSong, если что то вернул значит true ok
+
     public hasPreviousSong(): boolean
     {
-        return !!this.getPreviousSong();
+        return !! this.getPreviousSong();
     }
 
     public next()
     {
-        // fixme что то очень сложное, замени на вызов метода getNextSong ok
         this.loadSongPlayer(this.getNextSong(), this.playlist);
     }
 
     public previous()
     {
-        // fixme что то очень сложное, замени на вызов метода getPreviousSong ok
         this.loadSongPlayer(this.getPreviousSong(), this.playlist);
     }
 
@@ -153,7 +149,6 @@ class Player
     {
         let index_active_song: number;
 
-        // fixme используй свойство а не внутреннюю переменную _playlist, исправить везде ok
         this.playlist.songsPlayer.map((song_player, index) =>
         {
             if (song_player.songId == this.songId)
