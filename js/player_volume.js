@@ -75,7 +75,6 @@ class PlayerVolume {
             throw new Error(`Invalid volume "${volume}"`);
         }
         this.slider.value = volume;
-        // fixme перенеси эту проверку внутрь setter volume, так будет правильнее ok
         if (this.player.volume != volume) {
             this.player.volume = volume;
         }

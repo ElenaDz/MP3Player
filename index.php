@@ -71,7 +71,7 @@
         $clicks = 2;
         require __DIR__ . '/assets/btn_player.php';
 
-        $file_name = 'Marvin Mash & Ole Van Dansk & Pulsedriver - Shout.mp3';
+        $file_name = 'А-Студио - Так же как все.mp3';
         $song_id = '3';
         $clicks = 4;
         require __DIR__ . '/assets/btn_player.php';
