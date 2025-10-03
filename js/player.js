@@ -9,6 +9,10 @@ class Player {
         this.audio = this.$context.find('audio')[0];
         this.initCreate();
         this.initEventsAudio();
+        this.$context.on(Player.EVENT_ENDED + ' || ' + Player.EVENT_ERROR, () => {
+            this.next();
+            this.play();
+        });
     }
     initCreate() {
         PlayerControls.create();
@@ -126,7 +130,7 @@ class Player {
         return this.audio.volume;
     }
     set volume(volume) {
-        this.audio.volume = volume;
+        this.audio.volume = Number(volume.toFixed(2));
     }
     set mute(mute) {
         this.audio.muted = mute;

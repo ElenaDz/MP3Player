@@ -42,6 +42,12 @@ class Player
 
         this.initEventsAudio();
 
+        this.$context.on(Player.EVENT_ENDED +' || '+ Player.EVENT_ERROR,() =>
+        {
+            this.next();
+            this.play();
+        });
+
     }
 
     private initCreate()
@@ -236,7 +242,7 @@ class Player
 
     public set volume(volume: number)
     {
-        this.audio.volume = volume;
+        this.audio.volume = Number(volume.toFixed(2));
     }
 
     public set mute(mute: boolean)

@@ -70,6 +70,11 @@
         $song_id = '2';
         $clicks = 2;
         require __DIR__ . '/assets/btn_player.php';
+
+        $file_name = 'Marvin Mash & Ole Van Dansk & Pulsedriver - Shout.mp3';
+        $song_id = '3';
+        $clicks = 4;
+        require __DIR__ . '/assets/btn_player.php';
         ?>
     </div>
 </div>

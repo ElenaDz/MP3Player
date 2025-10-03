@@ -1,4 +1,4 @@
-// fixme не начинает играть следующая песня после того как закончила играть предыдущая
+// fixme не начинает играть следующая песня после того как закончила играть предыдущая ok
 class PlayerPlaylist {
     constructor($context) {
         this.$context = $context;
@@ -11,6 +11,9 @@ class PlayerPlaylist {
         this.player = Player.create();
         this.player.$context.on(Player.EVENT_ERROR, () => {
             this.disabled();
+        });
+        this.player.$context.on(Player.EVENT_UPDATE_REPEAT_PLAYLIST, () => {
+            this.setActiveRepeat();
         });
         this.initPlaylist();
         this.initRepeat();
@@ -32,8 +35,7 @@ class PlayerPlaylist {
             this.player.repeat_playlist = !this.player.repeat_playlist;
             // fixme не нужно выносить в отдельную функцию так как не представляю когда я должен захотеть ее вызывать
             // fixme и делать это нужно не здесь а когда сработало событие обновления repeat_playlist, то что собираешься
-            //  помнить что каждый раз когда ты устанавливаешь repeat_playlist тебе нужно не забыть вызвать эту функцию?
-            this.setActiveRepeat();
+            //  помнить что каждый раз когда ты устанавливаешь repeat_playlist тебе нужно не забыть вызвать эту функцию? ok
         });
     }
     initShuffle() {
@@ -43,14 +45,15 @@ class PlayerPlaylist {
         });
     }
     shufflePlaylist() {
-        // fixme магия какая-то, просто сохрани здесь json плейлиста раз уж ты сравниваешь json ы
-        const prev_playlist = Object.assign([], this.player.playlist.songsPlayer);
+        this.open();
+        // fixme магия какая-то, просто сохрани здесь json плейлиста раз уж ты сравниваешь json ы ok
+        const prev_playlist = JSON.stringify(this.player.playlist.songsPlayer);
         // fixme не правильно, ты должна перемешивать здесь копию плейлиста, а не тот плейлист что уже в плеере, так как
         //  мы хотим загружать плейлист с помощью метода loadPlaylist который как раз принимает аргумент playlist,
         //  а у тебя получает ты загружает тот же плейлист что ты уже перемешала получается ни какой загрузки на самом деле
-        //  так как он уже там, все работает но логика нарушена, нужно делать правильно чтобы все работало правильно всегда, а не пока
-        this.player.playlist.songsPlayer = PlayerPlaylist.shuffleArray(this.player.playlist.songsPlayer, this.player.getIndexSongCurrent());
-        if (JSON.stringify(prev_playlist) == JSON.stringify(this.player.playlist.songsPlayer)
+        //  так как он уже там, все работает но логика нарушена, нужно делать правильно чтобы все работало правильно всегда, а не пока (ok)
+        PlayerPlaylist.shufflePlaylist(this.player.playlist, this.player.getIndexSongCurrent());
+        if (prev_playlist == JSON.stringify(this.player.playlist.songsPlayer)
             && this.player.playlist.songsPlayer.length > 2) {
             this.shufflePlaylist();
         }
@@ -98,7 +101,7 @@ class PlayerPlaylist {
 
                     <div class="song_title">
                         <div class="wrap_song">
-                            <!-- fixme на drivemusic ссылка при наведении меняет цвет, у тебя нет -->
+                            <!-- fixme на drivemusic ссылка при наведении меняет цвет, у тебя нет ок -->
                             <a href="#" class="inner_song">
                                 ${song.songName}
                             </a>
@@ -113,7 +116,7 @@ class PlayerPlaylist {
 
                 <div class="wrap_right">
                     <div class="count_clicks">
-                        <!-- todo это иконку можно взять на drivemusic она там сделана на css -->
+                        <!-- todo это иконку можно взять на drivemusic она там сделана на css (не вижу клики, может убрали?) -->
                         <i></i>
                         <span>${song.clicks}</span>
                     </div>
@@ -136,21 +139,22 @@ class PlayerPlaylist {
     get isOpen() {
         return this.$context.hasClass('open');
     }
-    static shufflePlaylist(playlist) {
+    static shufflePlaylist(playlist, active_index) {
+        let activeElement = playlist.songsPlayer[active_index];
+        delete playlist.songsPlayer[active_index];
+        playlist.songsPlayer = PlayerPlaylist.shuffleArray(playlist.songsPlayer);
+        playlist.songsPlayer.unshift(activeElement);
         return playlist;
     }
     // fixme не правильно, этот метод просто перемешивает любой массив,
     //  он может быть использован в любом проекте где нужен shuffle, а ты перенесла сюда логику "всплывания" текущей песни
-    //  на первое место, что специфично конкретно для этого проекта, для этой логики я завел метод shufflePlaylist выше, реализуй его
-    static shuffleArray(array, active_index) {
-        let activeElement = array[active_index];
-        delete array[active_index];
+    //  на первое место, что специфично конкретно для этого проекта, для этой логики я завел метод shufflePlaylist выше, реализуй его (ok)
+    static shuffleArray(array) {
         array = array.filter(element => element != null);
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]]; // Swap elements
         }
-        array.unshift(activeElement);
         return array;
     }
     static create($context = $('.b_player_playlist')) {

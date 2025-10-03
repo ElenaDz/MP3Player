@@ -1,7 +1,7 @@
 <div class="b_player_playlist disabled">
 
     <div class="order">
-        <!-- fixme нажатие на эту кнопку должно приводить к открытию плейлиста чтобы человек видел что плейлист перемешан как на сефоне -->
+        <!-- fixme нажатие на эту кнопку должно приводить к открытию плейлиста чтобы человек видел что плейлист перемешан как на сефоне ок -->
         <button class="shuffle elem" title="Перемешать"></button>
         <button class="repeat_playlist elem" title="Повторять плейлист"></button>
     </div>

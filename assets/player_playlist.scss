@@ -95,6 +95,16 @@
       .playlist {
         padding: 10px 30px;
         margin: 0;
+
+        .item{
+
+          .song_title {
+
+            a:hover {
+              color: #187FF8;
+            }
+          }
+        }
       }
 
       .header {
