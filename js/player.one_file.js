@@ -165,14 +165,14 @@ Slider.SELECTOR = '.b_slider';
 
 
 class Playlist {
-    constructor(songsPlayer, title = null) {
+    constructor(songsPlayer = [], title = null) {
         this.songsPlayer = songsPlayer;
         this._title = title;
     }
     get id() {
         let id = '';
         this.songsPlayer.map((songPlayer) => {
-            id = id + songPlayer.songName + '; ';
+            id = id + songPlayer.songName + "\n";
         });
         return id;
     }
@@ -744,12 +744,15 @@ class PlayerPlaylist {
         });
     }
     shufflePlaylist() {
+        console.log('shufflePlaylist');
         this.open();
         let playlist_id = this.player.playlist.id;
         let playlist_new = PlayerPlaylist.shufflePlaylist(this.player.playlist, this.player.getIndexSongCurrent());
         this.player.loadSongPlayer(this.player.songPlayer, playlist_new);
         if (playlist_id === playlist_new.id
             && playlist_new.songsPlayer.length > 2) {
+            console.log(playlist_id);
+            console.log(playlist_new.id);
             this.shufflePlaylist();
         }
     }
@@ -832,10 +835,12 @@ class PlayerPlaylist {
     get isOpen() {
         return this.$context.hasClass('open');
     }
-    static shufflePlaylist(playlist, active_index) {
-        let playlist_copy = new Playlist(playlist.songsPlayer, playlist.title);
-        let activeElement = playlist_copy.songsPlayer[active_index];
-        delete playlist_copy.songsPlayer[active_index];
+    static shufflePlaylist(playlist, index_active) {
+        let playlist_copy = new Playlist(playlist.songsPlayer.map((song_player) => {
+            return Object.assign({}, song_player);
+        }), playlist.title);
+        let activeElement = playlist_copy.songsPlayer[index_active];
+        delete playlist_copy.songsPlayer[index_active];
         playlist_copy.songsPlayer = PlayerPlaylist.shuffleArray(playlist_copy.songsPlayer);
         playlist_copy.songsPlayer.unshift(activeElement);
         return playlist_copy;

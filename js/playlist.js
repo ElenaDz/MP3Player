@@ -6,7 +6,7 @@ class Playlist {
     get id() {
         let id = '';
         this.songsPlayer.map((songPlayer) => {
-            id = id + songPlayer.songName + '; ';
+            id = id + songPlayer.songName + "\n";
         });
         return id;
     }

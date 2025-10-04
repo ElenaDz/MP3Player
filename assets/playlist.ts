@@ -14,7 +14,7 @@ class Playlist
 		let id = '';
 
 		this.songsPlayer.map((songPlayer:SongPlayer) => {
-			id = id + songPlayer.songName+'; '
+			id = id + songPlayer.songName + "\n" ;
 		});
 
 		return id;

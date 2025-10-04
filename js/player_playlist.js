@@ -37,6 +37,9 @@ class PlayerPlaylist {
     initShuffle() {
         this.$context.find('button.shuffle').on('click', () => {
             this.shufflePlaylist();
+            // fixme кто угодно может изменить плейлист в плеере и ты должна отслеживать это событие чтобы загружать
+            //  обновленный плейлист здесь, ошибка в том что ты вызываешь этот метод здесь хотя ты должна просто
+            //  подписаться на событие обновления плейлиста в конструкторе
             this.loadPlaylist(this.player.playlist);
         });
     }
@@ -64,6 +67,8 @@ class PlayerPlaylist {
             return;
         this.$context.find('.playlist').empty();
         this._playlist_id = playlist.id;
+        // fixme мне не нравиться что у тебя рендер плейлиста происходит не в одном методе а в двух, должен быть метод
+        //  render в который передаешь объект плейлист и он возвращает тебе готовый html который остается только вставить
         playlist.songsPlayer.forEach((song_player) => {
             this.$context.find('.playlist')
                 .append(this.getHtml(song_player));
