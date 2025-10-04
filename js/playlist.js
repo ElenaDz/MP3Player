@@ -1,5 +1,5 @@
 class Playlist {
-    constructor(songsPlayer, title = null) {
+    constructor(songsPlayer = [], title = null) {
         this.songsPlayer = songsPlayer;
         this._title = title;
     }

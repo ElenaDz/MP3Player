@@ -193,13 +193,19 @@ class PlayerPlaylist
     }
 
 
-    private static shufflePlaylist(playlist: Playlist, active_index: number): Playlist
+    private static shufflePlaylist(playlist: Playlist, index_active: number): Playlist
     {
-        let playlist_copy = new Playlist(playlist.songsPlayer, playlist.title);
+        let playlist_copy = new Playlist(
+            playlist.songsPlayer.map((song_player) =>
+            {
+                return Object.assign({}, song_player);
+            }),
+            playlist.title
+        );
 
-        let activeElement = playlist_copy.songsPlayer[active_index];
+        let activeElement = playlist_copy.songsPlayer[index_active];
 
-        delete playlist_copy.songsPlayer[active_index];
+        delete playlist_copy.songsPlayer[index_active];
 
         playlist_copy.songsPlayer = PlayerPlaylist.shuffleArray(playlist_copy.songsPlayer);
 

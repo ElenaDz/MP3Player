@@ -3,7 +3,7 @@ class Playlist
 	private _songsPlayer:SongPlayer[];
 	private _title: string;
 
-	constructor(songsPlayer: SongPlayer[], title: string = null)
+	constructor(songsPlayer: SongPlayer[] = [], title: string = null)
 	{
 		this.songsPlayer = songsPlayer;
 		this._title = title;

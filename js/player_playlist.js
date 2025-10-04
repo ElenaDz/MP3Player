@@ -129,10 +129,12 @@ class PlayerPlaylist {
     get isOpen() {
         return this.$context.hasClass('open');
     }
-    static shufflePlaylist(playlist, active_index) {
-        let playlist_copy = new Playlist(playlist.songsPlayer, playlist.title);
-        let activeElement = playlist_copy.songsPlayer[active_index];
-        delete playlist_copy.songsPlayer[active_index];
+    static shufflePlaylist(playlist, index_active) {
+        let playlist_copy = new Playlist(playlist.songsPlayer.map((song_player) => {
+            return Object.assign({}, song_player);
+        }), playlist.title);
+        let activeElement = playlist_copy.songsPlayer[index_active];
+        delete playlist_copy.songsPlayer[index_active];
         playlist_copy.songsPlayer = PlayerPlaylist.shuffleArray(playlist_copy.songsPlayer);
         playlist_copy.songsPlayer.unshift(activeElement);
         return playlist_copy;
