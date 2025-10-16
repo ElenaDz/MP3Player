@@ -89,8 +89,11 @@
         </div>
 
         <div class="inner_player">
-	        <?php require __DIR__ . '/assets/player_controls.php'; ?>
-	        <?php require __DIR__ . '/assets/player_playlist.php'; ?>
+            <div class="inner_controls">
+                <?php require __DIR__ . '/assets/player_controls.php'; ?>
+                <?php require __DIR__ . '/assets/player_playlist.php'; ?>
+            </div>
+
             <?php require __DIR__ . '/assets/player_progress.php'; ?>
             <?php require __DIR__ . '/assets/player_volume.php'; ?>
             <?php require __DIR__ . '/assets/player_info.php'; ?>

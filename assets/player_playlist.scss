@@ -1,8 +1,9 @@
 @import "mixin";
 @import "var";
 
-.b_player_playlist
-{
+.b_player_playlist {
+  display: flex;
+
   @include for_phone {
     order: 1;
   };
@@ -66,6 +67,7 @@
   .playlist_btn {
     background-image: url("/assets/img/playlist.svg");
     opacity: $opacity-grey-middle;
+    margin-left: 16px;
 
     &:hover {
       opacity: $opacity-grey-max;

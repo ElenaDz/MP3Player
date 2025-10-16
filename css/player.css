@@ -2,7 +2,7 @@
 .b_slider {
   display: inline-block;
   box-sizing: border-box;
-  width: 340px;
+  width: 380px;
   padding: 4px 0;
   cursor: pointer;
 }
@@ -77,6 +77,9 @@
     order: 6;
   }
 }
+.b_player_progress .b_slider {
+  margin: 0 16px;
+}
 @media (max-width: 767px) {
   .b_player_progress .b_slider {
     width: 100%;
@@ -85,8 +88,8 @@
 }
 .b_player_progress .time_current,
 .b_player_progress .time_duration {
-  width: 50px;
-  height: 100%;
+  width: 35px;
+  height: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -95,7 +98,10 @@
 }
 
 .b_player_controls {
-  width: 130px;
+  width: 120px;
+  height: 100%;
+  display: flex;
+  margin-right: 16px;
 }
 @media (max-width: 767px) {
   .b_player_controls {
@@ -135,7 +141,7 @@
   opacity: 1;
 }
 .b_player_controls button:disabled {
-  opacity: 0.5;
+  opacity: 0.25;
   pointer-events: none;
 }
 .b_player_controls button:disabled:hover {
@@ -178,6 +184,9 @@
   background-image: url("/assets/img/volume_mute.svg");
 }
 
+.b_player_playlist {
+  display: flex;
+}
 @media (max-width: 767px) {
   .b_player_playlist {
     order: 1;
@@ -227,6 +236,7 @@
 .b_player_playlist .playlist_btn {
   background-image: url("/assets/img/playlist.svg");
   opacity: 0.7;
+  margin-left: 16px;
 }
 .b_player_playlist .playlist_btn:hover {
   opacity: 1;
@@ -347,9 +357,11 @@
 }
 
 .b_player_info {
-  width: 230px;
-  height: 100%;
+  max-width: 416px;
+  width: 100%;
+  height: 40px;
   display: flex;
+  justify-content: space-between;
 }
 .b_player_info.disabled .download {
   opacity: 0.3;
@@ -401,6 +413,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 16px;
 }
 @media (max-width: 767px) {
   .b_player_info .download {
@@ -455,8 +468,8 @@
   padding: 0 2vw;
   height: 100%;
   background-color: #fff;
-  border-top: 1px solid #ededed;
-  box-shadow: 0 0 7px #c3c3c3;
+  border-top: 1px solid rgb(237, 237, 237);
+  box-shadow: 0 0 7px rgb(195, 195, 195);
 }
 @media (max-width: 767px) {
   .b_player .inner_player {
@@ -464,6 +477,13 @@
     align-items: normal;
     padding: 5px 10px 0 10px;
   }
+}
+.b_player .inner_player .inner_controls {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 288px;
+  height: 40px;
 }
 .b_player .inner_player > div {
   display: flex;

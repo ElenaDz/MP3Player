@@ -2,7 +2,10 @@
 @import "var";
 
 .b_player_controls {
-  width: 130px;
+  width: 120px;
+  height: 100%;
+  display: flex;
+  margin-right: 16px;
 
   @include for_phone {
     order: 3;
@@ -51,7 +54,7 @@
 
   // fixme тяжело отличить заблокированную кнопку от обычной на которую не наведен курсор, сделай прозрачной сильнее 0.25 например
   button:disabled {
-    opacity: 0.5;
+    opacity: 0.25;
     pointer-events: none;
 
     &:hover {
