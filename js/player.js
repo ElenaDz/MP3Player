@@ -9,11 +9,6 @@ class Player {
         this.audio = this.$context.find('audio')[0];
         this.initCreate();
         this.initEventsAudio();
-        // fixme логика что после окончания одной песни начинает играть следующая относиться к компоненту плейлист, а не к плеер
-        this.$context.on(Player.EVENT_ENDED + ' || ' + Player.EVENT_ERROR, () => {
-            this.next();
-            this.play();
-        });
     }
     initCreate() {
         PlayerControls.create();

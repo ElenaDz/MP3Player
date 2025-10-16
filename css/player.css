@@ -128,17 +128,15 @@
 }
 .b_player_controls .next {
   background-image: url("/assets/img/btn_play/next.svg");
-  opacity: 0.7;
 }
 .b_player_controls .next:hover {
-  opacity: 1;
+  opacity: 0.7;
 }
 .b_player_controls .prev {
   background-image: url("/assets/img/btn_play/previous.svg");
-  opacity: 0.7;
 }
 .b_player_controls .prev:hover {
-  opacity: 1;
+  opacity: 0.7;
 }
 .b_player_controls button:disabled {
   opacity: 0.25;
@@ -166,6 +164,7 @@
 }
 .b_player_volume .b_slider {
   width: 94px;
+  margin-left: 4px;
 }
 .b_player_volume .b_slider .slider {
   height: 4px;

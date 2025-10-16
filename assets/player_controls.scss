@@ -36,23 +36,21 @@
 
   .next {
     background-image: url("/assets/img/btn_play/next.svg");
-    opacity: $opacity-grey-middle;
 
     &:hover {
-      opacity: $opacity-grey-max;
+      opacity: $opacity-grey-middle;
     }
   }
 
   .prev {
     background-image: url("/assets/img/btn_play/previous.svg");
-    opacity: $opacity-grey-middle;
 
     &:hover {
-      opacity: $opacity-grey-max;
+      opacity: $opacity-grey-middle;
     }
   }
 
-  // fixme тяжело отличить заблокированную кнопку от обычной на которую не наведен курсор, сделай прозрачной сильнее 0.25 например
+  // fixme тяжело отличить заблокированную кнопку от обычной на которую не наведен курсор, сделай прозрачной сильнее 0.25 например ok
   button:disabled {
     opacity: 0.25;
     pointer-events: none;

@@ -29,6 +29,15 @@ class PlayerPlaylist
             this.setActiveRepeat();
         });
 
+        // fixme логика что после окончания одной песни начинает играть следующая относиться к компоненту плейлист, а не к плеер ok
+        // дописать логику для случая: нажали предыдущую песню, а она сломана, нодо её проскочить.
+        this.player.$context.on(Player.EVENT_ENDED +' || '+ Player.EVENT_ERROR,() =>
+        {
+            this.player.next();
+            this.player.play();
+        });
+
+
         this.initPlaylist();
         this.initRepeat();
         this.initShuffle();
