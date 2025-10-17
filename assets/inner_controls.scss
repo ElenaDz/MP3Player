@@ -1,0 +1,22 @@
+@import "mixin";
+@import "var";
+
+.inner_controls {
+  width: 288px;
+  height: 40px;
+
+  @include for_phone {
+    width: 100%;
+    justify-content: space-between!important;
+  }
+
+  .stub {
+    display: none;
+    @include for_phone {
+      display: flex;
+      order: 3;
+      width: 40px;
+      height: 40px;
+    }
+  }
+}

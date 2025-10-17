@@ -5,7 +5,7 @@
         <button class="repeat_playlist elem" title="Повторять плейлист"></button>
     </div>
 
-    <!-- fixme при открытом плейлисте когда наводишь курсор на иконку она становиться бледнее а не должна -->
+    <!-- fixme при открытом плейлисте когда наводишь курсор на иконку она становиться бледнее а не должна ok -->
     <button  class="playlist_btn elem"></button>
 
     <div class="popup">
@@ -13,7 +13,7 @@
 
             <div class="header">
                 <div class="name_chart">
-                    <!-- fixme курсор должен быть стрелкой -->
+                    <!-- fixme курсор должен быть стрелкой ok -->
                     <h2 class="music_title"></h2>
                 </div>
                 <button class="close"></button>

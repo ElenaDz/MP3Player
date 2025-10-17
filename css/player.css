@@ -74,7 +74,7 @@
 @media (max-width: 767px) {
   .b_player_progress {
     width: 100%;
-    order: 6;
+    order: 4;
   }
 }
 .b_player_progress .b_slider {
@@ -90,6 +90,7 @@
 .b_player_progress .time_duration {
   width: 35px;
   height: 16px;
+  font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -105,7 +106,8 @@
 }
 @media (max-width: 767px) {
   .b_player_controls {
-    order: 3;
+    order: 2;
+    margin-right: 0;
   }
 }
 .b_player_controls .play {
@@ -148,7 +150,7 @@
 
 @media (max-width: 767px) {
   .b_player_volume {
-    display: none;
+    display: none !important;
   }
 }
 .b_player_volume.disabled .b_slider {
@@ -198,12 +200,6 @@
 .b_player_playlist.open .popup {
   height: calc(-156px + 100vh);
 }
-.b_player_playlist.open .playlist_btn {
-  opacity: 1;
-}
-.b_player_playlist.open .playlist_btn:hover {
-  opacity: 0.7;
-}
 .b_player_playlist .order {
   display: flex;
 }
@@ -227,7 +223,7 @@
   opacity: 1;
 }
 .b_player_playlist .order .repeat_playlist.active {
-  opacity: unset;
+  opacity: 1;
 }
 .b_player_playlist .order .repeat_playlist.active:hover {
   opacity: unset;
@@ -239,6 +235,11 @@
 }
 .b_player_playlist .playlist_btn:hover {
   opacity: 1;
+}
+@media (max-width: 767px) {
+  .b_player_playlist .playlist_btn {
+    margin-left: 0;
+  }
 }
 .b_player_playlist .popup {
   position: absolute;
@@ -278,8 +279,12 @@
   font-weight: 700;
   font-size: 20px;
 }
+.b_player_playlist .popup .inner_popup .header .name_chart .music_title {
+  cursor: default;
+}
 .b_player_playlist .popup .inner_popup .header .name_chart .music_title::before {
   content: "Сейчас играет:";
+  cursor: default;
 }
 .b_player_playlist .popup .inner_popup .header .close {
   display: flex;
@@ -362,6 +367,9 @@
   display: flex;
   justify-content: space-between;
 }
+.b_player_info.disabled .artist_img {
+  opacity: 0.3;
+}
 .b_player_info.disabled .download {
   opacity: 0.3;
 }
@@ -373,14 +381,17 @@
 }
 @media (max-width: 767px) {
   .b_player_info {
-    display: none;
+    width: fit-content;
+  }
+  .b_player_info .artist_img, .b_player_info .names {
+    display: none !important;
   }
 }
 .b_player_info .artist_img {
-  border-radius: 50%;
-  background-color: #f7f5ff;
+  border-radius: 10px;
+  background-color: #f0f1f4;
   margin-right: 10px;
-  opacity: 0.3;
+  opacity: 1;
   background-image: url("/assets/img/note.svg");
   background-repeat: no-repeat;
   background-position: center;
@@ -403,7 +414,7 @@
   overflow: hidden;
 }
 .b_player_info .names .wrap_author {
-  font-weight: bold;
+  font-weight: 600;
 }
 .b_player_info .names .wrap_author a {
   margin-right: 5px;
@@ -416,14 +427,17 @@
 }
 @media (max-width: 767px) {
   .b_player_info .download {
-    order: 5;
+    position: absolute;
+    right: 15px;
+    order: 3;
+    margin-left: 0;
   }
 }
 .b_player_info .download .download_song {
   display: flex;
-  width: 26px;
-  height: 26px;
-  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
   background-color: #f7f5ff;
 }
 .b_player_info .download .download_song:hover {
@@ -438,6 +452,28 @@
   background-position: center;
 }
 
+.inner_controls {
+  width: 288px;
+  height: 40px;
+}
+@media (max-width: 767px) {
+  .inner_controls {
+    width: 100%;
+    justify-content: space-between !important;
+  }
+}
+.inner_controls .stub {
+  display: none;
+}
+@media (max-width: 767px) {
+  .inner_controls .stub {
+    display: flex;
+    order: 3;
+    width: 40px;
+    height: 40px;
+  }
+}
+
 .b_player {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   position: fixed;
@@ -447,10 +483,13 @@
   left: 0;
   right: 0;
   z-index: 2;
+  font-size: 14px;
+  font-weight: 400;
 }
 @media (max-width: 767px) {
   .b_player {
-    height: 90px;
+    height: 98px;
+    padding: 15px 12px;
   }
 }
 .b_player .audio {
@@ -476,13 +515,6 @@
     align-items: normal;
     padding: 5px 10px 0 10px;
   }
-}
-.b_player .inner_player .inner_controls {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  width: 288px;
-  height: 40px;
 }
 .b_player .inner_player > div {
   display: flex;

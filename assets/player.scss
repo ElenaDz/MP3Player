@@ -7,6 +7,7 @@
 @import "player_volume";
 @import "player_playlist";
 @import "player_info";
+@import "inner_controls";
 
 .b_player {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -17,9 +18,12 @@
   left: 0;
   right: 0;
   z-index: 2;
+  font-size: 14px;
+  font-weight: 400;
 
   @include for_phone {
-    height: 90px;
+    height: 98px;
+    padding: 15px 12px;
   }
 
   .audio {
@@ -44,14 +48,6 @@
       flex-wrap: wrap;
       align-items: normal;
       padding: 5px 10px 0 10px;
-    }
-
-    .inner_controls {
-      display: flex;
-      justify-content: start;
-      align-items: center;
-      width: 288px;
-      height: 40px;
     }
 
     > div {

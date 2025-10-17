@@ -190,7 +190,6 @@ class Player
         }
 
         this._songPlayer = songPlayer;
-
     }
 
     public get songPlayer(): SongPlayer

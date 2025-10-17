@@ -15,7 +15,7 @@
   
   @include for_phone {
     width: 100%;
-    order: 6;
+    order: 4;
   }
 
   .b_slider {
@@ -30,6 +30,7 @@
   .time_duration {
     width: 35px;
     height: 16px;
+    font-size: 14px;
     display: flex;
     align-items: center;
     justify-content: center;

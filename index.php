@@ -92,6 +92,7 @@
             <div class="inner_controls">
                 <?php require __DIR__ . '/assets/player_controls.php'; ?>
                 <?php require __DIR__ . '/assets/player_playlist.php'; ?>
+                <div class="stub"></div>
             </div>
 
             <?php require __DIR__ . '/assets/player_progress.php'; ?>

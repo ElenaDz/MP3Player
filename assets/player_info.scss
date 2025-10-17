@@ -9,8 +9,14 @@
   justify-content: space-between;
 
   &.disabled {
+    .artist_img {
+      opacity: $opacity-grey-min;
+
+    }
+
     .download {
       opacity: $opacity-grey-min;
+
       .download_song {
         pointer-events: none;
 
@@ -22,14 +28,19 @@
   }
 
   @include for_phone {
-    display: none;
+    width: fit-content;
+
+    .artist_img, .names{
+      display: none!important;
+    }
+
   }
 
   .artist_img {
-    border-radius: 50%;
-    background-color: #f7f5ff;
+    border-radius: 10px;
+    background-color: #f0f1f4;
     margin-right: 10px;
-    opacity: $opacity-grey-min;
+    opacity: $opacity-grey-max;
     background-image: url("/assets/img/note.svg");
     background-repeat: no-repeat;
     background-position: center;
@@ -54,7 +65,7 @@
     }
 
     .wrap_author {
-      font-weight: bold;
+      font-weight: 600;
 
       a {
         margin-right: 5px;
@@ -69,14 +80,17 @@
     margin-left: 16px;
 
     @include for_phone {
-      order: 5;
+      position: absolute;
+      right: 15px;
+      order: 3;
+      margin-left: 0;
     }
 
     .download_song {
       display: flex;
-      width: 26px;
-      height: 26px;
-      border-radius: 5px;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
       background-color: #f7f5ff;
 
       &:hover {

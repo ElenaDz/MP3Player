@@ -1,6 +1,8 @@
 
 class PlayerPlaylist
 {
+    static readonly EVENT_UPDATE_PLAYLIST = 'PlayerPlaylist.EVENT_UPDATE_PLAYLIST';
+
     private $context: JQuery;
     private player: Player;
     private _playlist_id: string;
@@ -30,13 +32,16 @@ class PlayerPlaylist
         });
 
         // fixme логика что после окончания одной песни начинает играть следующая относиться к компоненту плейлист, а не к плеер ok
-        // дописать логику для случая: нажали предыдущую песню, а она сломана, нодо её проскочить.
         this.player.$context.on(Player.EVENT_ENDED +' || '+ Player.EVENT_ERROR,() =>
         {
             this.player.next();
             this.player.play();
         });
 
+        this.$context.on(PlayerPlaylist.EVENT_UPDATE_PLAYLIST, () =>
+        {
+            this.loadPlaylist(this.player.playlist);
+        });
 
         this.initPlaylist();
         this.initRepeat();
@@ -74,11 +79,9 @@ class PlayerPlaylist
         this.$context.find('button.shuffle').on('click',() =>
         {
             this.shufflePlaylist();
-
             // fixme кто угодно может изменить плейлист в плеере и ты должна отслеживать это событие чтобы загружать
             //  обновленный плейлист здесь, ошибка в том что ты вызываешь этот метод здесь хотя ты должна просто
-            //  подписаться на событие обновления плейлиста в конструкторе
-            this.loadPlaylist(this.player.playlist);
+            //  подписаться на событие обновления плейлиста в конструкторе ok
         });
     }
 
@@ -100,6 +103,8 @@ class PlayerPlaylist
         ) {
             this.shufflePlaylist();
         }
+
+        this.$context.trigger(PlayerPlaylist.EVENT_UPDATE_PLAYLIST);
     }
 
 
@@ -126,13 +131,10 @@ class PlayerPlaylist
         this._playlist_id = playlist.id;
 
         // fixme мне не нравиться что у тебя рендер плейлиста происходит не в одном методе а в двух, должен быть метод
-        //  render в который передаешь объект плейлист и он возвращает тебе готовый html который остается только вставить
-        playlist.songsPlayer.forEach((song_player: SongPlayer) =>
-        {
-            this.$context.find('.playlist')
-                .append(this.getHtml(song_player))
-        })
+        //  render в который передаешь объект плейлист и он возвращает тебе готовый html который остается только вставить ok
 
+
+        this.$context.find('.playlist').append(this.render(playlist));
         this.$context.find('.music_title').text(playlist.title);
 
         BtnPlayer.create(this.$context.find('.playlist'));
@@ -143,6 +145,17 @@ class PlayerPlaylist
         return this._playlist_id;
     }
 
+    private render(playlist: Playlist) {
+
+        let html_playlist: string;
+
+        playlist.songsPlayer.forEach((song_player: SongPlayer) =>
+        {
+            html_playlist = html_playlist + (this.getHtml(song_player))
+        })
+
+        return html_playlist;
+    }
     private getHtml(song: SongPlayer): string
     {
         return `

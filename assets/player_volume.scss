@@ -3,7 +3,7 @@
 
 .b_player_volume {
   @include for_phone {
-    display: none;
+    display: none !important;
   }
 
   &.disabled {

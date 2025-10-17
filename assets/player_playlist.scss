@@ -20,13 +20,13 @@
       height: calc(-156px + 100vh);
     }
 
-    .playlist_btn {
-      opacity: $opacity-grey-max;
-
-      &:hover {
-        opacity: $opacity-grey-middle;
-      }
-    }
+    //.playlist_btn {
+    //  opacity: $opacity-grey-max;
+    //
+    //  &:hover {
+    //    opacity: $opacity-grey-middle;
+    //  }
+    //}
   }
 
   .order
@@ -55,7 +55,7 @@
       }
 
       &.active{
-        opacity: unset;
+        opacity: $opacity-grey-max;
 
         &:hover {
           opacity: unset;
@@ -71,6 +71,10 @@
 
     &:hover {
       opacity: $opacity-grey-max;
+    }
+
+    @include for_phone {
+      margin-left: 0;
     }
   }
 
@@ -120,8 +124,12 @@
           font-weight: 700;
           font-size: 20px;
 
+          .music_title {
+            cursor: default;
+          }
           .music_title::before {
             content: "Сейчас играет:";
+            cursor: default;
           }
         }
 
