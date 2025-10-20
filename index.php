@@ -48,7 +48,7 @@
         $file_name = 'Niletto - Счастливым (длинное название).mp3';
         require __DIR__ . '/assets/btn_player.php';
 
-        $song_id = '3';
+        $song_id = '4';
         $clicks = 3;
         $file_name = '5УТРА - Test.mp3';
         require __DIR__ . '/assets/btn_player.php';
@@ -61,16 +61,17 @@
     <h2 class="music-title"> Заголовок 1</h2>
     <div class="inline_player_playlist_main">
         <?php
-        $file_name = '5УТРА - Ромашки.mp3';
-        $song_id = '1';
-        $clicks = 3;
-        require __DIR__ . '/assets/btn_player.php';
-
         $file_name = 'Niletto - Счастливым (длинное название).mp3';
         $song_id = '2';
         $clicks = 2;
         require __DIR__ . '/assets/btn_player.php';
 
+        $file_name = '5УТРА - Ромашки.mp3';
+        $song_id = '1';
+        $clicks = 3;
+        require __DIR__ . '/assets/btn_player.php';
+
+        //
         $file_name = 'А-Студио - Так же как все.mp3';
         $song_id = '3';
         $clicks = 4;

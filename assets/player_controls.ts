@@ -17,7 +17,6 @@ class PlayerControls
         
         this.disabled();
 
-        // fixme здесь не хватает событие плейлист обновился ok
         this.player.$context.on(Player.EVENT_LOADED_META_DATA +' '+ Player.EVENT_UPDATE_REPEAT_PLAYLIST+' '+ PlayerPlaylist.EVENT_UPDATE_PLAYLIST,() =>
         {
             this.updateDisabled();
@@ -71,7 +70,6 @@ class PlayerControls
         this.$context.find('button.next').attr('disabled', 1);
     }
 
-    // fixme не правильное название метода, правильно updateDisabled() ok
     private updateDisabled()
     {
         this.disabled();

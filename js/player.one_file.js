@@ -456,7 +456,6 @@ class PlayerControls {
         this.$context[0].Controls = this;
         this.player = Player.create();
         this.disabled();
-        // fixme здесь не хватает событие плейлист обновился ok
         this.player.$context.on(Player.EVENT_LOADED_META_DATA + ' ' + Player.EVENT_UPDATE_REPEAT_PLAYLIST + ' ' + PlayerPlaylist.EVENT_UPDATE_PLAYLIST, () => {
             this.updateDisabled();
         });
@@ -492,7 +491,6 @@ class PlayerControls {
         this.$context.find('button.prev').attr('disabled', 1);
         this.$context.find('button.next').attr('disabled', 1);
     }
-    // fixme не правильное название метода, правильно updateDisabled() ok
     updateDisabled() {
         this.disabled();
         this.$context.find('button.play').removeAttr('disabled');
@@ -714,7 +712,6 @@ class PlayerPlaylist {
         this.player.$context.on(Player.EVENT_UPDATE_REPEAT_PLAYLIST, () => {
             this.setActiveRepeat();
         });
-        // fixme логика что после окончания одной песни начинает играть следующая относиться к компоненту плейлист, а не к плеер ok
         this.player.$context.on(Player.EVENT_ENDED + ' || ' + Player.EVENT_ERROR, () => {
             this.player.next();
             this.player.play();
@@ -745,9 +742,6 @@ class PlayerPlaylist {
     initShuffle() {
         this.$context.find('button.shuffle').on('click', () => {
             this.shufflePlaylist();
-            // fixme кто угодно может изменить плейлист в плеере и ты должна отслеживать это событие чтобы загружать
-            //  обновленный плейлист здесь, ошибка в том что ты вызываешь этот метод здесь хотя ты должна просто
-            //  подписаться на событие обновления плейлиста в конструкторе ok
         });
     }
     shufflePlaylist() {
@@ -775,8 +769,6 @@ class PlayerPlaylist {
             return;
         this.$context.find('.playlist').empty();
         this._playlist_id = playlist.id;
-        // fixme мне не нравиться что у тебя рендер плейлиста происходит не в одном методе а в двух, должен быть метод
-        //  render в который передаешь объект плейлист и он возвращает тебе готовый html который остается только вставить ok
         this.$context.find('.playlist').append(this.render(playlist));
         this.$context.find('.music_title').text(playlist.title);
         BtnPlayer.create(this.$context.find('.playlist'));

@@ -1,0 +1,21 @@
+.inner_controls {
+  width: 288px;
+  height: 40px;
+}
+@media (max-width: 767px) {
+  .inner_controls {
+    width: 100%;
+    justify-content: space-between !important;
+  }
+}
+.inner_controls .stub {
+  display: none;
+}
+@media (max-width: 767px) {
+  .inner_controls .stub {
+    display: flex;
+    order: 3;
+    width: 40px;
+    height: 40px;
+  }
+}
