@@ -4,3 +4,9 @@
     @content;
   }
 }
+
+@mixin for_laptop {
+  @media (max-width: 991px) {
+    @content;
+  }
+}

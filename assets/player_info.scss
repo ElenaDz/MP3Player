@@ -29,10 +29,16 @@
 
   @include for_phone {
     width: fit-content;
+    height: 0;
 
     .artist_img, .names{
       display: none!important;
     }
+
+  }
+
+  @include for_laptop {
+    margin-left: 16px;
 
   }
 
@@ -82,6 +88,7 @@
     @include for_phone {
       position: absolute;
       right: 15px;
+      top: 15px;
       order: 3;
       margin-left: 0;
     }
