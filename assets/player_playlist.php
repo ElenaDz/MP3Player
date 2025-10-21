@@ -5,7 +5,6 @@
         <button class="repeat_playlist elem" title="Повторять плейлист"></button>
     </div>
 
-    <!-- fixme пока плейлист открыт иконка должна быть активна, так как будто на нее наведен курсор, в фигме не так, но это ошибка дизайнера ok-->
     <button  class="playlist_btn elem"></button>
 
     <div class="popup">
@@ -21,7 +20,6 @@
 
 
             <ul class="playlist inline_player_playlist_main">
-                <!-- fixme здесь вижу слово undefined а не долен ok-->
 
             </ul>
 

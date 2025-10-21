@@ -1,4 +1,4 @@
-<!-- fixme при некоторой ширине окна браузера расстояние между блоками volume и info схлопываются до 0, нужно добавить отступ чтобы такого не происходило  ok-->
+
 <div class="b_player_info disabled">
     <div class="artist_img elem"></div>
 

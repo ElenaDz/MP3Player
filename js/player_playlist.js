@@ -117,7 +117,6 @@ class PlayerPlaylist {
 
                 <div class="wrap_right">
                     <div class="count_clicks">
-                        <!-- fixme это иконку можно взять на drivemusic она там сделана на css (ищи класс .icon-vol2) ok-->
                         <span class="icon-vol2"></span>
                         <span>${song.clicks}</span>
                     </div>
