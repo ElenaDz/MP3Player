@@ -132,13 +132,13 @@
   background-image: url("/assets/img/btn_play/next.svg");
 }
 .b_player_controls .next:hover {
-  opacity: 0.7;
+  cursor: pointer;
 }
 .b_player_controls .prev {
   background-image: url("/assets/img/btn_play/previous.svg");
 }
 .b_player_controls .prev:hover {
-  opacity: 0.7;
+  cursor: pointer;
 }
 .b_player_controls button:disabled {
   opacity: 0.25;
@@ -148,6 +148,9 @@
   opacity: 0.5;
 }
 
+.b_player_volume {
+  margin-right: 16px;
+}
 @media (max-width: 767px) {
   .b_player_volume {
     display: none !important;
@@ -200,6 +203,9 @@
 .b_player_playlist.open .popup {
   height: calc(-156px + 100vh);
 }
+.b_player_playlist.open .playlist_btn {
+  opacity: 1;
+}
 .b_player_playlist .order {
   display: flex;
 }
@@ -230,7 +236,7 @@
 }
 .b_player_playlist .playlist_btn {
   background-image: url("/assets/img/playlist.svg");
-  opacity: 0.7;
+  opacity: 0.3;
   margin-left: 16px;
 }
 .b_player_playlist .playlist_btn:hover {
@@ -254,8 +260,12 @@
   padding-bottom: 15px;
   transition-duration: 0.35s;
   transition-property: height;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+}
+@media (max-width: 767px) {
+  .b_player_playlist .popup {
+    transform: translate(-3%, -76%);
+    width: 100%;
+  }
 }
 .b_player_playlist .popup .inner_popup {
   width: 100%;
@@ -275,12 +285,10 @@
   align-items: center;
   padding: 5px 30px 0 30px;
 }
-.b_player_playlist .popup .inner_popup .header .name_chart {
-  font-weight: 700;
-  font-size: 20px;
-}
 .b_player_playlist .popup .inner_popup .header .name_chart .music_title {
   cursor: default;
+  font-size: 20px;
+  font-weight: 650;
 }
 .b_player_playlist .popup .inner_popup .header .name_chart .music_title::before {
   content: "Сейчас играет:";
@@ -292,12 +300,9 @@
   align-items: center;
   width: 20px;
   height: 20px;
+  color: black;
   background-image: url("/assets/img/exit.svg");
   background-repeat: no-repeat;
-  opacity: 0.7;
-}
-.b_player_playlist .popup .inner_popup .header .close:hover {
-  opacity: 1;
 }
 .b_player_playlist .popup .inner_popup .wrap_author {
   font-weight: 700;
@@ -489,7 +494,6 @@
 @media (max-width: 767px) {
   .b_player {
     height: 98px;
-    padding: 15px 12px;
   }
 }
 .b_player .audio {
@@ -497,6 +501,44 @@
   position: fixed;
   bottom: 75px;
   left: 10px;
+}
+.b_player .icon-vol2 {
+  width: 3px;
+  height: 11px;
+  background-color: #e0e0e0;
+  display: inline-block;
+  position: relative;
+  margin-right: 11px;
+  speak: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+.b_player .icon-vol2:before {
+  content: "";
+  width: 3px;
+  height: 6px;
+  background-color: #e0e0e0;
+  display: inline-block;
+  left: -4px;
+  top: 5px;
+  position: absolute;
+  color: #e0e0e0;
+  box-sizing: border-box;
+}
+.b_player .icon-vol2:after {
+  content: "";
+  width: 3px;
+  height: 7.5px;
+  background-color: #e0e0e0;
+  display: inline-block;
+  right: -4px;
+  top: 3.5px;
+  position: absolute;
+  box-sizing: border-box;
 }
 .b_player .inner_player {
   display: flex;
@@ -506,14 +548,15 @@
   padding: 0 2vw;
   height: 100%;
   background-color: #fff;
-  border-top: 1px solid #ededed;
-  box-shadow: 0 0 7px #c3c3c3;
+  border-top: 1px solid rgb(237, 237, 237);
+  box-shadow: 0 0 7px rgb(195, 195, 195);
 }
 @media (max-width: 767px) {
   .b_player .inner_player {
     flex-wrap: wrap;
     align-items: normal;
-    padding: 5px 10px 0 10px;
+    padding: 15px 12px;
+    height: unset;
   }
 }
 .b_player .inner_player > div {

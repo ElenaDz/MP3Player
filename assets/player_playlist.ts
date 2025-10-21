@@ -143,7 +143,7 @@ class PlayerPlaylist
 
         playlist.songsPlayer.forEach((song_player: SongPlayer) =>
         {
-            html_playlist = html_playlist + (this.getHtml(song_player))
+            html_playlist = !html_playlist ? this.getHtml(song_player) : html_playlist + (this.getHtml(song_player));
         })
 
         return html_playlist;
@@ -181,8 +181,8 @@ class PlayerPlaylist
 
                 <div class="wrap_right">
                     <div class="count_clicks">
-                        <!-- fixme это иконку можно взять на drivemusic она там сделана на css (ищи класс .icon-vol2) -->
-                        <i></i>
+                        <!-- fixme это иконку можно взять на drivemusic она там сделана на css (ищи класс .icon-vol2) ok-->
+                        <span class="icon-vol2"></span>
                         <span>${song.clicks}</span>
                     </div>
 

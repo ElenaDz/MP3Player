@@ -39,7 +39,8 @@
     background-image: url("/assets/img/btn_play/next.svg");
 
     &:hover {
-      opacity: $opacity-grey-middle;
+      cursor: pointer;
+      //opacity: $opacity-grey-middle;
     }
   }
 
@@ -47,7 +48,8 @@
     background-image: url("/assets/img/btn_play/previous.svg");
 
     &:hover {
-      opacity: $opacity-grey-middle;
+      //opacity: $opacity-grey-middle;
+      cursor: pointer;
     }
   }
 

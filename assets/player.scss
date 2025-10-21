@@ -23,7 +23,6 @@
 
   @include for_phone {
     height: 98px;
-    padding: 15px 12px;
   }
 
   .audio {
@@ -33,6 +32,48 @@
     left: 10px;
   }
 
+  .icon-vol2 {
+
+    width: 3px;
+    height: 11px;
+    background-color: #e0e0e0;
+    display: inline-block;
+    position: relative;
+    margin-right: 11px;
+    speak: none;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+
+    &:before {
+      content: '';
+      width: 3px;
+      height: 6px;
+      background-color: #e0e0e0;
+      display: inline-block;
+      left: -4px;
+      top: 5px;
+      position: absolute;
+      color: #e0e0e0;
+      box-sizing: border-box;
+    }
+
+    &:after {
+      content: '';
+      width: 3px;
+      height: 7.5px;
+      background-color: #e0e0e0;
+      display: inline-block;
+      right: -4px;
+      top: 3.5px;
+      position: absolute;
+      box-sizing: border-box;
+    }
+  }
+  
   .inner_player {
     display: flex;
     align-items: center;
@@ -47,7 +88,8 @@
     @include for_phone {
       flex-wrap: wrap;
       align-items: normal;
-      padding: 5px 10px 0 10px;
+      padding: 15px 12px;
+      height: unset;
     }
 
     > div {

@@ -80,7 +80,6 @@
     </div>
 </div>
 
-
 <hr>
 
     <div class="b_player">

@@ -20,13 +20,9 @@
       height: calc(-156px + 100vh);
     }
 
-    //.playlist_btn {
-    //  opacity: $opacity-grey-max;
-    //
-    //  &:hover {
-    //    opacity: $opacity-grey-middle;
-    //  }
-    //}
+    .playlist_btn {
+      opacity: $opacity-grey-max;
+    }
   }
 
   .order
@@ -66,7 +62,7 @@
 
   .playlist_btn {
     background-image: url("/assets/img/playlist.svg");
-    opacity: $opacity-grey-middle;
+    opacity: $opacity-grey-min;
     margin-left: 16px;
 
     &:hover {
@@ -91,8 +87,11 @@
     padding-bottom: 15px;
     transition-duration: .35s;
     transition-property: height;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+
+    @include for_phone {
+      transform: translate(-3%, -76%);
+      width: 100%;
+    }
 
     .inner_popup {
       width: 100%;
@@ -105,7 +104,6 @@
         .item{
 
           .song_title {
-
             a:hover {
               color: #187FF8;
             }
@@ -121,12 +119,12 @@
         padding: 5px 30px 0 30px;
 
         .name_chart {
-          font-weight: 700;
-          font-size: 20px;
-
           .music_title {
             cursor: default;
+            font-size: 20px;
+            font-weight: 650;
           }
+
           .music_title::before {
             content: "Сейчас играет:";
             cursor: default;
@@ -139,13 +137,9 @@
           align-items: center;
           width: 20px;
           height: 20px;
+          color: black;
           background-image: url("/assets/img/exit.svg");
           background-repeat: no-repeat;
-          opacity: $opacity-grey-middle;
-
-          &:hover {
-            opacity: $opacity-grey-max;
-          }
         }
       }
 
