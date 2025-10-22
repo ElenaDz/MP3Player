@@ -35,10 +35,10 @@
 
     .shuffle {
       background-image: url("/assets/img/shuffle.svg");
-      opacity: $opacity-grey-middle;
+      opacity: $opacity-grey-max;
 
       &:hover {
-        opacity: $opacity-grey-max;
+        opacity: $opacity-grey-middle;
       }
     }
 
