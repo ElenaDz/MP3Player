@@ -53,9 +53,9 @@
         $file_name = '5УТРА - Test.mp3';
         require __DIR__ . '/assets/btn_player.php';
 
-        $song_id = '5';
+        $file_name = 'А-Студио - Так же как все.mp3';
+        $song_id = '3';
         $clicks = 4;
-        $file_name = 'Niletto - Счастливым (длинное название).mp3';
         require __DIR__ . '/assets/btn_player.php';
         ?>
     </div>
