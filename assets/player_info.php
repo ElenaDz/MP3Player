@@ -11,9 +11,30 @@
         </div>
     </div>
 
-    <div class="download elem">
-        <a class="download_song">
-            <i></i>
-        </a>
+    <div class="inner_download">
+        <div class="inner_favorite">
+            <button class="favorite elem""></button>
+            <div class="popup">
+                <div>
+                    Трек добавлен в <a href="">Мои лайки</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="download elem">
+            <a class="download_song">
+                <i></i>
+            </a>
+        </div>
+
+        <div class="inner_dots">
+            <button class="dots elem""></button>
+            <div class="popup">
+                <div class="copy"><i></i>Скопировать ссылку</div>
+                <div class="link"><i></i>Поделиться в соцсетях</div>
+                <div class="comment"><i></i>Оставить отзыв</div>
+            </div>
+        </div>
     </div>
+
 </div>

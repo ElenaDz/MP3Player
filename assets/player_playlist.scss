@@ -92,7 +92,7 @@
       transform: translate(-3%, -76%);
       width:calc(100% + 15px);
     }
-    @include for_laptop {
+    @include for_laptopS {
       transform: translate(-3%, -76%);
       width:calc(100% + 15px);
       left: 0;

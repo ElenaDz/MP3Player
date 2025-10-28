@@ -7,11 +7,16 @@
   height: 40px;
   display: flex;
   justify-content: space-between;
+  margin-left: 16px;
 
   &.disabled {
     .artist_img {
       opacity: $opacity-grey-min;
 
+    }
+
+    .favorite, .dots {
+      opacity: $opacity-grey-min!important;
     }
 
     .download {
@@ -30,6 +35,8 @@
   @include for_phone {
     width: fit-content;
     height: 0;
+    margin-left: 0;
+    display: none;
 
     .artist_img, .names{
       display: none!important;
@@ -37,9 +44,8 @@
 
   }
 
-  @include for_laptop {
+  @include for_laptopS {
     margin-left: 16px;
-
   }
 
   .artist_img {
@@ -50,6 +56,10 @@
     background-image: url("/assets/img/note.svg");
     background-repeat: no-repeat;
     background-position: center;
+
+    @include for_laptopL {
+      display: none;
+    }
   }
 
   .names {
@@ -78,19 +88,120 @@
       }
     }
   }
+  .inner_download {
+    display: flex;
+    margin-left: 16px;
+
+    .inner_favorite {
+      @include for_phone {
+        position: absolute;
+        right: 66px;
+        top: 15px;
+        order: 2;
+      }
+
+      .favorite {
+        background-image: url("/assets/img/favorite.svg");
+        opacity: $opacity-grey-middle;
+
+        &:hover {
+          cursor: pointer;
+          opacity: $opacity-grey-max;
+
+        }
+      }
+
+      .popup {
+        display: none;
+      }
+    }
+
+    .inner_dots {
+      @include for_phone {
+        position: absolute;
+        left: 60px;
+        top: 15px;
+        order: 1;
+      }
+
+      .dots {
+        padding: 0;
+        background-image: url("/assets/img/dots.svg");
+        opacity: $opacity-grey-middle;
+
+        &:hover {
+          cursor: pointer;
+          opacity: $opacity-grey-max;
+
+        }
+      }
+
+      &.open {
+        .popup {
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+          justify-content: space-between;
+          height: 120px;
+          width: 222px;
+          box-sizing: border-box;
+          position: absolute;
+          top: -131px;
+          right: 45px;
+          padding: 16px;
+          border-radius: 8px;
+          border: 1px solid rgb(237, 237, 237);
+          background-color: white;
+
+          div {
+            display: flex;
+          }
+
+          i{
+            display: flex;
+            width: 24px;
+            height: 24px;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-right: 10px;
+          }
+
+          .copy{
+            i{
+              background-image: url("/assets/img/dots/copy.svg");
+            }
+          }
+          .comment{
+            i{
+              background-image: url("/assets/img/dots/comment.svg");
+            }
+          }
+          .link{
+            i{
+              background-image: url("/assets/img/dots/link.svg");
+            }
+          }
+        }
+      }
+
+      .popup {
+        display: none;
+      }
+    }
+  }
 
   .download {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 16px;
+    margin: 0 16px;
 
     @include for_phone {
       position: absolute;
       right: 15px;
       top: 15px;
       order: 3;
-      margin-left: 0;
+      margin: 0;
     }
 
     .download_song {

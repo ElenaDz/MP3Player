@@ -176,7 +176,8 @@ class Player
         return this.audio.src;
     }
 
-    private set url(url)
+    private set
+    url(url)
     {
         this.audio.src = url;
     }

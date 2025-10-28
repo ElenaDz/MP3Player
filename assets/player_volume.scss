@@ -2,12 +2,12 @@
 @import "var";
 
 .b_player_volume {
-  margin-right: 16px;
+  margin-left: 16px;
 
   @include for_phone {
     display: none !important;
   }
-  @include for_laptop {
+  @include for_laptopS {
     display: none !important;
   }
 

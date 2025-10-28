@@ -1,0 +1,10 @@
+@import "mixin";
+@import "var";
+
+.inner_setting {
+  margin-left: 16px;
+
+  @include for_phone {
+    display: none;
+  }
+}

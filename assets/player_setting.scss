@@ -1,0 +1,35 @@
+@import "mixin";
+@import "var";
+
+.b_player_setting {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  margin-left: 16px;
+
+  @include for_phone {
+    display: none;
+  }
+
+  &.disabled {
+    .setting {
+      opacity: $opacity-grey-min;
+      pointer-events: none;
+    }
+  }
+
+  .setting {
+    background-image: url("/assets/img/setting.svg");
+    opacity: $opacity-grey-middle;
+
+    &:hover {
+      cursor: pointer;
+      opacity: $opacity-grey-max;
+      //opacity: $opacity-grey-middle;
+    }
+  }
+
+  .popup {
+    display: none;
+  }
+}

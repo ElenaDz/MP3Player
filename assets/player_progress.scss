@@ -7,6 +7,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 16px;
+  width: 100%;
+  max-width: 482px;
 
   .disabled {
     pointer-events: none;
@@ -16,11 +19,16 @@
   @include for_phone {
     width: 100%;
     order: 4;
+    margin: 0;
   }
 
   .b_slider {
     margin: 0 16px;
+    max-width: 380px;
+    min-width: 340px;
+
     @include for_phone {
+      min-width: unset;
       width: 100%;
       margin: 0 10px;
     }

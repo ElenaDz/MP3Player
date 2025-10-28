@@ -26,6 +26,11 @@ class PlayerInfo
         {
             this.load();
         })
+
+        this.$context.find('button.dots').on('click',() =>
+        {
+            this.isOpenDots ? this.closeDots() : this.openDots();
+        });
     }
 
     private load()
@@ -55,10 +60,27 @@ class PlayerInfo
     {
         if (disabled) {
             this.$context.addClass('disabled');
+            this.$context.find('button').attr('disabled', 1);
 
         } else {
             this.$context.removeClass('disabled');
+            this.$context.find('button').removeAttr('disabled');
         }
+    }
+
+    private openDots()
+    {
+        this.$context.find('.inner_dots').addClass('open');
+    }
+
+    private closeDots()
+    {
+        this.$context.find('.inner_dots').removeClass('open');
+    }
+
+    private get isOpenDots()
+    {
+        return this.$context.find('.inner_dots').hasClass('open');
     }
 
     public static create($context = $('.b_player_info')): PlayerInfo

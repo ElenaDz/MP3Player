@@ -101,6 +101,10 @@
             </div>
 
             <?php require __DIR__ . '/assets/player_progress.php'; ?>
+            <div class="inner_setting">
+                <?php require __DIR__ . '/assets/player_hq.php'; ?>
+                <?php require __DIR__ . '/assets/player_setting.php'; ?>
+            </div>
             <?php require __DIR__ . '/assets/player_volume.php'; ?>
             <?php require __DIR__ . '/assets/player_info.php'; ?>
         </div>
