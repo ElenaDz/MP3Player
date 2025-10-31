@@ -1,0 +1,8 @@
+.inner_controls {
+  margin-left: 16px;
+}
+@media (max-width: 767px) {
+  .inner_controls {
+    display: none;
+  }
+}

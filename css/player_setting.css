@@ -1,0 +1,26 @@
+.b_player_setting {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  margin-right: 16px;
+}
+@media (max-width: 767px) {
+  .b_player_setting {
+    display: none;
+  }
+}
+.b_player_setting.disabled .setting {
+  opacity: 0.3;
+  pointer-events: none;
+}
+.b_player_setting .setting {
+  background-image: url("/assets/img/setting.svg");
+  opacity: 0.7;
+}
+.b_player_setting .setting:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+.b_player_setting .popup {
+  display: none;
+}
