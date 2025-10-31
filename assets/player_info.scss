@@ -92,6 +92,9 @@
     display: flex;
     margin-left: 16px;
 
+    @include for_laptopL {
+      margin-left: 0;
+    }
     .inner_favorite {
       @include for_phone {
         position: absolute;
@@ -110,10 +113,53 @@
 
         }
       }
-
       .popup {
-        display: none;
+        display: flex;
+        visibility: hidden;
+        align-items: start;
+        height: 48px;
+        width: 216px;
+        box-sizing: border-box;
+        position: absolute;
+        top: -65px;
+        right: 45px;
+        padding: 14px 16px 16px 16px;
+        border-radius: 8px;
+        border: 1px solid rgb(237, 237, 237);
+        background-color: white;
+        z-index: 10;
+
+        .text {
+          height: 16px;
+
+          a {
+            color: #187FF8;
+          }
+        }
       }
+
+      &.is_favorite {
+        .favorite {
+          opacity: $opacity-grey-max;
+        }
+        .popup {
+          opacity: 1;
+          visibility: visible;
+          transition: opacity 0.5s ease-out; /* Плавное исчезновение за 0.5 секунды */
+          animation: fadeOut 5s forwards; /* Анимация исчезновения */
+        }
+
+        @keyframes fadeOut {
+          from {
+            opacity: 1;
+          }
+          to {
+            opacity: 0;
+            visibility: hidden;
+          }
+        }
+      }
+
     }
 
     .inner_dots {
@@ -136,56 +182,56 @@
         }
       }
 
-      &.open {
-        .popup {
+      .popup {
+        display: none;
+        flex-direction: column;
+        align-items: start;
+        justify-content: space-between;
+        height: 120px;
+        width: 222px;
+        box-sizing: border-box;
+        position: absolute;
+        top: -131px;
+        right: 45px;
+        padding: 16px;
+        border-radius: 8px;
+        border: 1px solid rgb(237, 237, 237);
+        background-color: white;
+
+        div {
           display: flex;
-          flex-direction: column;
-          align-items: start;
-          justify-content: space-between;
-          height: 120px;
-          width: 222px;
-          box-sizing: border-box;
-          position: absolute;
-          top: -131px;
-          right: 45px;
-          padding: 16px;
-          border-radius: 8px;
-          border: 1px solid rgb(237, 237, 237);
-          background-color: white;
+        }
 
-          div {
-            display: flex;
-          }
+        i{
+          display: flex;
+          width: 24px;
+          height: 24px;
+          background-repeat: no-repeat;
+          background-position: center;
+          margin-right: 10px;
+        }
 
+        .copy{
           i{
-            display: flex;
-            width: 24px;
-            height: 24px;
-            background-repeat: no-repeat;
-            background-position: center;
-            margin-right: 10px;
+            background-image: url("/assets/img/dots/copy.svg");
           }
-
-          .copy{
-            i{
-              background-image: url("/assets/img/dots/copy.svg");
-            }
+        }
+        .comment{
+          i{
+            background-image: url("/assets/img/dots/comment.svg");
           }
-          .comment{
-            i{
-              background-image: url("/assets/img/dots/comment.svg");
-            }
-          }
-          .link{
-            i{
-              background-image: url("/assets/img/dots/link.svg");
-            }
+        }
+        .link{
+          i{
+            background-image: url("/assets/img/dots/link.svg");
           }
         }
       }
 
-      .popup {
-        display: none;
+      &.open {
+        .popup {
+          display: flex;
+        }
       }
     }
   }
@@ -202,6 +248,9 @@
       top: 15px;
       order: 3;
       margin: 0;
+    }
+    @include for_laptopL {
+      margin: 0 8px;
     }
 
     .download_song {

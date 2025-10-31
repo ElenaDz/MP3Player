@@ -2,8 +2,8 @@
     <button class="hq elem""></button>
 
     <div class="popup true">
-        <div>Высококе качество</div>
-        <div>Среднее качество</div>
+        <button>Высококе качество</button>
+        <button>Среднее качество</button>
     </div>
 
     <div class="popup false">

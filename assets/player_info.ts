@@ -17,19 +17,28 @@ class PlayerInfo
 
         this.disabled();
 
-        this.player.$context.on(Player.EVENT_ERROR,() =>
+        this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_META_DATA,() =>
         {
             this.load();
         })
 
-        this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
-        {
-            this.load();
-        })
+        this.initDots();
+        this.initFavorite();
+    }
 
+    private initDots()
+    {
         this.$context.find('button.dots').on('click',() =>
         {
             this.isOpenDots ? this.closeDots() : this.openDots();
+        });
+    }
+
+    private initFavorite()
+    {
+        this.$context.find('button.favorite').on('click',() =>
+        {
+            this.is_favorite = this.is_favorite;
         });
     }
 
@@ -81,6 +90,22 @@ class PlayerInfo
     private get isOpenDots()
     {
         return this.$context.find('.inner_dots').hasClass('open');
+    }
+
+    private set is_favorite(is_favorite)
+    {
+        is_favorite
+            ? this.$context.find('.inner_favorite').removeClass('is_favorite')
+            : this.$context.find('.inner_favorite').addClass('is_favorite');
+
+        is_favorite
+            ? this.$context.find('.inner_favorite .text').text('')
+            : this.$context.find('.inner_favorite .text').append('Трек добавлен в <a href="">Мои лайки</a>');
+    }
+
+    private get is_favorite()
+    {
+        return this.$context.find('.inner_favorite').hasClass('is_favorite');
     }
 
     public static create($context = $('.b_player_info')): PlayerInfo

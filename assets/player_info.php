@@ -15,8 +15,8 @@
         <div class="inner_favorite">
             <button class="favorite elem""></button>
             <div class="popup">
-                <div>
-                    Трек добавлен в <a href="">Мои лайки</a>
+                <div class="text">
+
                 </div>
             </div>
         </div>
