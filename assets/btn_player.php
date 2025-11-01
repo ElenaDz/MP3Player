@@ -1,5 +1,6 @@
 <?php
 /** @var string $file_name */
+/** @var string $file_name_hq */
 /** @var string $clicks */
 /** @var string $song_id */
 
@@ -18,6 +19,7 @@ list($artist_name, $song_name) = explode(' - ', $song_title);
                 data-artist_html="<?= htmlspecialchars($artist_name)?>"
                 data-url_song="/mp3s/<?= rawurlencode($file_name); ?>"
                 data-url="/mp3s/<?= rawurlencode($file_name); ?>"
+                data-url_hq="/mp3s/<?= rawurlencode($file_name_hq); ?>"
                 data-clicks="<?= rawurlencode($clicks); ?>"
             >
                 <button class="play"></button>

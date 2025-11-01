@@ -2,6 +2,7 @@
 interface SongPlayer {
     songId: number;
     url: string;
+    url_hq: string;
     artistHtml: string;
     songName: string;
     urlSong: string;
@@ -14,6 +15,7 @@ class Player
     static readonly EVENT_UPDATE_REPEAT_PLAYLIST = 'Player.EVENT_UPDATE_REPEAT_PLAYLIST';
     static readonly EVENT_UPDATE_TIME = 'Player.EVENT_UPDATE_TIME';
     static readonly EVENT_UPDATE_VOLUME = 'Player.EVENT_UPDATE_VOLUME';
+    static readonly EVENT_UPDATE_HQ = 'Player.EVENT_UPDATE_HQ';
     static readonly EVENT_LOADED_META_DATA = 'Player.EVENT_LOADED_META_DATA';
     static readonly EVENT_ERROR = 'Player.EVENT_ERROR';
     static readonly EVENT_ENDED = 'Player.EVENT_ENDED';
@@ -24,6 +26,7 @@ class Player
     private _songPlayer: SongPlayer;
     private _playlist: Playlist;
     private _repeat_playlist: boolean;
+    private _hq: boolean = false;
 
 
     constructor($context: JQuery)
@@ -41,6 +44,17 @@ class Player
         this.initCreate();
 
         this.initEventsAudio();
+
+        this.$context.on(Player.EVENT_UPDATE_HQ,() =>
+        {
+        //     поменять песню, но с той жу секунды, что и проигрывалось до
+            let time = this.currentTime;
+
+            this.loadSongPlayer(this.songPlayer, this.playlist);
+
+            this.currentTime = time;
+
+        });
     }
 
     private initCreate()
@@ -50,6 +64,7 @@ class Player
         PlayerVolume.create();
         PlayerInfo.create();
         PlayerPlaylist.create();
+        PlayerHQ.create();
     }
 
     private initEventsAudio()
@@ -92,6 +107,19 @@ class Player
         });
 
     }
+
+    public set hq(hq: boolean)
+    {
+        this._hq = hq;
+
+        this.$context.trigger(Player.EVENT_UPDATE_HQ);
+    }
+
+    public get hq()
+    {
+        return this._hq;
+    }
+
     public set repeat_playlist(repeat_playlist)
     {
         this._repeat_playlist = repeat_playlist;
@@ -176,8 +204,7 @@ class Player
         return this.audio.src;
     }
 
-    private set
-    url(url)
+    private set url(url)
     {
         this.audio.src = url;
     }
@@ -188,6 +215,9 @@ class Player
 
         if ( !this.songPlayer || this.songPlayer.songId != songPlayer.songId ) {
             this.url = songPlayer.url;
+        } else {
+            this.url = this.hq ? songPlayer.url_hq :songPlayer.url;
+            this.play();
         }
 
         this._songPlayer = songPlayer;

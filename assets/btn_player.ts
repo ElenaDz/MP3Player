@@ -52,6 +52,11 @@ class BtnPlayer
         return this.$context.data('url');
     }
 
+    public get url_hq(): string
+    {
+        return this.$context.data('url_hq');
+    }
+
     private get clicks(): number
     {
         return parseInt(this.$context.data('clicks'));
@@ -113,6 +118,7 @@ class BtnPlayer
         return {
             songId: this.songId,
             url: this.url,
+            url_hq: this.url_hq,
             artistHtml: this.artistHtml,
             songName: this.songName,
             urlSong: this.urlSong,

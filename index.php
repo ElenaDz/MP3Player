@@ -39,6 +39,7 @@
     <div class="inline_player_playlist_main">
         <?php
         $file_name = '5УТРА - Ромашки.mp3';
+        $file_name_hq = '5УТРА - Ромашки 320.mp3';
         $song_id = '1';
         $clicks = 1;
         require __DIR__ . '/assets/btn_player.php';
@@ -46,14 +47,17 @@
         $song_id = '2';
         $clicks = 2;
         $file_name = 'Niletto - Счастливым (длинное название).mp3';
+        $file_name_hq = 'Niletto - Счастливым 320.mp3';
         require __DIR__ . '/assets/btn_player.php';
 
         $song_id = '4';
         $clicks = 3;
         $file_name = '5УТРА - Test.mp3';
+        $file_name_hq = '5УТРА - Test 320.mp3';
         require __DIR__ . '/assets/btn_player.php';
 
         $file_name = 'А-Студио - Так же как все.mp3';
+        $file_name_hq = 'А-Студио - Так же как все  320.mp3';
         $song_id = '3';
         $clicks = 4;
         require __DIR__ . '/assets/btn_player.php';
@@ -67,17 +71,20 @@
     <div class="inline_player_playlist_main">
         <?php
         $file_name = 'Niletto - Счастливым (длинное название).mp3';
+        $file_name_hq = 'Niletto - Счастливым 320.mp3';
         $song_id = '2';
         $clicks = 2;
         require __DIR__ . '/assets/btn_player.php';
 
         $file_name = '5УТРА - Ромашки.mp3';
+        $file_name_hq = '5УТРА - Ромашки 320.mp3';
         $song_id = '1';
         $clicks = 3;
         require __DIR__ . '/assets/btn_player.php';
 
         //
         $file_name = 'А-Студио - Так же как все.mp3';
+        $file_name_hq = 'А-Студио - Так же как все  320.mp3';
         $song_id = '3';
         $clicks = 4;
         require __DIR__ . '/assets/btn_player.php';
@@ -125,7 +132,8 @@
 	        __DIR__ . '/js/player_progress.js',
 	        __DIR__ . '/js/player_volume.js',
 	        __DIR__ . '/js/player_info.js',
-	        __DIR__ . '/js/player_playlist.js'
+	        __DIR__ . '/js/player_playlist.js',
+	        __DIR__ . '/js/player_hq.js'
         ],
 	    __DIR__ . '/js/player.one_file.js'
     );

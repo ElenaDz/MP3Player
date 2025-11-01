@@ -1,5 +1,6 @@
 class Player {
     constructor($context) {
+        this._hq = false;
         this.$context = $context;
         // @ts-ignore
         if (this.$context[0].Player)
@@ -9,6 +10,12 @@ class Player {
         this.audio = this.$context.find('audio')[0];
         this.initCreate();
         this.initEventsAudio();
+        this.$context.on(Player.EVENT_UPDATE_HQ, () => {
+            //     поменять песню, но с той жу секунды, что и проигрывалось до
+            let time = this.currentTime;
+            this.loadSongPlayer(this.songPlayer, this.playlist);
+            this.currentTime = time;
+        });
     }
     initCreate() {
         PlayerControls.create();
@@ -16,6 +23,7 @@ class Player {
         PlayerVolume.create();
         PlayerInfo.create();
         PlayerPlaylist.create();
+        PlayerHQ.create();
     }
     initEventsAudio() {
         this.audio.addEventListener('play', () => {
@@ -40,6 +48,13 @@ class Player {
         this.audio.addEventListener('error', () => {
             this.$context.trigger(Player.EVENT_ERROR);
         });
+    }
+    set hq(hq) {
+        this._hq = hq;
+        this.$context.trigger(Player.EVENT_UPDATE_HQ);
+    }
+    get hq() {
+        return this._hq;
     }
     set repeat_playlist(repeat_playlist) {
         this._repeat_playlist = repeat_playlist;
@@ -99,6 +114,10 @@ class Player {
         if (!this.songPlayer || this.songPlayer.songId != songPlayer.songId) {
             this.url = songPlayer.url;
         }
+        else {
+            this.url = this.hq ? songPlayer.url_hq : songPlayer.url;
+            this.play();
+        }
         this._songPlayer = songPlayer;
     }
     get songPlayer() {
@@ -151,6 +170,7 @@ Player.EVENT_UPDATE_PLAYING = 'Player.EVENT_UPDATE_PLAYING';
 Player.EVENT_UPDATE_REPEAT_PLAYLIST = 'Player.EVENT_UPDATE_REPEAT_PLAYLIST';
 Player.EVENT_UPDATE_TIME = 'Player.EVENT_UPDATE_TIME';
 Player.EVENT_UPDATE_VOLUME = 'Player.EVENT_UPDATE_VOLUME';
+Player.EVENT_UPDATE_HQ = 'Player.EVENT_UPDATE_HQ';
 Player.EVENT_LOADED_META_DATA = 'Player.EVENT_LOADED_META_DATA';
 Player.EVENT_ERROR = 'Player.EVENT_ERROR';
 Player.EVENT_ENDED = 'Player.EVENT_ENDED';

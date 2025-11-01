@@ -17,14 +17,19 @@
     }
   }
 
+  &.is_active {
+    .hq {
+      opacity: $opacity-grey-middle;
+    }
+  }
+
   .hq {
     background-image: url("/assets/img/hq.svg");
-    opacity: $opacity-grey-middle;
+    opacity: $opacity-grey-min;
 
     &:hover {
       cursor: pointer;
-      opacity: $opacity-grey-max;
-      //opacity: $opacity-grey-middle;
+      opacity: $opacity-grey-middle;
     }
   }
 
