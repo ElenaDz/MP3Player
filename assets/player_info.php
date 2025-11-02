@@ -12,6 +12,8 @@
     </div>
 
     <div class="inner_download">
+
+        <!-- fixme убрать -->
         <div class="inner_favorite">
             <button class="favorite elem""></button>
             <div class="popup">
@@ -27,6 +29,7 @@
             </a>
         </div>
 
+        <!-- fixme убрать -->
         <div class="inner_dots">
             <button class="dots elem""></button>
             <div class="popup">

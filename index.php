@@ -94,6 +94,8 @@
 
 <hr>
 
+    <!-- fixme вынеси этот блок в папку assets в файл player.php, я все время там его ищу и не нахожу -->
+    <!-- fixme переименуй папку assets в views (шаблоны) именно так обычно называется папка в которой лежат кусочки html шаблонов -->
     <div class="b_player">
 
         <div class="audio">
@@ -110,6 +112,7 @@
             <?php require __DIR__ . '/assets/player_progress.php'; ?>
             <div class="inner_setting">
                 <?php require __DIR__ . '/assets/player_hq.php'; ?>
+                <!-- fixme убрать -->
                 <?php require __DIR__ . '/assets/player_setting.php'; ?>
             </div>
             <?php require __DIR__ . '/assets/player_volume.php'; ?>

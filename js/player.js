@@ -111,7 +111,9 @@ class Player {
     }
     loadSongPlayer(songPlayer, playlist) {
         this._playlist = playlist;
+        // fixme вообще не понимаю этот if переписать, так чтобы стало понятно всем
         if (!this.songPlayer || this.songPlayer.songId != songPlayer.songId) {
+            // fixme а тут почему не hd?
             this.url = songPlayer.url;
         }
         else {
