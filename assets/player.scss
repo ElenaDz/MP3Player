@@ -7,10 +7,8 @@
 @import "player_volume";
 @import "player_playlist";
 @import "player_info";
-@import "inner_controls";
 @import "player_hq";
 @import "player_setting";
-@import "inner_setting";
 
 .b_player {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -126,6 +124,34 @@
       width: 40px;
       height: 40px;
       min-width: 40px;
+    }
+
+    .inner_controls {
+      width: 288px;
+      height: 40px;
+
+      @include for_phone {
+        width: 100%;
+        justify-content: space-between !important;
+      }
+
+      .stub {
+        display: none;
+        @include for_phone {
+          display: flex;
+          order: 3;
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
+
+    .inner_setting {
+      margin-left: 16px;
+
+      @include for_phone {
+        display: none;
+      }
     }
   }
 }

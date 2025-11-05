@@ -16,11 +16,11 @@
     background-color: #f3f3f3 !important;
     border-radius: 50%;
 
-    background-image: url("/assets/img/btn_play/play.svg");
+    background-image: url("/img/controls/play.svg");
 
     .b_player.playing & {
       background-color: #d7eaff !important;
-      background-image: url("/assets/img/btn_play/pause.svg") ;
+      background-image: url("/img/controls/pause.svg") ;
     }
 
     &:hover {
@@ -37,10 +37,10 @@
   }
 
   .next {
-    // fixme имя папка не соответствует реальности скорее это папка controls
-    // fixme проведи ревизию файлов в папке img кажется там уже небольшой бардак образовался, проверь что все файлы используются и все файлы имеют подходящие имена
-    // fixme вынеси папку img из папки asserts на уровень выше
-    background-image: url("/assets/img/btn_play/next.svg");
+    // fixme имя папка не соответствует реальности скорее это папка controls ok
+    // fixme проведи ревизию файлов в папке img кажется там уже небольшой бардак образовался, проверь что все файлы используются и все файлы имеют подходящие имена ok
+    // fixme вынеси папку img из папки asserts на уровень выше ok
+    background-image: url("/img/controls/next.svg");
 
     &:hover {
       cursor: pointer;
@@ -49,7 +49,7 @@
   }
 
   .prev {
-    background-image: url("/assets/img/btn_play/previous.svg");
+    background-image: url("/img/controls/previous.svg");
 
     &:hover {
       //opacity: $opacity-grey-middle;

@@ -1,5 +1,5 @@
-<div class="b_player_setting disabled">
-    <button class="setting elem""></button>
+<div class="b_player_eq disabled">
+    <button class="eq elem""></button>
 
     <div class="popup">
         Эквалайзер

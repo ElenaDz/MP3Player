@@ -13,15 +13,7 @@
 
     <div class="inner_download">
 
-        <!-- fixme убрать -->
-        <div class="inner_favorite">
-            <button class="favorite elem""></button>
-            <div class="popup">
-                <div class="text">
-
-                </div>
-            </div>
-        </div>
+        <!-- fixme убрать ok-->
 
         <div class="download elem">
             <a class="download_song">
@@ -29,15 +21,7 @@
             </a>
         </div>
 
-        <!-- fixme убрать -->
-        <div class="inner_dots">
-            <button class="dots elem""></button>
-            <div class="popup">
-                <div class="copy"><i></i>Скопировать ссылку</div>
-                <div class="link"><i></i>Поделиться в соцсетях</div>
-                <div class="comment"><i></i>Оставить отзыв</div>
-            </div>
-        </div>
+        <!-- fixme убрать ok-->
     </div>
 
 </div>

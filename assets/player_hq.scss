@@ -18,14 +18,14 @@
   }
 
   // fixme у тебя уже есть элемент подобный посмотри какой класс ты там используешь и используй тут такой же
-  &.is_active {
+  &.active {
     .hq {
       opacity: $opacity-grey-middle;
     }
   }
 
   .hq {
-    background-image: url("/assets/img/hq.svg");
+    background-image: url("/img/hq.svg");
     opacity: $opacity-grey-min;
 
     &:hover {

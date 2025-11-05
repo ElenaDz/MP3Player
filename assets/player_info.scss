@@ -53,7 +53,7 @@
     background-color: #f0f1f4;
     margin-right: 10px;
     opacity: $opacity-grey-max;
-    background-image: url("/assets/img/note.svg");
+    background-image: url("/img/note.svg");
     background-repeat: no-repeat;
     background-position: center;
 
@@ -104,7 +104,7 @@
       }
 
       .favorite {
-        background-image: url("/assets/img/favorite.svg");
+        background-image: url("/img/favorite.svg");
         opacity: $opacity-grey-middle;
 
         &:hover {
@@ -172,7 +172,7 @@
 
       .dots {
         padding: 0;
-        background-image: url("/assets/img/dots.svg");
+        background-image: url("/img/dots.svg");
         opacity: $opacity-grey-middle;
 
         &:hover {
@@ -213,17 +213,17 @@
 
         .copy{
           i{
-            background-image: url("/assets/img/dots/copy.svg");
+            background-image: url("/img/dots/copy.svg");
           }
         }
         .comment{
           i{
-            background-image: url("/assets/img/dots/comment.svg");
+            background-image: url("/img/dots/comment.svg");
           }
         }
         .link{
           i{
-            background-image: url("/assets/img/dots/link.svg");
+            background-image: url("/img/dots/link.svg");
           }
         }
       }
@@ -268,7 +268,7 @@
         display: flex;
         width: 100%;
         height: 100%;
-        background-image: url("/assets/img/download.svg");
+        background-image: url("/img/download.svg");
         background-repeat: no-repeat;
         background-position: center;
       }

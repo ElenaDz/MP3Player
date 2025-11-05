@@ -12,11 +12,11 @@
   opacity: 0.3;
   pointer-events: none;
 }
-.b_player_hq.is_active .hq {
+.b_player_hq.active .hq {
   opacity: 0.7;
 }
 .b_player_hq .hq {
-  background-image: url("/assets/img/hq.svg");
+  background-image: url("/img/hq.svg");
   opacity: 0.3;
 }
 .b_player_hq .hq:hover {

@@ -213,16 +213,11 @@ class Player
     {
         this._playlist = playlist;
 
-        // fixme вообще не понимаю этот if переписать, так чтобы стало понятно всем
-        if ( ! this.songPlayer || this.songPlayer.songId != songPlayer.songId ) {
-            // fixme а тут почему не hd?
-            this.url = songPlayer.url;
-        } else {
-            this.url = this.hq ? songPlayer.url_hq :songPlayer.url;
-            this.play();
-        }
+        this.url = this.hq ? songPlayer.url_hq :songPlayer.url;
+        this.play();
 
         this._songPlayer = songPlayer;
+        console.log(this.url)
     }
 
     public get songPlayer(): SongPlayer

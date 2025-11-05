@@ -301,15 +301,10 @@ class Player {
     }
     loadSongPlayer(songPlayer, playlist) {
         this._playlist = playlist;
-        if (!this.songPlayer || this.songPlayer.songId != songPlayer.songId) {
-            this.url = songPlayer.url;
-        }
-        else {
-            this.url = this.hq ? songPlayer.url_hq : songPlayer.url;
-            this.play();
-        }
-        console.log(this.url);
+        this.url = this.hq ? songPlayer.url_hq : songPlayer.url;
+        this.play();
         this._songPlayer = songPlayer;
+        console.log(this.url);
     }
     get songPlayer() {
         return this._songPlayer;
@@ -923,7 +918,7 @@ class PlayerHQ {
         this.$context = $context;
         // @ts-ignore
         if (this.$context[0].HQ)
-            return this.$context[0].Info;
+            return this.$context[0].HQ;
         // @ts-ignore
         this.$context[0].HQ = this;
         this.player = Player.create();
@@ -932,17 +927,24 @@ class PlayerHQ {
             this.disabled(false);
         });
         this.$context.find('button.hq').on('click', () => {
-            this.is_hq = this.is_hq;
-            this.player.hq = this.is_hq;
+            // fixme эта строчка какая то ерунда, не должно быть таких строчек ok
+            this.is_active = !this.is_active;
+            this.player.hq = this.is_active;
         });
     }
-    set is_hq(is_hq) {
-        is_hq
-            ? this.$context.removeClass('is_hq')
-            : this.$context.addClass('is_hq');
+    // fixme кажется ты здесь тут закладываешься на будущее что кроме hd появятся другие режимы поэтому выбрала такое имя,
+    //  предлагаю не делать этот так как это усложняет понимание кода, я вот только что сидел и несколько минут думал почему ты так назвала
+    //  давай сделаем просто active или нет и класс соответственно active, это максимально просто и понятно, а понадобятся другие режимы
+    //  тут в любом случае все переписывать придётся ok
+    set is_active(is_active) {
+        // fixme вот здесь ошибка логики, я не понимаю что ты вкладывала в is, я его игнорирую, я вижу что если hd передать true
+        //  то он перестанет быть hd так как класс будет удален, это явная ошибка ok
+        is_active
+            ? this.$context.addClass('active')
+            : this.$context.removeClass('active');
     }
-    get is_hq() {
-        return this.$context.hasClass('is_hq');
+    get is_active() {
+        return this.$context.hasClass('active');
     }
     disabled(disabled = true) {
         disabled ? this.$context.addClass('disabled') : this.$context.removeClass('disabled');

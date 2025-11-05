@@ -1,8 +1,8 @@
 @import "mixin";
 @import "var";
 
-// fixme переименовать, заменить слово setting на eq (общепринятое сокращение от equalizer)
-.b_player_setting {
+// fixme переименовать, заменить слово setting на eq (общепринятое сокращение от equalizer) ok
+.b_player_eq {
   width: 40px;
   height: 40px;
   display: flex;
@@ -13,20 +13,19 @@
   }
 
   &.disabled {
-    .setting {
+    .eq {
       opacity: $opacity-grey-min;
       pointer-events: none;
     }
   }
 
-  .setting {
-    background-image: url("/assets/img/setting.svg");
+  .eq {
+    background-image: url("/img/equalizer.svg");
     opacity: $opacity-grey-middle;
 
     &:hover {
       cursor: pointer;
       opacity: $opacity-grey-max;
-      //opacity: $opacity-grey-middle;
     }
   }
 
