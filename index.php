@@ -113,7 +113,7 @@
             <div class="inner_setting">
                 <?php require __DIR__ . '/assets/player_hq.php'; ?>
                 <!-- fixme убрать -->
-                <?php require __DIR__ . '/assets/player_setting.php'; ?>
+                <?php require __DIR__ . '/assets/player_equalizer.php'; ?>
             </div>
             <?php require __DIR__ . '/assets/player_volume.php'; ?>
             <?php require __DIR__ . '/assets/player_info.php'; ?>
@@ -136,7 +136,8 @@
 	        __DIR__ . '/js/player_volume.js',
 	        __DIR__ . '/js/player_info.js',
 	        __DIR__ . '/js/player_playlist.js',
-	        __DIR__ . '/js/player_hq.js'
+	        __DIR__ . '/js/player_hq.js',
+	        __DIR__ . '/js/equalizer.js'
         ],
 	    __DIR__ . '/js/player.one_file.js'
     );
