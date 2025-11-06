@@ -13,15 +13,12 @@
 
     <div class="inner_download">
 
-        <!-- fixme убрать ok-->
-
         <div class="download elem">
             <a class="download_song">
                 <i></i>
             </a>
         </div>
 
-        <!-- fixme убрать ok-->
     </div>
 
 </div>
