@@ -1,8 +1,7 @@
 @import "mixin";
 @import "var";
 
-// fixme переименовать, заменить слово setting на eq (общепринятое сокращение от equalizer) ok
-.b_player_eq {
+.b_player_equalizer {
   width: 40px;
   height: 40px;
   display: flex;
