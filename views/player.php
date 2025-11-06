@@ -1,0 +1,25 @@
+<!-- fixme вынеси этот блок в папку assets в файл player.php, я все время там его ищу и не нахожу ok -->
+<!-- fixme переименуй папку assets в views (шаблоны) именно так обычно называется папка в которой лежат кусочки html шаблонов ok -->
+<div class="b_player">
+
+    <div class="audio">
+        <audio id="audio_player" controls="controls" preload="metadata"></audio>
+    </div>
+
+    <div class="inner_player">
+        <div class="inner_controls">
+            <?php require __DIR__ . '/player_controls.php'; ?>
+            <?php require __DIR__ . '/player_playlist.php'; ?>
+            <div class="stub"></div>
+        </div>
+
+        <?php require __DIR__ . '/player_progress.php'; ?>
+        <div class="inner_setting">
+            <?php require __DIR__ . '/player_hq.php'; ?>
+            <?php require __DIR__ . '/player_equalizer.php'; ?>
+        </div>
+        <?php require __DIR__ . '/player_volume.php'; ?>
+        <?php require __DIR__ . '/player_info.php'; ?>
+    </div>
+
+</div>

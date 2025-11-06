@@ -4,6 +4,7 @@
     $class = 'mini';
     $value_min = 0;
     $value_max = 1;
+    $vertical = null;
     require __DIR__.'/slider.php';
     ?>
 </div>

@@ -42,25 +42,25 @@
         $file_name_hq = '5УТРА - Ромашки 320.mp3';
         $song_id = '1';
         $clicks = 1;
-        require __DIR__ . '/assets/btn_player.php';
+        require __DIR__ . '/views/btn_player.php';
 
         $song_id = '2';
         $clicks = 2;
         $file_name = 'Niletto - Счастливым (длинное название).mp3';
         $file_name_hq = 'Niletto - Счастливым 320.mp3';
-        require __DIR__ . '/assets/btn_player.php';
+        require __DIR__ . '/views/btn_player.php';
 
         $song_id = '4';
         $clicks = 3;
         $file_name = '5УТРА - Test.mp3';
         $file_name_hq = '5УТРА - Test 320.mp3';
-        require __DIR__ . '/assets/btn_player.php';
+        require __DIR__ . '/views/btn_player.php';
 
         $file_name = 'А-Студио - Так же как все.mp3';
         $file_name_hq = 'А-Студио - Так же как все  320.mp3';
         $song_id = '3';
         $clicks = 4;
-        require __DIR__ . '/assets/btn_player.php';
+        require __DIR__ . '/views/btn_player.php';
         ?>
     </div>
 </div>
@@ -74,52 +74,26 @@
         $file_name_hq = 'Niletto - Счастливым 320.mp3';
         $song_id = '2';
         $clicks = 2;
-        require __DIR__ . '/assets/btn_player.php';
+        require __DIR__ . '/views/btn_player.php';
 
         $file_name = '5УТРА - Ромашки.mp3';
         $file_name_hq = '5УТРА - Ромашки 320.mp3';
         $song_id = '1';
         $clicks = 3;
-        require __DIR__ . '/assets/btn_player.php';
+        require __DIR__ . '/views/btn_player.php';
 
         //
         $file_name = 'А-Студио - Так же как все.mp3';
         $file_name_hq = 'А-Студио - Так же как все  320.mp3';
         $song_id = '3';
         $clicks = 4;
-        require __DIR__ . '/assets/btn_player.php';
+        require __DIR__ . '/views/btn_player.php';
         ?>
     </div>
 </div>
 
 <hr>
-
-    <!-- fixme вынеси этот блок в папку assets в файл player.php, я все время там его ищу и не нахожу -->
-    <!-- fixme переименуй папку assets в views (шаблоны) именно так обычно называется папка в которой лежат кусочки html шаблонов -->
-    <div class="b_player">
-
-        <div class="audio">
-            <audio id="audio_player" controls="controls" preload="metadata"></audio>
-        </div>
-
-        <div class="inner_player">
-            <div class="inner_controls">
-                <?php require __DIR__ . '/assets/player_controls.php'; ?>
-                <?php require __DIR__ . '/assets/player_playlist.php'; ?>
-                <div class="stub"></div>
-            </div>
-
-            <?php require __DIR__ . '/assets/player_progress.php'; ?>
-            <div class="inner_setting">
-                <?php require __DIR__ . '/assets/player_hq.php'; ?>
-                <!-- fixme убрать -->
-                <?php require __DIR__ . '/assets/player_equalizer.php'; ?>
-            </div>
-            <?php require __DIR__ . '/assets/player_volume.php'; ?>
-            <?php require __DIR__ . '/assets/player_info.php'; ?>
-        </div>
-
-    </div>
+<?php require __DIR__ . '/views/player.php'; ?>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <?php

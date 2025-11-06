@@ -12,9 +12,9 @@ if (
 ) {
     $range = $value_max - $value_min;
     $value_rate = ($value - $value_min) / $range;
-
     $value_pct = $value_rate * 100;
 }
+
 ?>
 
 <div
