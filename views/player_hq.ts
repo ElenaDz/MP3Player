@@ -1,34 +1,55 @@
-class PlayerHQ {
-    constructor($context) {
+class PlayerHQ
+{
+    private $context: JQuery;
+    private player: Player;
+
+    constructor($context: JQuery) {
+
         this.$context = $context;
+
         // @ts-ignore
-        if (this.$context[0].HQ)
-            return this.$context[0].HQ;
+        if (this.$context[0].HQ) return this.$context[0].HQ;
+
         // @ts-ignore
         this.$context[0].HQ = this;
+
         this.player = Player.create();
+
         this.disabled();
-        this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+
+        this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
+        {
             this.disabled(false);
         });
-        this.$context.find('button.hq').on('click', () => {
-            this.is_active = !this.is_active;
+
+        this.$context.find('button.hq').on('click',() =>
+        {
+            this.is_active = ! this.is_active;
+
             this.player.hq = this.is_active;
         });
     }
+
     // fixme если бы это был метод тогда isActive, а так как это свойство тогда просто active
-    set is_active(is_active) {
+    private set is_active(is_active: boolean)
+    {
         is_active
             ? this.$context.addClass('active')
             : this.$context.removeClass('active');
     }
-    get is_active() {
+
+    private get is_active()
+    {
         return this.$context.hasClass('active');
     }
-    disabled(disabled = true) {
+
+    private disabled(disabled: boolean = true)
+    {
         disabled ? this.$context.addClass('disabled') : this.$context.removeClass('disabled');
     }
-    static create($context = $('.b_player_hq')) {
+
+    public static create($context = $('.b_player_hq')): PlayerHQ
+    {
         return new PlayerHQ($context);
     }
 }

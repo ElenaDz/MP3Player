@@ -1,8 +1,8 @@
 .idea/
 
-assets/player.css
+views/player.css
 /_ide/jquery.d.ts
 js/player_Controls.js
 js/player.one_file.js
-assets/equalizer.ts
+views/equalizer.ts
 js/equalizer.js
