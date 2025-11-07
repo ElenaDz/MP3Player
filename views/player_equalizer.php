@@ -1,8 +1,10 @@
+<!-- fixme переименовать все связанное с эквалайзером с equalizer на eq (общепринятое сокращение) -->
 <div class="b_player_equalizer ">
     <button class="eq elem""></button>
 
     <div class="popup">
         <div class="inner_eq">
+
             <div class="music_styles">
                 <button>По умолчания</button>
                 <button>Диско</button>
@@ -12,6 +14,8 @@
             </div>
 
             <div class="settings">
+
+                <!-- fixme заменить этот повторяющийся блок php циклом foreach  -->
                 <div class="setting">
                     <div class="slider_eq">
                         <?php
@@ -166,7 +170,6 @@
                     </div>
                     <span class="name">16k</span>
                 </div>
-
 
             </div>
 

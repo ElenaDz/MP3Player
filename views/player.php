@@ -12,10 +12,12 @@
         </div>
 
         <?php require __DIR__ . '/player_progress.php'; ?>
+
         <div class="inner_setting">
             <?php require __DIR__ . '/player_hq.php'; ?>
             <?php require __DIR__ . '/player_equalizer.php'; ?>
         </div>
+
         <?php require __DIR__ . '/player_volume.php'; ?>
         <?php require __DIR__ . '/player_info.php'; ?>
     </div>

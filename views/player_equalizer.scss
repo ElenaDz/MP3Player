@@ -1,6 +1,7 @@
 @import "mixin";
 @import "var";
 
+// fixme фон эквалайзера прозрачный, а должен быть белый
 .b_player_equalizer {
   width: 40px;
   height: 40px;
@@ -111,7 +112,6 @@
 
             $padding-gor-slider: $size-thumb / 2 ;
             $padding-ver-slider: ($size-thumb - $height-slider) / 2;
-
 
             .slider {
               width: 100%;

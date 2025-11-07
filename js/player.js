@@ -10,8 +10,9 @@ class Player {
         this.audio = this.$context.find('audio')[0];
         this.initCreate();
         this.initEventsAudio();
+        // fixme не нужно выносить это в событие просто делай это в свойстве hd
         this.$context.on(Player.EVENT_UPDATE_HQ, () => {
-            //     поменять песню, но с той жу секунды, что и проигрывалось до
+            // поменять песню, но с той жу секунды, что и проигрывалось до
             let time = this.currentTime;
             this.loadSongPlayer(this.songPlayer, this.playlist);
             this.currentTime = time;
@@ -114,7 +115,6 @@ class Player {
         this.url = this.hq ? songPlayer.url_hq : songPlayer.url;
         this.play();
         this._songPlayer = songPlayer;
-        console.log(this.url);
     }
     get songPlayer() {
         return this._songPlayer;
