@@ -38,10 +38,6 @@
     .shuffle {
       background-image: url("/img/shuffle.svg");
       opacity: $opacity-grey-max;
-
-      &:hover {
-        opacity: $opacity-grey-middle;
-      }
     }
 
     .repeat_playlist {

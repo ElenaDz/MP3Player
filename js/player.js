@@ -10,13 +10,7 @@ class Player {
         this.audio = this.$context.find('audio')[0];
         this.initCreate();
         this.initEventsAudio();
-        // fixme не нужно выносить это в событие просто делай это в свойстве hd
-        this.$context.on(Player.EVENT_UPDATE_HQ, () => {
-            // поменять песню, но с той жу секунды, что и проигрывалось до
-            let time = this.currentTime;
-            this.loadSongPlayer(this.songPlayer, this.playlist);
-            this.currentTime = time;
-        });
+        // fixme не нужно выносить это в событие просто делай это в свойстве hd ok
     }
     initCreate() {
         PlayerControls.create();
@@ -25,6 +19,7 @@ class Player {
         PlayerInfo.create();
         PlayerPlaylist.create();
         PlayerHQ.create();
+        PlayerEQ.create();
     }
     initEventsAudio() {
         this.audio.addEventListener('play', () => {
@@ -50,9 +45,16 @@ class Player {
             this.$context.trigger(Player.EVENT_ERROR);
         });
     }
+    getAudio() {
+        return this.audio;
+    }
     set hq(hq) {
-        this._hq = hq;
-        this.$context.trigger(Player.EVENT_UPDATE_HQ);
+        if (this._hq != hq) {
+            this._hq = hq;
+            let time = this.currentTime;
+            this.loadSongPlayer(this.songPlayer, this.playlist);
+            this.currentTime = time;
+        }
     }
     get hq() {
         return this._hq;

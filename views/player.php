@@ -15,7 +15,7 @@
 
         <div class="inner_setting">
             <?php require __DIR__ . '/player_hq.php'; ?>
-            <?php require __DIR__ . '/player_equalizer.php'; ?>
+            <?php require __DIR__ . '/player_eq.php'; ?>
         </div>
 
         <?php require __DIR__ . '/player_volume.php'; ?>

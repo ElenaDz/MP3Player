@@ -12,17 +12,17 @@ class PlayerHQ {
             this.disabled(false);
         });
         this.$context.find('button.hq').on('click', () => {
-            this.is_active = !this.is_active;
-            this.player.hq = this.is_active;
+            this.active = !this.active;
+            this.player.hq = this.active;
         });
     }
-    // fixme переименовать в active, так как это свойство, если бы был метод тогда бы он назывался isActive
-    set is_active(is_active) {
+    // fixme переименовать в active, так как это свойство, если бы был метод тогда бы он назывался isActive ok
+    set active(is_active) {
         is_active
             ? this.$context.addClass('active')
             : this.$context.removeClass('active');
     }
-    get is_active() {
+    get active() {
         return this.$context.hasClass('active');
     }
     disabled(disabled = true) {

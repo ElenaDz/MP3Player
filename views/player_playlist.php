@@ -1,7 +1,7 @@
 <div class="b_player_playlist disabled">
 
     <div class="order">
-        <!-- fixme при наведении становиться бледнее, так не должно быть -->
+        <!-- fixme при наведении становиться бледнее, так не должно быть ok -->
         <button class="shuffle elem" title="Перемешать"></button>
         <button class="repeat_playlist elem" title="Повторять плейлист"></button>
     </div>

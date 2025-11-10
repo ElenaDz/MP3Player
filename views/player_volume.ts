@@ -111,7 +111,7 @@ class PlayerVolume
 
     private set volume(volume)
     {
-        if (volume < 0 || volume > 1) {
+        if (volume < this.slider.value_min || volume > this.slider.value_max) {
             throw new Error(`Invalid volume "${volume}"`);
         }
 
