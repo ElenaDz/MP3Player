@@ -73,6 +73,10 @@
               display: none;
             }
 
+            input[type="radio"]:checked + span {
+              font-weight: 700;
+            }
+
           }
           .preset:not(:last-child) {
             margin-right: 16px;

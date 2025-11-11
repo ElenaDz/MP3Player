@@ -30,9 +30,9 @@ class PlayerHQ
     }
 
     // fixme переименовать в active, так как это свойство, если бы был метод тогда бы он назывался isActive ok
-    private set active(is_active: boolean)
+    private set active(active: boolean)
     {
-        is_active
+        active
             ? this.$context.addClass('active')
             : this.$context.removeClass('active');
     }

@@ -17,8 +17,8 @@ class PlayerHQ {
         });
     }
     // fixme переименовать в active, так как это свойство, если бы был метод тогда бы он назывался isActive ok
-    set active(is_active) {
-        is_active
+    set active(active) {
+        active
             ? this.$context.addClass('active')
             : this.$context.removeClass('active');
     }

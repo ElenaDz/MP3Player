@@ -97,8 +97,16 @@ class Slider {
     set value(value) {
         if (this.start_move)
             return;
-        if (value < this.value_min || value > this.value_max) {
-            throw new RangeError();
+        // fixme Не даёт записать в слайдер пресет, хотя пресеты записываються корректно. Мои предположения что полюса перепутаны местами (верх это минимальное значение, низ максимальное)
+        if (this.vertical) {
+            if (value < this.value_max || value > this.value_min) {
+                throw new RangeError();
+            }
+        }
+        else {
+            if (value < this.value_min || value > this.value_max) {
+                throw new RangeError();
+            }
         }
         let range = this.value_max - this.value_min;
         let value_rate = ((value - this.value_min) / range);
@@ -658,7 +666,7 @@ class PlayerVolume {
         localStorage.setItem(this.KEY_LOCAL_STORE_VOLUME, String(volume));
     }
     set volume(volume) {
-        if (volume < 0 || volume > 1) {
+        if (volume < this.slider.value_min || volume > this.slider.value_max) {
             throw new Error(`Invalid volume "${volume}"`);
         }
         this.slider.value = volume;
@@ -934,8 +942,8 @@ class PlayerHQ {
         });
     }
     // fixme переименовать в active, так как это свойство, если бы был метод тогда бы он назывался isActive ok
-    set active(is_active) {
-        is_active
+    set active(active) {
+        active
             ? this.$context.addClass('active')
             : this.$context.removeClass('active');
     }
@@ -1065,8 +1073,16 @@ class PlayerEQ {
         this.initEq();
         this.$context.find('.preset input').on('click', (e, i) => {
             let preset = $(e.currentTarget);
-            console.log(preset.data('preamp'));
-            console.log(preset.data('bands'));
+            this.eq.loadPreset(preset.data('preset'));
+            this.sliders.forEach((slider, index) => {
+                if (index == 0) {
+                    slider.value = this.eq.preamp.getValue();
+                }
+                else {
+                    console.log(index);
+                    slider.value = this.eq.bands[index - 1].getValue();
+                }
+            });
         });
         this.sliders.forEach((slider, index) => {
             slider.$context.on(SliderEvents.ValueUpdate, () => {

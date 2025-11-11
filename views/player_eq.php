@@ -10,46 +10,53 @@
                     <div class="preset">
                         <label>
                             <input
-                                    data-preamp="-0.5"
-                                    data-bands="[-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -3.5, -3.5, -3.5, -4.5]"
+                                    name="preset"
+                                    data-preset='{"preamp": -0.5, "bands": [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -3.5, -3.5, -3.5, -4.5]}'
                                     type="radio"/>
-                            По умолчания
+                            <span>По умолчания</span>
                         </label>
                     </div>
                     <div class="preset">
                         <label>
                             <input
+                                    name="preset"
                                     data-preamp="-3.36"
                                     data-bands="[-0.5, -0.5, 4, 2.5, 2.5, 2.5, 1.5, -0.5, -0.5, -0.5]"
+                                    data-preset='{"preamp": -3.36, "bands": [-0.5, -0.5, 4, 2.5, 2.5, 2.5, 1.5, -0.5, -0.5, -0.5]}'
                                     type="radio"/>
-                            Диско
+                            <span>Диско </span>
                         </label>
                     </div>
 
                     <div class="preset">
                         <label >
                             <input
-                                    data-preamp="-3.84"
+                                    name="preset"
+                                    data-preamp="-2.84"
                                     data-bands="[4, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4]"
+                                    data-preset='{"preamp": -2.36, "bands": [-0.5, -1, 4, 2.5, 2.5, 1, 1.5, -0.5, -0.5, -0.5]}'
                                     type="radio"/>
-                            Рок
+                            <span>Рок</span>
                         </label>
                     </div>
 
                     <div class="preset">
                         <label>
                             <input
-                                    data-preamp="-3.84"
-                                    data-bands="[4, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4]"
+                                    name="preset"
+                                    data-preset='{"preamp": -4, "bands": [-0.5, -0.5, -4.5, 2.5, 3.4, 2.5, -3.5, -1.5, -4.5, -0.5]}'
                                     type="radio"/>
-                            Dance
+                            <span>Dance</span>
                         </label>
                     </div>
 
                     <div class="preset">
                         <label>
-                            <input type="radio"/>
-                            Рэп
+                            <input
+                                    name="preset"
+                                    data-preset='{"preamp": 3.12, "bands": [-2.6, -0.5, 1.5,  3.3, 1.5, -0.5, 2.5, -4.5, -2.8, -0.9]}'
+                                    type="radio"/>
+                            <span>Рэп</span>
                         </label>
                     </div>
                     <div class="inner_dots">
@@ -58,14 +65,20 @@
                         <div class="other_presets">
                             <div class="preset">
                                 <label >
-                                    <input type="radio"/>
-                                    Минимал
+                                    <input
+                                            name="preset"
+                                            data-preset='{"preamp": -3.84, "bands": [2, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4]}'
+                                            type="radio"/>
+                                    <span>Минимал</span>
                                 </label>
                             </div>
                             <div class="preset">
                                 <label >
-                                    <input type="radio"/>
-                                    Фонк
+                                    <input
+                                            name="preset"
+                                            data-preset='{"preamp": -3.84, "bands": [4.1, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4]}'
+                                            type="radio"/>
+                                    <span>Фонк</span>
                                 </label>
                             </div>
                         </div>
@@ -83,13 +96,7 @@
                             <!-- fixme заменить этот повторяющийся блок php циклом foreach ok -->
 
                 <?php foreach ($frequencies as $index => $frequency): ?>
-                <div class="setting"
-                    <?php if($index == 0) : ?>
-                     data-preamp="0"
-                    <?php else: ?>
-                     data-bands="0"
-                    <?php endif; ?>
-                    >
+                <div class="setting">
                     <div class="slider_eq">
 
                         <?php

@@ -24,8 +24,20 @@ class PlayerEQ
         this.$context.find('.preset input').on('click', (e, i) =>
         {
             let preset = $(e.currentTarget)
-            console.log(preset.data('preamp'))
-            console.log(preset.data('bands'))
+
+            this.eq.loadPreset(preset.data('preset'));
+
+
+            this.sliders.forEach((slider, index) => {
+
+                if (index == 0){
+                    slider.value = this.eq.preamp.getValue();
+
+                } else {
+                    slider.value = this.eq.bands[index-1].getValue();
+                }
+            })
+
         });
 
         this.sliders.forEach((slider, index) => {
@@ -45,7 +57,6 @@ class PlayerEQ
                 }
             });
         })
-
     }
 
     private initEq()

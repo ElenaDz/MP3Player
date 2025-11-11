@@ -705,6 +705,9 @@
 .b_player_eq .popup .inner_eq .music_presets .presets .preset input {
   display: none;
 }
+.b_player_eq .popup .inner_eq .music_presets .presets .preset input[type=radio]:checked + span {
+  font-weight: 700;
+}
 .b_player_eq .popup .inner_eq .music_presets .presets .preset:not(:last-child) {
   margin-right: 16px;
 }
