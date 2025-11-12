@@ -90,6 +90,8 @@
         require __DIR__ . '/views/btn_player.php';
         ?>
     </div>
+
+    
 </div>
 
 <hr>
