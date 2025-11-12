@@ -112,7 +112,7 @@
 	        __DIR__ . '/js/player_playlist.js',
 	        __DIR__ . '/js/player_hq.js',
             // fixme этого файла нет в гите, добавь его в гит чтобы он появился у меня ok
-	        __DIR__ . '/js/equalizer.js',
+	        __DIR__ . '/js/eq.js',
 	        __DIR__ . '/js/player_eq.js'
         ],
 	    __DIR__ . '/js/player.one_file.js'
