@@ -90,6 +90,7 @@
         require __DIR__ . '/views/btn_player.php';
         ?>
     </div>
+    <!-- fixme new -->
 
     
 </div>
@@ -117,8 +118,6 @@
 	        __DIR__ . '/js/player_eq.js'
         ],
 	    __DIR__ . '/js/player.one_file.js'
-        // fixme new
-        
     );
 ?>
 
