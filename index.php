@@ -67,6 +67,7 @@
 
 <hr>
 <div>
+    БызфтЮ
     <h2 class="music-title"> Заголовок 1</h2>
     <div class="inline_player_playlist_main">
         <?php
