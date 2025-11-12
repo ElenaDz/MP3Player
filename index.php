@@ -116,6 +116,7 @@
 	        __DIR__ . '/js/player_eq.js'
         ],
 	    __DIR__ . '/js/player.one_file.js'
+        
     );
 ?>
 
