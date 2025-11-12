@@ -4,6 +4,7 @@ class PlayerEQ
     private player: Player;
     private sliders: Slider[];
     private eq : Equalizer;
+
     constructor($context: JQuery) {
 
         this.$context = $context;
@@ -139,7 +140,9 @@ class PlayerEQ
         const audioContext = new AudioContext();
         const audioSource = audioContext.createMediaElementSource(audioElement);
         let equalizerManager = new music.Equalizer(audioSource, audioSource);
+
         equalizerManager.enable();
+
         this.eq = equalizerManager.equalizer;
     }
 
