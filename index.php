@@ -67,7 +67,6 @@
 
 <hr>
 <div>
-<!--    gf-->
     <h2 class="music-title"> Заголовок 1</h2>
     <div class="inline_player_playlist_main">
         <?php
@@ -91,6 +90,7 @@
         require __DIR__ . '/views/btn_player.php';
         ?>
     </div>
+
 </div>
 
 <hr>
@@ -116,8 +116,6 @@
 	        __DIR__ . '/js/player_eq.js'
         ],
 	    __DIR__ . '/js/player.one_file.js'
-        // fixme new
-        
     );
 ?>
 
