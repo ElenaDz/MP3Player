@@ -659,6 +659,12 @@
   opacity: 0.3;
   pointer-events: none;
 }
+.b_player_eq.show .eq {
+  opacity: 1;
+}
+.b_player_eq.show .popup {
+  display: flex;
+}
 .b_player_eq .eq {
   background-image: url("/img/equalizer.svg");
   opacity: 0.7;
@@ -668,7 +674,7 @@
   opacity: 1;
 }
 .b_player_eq .popup {
-  display: flex;
+  display: none;
   position: absolute;
   border: 1px solid #CCCCCC;
   border-radius: 8px;
@@ -771,6 +777,9 @@
 .b_player_eq .popup .inner_eq .inner_dots {
   position: relative;
 }
+.b_player_eq .popup .inner_eq .inner_dots.open .other_presets {
+  display: flex;
+}
 .b_player_eq .popup .inner_eq .inner_dots .dots {
   padding: 0;
   background-image: url("/img/dots.svg");
@@ -783,7 +792,7 @@
   opacity: 1;
 }
 .b_player_eq .popup .inner_eq .inner_dots .other_presets {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: start;
   justify-content: start;

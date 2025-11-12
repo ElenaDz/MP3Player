@@ -21,6 +21,16 @@
     }
   }
 
+  &.show {
+    .eq {
+      opacity: $opacity-grey-max;
+    }
+
+    .popup {
+      display: flex;
+    }
+  }
+
   .eq {
     background-image: url("/img/equalizer.svg");
     opacity: $opacity-grey-middle;
@@ -32,7 +42,7 @@
   }
 
   .popup {
-    display: flex;
+    display: none;
     position: absolute;
     border: 1px solid #CCCCCC;
     border-radius: 8px;
@@ -173,6 +183,12 @@
       .inner_dots {
         position: relative;
 
+        &.open {
+          .other_presets {
+            display: flex;
+          }
+        }
+
         .dots {
           padding: 0;
           background-image: url("/img/dots.svg");
@@ -188,7 +204,7 @@
         }
 
         .other_presets {
-          display: flex;
+          display: none;
           flex-direction: column;
           align-items: start;
           justify-content: start;

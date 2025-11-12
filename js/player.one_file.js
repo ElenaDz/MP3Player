@@ -1069,8 +1069,16 @@ class PlayerEQ {
         this.$context[0].EQ = this;
         this.player = Player.create();
         this.sliders = Slider.create(this.$context);
+        this.disabled();
         this.enable();
         this.initEq();
+        this.initShow();
+        this.updatePreset();
+        this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_META_DATA, () => {
+            this.disabled(false);
+        });
+    }
+    updatePreset() {
         this.$context.find('.preset input').on('click', (e, i) => {
             let preset = $(e.currentTarget);
             this.eq.loadPreset(preset.data('preset'));
@@ -1079,7 +1087,6 @@ class PlayerEQ {
                     slider.value = this.eq.preamp.getValue();
                 }
                 else {
-                    console.log(index);
                     slider.value = this.eq.bands[index - 1].getValue();
                 }
             });
@@ -1090,7 +1097,6 @@ class PlayerEQ {
                 if (hertz < slider.value_max || hertz > slider.value_min) {
                     throw new Error(`Invalid volume "${hertz}"`);
                 }
-                slider.value = hertz;
                 if (index !== 0) {
                     this.eq.bands[index - 1].setValue(hertz);
                 }
@@ -1100,9 +1106,47 @@ class PlayerEQ {
             });
         });
     }
+    initShow() {
+        this.$context.find('button.eq').on('click', () => {
+            this.isShow ? this.close() : this.show();
+        });
+        this.$context.find('.close').on('click', () => {
+            this.close();
+        });
+        // клик вне эквалайзера приводит к закрытию эквалайзера
+        $('html').on('click', (e) => {
+            if (!$(e.target).hasClass('popup')
+                && !$(e.target).hasClass('eq')
+                && !$(e.target).parents().hasClass('popup')) {
+                this.close();
+                this.$context.find('.inner_dots').removeClass('open');
+            }
+        });
+        this.initDots();
+    }
+    initDots() {
+        this.$context.find('form').on('submit', (event) => {
+            event.preventDefault();
+        });
+        this.$context.find('button.dots').on('click', () => {
+            this.$context.find('.inner_dots').toggleClass('open');
+        });
+    }
+    show() {
+        this.$context.addClass('show');
+    }
+    close() {
+        this.$context.removeClass('show');
+    }
+    get isShow() {
+        return this.$context.hasClass('show');
+    }
+    disabled(disabled = true) {
+        disabled ? this.$context.addClass('disabled') : this.$context.removeClass('disabled');
+    }
     initEq() {
         const music = { Equalizer: EqualizerManager };
-        const audioElement = this.player.getAudio(); // HTML <audio>
+        const audioElement = this.player.getAudio();
         const audioContext = new AudioContext();
         const audioSource = audioContext.createMediaElementSource(audioElement);
         let equalizerManager = new music.Equalizer(audioSource, audioSource);

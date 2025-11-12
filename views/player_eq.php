@@ -60,14 +60,14 @@
                         </label>
                     </div>
                     <div class="inner_dots">
-                        <button class="dots elem""></button>
+                        <button  class="dots elem"></button>
 
                         <div class="other_presets">
                             <div class="preset">
                                 <label >
                                     <input
                                             name="preset"
-                                            data-preset='{"preamp": -3.84, "bands": [2, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4]}'
+                                            data-preset='{"preamp": -3.84, "bands": [2, 2.5, -0.5, -2.5, -2, -0.5, 4, -4.5, -4.5, 4]}'
                                             type="radio"/>
                                     <span>Минимал</span>
                                 </label>
