@@ -22,9 +22,10 @@ class Slider
 	{
 		let sliders = [];
 
-		$(this.SELECTOR, $context).each((index, elem) => {
-            sliders.push(new this($(elem)));
-        });
+		$(this.SELECTOR, $context).each((index, elem) =>
+		{
+			sliders.push(new this($(elem)));
+		});
 
 		return sliders;
 	}
@@ -156,14 +157,8 @@ class Slider
 	{
 		if (this.start_move) return;
 
-		if (this.vertical) {
-			if (value < this.value_max || value > this.value_min) {
-				throw new RangeError();
-			}
-		} else {
-			if (value < this.value_min || value > this.value_max) {
-				throw new RangeError();
-			}
+		if (value < this.value_min || value > this.value_max) {
+			throw new RangeError();
 		}
 
 		let range = this.value_max - this.value_min;
@@ -237,7 +232,7 @@ class Slider
 	private getValuePctFromEvent(e:JQueryMouseEventObject)
 	{
 		let offset = this.vertical
-			? e.pageY - this.$context.offset().top - this.offset_top
+			? this.length_slider - (e.pageY - this.$context.offset().top - this.offset_top)
 			: e.pageX - this.$context.offset().left - this.offset_left;
 
 		return (offset / this.length_slider) * 100;

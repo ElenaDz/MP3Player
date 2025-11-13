@@ -28,8 +28,9 @@
     min-width: auto;
     min-height: 50px;
     padding: 0 $padding-ver-slider;
+    transform: rotate(180deg);
   }
-
+  
   &.disabled {
     cursor: default;
     pointer-events: none;
