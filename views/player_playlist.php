@@ -1,7 +1,7 @@
 <div class="b_player_playlist disabled">
 
     <div class="order">
-        <!-- fixme при наведении становиться бледнее, так не должно быть ok -->
+        <!-- fixme если воспроизведение поставлено на паузу, нажатие на эту кнопку приводит к началу воспроизведения, а не должно -->
         <button class="shuffle elem" title="Перемешать"></button>
         <button class="repeat_playlist elem" title="Повторять плейлист"></button>
     </div>
@@ -9,7 +9,6 @@
     <button  class="playlist_btn elem"></button>
 
     <div class="popup">
-
         <div class="inner_popup">
             <div class="fon"></div>
             <div class="header">
@@ -20,11 +19,8 @@
                 <button class="close"></button>
             </div>
 
-
             <ul class="playlist inline_player_playlist_main">
-
             </ul>
-
         </div>
     </div>
 

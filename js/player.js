@@ -10,7 +10,6 @@ class Player {
         this.audio = this.$context.find('audio')[0];
         this.initCreate();
         this.initEventsAudio();
-        // fixme не нужно выносить это в событие просто делай это в свойстве hd ok
     }
     initCreate() {
         PlayerControls.create();
@@ -49,6 +48,7 @@ class Player {
         return this.audio;
     }
     set hq(hq) {
+        // fixme не нужно делать лишней вложенности это усложняет код, просто сделай return в if
         if (this._hq != hq) {
             this._hq = hq;
             let time = this.currentTime;

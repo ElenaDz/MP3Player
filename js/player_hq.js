@@ -16,7 +16,6 @@ class PlayerHQ {
             this.player.hq = this.active;
         });
     }
-    // fixme переименовать в active, так как это свойство, если бы был метод тогда бы он назывался isActive ok
     set active(active) {
         active
             ? this.$context.addClass('active')

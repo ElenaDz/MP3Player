@@ -17,6 +17,7 @@ class PlayerEQ {
             this.disabled(false);
         });
     }
+    // fixme переименовать initPresets
     updatePreset() {
         this.$context.find('.preset input').on('click', (e, i) => {
             let preset = $(e.currentTarget);
@@ -92,6 +93,7 @@ class PlayerEQ {
         equalizerManager.enable();
         this.eq = equalizerManager.equalizer;
     }
+    // fixme не нужно это свойство судя по тому что ты его один раз вызываешь, просто вызови этот код в конструкторе
     enable() {
         this.$context.find('.b_slider').removeClass('disabled');
     }

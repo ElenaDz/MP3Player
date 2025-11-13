@@ -34,6 +34,7 @@ class PlayerEQ
         })
     }
 
+    // fixme переименовать initPresets
     private updatePreset()
     {
         this.$context.find('.preset input').on('click', (e, i) =>
@@ -42,10 +43,9 @@ class PlayerEQ
 
             this.eq.loadPreset(preset.data('preset'));
 
-
-            this.sliders.forEach((slider, index) => {
-
-                if (index == 0){
+            this.sliders.forEach((slider, index) =>
+            {
+                if (index == 0) {
                     slider.value = this.eq.preamp.getValue();
 
                 } else {
@@ -65,9 +65,9 @@ class PlayerEQ
                 }
 
                 if (index !== 0) {
-                    this.eq.bands[index - 1].setValue(hertz)
+                    this.eq.bands[index - 1].setValue(hertz);
                 } else {
-                    this.eq.preamp.setValue(hertz)
+                    this.eq.preamp.setValue(hertz);
                 }
             });
         })
@@ -78,7 +78,6 @@ class PlayerEQ
         this.$context.find('button.eq').on('click',() =>
         {
             this.isShow ? this.close() : this.show();
-
         });
 
         this.$context.find('.close').on('click',() =>
@@ -146,6 +145,7 @@ class PlayerEQ
         this.eq = equalizerManager.equalizer;
     }
 
+    // fixme не нужно это свойство судя по тому что ты его один раз вызываешь, просто вызови этот код в конструкторе
     private enable()
     {
         this.$context.find('.b_slider').removeClass('disabled');

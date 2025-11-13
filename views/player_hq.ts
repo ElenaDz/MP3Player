@@ -29,7 +29,6 @@ class PlayerHQ
         });
     }
 
-    // fixme переименовать в active, так как это свойство, если бы был метод тогда бы он назывался isActive ok
     private set active(active: boolean)
     {
         active

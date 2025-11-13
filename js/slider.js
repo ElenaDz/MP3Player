@@ -95,7 +95,6 @@ class Slider {
     set value(value) {
         if (this.start_move)
             return;
-        // fixme Не даёт записать в слайдер пресет, хотя пресеты записываються корректно. Мои предположения что полюса перепутаны местами (верх это минимальное значение, низ максимальное)
         if (this.vertical) {
             if (value < this.value_max || value > this.value_min) {
                 throw new RangeError();

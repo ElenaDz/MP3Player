@@ -44,8 +44,6 @@ class Player
         this.initCreate();
 
         this.initEventsAudio();
-
-        // fixme не нужно выносить это в событие просто делай это в свойстве hd ok
     }
 
     private initCreate()
@@ -107,6 +105,7 @@ class Player
 
     public set hq(hq: boolean)
     {
+        // fixme не нужно делать лишней вложенности это усложняет код, просто сделай return в if
         if (this._hq != hq) {
             this._hq = hq;
 
