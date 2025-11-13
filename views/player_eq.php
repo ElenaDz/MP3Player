@@ -12,12 +12,12 @@
                 <form class="presets">
                     <div class="preset">
                         <label>
-                            <input
+                            <input checked
                                     name="preset"
                                     data-preset='{"preamp": -0.5, "bands": [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -3.5, -3.5, -3.5, -4.5]}'
                                     type="radio"
                             />
-                            <!-- fixme должна быть выбрана по-умолчанию -->
+                            <!-- fixme должна быть выбрана по-умолчанию ok -->
                             <span>По умолчания</span>
                         </label>
                     </div>
@@ -126,7 +126,7 @@
                 <?php endforeach; ?>
             </div>
 
-            <!-- fixme курсор должен быть рука, а не дефолтный -->
+            <!-- fixme курсор должен быть рука, а не дефолтный ok -->
             <div class="close"><i></i></div>
         </div>
     </div>

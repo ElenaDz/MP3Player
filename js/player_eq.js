@@ -12,13 +12,13 @@ class PlayerEQ {
         this.enable();
         this.initEq();
         this.initShow();
-        this.updatePreset();
+        this.initPresets();
         this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_META_DATA, () => {
             this.disabled(false);
         });
     }
-    // fixme переименовать initPresets
-    updatePreset() {
+    // fixme переименовать initPresets ok
+    initPresets() {
         this.$context.find('.preset input').on('click', (e, i) => {
             let preset = $(e.currentTarget);
             this.eq.loadPreset(preset.data('preset'));

@@ -26,7 +26,7 @@ class PlayerEQ
 
         this.initShow();
 
-        this.updatePreset();
+        this.initPresets();
 
         this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_META_DATA,() =>
         {
@@ -34,8 +34,8 @@ class PlayerEQ
         })
     }
 
-    // fixme переименовать initPresets
-    private updatePreset()
+    // fixme переименовать initPresets ok
+    private initPresets()
     {
         this.$context.find('.preset input').on('click', (e, i) =>
         {

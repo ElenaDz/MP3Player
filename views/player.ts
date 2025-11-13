@@ -105,16 +105,16 @@ class Player
 
     public set hq(hq: boolean)
     {
-        // fixme не нужно делать лишней вложенности это усложняет код, просто сделай return в if
-        if (this._hq != hq) {
-            this._hq = hq;
+        // fixme не нужно делать лишней вложенности это усложняет код, просто сделай return в if ok
+        if (this._hq == hq) return;
 
-            let time = this.currentTime;
+        this._hq = hq;
 
-            this.loadSongPlayer(this.songPlayer, this.playlist);
+        let time = this.currentTime;
 
-            this.currentTime = time;
-        }
+        this.loadSongPlayer(this.songPlayer, this.playlist);
+
+        this.currentTime = time;
     }
 
     public get hq()

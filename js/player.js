@@ -48,13 +48,13 @@ class Player {
         return this.audio;
     }
     set hq(hq) {
-        // fixme не нужно делать лишней вложенности это усложняет код, просто сделай return в if
-        if (this._hq != hq) {
-            this._hq = hq;
-            let time = this.currentTime;
-            this.loadSongPlayer(this.songPlayer, this.playlist);
-            this.currentTime = time;
-        }
+        // fixme не нужно делать лишней вложенности это усложняет код, просто сделай return в if ok
+        if (this._hq == hq)
+            return;
+        this._hq = hq;
+        let time = this.currentTime;
+        this.loadSongPlayer(this.songPlayer, this.playlist);
+        this.currentTime = time;
     }
     get hq() {
         return this._hq;
