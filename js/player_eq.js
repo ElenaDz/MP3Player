@@ -1,5 +1,15 @@
+const EQUALIZER_PRESETS = [
+    { name: "Default", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
+    { name: "Disco", preamp: -2.5, bands: [-0.5, -0.5, 4, 2.5, 2.5, 2.5, 1.5, -0.5, -0.5, -0.5] },
+    { name: "Rok", preamp: -3.36, bands: [-0.5, -1, 4, 2.5, 2.5, 1, 1.5, -0.5, -0.5, -0.5] },
+    { name: "Dance", preamp: -4, bands: [-0.5, -0.5, -4.5, 2.5, 3.4, 2.5, -3.5, -1.5, -4.5, -0.5] },
+    { name: "Rap", preamp: 1.36, bands: [-2.6, -0.5, 1.5, 3.3, 1.5, -0.5, 2.5, -4.5, -2.8, -0.9] },
+    { name: "Minimal", preamp: 2.2, bands: [2, 2.5, -0.5, -2.5, -2, -0.5, 4, -4.5, -4.5, 4] },
+    { name: "Funk", preamp: 3.7, bands: [4.1, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4] }
+];
 class PlayerEQ {
     constructor($context) {
+        this.KEY_LOCAL_STORE_EQ = 'eq';
         this.$context = $context;
         // @ts-ignore
         if (this.$context[0].EQ)
@@ -34,7 +44,7 @@ class PlayerEQ {
         this.sliders.forEach((slider, index) => {
             slider.$context.on(SliderEvents.ValueUpdate, () => {
                 let hertz = slider.value;
-                if (hertz < slider.value_max || hertz > slider.value_min) {
+                if (hertz < slider.value_min || hertz > slider.value_max) {
                     throw new Error(`Invalid volume "${hertz}"`);
                 }
                 if (index !== 0) {
@@ -80,6 +90,12 @@ class PlayerEQ {
     }
     get isShow() {
         return this.$context.hasClass('show');
+    }
+    get eqStore() {
+        return parseFloat(localStorage.getItem(this.KEY_LOCAL_STORE_EQ));
+    }
+    set eqStore(eq) {
+        localStorage.setItem(this.KEY_LOCAL_STORE_EQ, String(eq));
     }
     disabled(disabled = true) {
         disabled ? this.$context.addClass('disabled') : this.$context.removeClass('disabled');

@@ -1,9 +1,27 @@
+interface Preset {
+    name: string,
+    preamp: number,
+    bands: number[]
+}
+
+const EQUALIZER_PRESETS = [
+    { name: "Default", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
+    { name: "Disco", preamp: -2.5, bands: [-0.5, -0.5, 4, 2.5, 2.5, 2.5, 1.5, -0.5, -0.5, -0.5] },
+    { name: "Rok", preamp: -3.36, bands: [-0.5, -1, 4, 2.5, 2.5, 1, 1.5, -0.5, -0.5, -0.5] },
+    { name: "Dance", preamp: -4, bands: [-0.5, -0.5, -4.5, 2.5, 3.4, 2.5, -3.5, -1.5, -4.5, -0.5] },
+    { name: "Rap", preamp: 1.36, bands: [-2.6, -0.5, 1.5,  3.3, 1.5, -0.5, 2.5, -4.5, -2.8, -0.9] },
+    { name: "Minimal", preamp: 2.2, bands: [2, 2.5, -0.5, -2.5, -2, -0.5, 4, -4.5, -4.5, 4] },
+    { name: "Funk", preamp: 3.7, bands: [4.1, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4] }
+];
+
 class PlayerEQ
 {
     private $context: JQuery;
     private player: Player;
     private sliders: Slider[];
     private eq : Equalizer;
+
+    private KEY_LOCAL_STORE_EQ = 'eq';
 
     constructor($context: JQuery) {
 
@@ -60,7 +78,7 @@ class PlayerEQ
             {
                 let hertz = slider.value;
 
-                if (hertz < slider.value_max || hertz > slider.value_min) {
+                if (hertz < slider.value_min || hertz > slider.value_max) {
                     throw new Error(`Invalid volume "${hertz}"`);
                 }
 
@@ -125,6 +143,16 @@ class PlayerEQ
     private get isShow()
     {
         return this.$context.hasClass('show');
+    }
+
+    private get eqStore(): number
+    {
+        return parseFloat(localStorage.getItem(this.KEY_LOCAL_STORE_EQ));
+    }
+
+    private set eqStore(eq)
+    {
+        localStorage.setItem(this.KEY_LOCAL_STORE_EQ, String(eq));
     }
 
     private disabled(disabled: boolean = true)

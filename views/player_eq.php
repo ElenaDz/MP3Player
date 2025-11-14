@@ -1,5 +1,5 @@
 
-<div class="b_player_eq ">
+<div class="b_player_eq show">
     <button class="eq elem""></button>
 
     <div class="popup">
@@ -7,9 +7,37 @@
 
             <div class="music_presets">
 
-                <!-- fixme заменить на foreach, данные для preset хранить в php массиве, json кодировать с помощью json_encode -->
+                <!-- fixme заменить на foreach, json кодировать с помощью json_encode -->
                 <!-- fixme так как у нас два списка пресетов, массив с пересетами нужно разбить на две части с помощью функции array_slice -->
+
+
                 <form class="presets">
+                    <?php
+                    $styles = [
+                        'Default' => 'По умолчанию',
+                        'Disco' => 'Диско',
+                        'Rok' => 'Рок',
+                        'Dance' => 'Dance',
+                        'Rap' => 'Рэп',
+                        'Minimal' => 'Минимал',
+                        'Funk' => 'Фонк'
+                    ];
+                    ?>
+
+                    <?php foreach ($styles as $index => $style): ?>
+
+                        <div class="preset">
+                            <label>
+                                <input
+                                       data-preset="<?= $index?>"
+                                       type="radio"
+                                />
+                                <!-- fixme должна быть выбрана по-умолчанию ok -->
+                                <span><?= $style?></span>
+                            </label>
+                        </div>
+                    <?php endforeach; ?>
+
                     <div class="preset">
                         <label>
                             <input checked
@@ -100,9 +128,25 @@
             </div>
 
             <div class="settings">
+
+                <div class="setting" style="width: 45px">
+                    <div class="slider_eq">
+                        <?php
+                        $class = 'mini';
+                        $value_min = -5;
+                        $value_max = 5;
+                        $vertical = 'ver';
+                        $value = 0;
+                        require __DIR__.'/slider.php';
+                        ?>
+                    </div>
+
+                    <span class="name">Уровень</span>
+                </div>
+
                 <?php
                  $frequencies = [
-                     '0','60', '170', '310', '600', '1к', '3к', '6к', '12к', '14к', '16к'
+                     '60', '170', '310', '600', '1к', '3к', '6к', '12к', '14к', '16к'
                  ];
                 ?>
                 <?php foreach ($frequencies as $index => $frequency): ?>
@@ -112,8 +156,8 @@
 
                             <?php
                             $class = 'mini';
-                            $value_min = 5;
-                            $value_max = -5;
+                            $value_min = -5;
+                            $value_max = 5;
                             $vertical = 'ver';
                             $value = 0;
                             require __DIR__.'/slider.php';
