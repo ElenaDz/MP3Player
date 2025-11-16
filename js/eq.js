@@ -1,5 +1,4 @@
 const DEFAULT_BAND_FREQUENCIES = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
-// fixme не должно быть здесь так как мы разместили это в html Удалить ок
 // Класс Biquad-полосы
 class EQBand {
     constructor(context, type, frequency) {
@@ -28,7 +27,7 @@ class EQBand {
         this.listeners.forEach(cb => cb("change", this.getFreq(), value));
     }
 }
-//Класс Equalizer
+// Класс Equalizer
 class Equalizer {
     constructor(audioContext, bandsFrequencies = DEFAULT_BAND_FREQUENCIES) {
         this.preamp = new EQBand(audioContext, 'highshelf', 0);
@@ -61,7 +60,7 @@ class Equalizer {
         return -total / 6;
     }
 }
-//Обёртка EqualizerManager
+// Обёртка EqualizerManager
 class EqualizerManager {
     constructor(audioContext, audioSource) {
         this.audioContext = audioContext;

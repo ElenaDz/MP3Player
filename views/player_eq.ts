@@ -52,7 +52,6 @@ class PlayerEQ
         })
     }
 
-    // fixme переименовать initPresets ok
     private initPresets()
     {
         this.$context.find('.preset input').on('click', (e, i) =>

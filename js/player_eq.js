@@ -27,7 +27,6 @@ class PlayerEQ {
             this.disabled(false);
         });
     }
-    // fixme переименовать initPresets ok
     initPresets() {
         this.$context.find('.preset input').on('click', (e, i) => {
             let preset = $(e.currentTarget);

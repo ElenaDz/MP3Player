@@ -1,6 +1,6 @@
+
 const DEFAULT_BAND_FREQUENCIES = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 
-// fixme не должно быть здесь так как мы разместили это в html Удалить ок
 // Класс Biquad-полосы
 class EQBand {
     filter: BiquadFilterNode;
@@ -38,7 +38,7 @@ class EQBand {
     }
 }
 
-//Класс Equalizer
+// Класс Equalizer
 class Equalizer {
     public preamp: EQBand;
     bands: any[];
@@ -82,7 +82,7 @@ class Equalizer {
     }
 }
 
-//Обёртка EqualizerManager
+// Обёртка EqualizerManager
 class EqualizerManager {
     private audioContext: AudioContext;
     private audioSource: any;

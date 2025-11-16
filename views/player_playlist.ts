@@ -152,7 +152,6 @@ class PlayerPlaylist
     {
         return `
             <li class="item">
-                <!-- fixme у этого элемента ненужный отступ снизу ломающий верстку плейлиста ok --> 
                 <div class="popular-play">
                     <div
                         class="btn_player"
