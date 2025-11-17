@@ -21,6 +21,6 @@
   cursor: pointer;
   opacity: 1;
 }
-.b_player_eq .popup {
+.b_player_eq .b_popup {
   display: none;
 }

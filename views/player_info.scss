@@ -113,7 +113,7 @@
 
         }
       }
-      .popup {
+      .b_popup {
         display: flex;
         visibility: hidden;
         align-items: start;
@@ -142,7 +142,7 @@
         .favorite {
           opacity: $opacity-grey-max;
         }
-        .popup {
+        .b_popup {
           opacity: 1;
           visibility: visible;
           transition: opacity 0.5s ease-out; /* Плавное исчезновение за 0.5 секунды */
@@ -182,7 +182,7 @@
         }
       }
 
-      .popup {
+      .b_popup {
         display: none;
         flex-direction: column;
         align-items: start;
@@ -229,7 +229,7 @@
       }
 
       &.open {
-        .popup {
+        .b_popup {
           display: flex;
         }
       }

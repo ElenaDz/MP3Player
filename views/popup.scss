@@ -1,0 +1,12 @@
+@import "mixin";
+@import "var";
+
+.b_popup {
+  display: none;
+  position: absolute;
+  border: 1px solid #CCCCCC;
+  box-shadow: 0 0 4px #CCCCCC;
+  background-color: white;
+  border-radius: 8px;
+
+}

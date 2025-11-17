@@ -8,7 +8,7 @@
 
     <button  class="playlist_btn elem"></button>
 
-    <div class="popup">
+    <div class="b_popup">
         <div class="inner_popup">
             <div class="fon"></div>
             <div class="header">

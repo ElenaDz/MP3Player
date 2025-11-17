@@ -56,9 +56,18 @@ class PlayerEQ
     {
         this.$context.find('.preset input').on('click', (e, i) =>
         {
-            let preset = $(e.currentTarget)
+            let current_preset = $(e.currentTarget)
 
-            this.eq.loadPreset(preset.data('preset'));
+            EQUALIZER_PRESETS.forEach((preset) =>
+            {
+                if (preset.name == current_preset.data('preset_name')) {
+
+                    this.eq.loadPreset(preset);
+
+                    console.log(preset)
+                    this.eqStore = preset;
+                }
+            })
 
             this.sliders.forEach((slider, index) =>
             {
@@ -102,12 +111,11 @@ class PlayerEQ
             this.close();
         });
 
-        // клик вне эквалайзера приводит к закрытию эквалайзера
         $('html').on('click',(e) =>
         {
-            if (!$(e.target).hasClass('popup')
+            if (!$(e.target).hasClass('b_popup')
                 && !$(e.target).hasClass('eq')
-                && !$(e.target).parents().hasClass('popup'))
+                && !$(e.target).parents().hasClass('b_popup'))
             {
                 this.close();
                 this.$context.find('.inner_dots').removeClass('open');
@@ -144,7 +152,7 @@ class PlayerEQ
         return this.$context.hasClass('show');
     }
 
-    private get eqStore(): number
+    private get eqStore(): { }
     {
         return parseFloat(localStorage.getItem(this.KEY_LOCAL_STORE_EQ));
     }
@@ -172,10 +180,12 @@ class PlayerEQ
         this.eq = equalizerManager.equalizer;
     }
 
-    // fixme не нужно это свойство судя по тому что ты его один раз вызываешь, просто вызови этот код в конструкторе
+    // fixme не нужно это свойство судя по тому что ты его один раз вызываешь, просто вызови этот код в конструкторе ( добавился код)
     private enable()
     {
         this.$context.find('.b_slider').removeClass('disabled');
+
+        this.$context.find("[data-preset_name='Default']").attr('checked', 1);
     }
 
     public static create($context = $('.b_player_eq')): PlayerEQ

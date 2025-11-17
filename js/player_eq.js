@@ -29,8 +29,14 @@ class PlayerEQ {
     }
     initPresets() {
         this.$context.find('.preset input').on('click', (e, i) => {
-            let preset = $(e.currentTarget);
-            this.eq.loadPreset(preset.data('preset'));
+            let current_preset = $(e.currentTarget);
+            EQUALIZER_PRESETS.forEach((preset) => {
+                if (preset.name == current_preset.data('preset_name')) {
+                    this.eq.loadPreset(preset);
+                    console.log(preset);
+                    this.eqStore = preset;
+                }
+            });
             this.sliders.forEach((slider, index) => {
                 if (index == 0) {
                     slider.value = this.eq.preamp.getValue();
@@ -62,11 +68,10 @@ class PlayerEQ {
         this.$context.find('.close').on('click', () => {
             this.close();
         });
-        // клик вне эквалайзера приводит к закрытию эквалайзера
         $('html').on('click', (e) => {
-            if (!$(e.target).hasClass('popup')
+            if (!$(e.target).hasClass('b_popup')
                 && !$(e.target).hasClass('eq')
-                && !$(e.target).parents().hasClass('popup')) {
+                && !$(e.target).parents().hasClass('b_popup')) {
                 this.close();
                 this.$context.find('.inner_dots').removeClass('open');
             }
@@ -108,9 +113,10 @@ class PlayerEQ {
         equalizerManager.enable();
         this.eq = equalizerManager.equalizer;
     }
-    // fixme не нужно это свойство судя по тому что ты его один раз вызываешь, просто вызови этот код в конструкторе
+    // fixme не нужно это свойство судя по тому что ты его один раз вызываешь, просто вызови этот код в конструкторе ( добавился код)
     enable() {
         this.$context.find('.b_slider').removeClass('disabled');
+        this.$context.find("[data-preset_name='Default']").attr('checked', 1);
     }
     static create($context = $('.b_player_eq')) {
         return new PlayerEQ($context);

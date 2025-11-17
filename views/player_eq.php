@@ -2,13 +2,13 @@
 <div class="b_player_eq show">
     <button class="eq elem""></button>
 
-    <div class="popup">
+    <div class="b_popup">
         <div class="inner_eq">
 
             <div class="music_presets">
 
-                <!-- fixme заменить на foreach, json кодировать с помощью json_encode -->
-                <!-- fixme так как у нас два списка пресетов, массив с пересетами нужно разбить на две части с помощью функции array_slice -->
+                <!-- fixme заменить на foreach, json кодировать с помощью json_encode  ok-->
+                <!-- fixme так как у нас два списка пресетов, массив с пересетами нужно разбить на две части с помощью функции array_slice  ok-->
 
 
                 <form class="presets">
@@ -22,107 +22,45 @@
                         'Minimal' => 'Минимал',
                         'Funk' => 'Фонк'
                     ];
+
+                    $stylesTo = array_slice($styles, 0, 5);
+                    $stylesAfter = array_slice($styles, 5);
                     ?>
 
-                    <?php foreach ($styles as $index => $style): ?>
+                    <?php foreach ($stylesTo as $index => $style): ?>
 
                         <div class="preset">
                             <label>
                                 <input
-                                       data-preset="<?= $index?>"
-                                       type="radio"
+                                        name="preset"
+                                        data-preset_name="<?= $index?>"
+                                        type="radio"
                                 />
                                 <span><?= $style?></span>
                             </label>
                         </div>
                     <?php endforeach; ?>
 
-                    <div class="preset">
-                        <label>
-                            <input checked
-                                    name="preset"
-                                    data-preset='{"preamp": -0.5, "bands": [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -3.5, -3.5, -3.5, -4.5]}'
-                                    type="radio"
-                            />
-                            <span>По умолчания</span>
-                        </label>
-                    </div>
-                    <div class="preset">
-                        <label>
-                            <input
-                                    name="preset"
-                                    data-preamp="-3.36"
-                                    data-bands="[-0.5, -0.5, 4, 2.5, 2.5, 2.5, 1.5, -0.5, -0.5, -0.5]"
-                                    data-preset='{"preamp": -3.36, "bands": [-0.5, -0.5, 4, 2.5, 2.5, 2.5, 1.5, -0.5, -0.5, -0.5]}'
-                                    type="radio"
-                            />
-                            <span>Диско </span>
-                        </label>
-                    </div>
-
-                    <div class="preset">
-                        <label >
-                            <input
-                                    name="preset"
-                                    data-preamp="-2.84"
-                                    data-bands="[4, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4]"
-                                    data-preset='{"preamp": -2.36, "bands": [-0.5, -1, 4, 2.5, 2.5, 1, 1.5, -0.5, -0.5, -0.5]}'
-                                    type="radio"
-                            />
-                            <span>Рок</span>
-                        </label>
-                    </div>
-
-                    <div class="preset">
-                        <label>
-                            <input
-                                    name="preset"
-                                    data-preset='{"preamp": -4, "bands": [-0.5, -0.5, -4.5, 2.5, 3.4, 2.5, -3.5, -1.5, -4.5, -0.5]}'
-                                    type="radio"
-                            />
-                            <span>Dance</span>
-                        </label>
-                    </div>
-
-                    <div class="preset">
-                        <label>
-                            <input
-                                    name="preset"
-                                    data-preset='{"preamp": 3.12, "bands": [-2.6, -0.5, 1.5,  3.3, 1.5, -0.5, 2.5, -4.5, -2.8, -0.9]}'
-                                    type="radio"
-                            />
-                            <span>Рэп</span>
-                        </label>
-                    </div>
-
                     <div class="inner_dots">
                         <button  class="dots elem"></button>
                         <div class="other_presets">
 
-                            <div class="preset">
-                                <label >
-                                    <input
-                                            name="preset"
-                                            data-preset='{"preamp": -3.84, "bands": [2, 2.5, -0.5, -2.5, -2, -0.5, 4, -4.5, -4.5, 4]}'
-                                            type="radio"
-                                    />
-                                    <span>Минимал</span>
-                                </label>
-                            </div>
-                            <div class="preset">
-                                <label >
-                                    <input
-                                            name="preset"
-                                            data-preset='{"preamp": -3.84, "bands": [4.1, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4]}'
-                                            type="radio"
-                                    />
-                                    <span>Фонк</span>
-                                </label>
-                            </div>
+                            <?php foreach ($stylesAfter as $index => $style): ?>
+
+                                <div class="preset">
+                                    <label>
+                                        <input
+                                                name="preset"
+                                                data-preset_name="<?= $index?>"
+                                                type="radio"
+                                        />
+                                        <span><?= $style?></span>
+                                    </label>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </form>
-
             </div>
 
             <div class="settings">
