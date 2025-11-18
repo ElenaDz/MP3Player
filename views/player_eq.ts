@@ -11,7 +11,8 @@ const EQUALIZER_PRESETS = [
     { name: "Dance", preamp: -4, bands: [-0.5, -0.5, -4.5, 2.5, 3.4, 2.5, -3.5, -1.5, -4.5, -0.5] },
     { name: "Rap", preamp: 1.36, bands: [-2.6, -0.5, 1.5,  3.3, 1.5, -0.5, 2.5, -4.5, -2.8, -0.9] },
     { name: "Minimal", preamp: 2.2, bands: [2, 2.5, -0.5, -2.5, -2, -0.5, 4, -4.5, -4.5, 4] },
-    { name: "Funk", preamp: 3.7, bands: [4.1, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4] }
+    { name: "Funk", preamp: 3.7, bands: [4.1, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4] },
+    { name: "My_options", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }
 ];
 
 class PlayerEQ
@@ -38,7 +39,7 @@ class PlayerEQ
 
         this.disabled();
 
-        this.enable();
+        this.$context.find('.b_slider').removeClass('disabled');
 
         this.initEq();
 
@@ -64,21 +65,37 @@ class PlayerEQ
 
                     this.eq.loadPreset(preset);
 
-                    console.log(preset)
                     this.eqStore = preset;
                 }
             })
 
-            this.sliders.forEach((slider, index) =>
-            {
-                if (index == 0) {
-                    slider.value = this.eq.preamp.getValue();
-
-                } else {
-                    slider.value = this.eq.bands[index-1].getValue();
-                }
-            })
+            this.updateSlider();
         });
+
+        this.sliders.forEach((slider, index) =>
+        {
+            slider.$context.on(SliderEvents.StopMove, ( ) =>
+            {
+                this.$context.find('.preset input').prop('checked', 0);
+
+                this.sliders.forEach((slider, index) =>
+                {
+                    EQUALIZER_PRESETS.forEach((preset) =>
+                    {
+                        if (preset.name == 'My_options') {
+
+                            if (index == 0) {
+                                preset.preamp = +slider.value.toFixed(2)
+                            } else  {
+                                preset.bands[index-1] = +slider.value.toFixed(2);
+                            }
+
+                            this.eqStore = preset;
+                        }
+                    })
+                })
+            });
+        })
 
         this.sliders.forEach((slider, index) =>
         {
@@ -97,6 +114,29 @@ class PlayerEQ
                 }
             });
         })
+    }
+
+    private updateSlider()
+    {
+        this.sliders.forEach((slider, index) =>
+        {
+            if (index == 0) {
+                slider.value = this.eq.preamp.getValue();
+
+            } else {
+                slider.value = this.eq.bands[index-1].getValue();
+            }
+        })
+    }
+
+    private get eqStore(): Preset
+    {
+        return JSON.parse(localStorage.getItem(this.KEY_LOCAL_STORE_EQ));
+    }
+
+    private set eqStore(preset: Preset)
+    {
+        localStorage.setItem(this.KEY_LOCAL_STORE_EQ, JSON.stringify(preset));
     }
 
     private initShow()
@@ -152,16 +192,6 @@ class PlayerEQ
         return this.$context.hasClass('show');
     }
 
-    private get eqStore(): { }
-    {
-        return parseFloat(localStorage.getItem(this.KEY_LOCAL_STORE_EQ));
-    }
-
-    private set eqStore(eq)
-    {
-        localStorage.setItem(this.KEY_LOCAL_STORE_EQ, String(eq));
-    }
-
     private disabled(disabled: boolean = true)
     {
         disabled ? this.$context.addClass('disabled') : this.$context.removeClass('disabled');
@@ -176,18 +206,24 @@ class PlayerEQ
         let equalizerManager = new music.Equalizer(audioSource, audioSource);
 
         equalizerManager.enable();
-
         this.eq = equalizerManager.equalizer;
+
+        let preset = this.eqStore;
+        if (preset) {
+            this.eq.loadPreset(preset);
+
+            this.updateSlider();
+
+            this.updateChecked(preset.name);
+        } else {
+            this.updateChecked('Default');
+        }
     }
 
-    // fixme не нужно это свойство судя по тому что ты его один раз вызываешь, просто вызови этот код в конструкторе ( добавился код)
-    private enable()
+    private updateChecked(name: string)
     {
-        this.$context.find('.b_slider').removeClass('disabled');
-
-        this.$context.find("[data-preset_name='Default']").attr('checked', 1);
+        this.$context.find(`[data-preset_name='${name}']`).prop('checked', 1);
     }
-
     public static create($context = $('.b_player_eq')): PlayerEQ
     {
         return new PlayerEQ($context);

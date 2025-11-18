@@ -72,6 +72,10 @@
 
           .preset {
 
+            &.hide {
+              display: none;
+            }
+
             label {
               cursor: pointer;
             }
@@ -86,7 +90,7 @@
 
           }
           .preset:not(:last-child) {
-            margin-right: 16px;
+            padding-right: 16px;
           }
         }
       }

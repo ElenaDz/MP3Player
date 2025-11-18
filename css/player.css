@@ -704,6 +704,9 @@
   width: 100%;
   justify-content: start;
 }
+.b_player_eq .b_popup .inner_eq .music_presets .presets .preset.hide {
+  display: none;
+}
 .b_player_eq .b_popup .inner_eq .music_presets .presets .preset label {
   cursor: pointer;
 }
@@ -714,7 +717,7 @@
   font-weight: 700;
 }
 .b_player_eq .b_popup .inner_eq .music_presets .presets .preset:not(:last-child) {
-  margin-right: 16px;
+  padding-right: 16px;
 }
 .b_player_eq .b_popup .inner_eq .settings {
   width: 100%;

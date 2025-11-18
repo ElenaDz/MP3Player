@@ -19,17 +19,19 @@
                         'Rok' => 'Рок',
                         'Dance' => 'Dance',
                         'Rap' => 'Рэп',
+                        'My_options' => 'Моя настройка',
                         'Minimal' => 'Минимал',
                         'Funk' => 'Фонк'
                     ];
 
-                    $stylesTo = array_slice($styles, 0, 5);
-                    $stylesAfter = array_slice($styles, 5);
+                    $offset = 6;
+                    $stylesTo = array_slice($styles, 0, $offset);
+                    $stylesAfter = array_slice($styles, $offset);
                     ?>
 
                     <?php foreach ($stylesTo as $index => $style): ?>
 
-                        <div class="preset">
+                        <div class="preset <?= $index == 'My_options' ? 'hide' : '' ?>">
                             <label>
                                 <input
                                         name="preset"
