@@ -1,3 +1,5 @@
+// fixme укажи тип константы
+// fixme для эквалайзера используется имя eq
 const EQUALIZER_PRESETS = [
     { name: "Default", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
     { name: "Disco", preamp: -2.5, bands: [-0.5, -0.5, 4, 2.5, 2.5, 2.5, 1.5, -0.5, -0.5, -0.5] },
@@ -10,6 +12,8 @@ const EQUALIZER_PRESETS = [
 ];
 class PlayerEQ {
     constructor($context) {
+        // fixme не правильное имя, я должен понимать что храниться в переменной когда читаю ее имя
+        // fixme значение подобных констант лучше копировать как полное имя константы, например сейчас это "PlayerEQ.KEY_LOCAL_STORE_EQ"
         this.KEY_LOCAL_STORE_EQ = 'eq';
         this.$context = $context;
         // @ts-ignore
@@ -20,6 +24,7 @@ class PlayerEQ {
         this.player = Player.create();
         this.sliders = Slider.create(this.$context);
         this.disabled();
+        // fixme нельзя работать с dom компонентов напрямую, ты должна работать с методами и свойствами компонента
         this.$context.find('.b_slider').removeClass('disabled');
         this.initEq();
         this.initShow();
@@ -30,6 +35,7 @@ class PlayerEQ {
     }
     initPresets() {
         this.$context.find('.preset input').on('click', (e, i) => {
+            // fixme для jQuery переменных мы используем приставку $ смотри $context
             let current_preset = $(e.currentTarget);
             EQUALIZER_PRESETS.forEach((preset) => {
                 if (preset.name == current_preset.data('preset_name')) {
@@ -61,6 +67,7 @@ class PlayerEQ {
             slider.$context.on(SliderEvents.ValueUpdate, () => {
                 let hertz = slider.value;
                 if (hertz < slider.value_min || hertz > slider.value_max) {
+                    // fixme invalid volume или не volume?
                     throw new Error(`Invalid volume "${hertz}"`);
                 }
                 if (index !== 0) {
@@ -82,7 +89,9 @@ class PlayerEQ {
             }
         });
     }
+    // fixme не придумал хорошего имени для константы, и потянулось дальше эта ошибка, теперь и свойство не правильно названо
     get eqStore() {
+        // fixme хрупкий код, если стор будет пустой пресет не будет возвращен, лучше проверят и заполнять дефолтным присетом, если пусто
         return JSON.parse(localStorage.getItem(this.KEY_LOCAL_STORE_EQ));
     }
     set eqStore(preset) {
@@ -140,9 +149,11 @@ class PlayerEQ {
             this.updateChecked(preset.name);
         }
         else {
+            // fixme магическая строка, требуется вынести в константу
             this.updateChecked('Default');
         }
     }
+    // fixme не хватает публичных свойств preset, preamp и bands, ну и их повсеместного использования
     updateChecked(name) {
         this.$context.find(`[data-preset_name='${name}']`).prop('checked', 1);
     }

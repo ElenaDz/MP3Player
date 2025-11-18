@@ -87,7 +87,7 @@ class EqualizerManager {
     private audioContext: AudioContext;
     private audioSource: any;
     public equalizer: Equalizer;
-    constructor(audioContext, audioSource) {
+    constructor(audioContext , audioSource) {
         this.audioContext = audioContext;
         this.audioSource = audioSource;
         this.equalizer = new Equalizer(audioContext);

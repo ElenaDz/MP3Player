@@ -4,6 +4,8 @@ interface Preset {
     bands: number[]
 }
 
+// fixme укажи тип константы
+// fixme для эквалайзера используется имя eq
 const EQUALIZER_PRESETS = [
     { name: "Default", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
     { name: "Disco", preamp: -2.5, bands: [-0.5, -0.5, 4, 2.5, 2.5, 2.5, 1.5, -0.5, -0.5, -0.5] },
@@ -19,9 +21,12 @@ class PlayerEQ
 {
     private $context: JQuery;
     private player: Player;
+    // fixme должен быть отдельный слайдер для preamp и отдельный массив для bands
     private sliders: Slider[];
     private eq : Equalizer;
 
+    // fixme не правильное имя, я должен понимать что храниться в переменной когда читаю ее имя
+    // fixme значение подобных констант лучше копировать как полное имя константы, например сейчас это "PlayerEQ.KEY_LOCAL_STORE_EQ"
     private KEY_LOCAL_STORE_EQ = 'eq';
 
     constructor($context: JQuery) {
@@ -39,6 +44,7 @@ class PlayerEQ
 
         this.disabled();
 
+        // fixme нельзя работать с dom компонентов напрямую, ты должна работать с методами и свойствами компонента
         this.$context.find('.b_slider').removeClass('disabled');
 
         this.initEq();
@@ -57,6 +63,7 @@ class PlayerEQ
     {
         this.$context.find('.preset input').on('click', (e, i) =>
         {
+            // fixme для jQuery переменных мы используем приставку $ смотри $context
             let current_preset = $(e.currentTarget)
 
             EQUALIZER_PRESETS.forEach((preset) =>
@@ -104,6 +111,7 @@ class PlayerEQ
                 let hertz = slider.value;
 
                 if (hertz < slider.value_min || hertz > slider.value_max) {
+                    // fixme invalid volume или не volume?
                     throw new Error(`Invalid volume "${hertz}"`);
                 }
 
@@ -129,8 +137,10 @@ class PlayerEQ
         })
     }
 
+    // fixme не придумал хорошего имени для константы, и потянулось дальше эта ошибка, теперь и свойство не правильно названо
     private get eqStore(): Preset
     {
+        // fixme хрупкий код, если стор будет пустой пресет не будет возвращен, лучше проверят и заполнять дефолтным присетом, если пусто
         return JSON.parse(localStorage.getItem(this.KEY_LOCAL_STORE_EQ));
     }
 
@@ -216,14 +226,18 @@ class PlayerEQ
 
             this.updateChecked(preset.name);
         } else {
+            // fixme магическая строка, требуется вынести в константу
             this.updateChecked('Default');
         }
     }
+
+    // fixme не хватает публичных свойств preset, preamp и bands, ну и их повсеместного использования
 
     private updateChecked(name: string)
     {
         this.$context.find(`[data-preset_name='${name}']`).prop('checked', 1);
     }
+
     public static create($context = $('.b_player_eq')): PlayerEQ
     {
         return new PlayerEQ($context);

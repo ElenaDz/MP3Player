@@ -6,12 +6,8 @@
         <div class="inner_eq">
 
             <div class="music_presets">
-
-                <!-- fixme заменить на foreach, json кодировать с помощью json_encode  ok-->
-                <!-- fixme так как у нас два списка пресетов, массив с пересетами нужно разбить на две части с помощью функции array_slice  ok-->
-
-
                 <form class="presets">
+
                     <?php
                     $styles = [
                         'Default' => 'По умолчанию',
@@ -19,28 +15,41 @@
                         'Rok' => 'Рок',
                         'Dance' => 'Dance',
                         'Rap' => 'Рэп',
+                        // fixme нельзя так писать, бывает верблюжья нотация, а бывает подчеркивания, а тут и то и то
+                        // fixme я просил для этого использовать имя custom
+                        // fixme мои настройки отображаются на выпадающем списке, а не должны на сколько я понял
                         'My_options' => 'Моя настройка',
                         'Minimal' => 'Минимал',
                         'Funk' => 'Фонк'
                     ];
 
-                    $offset = 6;
-                    $stylesTo = array_slice($styles, 0, $offset);
-                    $stylesAfter = array_slice($styles, $offset);
-                    ?>
 
+                    // fixme не корректно работает, 4 показывает 4, а 6 показывает 5, проблема с скрытом пункте в середине списка,
+                    //  должно работать так, 4 должно показывать 4, а 6 должно показывать 6
+                    // fixme плохое имя переменной, лучше show
+                    $offset = 4;
+
+                    // fixme нотация подчеркивания для переменных
+                    // fixme лучше styles show
+                    $stylesTo = array_slice($styles, 0, $offset);
+                    // fixme лучше styles hide
+                    $stylesAfter = array_slice($styles, $offset);
+
+                    // fixme index не подходящее имя подумай какое имя переменной здесь правильное
+                    ?>
                     <?php foreach ($stylesTo as $index => $style): ?>
 
                         <div class="preset <?= $index == 'My_options' ? 'hide' : '' ?>">
                             <label>
                                 <input
-                                        name="preset"
-                                        data-preset_name="<?= $index?>"
-                                        type="radio"
+                                    name="preset"
+                                    data-preset_name="<?= $index?>"
+                                    type="radio"
                                 />
                                 <span><?= $style?></span>
                             </label>
                         </div>
+
                     <?php endforeach; ?>
 
                     <div class="inner_dots">
@@ -52,16 +61,19 @@
                                 <div class="preset">
                                     <label>
                                         <input
-                                                name="preset"
-                                                data-preset_name="<?= $index?>"
-                                                type="radio"
+                                            name="preset"
+                                            data-preset_name="<?= $index?>"
+                                            type="radio"
                                         />
                                         <span><?= $style?></span>
                                     </label>
                                 </div>
+
                             <?php endforeach; ?>
+
                         </div>
                     </div>
+
                 </form>
             </div>
 
@@ -87,7 +99,7 @@
                      '60', '170', '310', '600', '1к', '3к', '6к', '12к', '14к', '16к'
                  ];
                 ?>
-                <?php foreach ($frequencies as $index => $frequency): ?>
+                <?php foreach ($frequencies as $frequency): ?>
 
                     <div class="setting">
                         <div class="slider_eq">
