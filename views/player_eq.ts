@@ -4,9 +4,9 @@ interface Preset {
     bands: number[]
 }
 
-// fixme укажи тип константы
-// fixme для эквалайзера используется имя eq
-const EQUALIZER_PRESETS = [
+// fixme укажи тип константы ok
+// fixme для эквалайзера используется имя eq ок
+const EQ_PRESETS : Preset[] = [
     { name: "Default", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
     { name: "Disco", preamp: -2.5, bands: [-0.5, -0.5, 4, 2.5, 2.5, 2.5, 1.5, -0.5, -0.5, -0.5] },
     { name: "Rok", preamp: -3.36, bands: [-0.5, -1, 4, 2.5, 2.5, 1, 1.5, -0.5, -0.5, -0.5] },
@@ -17,17 +17,22 @@ const EQUALIZER_PRESETS = [
     { name: "My_options", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }
 ];
 
+const DEFAULT: string = 'Default';
+const CUSTOM: string = 'Custom';
+
 class PlayerEQ
 {
     private $context: JQuery;
     private player: Player;
-    // fixme должен быть отдельный слайдер для preamp и отдельный массив для bands
+    // fixme должен быть отдельный слайдер для preamp и отдельный массив для bands ok
     private sliders: Slider[];
+    private slider_preamp: Slider;
+    private _preset: Preset;
     private eq : Equalizer;
 
-    // fixme не правильное имя, я должен понимать что храниться в переменной когда читаю ее имя
-    // fixme значение подобных констант лучше копировать как полное имя константы, например сейчас это "PlayerEQ.KEY_LOCAL_STORE_EQ"
-    private KEY_LOCAL_STORE_EQ = 'eq';
+    // fixme не правильное имя, я должен понимать что храниться в переменной когда читаю ее имя ок
+    // fixme значение подобных констант лучше копировать как полное имя константы, например сейчас это "PlayerEQ.KEY_LOCAL_STORE_EQ" ( выдаёт ошибку если написатьPlayerEQ.KEY_LOCAL_STORE_)
+    private KEY_LOCAL_STORE_PRESET = 'preset';
 
     constructor($context: JQuery) {
 
@@ -44,8 +49,14 @@ class PlayerEQ
 
         this.disabled();
 
-        // fixme нельзя работать с dom компонентов напрямую, ты должна работать с методами и свойствами компонента
-        this.$context.find('.b_slider').removeClass('disabled');
+        // fixme нельзя работать с dom компонентов напрямую, ты должна работать с методами и свойствами компонента ok
+
+        this.sliders.forEach((slider, index) =>
+        {
+            if (index == 0) this.slider_preamp = slider;
+
+            slider.$context.removeClass('disabled')
+        })
 
         this.initEq();
 
@@ -63,16 +74,16 @@ class PlayerEQ
     {
         this.$context.find('.preset input').on('click', (e, i) =>
         {
-            // fixme для jQuery переменных мы используем приставку $ смотри $context
-            let current_preset = $(e.currentTarget)
+            // fixme для jQuery переменных мы используем приставку $ смотри $context ok
+            let $current_preset = $(e.currentTarget)
 
-            EQUALIZER_PRESETS.forEach((preset) =>
+            EQ_PRESETS.forEach((preset) =>
             {
-                if (preset.name == current_preset.data('preset_name')) {
+                if (preset.name == $current_preset.data('preset_name')) {
 
                     this.eq.loadPreset(preset);
 
-                    this.eqStore = preset;
+                    this.presetStore = preset;
                 }
             })
 
@@ -87,9 +98,9 @@ class PlayerEQ
 
                 this.sliders.forEach((slider, index) =>
                 {
-                    EQUALIZER_PRESETS.forEach((preset) =>
+                    EQ_PRESETS.forEach((preset) =>
                     {
-                        if (preset.name == 'My_options') {
+                        if (preset.name == CUSTOM) {
 
                             if (index == 0) {
                                 preset.preamp = +slider.value.toFixed(2)
@@ -97,7 +108,7 @@ class PlayerEQ
                                 preset.bands[index-1] = +slider.value.toFixed(2);
                             }
 
-                            this.eqStore = preset;
+                            this.presetStore = preset;
                         }
                     })
                 })
@@ -111,8 +122,8 @@ class PlayerEQ
                 let hertz = slider.value;
 
                 if (hertz < slider.value_min || hertz > slider.value_max) {
-                    // fixme invalid volume или не volume?
-                    throw new Error(`Invalid volume "${hertz}"`);
+                    // fixme invalid volume или не volume? ok
+                    throw new Error(`Invalid eq "${hertz}"`);
                 }
 
                 if (index !== 0) {
@@ -137,16 +148,22 @@ class PlayerEQ
         })
     }
 
-    // fixme не придумал хорошего имени для константы, и потянулось дальше эта ошибка, теперь и свойство не правильно названо
-    private get eqStore(): Preset
+    // fixme не придумал хорошего имени для константы, и потянулось дальше эта ошибка, теперь и свойство не правильно названо ok
+    private get presetStore(): Preset
     {
         // fixme хрупкий код, если стор будет пустой пресет не будет возвращен, лучше проверят и заполнять дефолтным присетом, если пусто
-        return JSON.parse(localStorage.getItem(this.KEY_LOCAL_STORE_EQ));
+
+        if (localStorage.getItem(this.KEY_LOCAL_STORE_PRESET)) {
+            return JSON.parse(localStorage.getItem(this.KEY_LOCAL_STORE_PRESET));
+        } else {
+            return
+        }
+
     }
 
-    private set eqStore(preset: Preset)
+    private set presetStore(preset: Preset)
     {
-        localStorage.setItem(this.KEY_LOCAL_STORE_EQ, JSON.stringify(preset));
+        localStorage.setItem(this.KEY_LOCAL_STORE_PRESET, JSON.stringify(preset));
     }
 
     private initShow()
@@ -218,7 +235,7 @@ class PlayerEQ
         equalizerManager.enable();
         this.eq = equalizerManager.equalizer;
 
-        let preset = this.eqStore;
+        let preset = this.presetStore;
         if (preset) {
             this.eq.loadPreset(preset);
 
@@ -226,12 +243,40 @@ class PlayerEQ
 
             this.updateChecked(preset.name);
         } else {
-            // fixme магическая строка, требуется вынести в константу
-            this.updateChecked('Default');
+            // fixme магическая строка, требуется вынести в константу ok
+            this.updateChecked(DEFAULT);
         }
     }
 
     // fixme не хватает публичных свойств preset, preamp и bands, ну и их повсеместного использования
+
+    public set preset(preset)
+    {
+        this._preset = preset
+    }
+
+    public get preset()
+    {
+        return this._preset;
+    }
+    public set preamp(preamp)
+    {
+
+    }
+
+    public get preamp()
+    {
+        return
+    }
+    public set bands(bands)
+    {
+
+    }
+
+    public get bands()
+    {
+        return
+    }
 
     private updateChecked(name: string)
     {

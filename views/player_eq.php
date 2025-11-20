@@ -9,44 +9,44 @@
                 <form class="presets">
 
                     <?php
-                    $styles = [
+                    $presets = [
+                        'Custom' => 'Моя настройка',
                         'Default' => 'По умолчанию',
                         'Disco' => 'Диско',
                         'Rok' => 'Рок',
                         'Dance' => 'Dance',
                         'Rap' => 'Рэп',
-                        // fixme нельзя так писать, бывает верблюжья нотация, а бывает подчеркивания, а тут и то и то
-                        // fixme я просил для этого использовать имя custom
-                        // fixme мои настройки отображаются на выпадающем списке, а не должны на сколько я понял
-                        'My_options' => 'Моя настройка',
+                        // fixme нельзя так писать, бывает верблюжья нотация, а бывает подчеркивания, а тут и то и то ok
+                        // fixme я просил для этого использовать имя custom ok
+                        // fixme мои настройки отображаются на выпадающем списке, а не должны на сколько я понял ok
                         'Minimal' => 'Минимал',
                         'Funk' => 'Фонк'
                     ];
 
 
                     // fixme не корректно работает, 4 показывает 4, а 6 показывает 5, проблема с скрытом пункте в середине списка,
-                    //  должно работать так, 4 должно показывать 4, а 6 должно показывать 6
-                    // fixme плохое имя переменной, лучше show
-                    $offset = 4;
+                    //  должно работать так, 4 должно показывать 4, а 6 должно показывать 6 ok
+                    // fixme плохое имя переменной, лучше show ok
+                    $show = 5;
 
-                    // fixme нотация подчеркивания для переменных
-                    // fixme лучше styles show
-                    $stylesTo = array_slice($styles, 0, $offset);
-                    // fixme лучше styles hide
-                    $stylesAfter = array_slice($styles, $offset);
+                    // fixme нотация подчеркивания для переменных ok
+                    // fixme лучше styles show ( сделала со словом presets)
+                    $presets_show = array_slice($presets, 0, $show+1);
+                    // fixme лучше styles hide ( сделала со словом presets)
+                    $presets_hide = array_slice($presets, $show+1);
 
-                    // fixme index не подходящее имя подумай какое имя переменной здесь правильное
+                    // fixme index не подходящее имя подумай какое имя переменной здесь правильное ok
                     ?>
-                    <?php foreach ($stylesTo as $index => $style): ?>
+                    <?php foreach ($presets_show as $preset_name_eng => $preset_name_rus): ?>
 
-                        <div class="preset <?= $index == 'My_options' ? 'hide' : '' ?>">
+                        <div class="preset <?= $preset_name_eng == 'Custom' ? 'hide' : '' ?>">
                             <label>
                                 <input
                                     name="preset"
-                                    data-preset_name="<?= $index?>"
+                                    data-preset_name="<?= $preset_name_eng?>"
                                     type="radio"
                                 />
-                                <span><?= $style?></span>
+                                <span><?= $preset_name_rus?></span>
                             </label>
                         </div>
 
@@ -56,16 +56,16 @@
                         <button  class="dots elem"></button>
                         <div class="other_presets">
 
-                            <?php foreach ($stylesAfter as $index => $style): ?>
+                            <?php foreach ($presets_hide as $preset_name_eng => $preset_name_rus): ?>
 
-                                <div class="preset">
+                                <div class="preset" <?= $preset_name_eng == 'Custom' ? 'hide' : '' ?>>
                                     <label>
                                         <input
                                             name="preset"
-                                            data-preset_name="<?= $index?>"
+                                            data-preset_name="<?= $preset_name_eng?>"
                                             type="radio"
                                         />
-                                        <span><?= $style?></span>
+                                        <span><?= $preset_name_rus?></span>
                                     </label>
                                 </div>
 

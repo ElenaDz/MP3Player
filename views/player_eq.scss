@@ -68,7 +68,6 @@
           justify-content: start;
 
           .preset {
-
             &.hide {
               display: none;
             }
@@ -86,6 +85,7 @@
             }
 
           }
+
           .preset:not(:last-child) {
             padding-right: 16px;
           }
