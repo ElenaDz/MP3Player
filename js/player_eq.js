@@ -11,7 +11,6 @@ const EQ_PRESETS = {
     Custom: { name: "Custom", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }
 };
 const DEFAULT = 'Default';
-const CUSTOM = 'Custom';
 class PlayerEQ {
     constructor($context) {
         // fixme не правильное имя, я должен понимать что храниться в переменной когда читаю ее имя ок
@@ -35,6 +34,7 @@ class PlayerEQ {
         this.initEq();
         this.initShow();
         this.initPresets();
+        console.log(this.preset);
         this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_META_DATA, () => {
             this.disabled(false);
         });
@@ -73,7 +73,7 @@ class PlayerEQ {
                     this.eq.bands[index - 1].setValue(hertz);
                 }
                 else {
-                    this.eq.preamp.setValue(hertz);
+                    this.preamp = hertz;
                 }
             });
         });
@@ -81,7 +81,7 @@ class PlayerEQ {
     updateSlider() {
         this.sliders.forEach((slider, index) => {
             if (index == 0) {
-                slider.value = this.eq.preamp.getValue();
+                slider.value = this.preamp;
             }
             else {
                 slider.value = this.eq.bands[index - 1].getValue();
@@ -157,24 +157,23 @@ class PlayerEQ {
             this.updateChecked(DEFAULT);
         }
     }
-    // fixme не хватает публичных свойств preset, preamp и bands, ну и их повсеместного использования
+    // fixme не хватает публичных свойств preset, preamp и bands, ну и их повсеместного использования ( не знаю как записывать и получить bands)
     set preset(preset) {
         this._preset = preset;
     }
     get preset() {
-        return this._preset ? this._preset : this.presetStore;
+        return this._preset ? this._preset : this.presetStore || EQ_PRESETS.Default;
     }
     set preamp(preamp) {
-        this._preset.preamp = preamp;
+        this.eq.preamp.setValue(preamp);
     }
     get preamp() {
-        return this.preset.preamp;
+        return this.eq.preamp.getValue();
     }
     set bands(bands) {
-        this._preset.bands = bands;
     }
     get bands() {
-        return this.preset.bands;
+        return;
     }
     updateChecked(name) {
         this.$context.find(`[data-preset_name='${name}']`).prop('checked', 1);
