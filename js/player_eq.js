@@ -1,5 +1,3 @@
-// fixme укажи тип константы ok
-// fixme для эквалайзера используется имя eq ок
 const EQ_PRESETS = {
     Default: { name: "Default", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
     Disco: { name: "Disco", preamp: -2.5, bands: [-0.5, -0.5, 4, 2.5, 2.5, 2.5, 1.5, -0.5, -0.5, -0.5] },
@@ -8,13 +6,14 @@ const EQ_PRESETS = {
     Rap: { name: "Rap", preamp: 1.36, bands: [-2.6, -0.5, 1.5, 3.3, 1.5, -0.5, 2.5, -4.5, -2.8, -0.9] },
     Minimal: { name: "Minimal", preamp: 2.2, bands: [2, 2.5, -0.5, -2.5, -2, -0.5, 4, -4.5, -4.5, 4] },
     Funk: { name: "Funk", preamp: 3.7, bands: [4.1, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4] },
+    // fixme кажется это лишнее и это нужно удалить, если вдруг нужны значение по умолчанию их можно взять в Default
     Custom: { name: "Custom", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }
 };
+// fixme занести внутрь класса PlayerEQ, как readonly если слово const там не допустимо
+// fixme кажется больше не нужна, можно удалить, из за того что ключи теперь не строки, а свойства, а их ide понимает
 const DEFAULT = 'Default';
 class PlayerEQ {
     constructor($context) {
-        // fixme не правильное имя, я должен понимать что храниться в переменной когда читаю ее имя ок
-        // fixme значение подобных констант лучше копировать как полное имя константы, например сейчас это "PlayerEQ.KEY_LOCAL_STORE_EQ" ok
         this.KEY_LOCAL_STORE_PRESET = 'PlayerEQ.KEY_LOCAL_STORE_PRESET';
         this.$context = $context;
         // @ts-ignore
@@ -27,21 +26,20 @@ class PlayerEQ {
         this.sliders_bands = Slider.create(this.$context.find('.bands'));
         this.slider_preamp = Slider.create(this.$context.find('.preamp'))[0];
         this.disabled();
-        // fixme нельзя работать с dom компонентов напрямую, ты должна работать с методами и свойствами компонента ok
         this.sliders.forEach((slider, index) => {
+            // fixme нельзя работать с dom компонентов напрямую, ты должна работать с методами и свойствами компонента,
+            //  у слайдера есть свойство disabled
             slider.$context.removeClass('disabled');
         });
         this.initEq();
         this.initShow();
         this.initPresets();
-        console.log(this.preset);
         this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_META_DATA, () => {
             this.disabled(false);
         });
     }
     initPresets() {
         this.$context.find('.preset input').on('click', (e, i) => {
-            // fixme для jQuery переменных мы используем приставку $ смотри $context ok
             let $current_preset = $(e.currentTarget);
             let preset_name = $current_preset.data('preset_name');
             for (const key in EQ_PRESETS) {
@@ -55,6 +53,7 @@ class PlayerEQ {
         this.sliders.forEach((slider, index) => {
             slider.$context.on(SliderEvents.StopMove, () => {
                 this.$context.find('.preset input').prop('checked', 0);
+                // fixme здесь ты должна менять то что у тебя храниться в presetStore, а не коснтанту EQ_PRESETS.Custom
                 EQ_PRESETS.Custom.preamp = +this.slider_preamp.value.toFixed(2);
                 this.sliders_bands.forEach((slider, index) => {
                     EQ_PRESETS.Custom.bands[index] = +slider.value.toFixed(2);
@@ -64,9 +63,11 @@ class PlayerEQ {
         });
         this.sliders.forEach((slider, index) => {
             slider.$context.on(SliderEvents.ValueUpdate, () => {
+                // fixme в слайдере на сколько я помню значение с -5 до 5, это не частота
                 let hertz = slider.value;
                 if (hertz < slider.value_min || hertz > slider.value_max) {
-                    // fixme invalid volume или не volume? ok
+                    // fixme в консоле ты увидишь ошибку "Invalid eq 6" через год, тебе будет понятно что это значит?
+                    //  Напиши понятное сообщение об ошибке
                     throw new Error(`Invalid eq "${hertz}"`);
                 }
                 if (index !== 0) {
@@ -77,29 +78,6 @@ class PlayerEQ {
                 }
             });
         });
-    }
-    updateSlider() {
-        this.sliders.forEach((slider, index) => {
-            if (index == 0) {
-                slider.value = this.preamp;
-            }
-            else {
-                slider.value = this.eq.bands[index - 1].getValue();
-            }
-        });
-    }
-    // fixme не придумал хорошего имени для константы, и потянулось дальше эта ошибка, теперь и свойство не правильно названо ok
-    get presetStore() {
-        // fixme хрупкий код, если стор будет пустой пресет не будет возвращен, лучше проверят и заполнять дефолтным присетом, если пусто ok
-        if (localStorage.getItem(this.KEY_LOCAL_STORE_PRESET)) {
-            return JSON.parse(localStorage.getItem(this.KEY_LOCAL_STORE_PRESET));
-        }
-        else {
-            return EQ_PRESETS.Default;
-        }
-    }
-    set presetStore(preset) {
-        localStorage.setItem(this.KEY_LOCAL_STORE_PRESET, JSON.stringify(preset));
     }
     initShow() {
         this.$context.find('button.eq').on('click', () => {
@@ -126,6 +104,48 @@ class PlayerEQ {
             this.$context.find('.inner_dots').toggleClass('open');
         });
     }
+    initEq() {
+        const music = { Equalizer: EqualizerManager };
+        const audioElement = this.player.getAudio();
+        const audioContext = new AudioContext();
+        const audioSource = audioContext.createMediaElementSource(audioElement);
+        let equalizerManager = new music.Equalizer(audioSource, audioSource);
+        equalizerManager.enable();
+        this.eq = equalizerManager.equalizer;
+        let preset = this.presetStore;
+        // fixme ни когда не бывает пустой
+        if (preset) {
+            this.eq.loadPreset(preset);
+            this.updateSlider();
+            this.updateChecked(preset.name);
+        }
+        else {
+            this.updateChecked(DEFAULT);
+        }
+    }
+    // fixme ну нужно выносить в метод, а нужно поместить этот код как реакцию на событие в конструктор
+    updateSlider() {
+        this.sliders.forEach((slider, index) => {
+            if (index == 0) {
+                slider.value = this.preamp;
+            }
+            else {
+                slider.value = this.eq.bands[index - 1].getValue();
+            }
+        });
+    }
+    get presetStore() {
+        // fixme обращение к локальному стору нужно вынести в переменую
+        if (localStorage.getItem(this.KEY_LOCAL_STORE_PRESET)) {
+            return JSON.parse(localStorage.getItem(this.KEY_LOCAL_STORE_PRESET));
+        }
+        else {
+            return EQ_PRESETS.Default;
+        }
+    }
+    set presetStore(preset) {
+        localStorage.setItem(this.KEY_LOCAL_STORE_PRESET, JSON.stringify(preset));
+    }
     show() {
         this.$context.addClass('show');
     }
@@ -138,27 +158,10 @@ class PlayerEQ {
     disabled(disabled = true) {
         disabled ? this.$context.addClass('disabled') : this.$context.removeClass('disabled');
     }
-    initEq() {
-        const music = { Equalizer: EqualizerManager };
-        const audioElement = this.player.getAudio();
-        const audioContext = new AudioContext();
-        const audioSource = audioContext.createMediaElementSource(audioElement);
-        let equalizerManager = new music.Equalizer(audioSource, audioSource);
-        equalizerManager.enable();
-        this.eq = equalizerManager.equalizer;
-        let preset = this.presetStore;
-        if (preset) {
-            this.eq.loadPreset(preset);
-            this.updateSlider();
-            this.updateChecked(preset.name);
-        }
-        else {
-            // fixme магическая строка, требуется вынести в константу ok
-            this.updateChecked(DEFAULT);
-        }
-    }
-    // fixme не хватает публичных свойств preset, preamp и bands, ну и их повсеместного использования ( не знаю как записывать и получить bands)
     set preset(preset) {
+        // fixme сохраняешь пресет но при этом не загружаешь данные из него в эквалайзер, а нужно, и делать это надо
+        //  с помощью с prep и setBands
+        // fixme может быть ты можешь хранить пресет только в одном места а именно в локалном сторе
         this._preset = preset;
     }
     get preset() {
@@ -170,11 +173,15 @@ class PlayerEQ {
     get preamp() {
         return this.eq.preamp.getValue();
     }
-    set bands(bands) {
+    setBands(index, value) {
+        // просто пример кода, допиши/исправь как нужно
+        this.eq.bands[index - 1].setValue(value);
     }
-    get bands() {
-        return;
+    getBands(index) {
+        // просто пример кода, допиши/исправь как нужно
+        return this.eq.bands[index - 1];
     }
+    // fixme не нужно выность это в метод
     updateChecked(name) {
         this.$context.find(`[data-preset_name='${name}']`).prop('checked', 1);
     }
