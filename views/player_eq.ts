@@ -3,19 +3,19 @@ interface Preset {
     preamp: number,
     bands: number[]
 }
-
+type keys = "Default" | "Disco" | "Rok"| "Dance"| "Rap"| "Minimal"| "Funk"| "Custom"
 // fixme укажи тип константы ok
 // fixme для эквалайзера используется имя eq ок
-const EQ_PRESETS : Preset[] = [
-    { name: "Default", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
-    { name: "Disco", preamp: -2.5, bands: [-0.5, -0.5, 4, 2.5, 2.5, 2.5, 1.5, -0.5, -0.5, -0.5] },
-    { name: "Rok", preamp: -3.36, bands: [-0.5, -1, 4, 2.5, 2.5, 1, 1.5, -0.5, -0.5, -0.5] },
-    { name: "Dance", preamp: -4, bands: [-0.5, -0.5, -4.5, 2.5, 3.4, 2.5, -3.5, -1.5, -4.5, -0.5] },
-    { name: "Rap", preamp: 1.36, bands: [-2.6, -0.5, 1.5,  3.3, 1.5, -0.5, 2.5, -4.5, -2.8, -0.9] },
-    { name: "Minimal", preamp: 2.2, bands: [2, 2.5, -0.5, -2.5, -2, -0.5, 4, -4.5, -4.5, 4] },
-    { name: "Funk", preamp: 3.7, bands: [4.1, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4] },
-    { name: "Custom", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }
-];
+const EQ_PRESETS: Record<keys, Preset>  = {
+    Default:  {name: "Default", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+    Disco: {name: "Disco", preamp: -2.5, bands: [-0.5, -0.5, 4, 2.5, 2.5, 2.5, 1.5, -0.5, -0.5, -0.5]},
+    Rok: {name: "Rok", preamp: -3.36, bands: [-0.5, -1, 4, 2.5, 2.5, 1, 1.5, -0.5, -0.5, -0.5]},
+    Dance: {name: "Dance", preamp: -4, bands: [-0.5, -0.5, -4.5, 2.5, 3.4, 2.5, -3.5, -1.5, -4.5, -0.5]},
+    Rap: {name: "Rap", preamp: 1.36, bands: [-2.6, -0.5, 1.5, 3.3, 1.5, -0.5, 2.5, -4.5, -2.8, -0.9]},
+    Minimal: {name: "Minimal", preamp: 2.2, bands: [2, 2.5, -0.5, -2.5, -2, -0.5, 4, -4.5, -4.5, 4]},
+    Funk: {name: "Funk", preamp: 3.7, bands: [4.1, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4]},
+    Custom: {name: "Custom", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+};
 
 const DEFAULT: string = 'Default';
 const CUSTOM: string = 'Custom';
@@ -32,7 +32,7 @@ class PlayerEQ
     private eq : Equalizer;
 
     // fixme не правильное имя, я должен понимать что храниться в переменной когда читаю ее имя ок
-    // fixme значение подобных констант лучше копировать как полное имя константы, например сейчас это "PlayerEQ.KEY_LOCAL_STORE_EQ" ( выдаёт ошибку если написатьPlayerEQ.KEY_LOCAL_STORE_)
+    // fixme значение подобных констант лучше копировать как полное имя константы, например сейчас это "PlayerEQ.KEY_LOCAL_STORE_EQ" ok
     private KEY_LOCAL_STORE_PRESET = 'PlayerEQ.KEY_LOCAL_STORE_PRESET';
 
     constructor($context: JQuery) {
@@ -79,15 +79,16 @@ class PlayerEQ
             // fixme для jQuery переменных мы используем приставку $ смотри $context ok
             let $current_preset = $(e.currentTarget)
 
-            EQ_PRESETS.forEach((preset) =>
-            {
-                if (preset.name == $current_preset.data('preset_name')) {
+            let preset_name = $current_preset.data('preset_name');
 
-                    this.eq.loadPreset(preset);
+            for (const key in EQ_PRESETS) {
 
-                    this.presetStore = preset;
+                if (key== preset_name) {
+                    this.eq.loadPreset(EQ_PRESETS[key]);
+
+                    this.presetStore = (EQ_PRESETS[key]);
                 }
-            })
+            }
 
             this.updateSlider();
         });
@@ -98,22 +99,14 @@ class PlayerEQ
             {
                 this.$context.find('.preset input').prop('checked', 0);
 
-                this.sliders.forEach((slider, index) =>
+                EQ_PRESETS.Custom.preamp = +this.slider_preamp.value.toFixed(2);
+
+                this.sliders_bands.forEach((slider, index) =>
                 {
-                    EQ_PRESETS.forEach((preset) =>
-                    {
-                        if (preset.name == CUSTOM) {
-
-                            if (index == 0) {
-                                preset.preamp = +slider.value.toFixed(2)
-                            } else  {
-                                preset.bands[index-1] = +slider.value.toFixed(2);
-                            }
-
-                            this.presetStore = preset;
-                        }
-                    })
+                    EQ_PRESETS.Custom.bands[index] = +slider.value.toFixed(2);
                 })
+
+                this.presetStore = EQ_PRESETS.Custom;
             });
         })
 
@@ -137,7 +130,6 @@ class PlayerEQ
         })
     }
 
-
     private updateSlider()
     {
         this.sliders.forEach((slider, index) =>
@@ -159,16 +151,7 @@ class PlayerEQ
         if (localStorage.getItem(this.KEY_LOCAL_STORE_PRESET)) {
             return JSON.parse(localStorage.getItem(this.KEY_LOCAL_STORE_PRESET));
         } else {
-            let preset_default: Preset
-            EQ_PRESETS.forEach((preset) =>
-            {
-                if (preset.name == DEFAULT) {
-
-                    preset_default = preset;
-                }
-            })
-
-            return preset_default;
+            return EQ_PRESETS.Default;
         }
     }
 
@@ -263,7 +246,7 @@ class PlayerEQ
 
     public set preset(preset)
     {
-        this._preset = preset
+        this._preset = preset;
     }
 
     public get preset()
@@ -272,7 +255,7 @@ class PlayerEQ
     }
     public set preamp(preamp)
     {
-
+        this._preset.preamp = preamp;
     }
 
     public get preamp()
@@ -281,7 +264,7 @@ class PlayerEQ
     }
     public set bands(bands)
     {
-
+        this._preset.bands = bands;
     }
 
     public get bands()
