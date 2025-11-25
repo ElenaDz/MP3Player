@@ -14,7 +14,7 @@ const EQ_PRESETS : Preset[] = [
     { name: "Rap", preamp: 1.36, bands: [-2.6, -0.5, 1.5,  3.3, 1.5, -0.5, 2.5, -4.5, -2.8, -0.9] },
     { name: "Minimal", preamp: 2.2, bands: [2, 2.5, -0.5, -2.5, -2, -0.5, 4, -4.5, -4.5, 4] },
     { name: "Funk", preamp: 3.7, bands: [4.1, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4] },
-    { name: "My_options", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }
+    { name: "Custom", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }
 ];
 
 const DEFAULT: string = 'Default';
@@ -24,15 +24,16 @@ class PlayerEQ
 {
     private $context: JQuery;
     private player: Player;
-    // fixme должен быть отдельный слайдер для preamp и отдельный массив для bands ok
+    // fixme должен быть отдельный слайдер для preamp и отдельный массив для bands ок
     private sliders: Slider[];
+    private sliders_bands: Slider[];
     private slider_preamp: Slider;
     private _preset: Preset;
     private eq : Equalizer;
 
     // fixme не правильное имя, я должен понимать что храниться в переменной когда читаю ее имя ок
     // fixme значение подобных констант лучше копировать как полное имя константы, например сейчас это "PlayerEQ.KEY_LOCAL_STORE_EQ" ( выдаёт ошибку если написатьPlayerEQ.KEY_LOCAL_STORE_)
-    private KEY_LOCAL_STORE_PRESET = 'preset';
+    private KEY_LOCAL_STORE_PRESET = 'PlayerEQ.KEY_LOCAL_STORE_PRESET';
 
     constructor($context: JQuery) {
 
@@ -47,14 +48,15 @@ class PlayerEQ
         this.player = Player.create();
         this.sliders = Slider.create(this.$context);
 
+        this.sliders_bands = Slider.create(this.$context.find('.bands'));
+        this.slider_preamp = Slider.create(this.$context.find('.preamp'))[0];
+
         this.disabled();
 
         // fixme нельзя работать с dom компонентов напрямую, ты должна работать с методами и свойствами компонента ok
 
         this.sliders.forEach((slider, index) =>
         {
-            if (index == 0) this.slider_preamp = slider;
-
             slider.$context.removeClass('disabled')
         })
 
@@ -135,6 +137,7 @@ class PlayerEQ
         })
     }
 
+
     private updateSlider()
     {
         this.sliders.forEach((slider, index) =>
@@ -151,14 +154,22 @@ class PlayerEQ
     // fixme не придумал хорошего имени для константы, и потянулось дальше эта ошибка, теперь и свойство не правильно названо ok
     private get presetStore(): Preset
     {
-        // fixme хрупкий код, если стор будет пустой пресет не будет возвращен, лучше проверят и заполнять дефолтным присетом, если пусто
+        // fixme хрупкий код, если стор будет пустой пресет не будет возвращен, лучше проверят и заполнять дефолтным присетом, если пусто ok
 
         if (localStorage.getItem(this.KEY_LOCAL_STORE_PRESET)) {
             return JSON.parse(localStorage.getItem(this.KEY_LOCAL_STORE_PRESET));
         } else {
-            return
-        }
+            let preset_default: Preset
+            EQ_PRESETS.forEach((preset) =>
+            {
+                if (preset.name == DEFAULT) {
 
+                    preset_default = preset;
+                }
+            })
+
+            return preset_default;
+        }
     }
 
     private set presetStore(preset: Preset)
@@ -257,7 +268,7 @@ class PlayerEQ
 
     public get preset()
     {
-        return this._preset;
+        return  this._preset ? this._preset : this.presetStore;
     }
     public set preamp(preamp)
     {
@@ -266,7 +277,7 @@ class PlayerEQ
 
     public get preamp()
     {
-        return
+        return this.preset.preamp;
     }
     public set bands(bands)
     {
@@ -275,7 +286,7 @@ class PlayerEQ
 
     public get bands()
     {
-        return
+        return this.preset.bands;
     }
 
     private updateChecked(name: string)

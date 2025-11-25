@@ -80,7 +80,7 @@
             <div class="settings">
 
                 <div class="setting" style="width: 45px">
-                    <div class="slider_eq">
+                    <div class="slider_eq preamp">
                         <?php
                         $class = 'mini';
                         $value_min = -5;
@@ -101,7 +101,7 @@
                 ?>
                 <?php foreach ($frequencies as $frequency): ?>
 
-                    <div class="setting">
+                    <div class="setting bands">
                         <div class="slider_eq">
 
                             <?php

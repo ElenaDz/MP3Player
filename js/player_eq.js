@@ -8,7 +8,7 @@ const EQ_PRESETS = [
     { name: "Rap", preamp: 1.36, bands: [-2.6, -0.5, 1.5, 3.3, 1.5, -0.5, 2.5, -4.5, -2.8, -0.9] },
     { name: "Minimal", preamp: 2.2, bands: [2, 2.5, -0.5, -2.5, -2, -0.5, 4, -4.5, -4.5, 4] },
     { name: "Funk", preamp: 3.7, bands: [4.1, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4] },
-    { name: "My_options", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }
+    { name: "Custom", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }
 ];
 const DEFAULT = 'Default';
 const CUSTOM = 'Custom';
@@ -16,7 +16,7 @@ class PlayerEQ {
     constructor($context) {
         // fixme не правильное имя, я должен понимать что храниться в переменной когда читаю ее имя ок
         // fixme значение подобных констант лучше копировать как полное имя константы, например сейчас это "PlayerEQ.KEY_LOCAL_STORE_EQ" ( выдаёт ошибку если написатьPlayerEQ.KEY_LOCAL_STORE_)
-        this.KEY_LOCAL_STORE_PRESET = 'preset';
+        this.KEY_LOCAL_STORE_PRESET = 'PlayerEQ.KEY_LOCAL_STORE_PRESET';
         this.$context = $context;
         // @ts-ignore
         if (this.$context[0].EQ)
@@ -25,11 +25,11 @@ class PlayerEQ {
         this.$context[0].EQ = this;
         this.player = Player.create();
         this.sliders = Slider.create(this.$context);
+        this.sliders_bands = Slider.create(this.$context.find('.bands'));
+        this.slider_preamp = Slider.create(this.$context.find('.preamp'))[0];
         this.disabled();
         // fixme нельзя работать с dom компонентов напрямую, ты должна работать с методами и свойствами компонента ok
         this.sliders.forEach((slider, index) => {
-            if (index == 0)
-                this.slider_preamp = slider;
             slider.$context.removeClass('disabled');
         });
         this.initEq();
@@ -97,12 +97,18 @@ class PlayerEQ {
     }
     // fixme не придумал хорошего имени для константы, и потянулось дальше эта ошибка, теперь и свойство не правильно названо ok
     get presetStore() {
-        // fixme хрупкий код, если стор будет пустой пресет не будет возвращен, лучше проверят и заполнять дефолтным присетом, если пусто
+        // fixme хрупкий код, если стор будет пустой пресет не будет возвращен, лучше проверят и заполнять дефолтным присетом, если пусто ok
         if (localStorage.getItem(this.KEY_LOCAL_STORE_PRESET)) {
             return JSON.parse(localStorage.getItem(this.KEY_LOCAL_STORE_PRESET));
         }
         else {
-            return;
+            let preset_default;
+            EQ_PRESETS.forEach((preset) => {
+                if (preset.name == DEFAULT) {
+                    preset_default = preset;
+                }
+            });
+            return preset_default;
         }
     }
     set presetStore(preset) {
@@ -169,17 +175,17 @@ class PlayerEQ {
         this._preset = preset;
     }
     get preset() {
-        return this._preset;
+        return this._preset ? this._preset : this.presetStore;
     }
     set preamp(preamp) {
     }
     get preamp() {
-        return;
+        return this.preset.preamp;
     }
     set bands(bands) {
     }
     get bands() {
-        return;
+        return this.preset.bands;
     }
     updateChecked(name) {
         this.$context.find(`[data-preset_name='${name}']`).prop('checked', 1);
