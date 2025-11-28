@@ -20,51 +20,54 @@
                         'Funk' => 'Фонк'
                     ];
 
-                    // fixme попробуй поставить 6, имя "По умолчанию" занимает две строки, исправь с помощью white-space: nowrap;
+                    // fixme попробуй поставить 6, имя "По умолчанию" занимает две строки, исправь с помощью white-space: nowrap; ok
                     // fixme если поставить 7 то вообще выпадающий список не нужен, добавь проверку нужен он или нет
-                    $show = 7;
+                    $show = 5;
 
                     $presets_show = array_slice($presets, 0, $show+1);
                     $presets_hide = array_slice($presets, $show+1);
 
-                    // fixme переименую $preset_name_rus > $preset_name а $preset_name_eng > $preset_id
+                    // fixme переименую $preset_name_rus > $preset_name а $preset_name_eng > $preset_id ok
                     ?>
-                    <?php foreach ($presets_show as $preset_name_eng => $preset_name_rus): ?>
+                    <?php foreach ($presets_show as $preset_id => $preset_name): ?>
 
-                        <div class="preset <?= $preset_name_eng == 'Custom' ? 'hide' : '' ?>">
+                        <div class="preset <?= $preset_id == 'Custom' ? 'hide' : '' ?>">
                             <label>
                                 <input
                                     name="preset"
-                                    data-preset_name="<?= $preset_name_eng?>"
+                                    data-preset_name="<?= $preset_id?>"
                                     type="radio"
                                 />
-                                <span><?= $preset_name_rus?></span>
+                                <span><?= $preset_name?></span>
                             </label>
                         </div>
 
                     <?php endforeach; ?>
 
-                    <div class="inner_dots">
-                        <button  class="dots elem"></button>
-                        <div class="other_presets">
+                    <?php if (count($presets_hide) > 0) {
+                        ?>
+                        <div class="inner_dots">
+                            <button  class="dots elem"></button>
+                            <div class="other_presets">
 
-                            <?php foreach ($presets_hide as $preset_name_eng => $preset_name_rus): ?>
+                                <?php foreach ($presets_hide as $preset_id => $preset_name): ?>
 
-                                <div class="preset" <?= $preset_name_eng == 'Custom' ? 'hide' : '' ?>>
-                                    <label>
-                                        <input
-                                            name="preset"
-                                            data-preset_name="<?= $preset_name_eng?>"
-                                            type="radio"
-                                        />
-                                        <span><?= $preset_name_rus?></span>
-                                    </label>
-                                </div>
+                                    <div class="preset" <?= $preset_id == 'Custom' ? 'hide' : '' ?>>
+                                        <label>
+                                            <input
+                                                    name="preset"
+                                                    data-preset_name="<?= $preset_id?>"
+                                                    type="radio"
+                                            />
+                                            <span><?= $preset_name?></span>
+                                        </label>
+                                    </div>
 
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
 
+                            </div>
                         </div>
-                    </div>
+                    <?php } ?>
 
                 </form>
             </div>

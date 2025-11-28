@@ -74,6 +74,10 @@
 
             label {
               cursor: pointer;
+
+              span {
+                white-space: nowrap;
+              }
             }
 
             input {

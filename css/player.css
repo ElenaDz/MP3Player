@@ -710,6 +710,9 @@
 .b_player_eq .b_popup .inner_eq .music_presets .presets .preset label {
   cursor: pointer;
 }
+.b_player_eq .b_popup .inner_eq .music_presets .presets .preset label span {
+  white-space: nowrap;
+}
 .b_player_eq .b_popup .inner_eq .music_presets .presets .preset input {
   display: none;
 }

@@ -16,12 +16,13 @@ const EQ_PRESETS: Record<"Default" | "Disco" | "Rok"| "Dance"| "Rap"| "Minimal"|
     Custom: {name: "Custom", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
 };
 
-// fixme занести внутрь класса PlayerEQ, как readonly если слово const там не допустимо
-// fixme кажется больше не нужна, можно удалить, из за того что ключи теперь не строки, а свойства, а их ide понимает
-const DEFAULT: string = 'Default';
+// fixme занести внутрь класса PlayerEQ, как readonly если слово const там не допустимо ok
+// fixme кажется больше не нужна, можно удалить, из за того что ключи теперь не строки, а свойства, а их ide понимает ok
 
 class PlayerEQ
 {
+    static readonly EVENT_UPDATE_BANDS_PREAMP = 'PlayerEQ.EVENT_UPDATE_BANDS_PREAMP';
+
     private $context: JQuery;
     private player: Player;
     private sliders: Slider[];
@@ -43,8 +44,8 @@ class PlayerEQ
         this.$context[0].EQ = this;
 
         this.player = Player.create();
-        this.sliders = Slider.create(this.$context);
 
+        this.sliders = Slider.create(this.$context);
         this.sliders_bands = Slider.create(this.$context.find('.bands'));
         this.slider_preamp = Slider.create(this.$context.find('.preamp'))[0];
 
@@ -53,8 +54,8 @@ class PlayerEQ
         this.sliders.forEach((slider, index) =>
         {
             // fixme нельзя работать с dom компонентов напрямую, ты должна работать с методами и свойствами компонента,
-            //  у слайдера есть свойство disabled
-            slider.$context.removeClass('disabled');
+            //  у слайдера есть свойство disabled ok
+            slider.disabled = false
         })
 
         this.initEq();
@@ -67,6 +68,18 @@ class PlayerEQ
         {
             this.disabled(false);
         })
+
+        this.$context.on(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP, () => {
+            this.sliders.forEach((slider, index) =>
+            {
+                if (index == 0) {
+                    slider.value = this.preamp;
+
+                } else {
+                    slider.value = this.eq.bands[index-1].getValue();
+                }
+            })
+        });
     }
 
     private initPresets()
@@ -82,11 +95,11 @@ class PlayerEQ
                 if (key == preset_name) {
                     this.eq.loadPreset(EQ_PRESETS[key]);
 
-                    this.presetStore = (EQ_PRESETS[key]);
+                    this.preset = (EQ_PRESETS[key]);
                 }
             }
 
-            this.updateSlider();
+            this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP);
         });
 
         this.sliders.forEach((slider, index) =>
@@ -104,7 +117,7 @@ class PlayerEQ
                     EQ_PRESETS.Custom.bands[index] = +slider.value.toFixed(2);
                 })
 
-                this.presetStore = EQ_PRESETS.Custom;
+                this.preset = EQ_PRESETS.Custom;
             });
         })
 
@@ -112,19 +125,19 @@ class PlayerEQ
         {
             slider.$context.on(SliderEvents.ValueUpdate, ( ) =>
             {
-                // fixme в слайдере на сколько я помню значение с -5 до 5, это не частота
-                let hertz = slider.value;
+                // fixme в слайдере на сколько я помню значение с -5 до 5, это не частота ok
+                let value = slider.value;
 
-                if (hertz < slider.value_min || hertz > slider.value_max) {
-                    // fixme в консоле ты увидишь ошибку "Invalid eq 6" через год, тебе будет понятно что это значит?
-                    //  Напиши понятное сообщение об ошибке
-                    throw new Error(`Invalid eq "${hertz}"`);
+                if (value < slider.value_min || value > slider.value_max) {
+                    // fixme в консоле ты увидишь ошибку "Invalid eq 6" через год, тебе будет понятно что это значит? ok
+                    //  Напиши понятное сообщение об ошибке ok
+                    throw new Error(`Недопустимое значение EQ "${value}". Диапозон от -5 до 5.`);
                 }
 
                 if (index !== 0) {
-                    this.eq.bands[index - 1].setValue(hertz);
+                    this.eq.bands[index - 1].setValue(value);
                 } else {
-                    this.preamp = hertz;
+                    this.preamp = value;
                 }
             });
         })
@@ -179,49 +192,36 @@ class PlayerEQ
         equalizerManager.enable();
         this.eq = equalizerManager.equalizer;
 
-        let preset = this.presetStore;
-        // fixme ни когда не бывает пустой
-        if (preset) {
-            this.eq.loadPreset(preset);
+        // fixme ни когда не бывает пустой ok
+        this.eq.loadPreset(this.preset);
 
-            this.updateSlider();
+        this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP);
 
-            this.updateChecked(preset.name);
-        } else {
-            this.updateChecked(DEFAULT);
-        }
+        this.updateChecked(this.preset.name);
     }
 
 
-    // fixme ну нужно выносить в метод, а нужно поместить этот код как реакцию на событие в конструктор
-    private updateSlider()
+    // fixme ну нужно выносить в метод, а нужно поместить этот код как реакцию на событие в конструктор ok
+
+    private get preset(): Preset
     {
-        this.sliders.forEach((slider, index) =>
-        {
-            if (index == 0) {
-                slider.value = this.preamp;
-
-            } else {
-                slider.value = this.eq.bands[index-1].getValue();
-            }
-        })
-    }
-
-
-    private get presetStore(): Preset
-    {
-        // fixme обращение к локальному стору нужно вынести в переменую
-        if (localStorage.getItem(this.KEY_LOCAL_STORE_PRESET)) {
-            return JSON.parse(localStorage.getItem(this.KEY_LOCAL_STORE_PRESET));
+        let preset_store = localStorage.getItem(this.KEY_LOCAL_STORE_PRESET);
+        // fixme обращение к локальному стору нужно вынести в переменую ok
+        if (preset_store) {
+            return JSON.parse(preset_store);
         } else {
             return EQ_PRESETS.Default;
         }
     }
 
-    private set presetStore(preset: Preset)
+    private set preset(preset: Preset)
     {
         localStorage.setItem(this.KEY_LOCAL_STORE_PRESET, JSON.stringify(preset));
     }
+
+        // fixme сохраняешь пресет но при этом не загружаешь данные из него в эквалайзер, а нужно, и делать это надо
+        //  с помощью с prep и setBands
+        // fixme может быть ты можешь хранить пресет только в одном места а именно в локалном сторе
 
     private show()
     {
@@ -243,19 +243,6 @@ class PlayerEQ
         disabled ? this.$context.addClass('disabled') : this.$context.removeClass('disabled');
     }
 
-    public set preset(preset)
-    {
-        // fixme сохраняешь пресет но при этом не загружаешь данные из него в эквалайзер, а нужно, и делать это надо
-        //  с помощью с prep и setBands
-        // fixme может быть ты можешь хранить пресет только в одном места а именно в локалном сторе
-        this._preset = preset;
-    }
-
-    public get preset(): Preset
-    {
-        return this._preset ? this._preset : this.presetStore || EQ_PRESETS.Default;
-    }
-
 
     public set preamp(preamp: number)
     {
@@ -267,11 +254,12 @@ class PlayerEQ
         return this.eq.preamp.getValue();
     }
 
-
     public setBands(index: number, value: number)
     {
         // просто пример кода, допиши/исправь как нужно
         this.eq.bands[index - 1].setValue(value);
+
+        this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP);
     }
 
     public getBands(index: number)
@@ -279,7 +267,6 @@ class PlayerEQ
         // просто пример кода, допиши/исправь как нужно
         return this.eq.bands[index - 1];
     }
-
 
     // fixme не нужно выность это в метод
     private updateChecked(name: string)
