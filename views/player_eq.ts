@@ -58,6 +58,24 @@ class PlayerEQ
             slider.disabled = false
         })
 
+        this.$context.on(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP, () => {
+            this.sliders.forEach((slider, index) =>
+            {
+                let slader_value = +slider.value.toFixed(2);
+
+                if (index == 0) {
+                    if ( slader_value != this.preamp) {
+                        slider.value = this.preamp;
+                    }
+
+                } else {
+                    if (slader_value != this.getBand(index-1)) {
+                        slider.value = this.getBand(index-1);
+                    }
+                }
+            })
+        });
+
         this.initEq();
 
         this.initShow();
@@ -68,18 +86,6 @@ class PlayerEQ
         {
             this.disabled(false);
         })
-
-        this.$context.on(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP, () => {
-            this.sliders.forEach((slider, index) =>
-            {
-                if (index == 0) {
-                    slider.value = this.preamp;
-
-                } else {
-                    slider.value = this.eq.bands[index-1].getValue();
-                }
-            })
-        });
     }
 
     private initPresets()
@@ -118,6 +124,8 @@ class PlayerEQ
                 })
 
                 this.preset = EQ_PRESETS.Custom;
+
+                this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP);
             });
         })
 
@@ -135,7 +143,8 @@ class PlayerEQ
                 }
 
                 if (index !== 0) {
-                    this.eq.bands[index - 1].setValue(value);
+                    this.setBand(index-1, value)
+                    // this.eq.bands[index - 1].setValue(value);
                 } else {
                     this.preamp = value;
                 }
@@ -197,11 +206,8 @@ class PlayerEQ
 
         this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP);
 
-        this.updateChecked(this.preset.name);
+       this.updateChecked(this.preset.name);
     }
-
-
-    // fixme ну нужно выносить в метод, а нужно поместить этот код как реакцию на событие в конструктор ok
 
     private get preset(): Preset
     {
@@ -220,7 +226,7 @@ class PlayerEQ
     }
 
         // fixme сохраняешь пресет но при этом не загружаешь данные из него в эквалайзер, а нужно, и делать это надо
-        //  с помощью с prep и setBands
+        //  с помощью с prep и setBand
         // fixme может быть ты можешь хранить пресет только в одном места а именно в локалном сторе
 
     private show()
@@ -243,7 +249,6 @@ class PlayerEQ
         disabled ? this.$context.addClass('disabled') : this.$context.removeClass('disabled');
     }
 
-
     public set preamp(preamp: number)
     {
         this.eq.preamp.setValue(preamp);
@@ -251,21 +256,21 @@ class PlayerEQ
 
     public get preamp(): number
     {
-        return this.eq.preamp.getValue();
+        return +this.eq.preamp.getValue().toFixed(2);
     }
 
-    public setBands(index: number, value: number)
+    public setBand(index: number, value: number)
     {
         // просто пример кода, допиши/исправь как нужно
-        this.eq.bands[index - 1].setValue(value);
+        this.eq.bands[index].setValue(value);
 
         this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP);
     }
 
-    public getBands(index: number)
+    public getBand(index: number): number
     {
         // просто пример кода, допиши/исправь как нужно
-        return this.eq.bands[index - 1];
+        return +this.eq.bands[index].getValue().toFixed(2);
     }
 
     // fixme не нужно выность это в метод

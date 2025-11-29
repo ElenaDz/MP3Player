@@ -30,21 +30,26 @@ class PlayerEQ {
             //  у слайдера есть свойство disabled ok
             slider.disabled = false;
         });
+        this.$context.on(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP, () => {
+            this.sliders.forEach((slider, index) => {
+                let slader_value = +slider.value.toFixed(2);
+                if (index == 0) {
+                    if (slader_value != this.preamp) {
+                        slider.value = this.preamp;
+                    }
+                }
+                else {
+                    if (slader_value != this.getBand(index - 1)) {
+                        slider.value = this.getBand(index - 1);
+                    }
+                }
+            });
+        });
         this.initEq();
         this.initShow();
         this.initPresets();
         this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_META_DATA, () => {
             this.disabled(false);
-        });
-        this.$context.on(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP, () => {
-            this.sliders.forEach((slider, index) => {
-                if (index == 0) {
-                    slider.value = this.preamp;
-                }
-                else {
-                    slider.value = this.eq.bands[index - 1].getValue();
-                }
-            });
         });
     }
     initPresets() {
@@ -68,6 +73,7 @@ class PlayerEQ {
                     EQ_PRESETS.Custom.bands[index] = +slider.value.toFixed(2);
                 });
                 this.preset = EQ_PRESETS.Custom;
+                this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP);
             });
         });
         this.sliders.forEach((slider, index) => {
@@ -80,7 +86,8 @@ class PlayerEQ {
                     throw new Error(`Недопустимое значение EQ "${value}". Диапозон от -5 до 5.`);
                 }
                 if (index !== 0) {
-                    this.eq.bands[index - 1].setValue(value);
+                    this.setBand(index - 1, value);
+                    // this.eq.bands[index - 1].setValue(value);
                 }
                 else {
                     this.preamp = value;
@@ -126,7 +133,6 @@ class PlayerEQ {
         this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP);
         this.updateChecked(this.preset.name);
     }
-    // fixme ну нужно выносить в метод, а нужно поместить этот код как реакцию на событие в конструктор ok
     get preset() {
         let preset_store = localStorage.getItem(this.KEY_LOCAL_STORE_PRESET);
         // fixme обращение к локальному стору нужно вынести в переменую ok
@@ -141,7 +147,7 @@ class PlayerEQ {
         localStorage.setItem(this.KEY_LOCAL_STORE_PRESET, JSON.stringify(preset));
     }
     // fixme сохраняешь пресет но при этом не загружаешь данные из него в эквалайзер, а нужно, и делать это надо
-    //  с помощью с prep и setBands
+    //  с помощью с prep и setBand
     // fixme может быть ты можешь хранить пресет только в одном места а именно в локалном сторе
     show() {
         this.$context.addClass('show');
@@ -159,16 +165,16 @@ class PlayerEQ {
         this.eq.preamp.setValue(preamp);
     }
     get preamp() {
-        return this.eq.preamp.getValue();
+        return +this.eq.preamp.getValue().toFixed(2);
     }
-    setBands(index, value) {
+    setBand(index, value) {
         // просто пример кода, допиши/исправь как нужно
-        this.eq.bands[index - 1].setValue(value);
+        this.eq.bands[index].setValue(value);
         this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP);
     }
-    getBands(index) {
+    getBand(index) {
         // просто пример кода, допиши/исправь как нужно
-        return this.eq.bands[index - 1];
+        return +this.eq.bands[index].getValue().toFixed(2);
     }
     // fixme не нужно выность это в метод
     updateChecked(name) {
