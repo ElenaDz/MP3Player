@@ -44,6 +44,15 @@ class Player
         this.initCreate();
 
         this.initEventsAudio();
+
+        this.$context.on(Player.EVENT_ERROR, () =>
+        {
+            this.$context.find('.alert').addClass('show');
+
+            setTimeout(() => {
+                this.$context.find('.show').removeClass('show');
+            }, 6000);
+        });
     }
 
     private initCreate()
@@ -214,8 +223,13 @@ class Player
     {
         this._playlist = playlist;
 
-        this.url = this.hq ? songPlayer.url_hq :songPlayer.url;
-        this.play();
+        if (this.songId  == songPlayer.songId){
+            return;
+
+        } else {
+            this.url = this.hq ? songPlayer.url_hq :songPlayer.url;
+            this.play();
+        }
 
         this._songPlayer = songPlayer;
     }

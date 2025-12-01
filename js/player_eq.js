@@ -67,11 +67,12 @@ class PlayerEQ {
         this.sliders.forEach((slider, index) => {
             slider.$context.on(SliderEvents.StopMove, () => {
                 this.$context.find('.preset input').prop('checked', 0);
-                // fixme здесь ты должна менять то что у тебя храниться в presetStore, а не коснтанту EQ_PRESETS.Custom
+                // fixme здесь ты должна менять то что у тебя храниться в presetStore, а не коснтанту EQ_PRESETS.Custom ( не знаю как обойтись без Кастомного пресета)
                 EQ_PRESETS.Custom.preamp = +this.slider_preamp.value.toFixed(2);
                 this.sliders_bands.forEach((slider, index) => {
                     EQ_PRESETS.Custom.bands[index] = +slider.value.toFixed(2);
                 });
+                // fixme здесь запись в стор
                 this.preset = EQ_PRESETS.Custom;
                 this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP);
             });
@@ -87,7 +88,6 @@ class PlayerEQ {
                 }
                 if (index !== 0) {
                     this.setBand(index - 1, value);
-                    // this.eq.bands[index - 1].setValue(value);
                 }
                 else {
                     this.preamp = value;
@@ -148,7 +148,7 @@ class PlayerEQ {
     }
     // fixme сохраняешь пресет но при этом не загружаешь данные из него в эквалайзер, а нужно, и делать это надо
     //  с помощью с prep и setBand
-    // fixme может быть ты можешь хранить пресет только в одном места а именно в локалном сторе
+    // fixme может быть ты можешь хранить пресет только в одном места а именно в локалном сторе  ok
     show() {
         this.$context.addClass('show');
     }

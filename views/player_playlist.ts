@@ -23,7 +23,7 @@ class PlayerPlaylist
 
         this.player.$context.on(Player.EVENT_ERROR, () =>
         {
-            this.disabled();
+            // this.disabled();
         });
 
         this.player.$context.on(Player.EVENT_UPDATE_REPEAT_PLAYLIST, () =>
@@ -31,10 +31,15 @@ class PlayerPlaylist
             this.setActiveRepeat();
         });
 
-        this.player.$context.on(Player.EVENT_ENDED +' || '+ Player.EVENT_ERROR,() =>
+        this.player.$context.on(Player.EVENT_ENDED ,() =>
         {
             this.player.next();
             this.player.play();
+        });
+
+        this.player.$context.on(Player.EVENT_ERROR,() =>
+        {
+            this.player.pause();
         });
 
         this.$context.on(PlayerPlaylist.EVENT_UPDATE_PLAYLIST, () =>
@@ -92,13 +97,13 @@ class PlayerPlaylist
             this.player.getIndexSongCurrent()
         );
 
-        this.player.loadSongPlayer(this.player.songPlayer, playlist_new);
-
         if (    playlist_id === playlist_new.id
             &&  playlist_new.songsPlayer.length > 2
         ) {
             this.shufflePlaylist();
         }
+
+        this.player.loadSongPlayer(this.player.songPlayer, playlist_new);
 
         this.$context.trigger(PlayerPlaylist.EVENT_UPDATE_PLAYLIST);
     }

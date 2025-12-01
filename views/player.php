@@ -20,6 +20,7 @@
 
         <?php require __DIR__ . '/player_volume.php'; ?>
         <?php require __DIR__ . '/player_info.php'; ?>
+        <?php require __DIR__ . '/player_alert.php'; ?>
     </div>
 
 </div>

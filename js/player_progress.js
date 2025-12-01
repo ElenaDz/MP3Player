@@ -23,7 +23,7 @@ class PlayerProgress {
             this.player.currentTime = this.slider.value;
         });
         this.player.$context.on(Player.EVENT_ERROR, () => {
-            this.disabled();
+            // this.disabled();
         });
     }
     disabled() {

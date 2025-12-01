@@ -24,7 +24,7 @@ class PlayerControls
 
         this.player.$context.on(Player.EVENT_ERROR,() =>
         {
-            this.disabled();
+            // this.disabled();
         });
 
         this.initPlay();

@@ -253,6 +253,7 @@
   }
 }
 .b_player_playlist .b_popup {
+  display: flex;
   position: absolute;
   transform: translate(30%, -100%);
   width: 900px;
@@ -840,6 +841,33 @@
   box-shadow: 0 0 4px #CCCCCC;
   background-color: white;
   border-radius: 8px;
+}
+
+.alert {
+  display: flex !important;
+  justify-content: center;
+  flex-direction: column;
+  align-items: start;
+  box-sizing: content-box;
+  bottom: 79px;
+  right: 50px;
+  padding: 16px;
+  max-width: 240px;
+  color: #666666;
+  opacity: 0;
+}
+.alert.show {
+  opacity: 1;
+}
+.alert h3 {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  margin: 0 0 10px;
+}
+.alert span {
+  display: flex;
+  justify-content: start;
 }
 
 .b_player {

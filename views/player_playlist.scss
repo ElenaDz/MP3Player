@@ -73,6 +73,7 @@
   }
 
   .b_popup {
+    display: flex;
     position: absolute;
     transform: translate(30%, -100%);
     width: 900px;

@@ -12,7 +12,7 @@ class PlayerControls {
             this.updateDisabled();
         });
         this.player.$context.on(Player.EVENT_ERROR, () => {
-            this.disabled();
+            // this.disabled();
         });
         this.initPlay();
         this.initNext();
