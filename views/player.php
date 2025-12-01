@@ -23,4 +23,6 @@
         <?php require __DIR__ . '/player_alert.php'; ?>
     </div>
 
+    <!-- todo подходящее место для алерта -->
+
 </div>
