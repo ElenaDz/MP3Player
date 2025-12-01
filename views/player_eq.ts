@@ -12,15 +12,13 @@ const EQ_PRESETS: Record<"Default" | "Disco" | "Rok"| "Dance"| "Rap"| "Minimal"|
     Rap: {name: "Rap", preamp: 1.36, bands: [-2.6, -0.5, 1.5, 3.3, 1.5, -0.5, 2.5, -4.5, -2.8, -0.9]},
     Minimal: {name: "Minimal", preamp: 2.2, bands: [2, 2.5, -0.5, -2.5, -2, -0.5, 4, -4.5, -4.5, 4]},
     Funk: {name: "Funk", preamp: 3.7, bands: [4.1, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4]},
-    // fixme кажется это лишнее и это нужно удалить, если вдруг нужны значение по умолчанию их можно взять в Default
-    Custom: {name: "Custom", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+    Custom: null
 };
-
-// fixme занести внутрь класса PlayerEQ, как readonly если слово const там не допустимо ok
-// fixme кажется больше не нужна, можно удалить, из за того что ключи теперь не строки, а свойства, а их ide понимает ok
 
 class PlayerEQ
 {
+    // fixme избавимся от этого события в пользу двух других EVENT_UPDATE_BANDS (генерируется в setBands) и
+    //  EVENT_UPDATE_PREAMP (генерируется в set preamp)
     static readonly EVENT_UPDATE_BANDS_PREAMP = 'PlayerEQ.EVENT_UPDATE_BANDS_PREAMP';
 
     private $context: JQuery;
@@ -53,8 +51,6 @@ class PlayerEQ
 
         this.sliders.forEach((slider, index) =>
         {
-            // fixme нельзя работать с dom компонентов напрямую, ты должна работать с методами и свойствами компонента,
-            //  у слайдера есть свойство disabled ok
             slider.disabled = false;
         })
 
@@ -98,7 +94,8 @@ class PlayerEQ
 
             for (const key in EQ_PRESETS) {
 
-                if (key == preset_name) {
+                if (key == preset_name)
+                {
                     this.eq.loadPreset(EQ_PRESETS[key]);
 
                     this.preset = (EQ_PRESETS[key]);
@@ -114,32 +111,35 @@ class PlayerEQ
             {
                 this.$context.find('.preset input').prop('checked', 0);
 
-                // fixme здесь ты должна менять то что у тебя храниться в presetStore, а не коснтанту EQ_PRESETS.Custom ( не знаю как обойтись без Кастомного пресета)
+                let preset:Preset = {
+                    name: 'Custom',
+                    preamp: 0,
+                    bands: []
+                };
 
-                EQ_PRESETS.Custom.preamp = +this.slider_preamp.value.toFixed(2);
+                preset.preamp = +this.slider_preamp.value.toFixed(2);
 
                 this.sliders_bands.forEach((slider, index) =>
                 {
-                    EQ_PRESETS.Custom.bands[index] = +slider.value.toFixed(2);
+                    preset.bands[index] = +slider.value.toFixed(2);
                 })
 
-                // fixme здесь запись в стор
-                this.preset = EQ_PRESETS.Custom;
+                this.preset = preset;
 
                 this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP);
             });
-        })
+        });
 
+
+        // fixme здесь вместо работы с sliders лучше отдельно работать с slider_preamp и sliders_bands
         this.sliders.forEach((slider, index) =>
         {
             slider.$context.on(SliderEvents.ValueUpdate, ( ) =>
             {
-                // fixme в слайдере на сколько я помню значение с -5 до 5, это не частота ok
                 let value = slider.value;
 
+                // fixme это проверка должна быть внутри setBand и сетера preamp
                 if (value < slider.value_min || value > slider.value_max) {
-                    // fixme в консоле ты увидишь ошибку "Invalid eq 6" через год, тебе будет понятно что это значит? ok
-                    //  Напиши понятное сообщение об ошибке ok
                     throw new Error(`Недопустимое значение EQ "${value}". Диапозон от -5 до 5.`);
                 }
 
@@ -202,7 +202,6 @@ class PlayerEQ
         equalizerManager.enable();
         this.eq = equalizerManager.equalizer;
 
-        // fixme ни когда не бывает пустой ok
         this.eq.loadPreset(this.preset);
 
         this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP);
@@ -213,7 +212,8 @@ class PlayerEQ
     private get preset(): Preset
     {
         let preset_store = localStorage.getItem(this.KEY_LOCAL_STORE_PRESET);
-        // fixme обращение к локальному стору нужно вынести в переменую ok
+
+        // fixme здесь больше подходит тернарный оператор чем if
         if (preset_store) {
             return JSON.parse(preset_store);
         } else {
@@ -224,11 +224,17 @@ class PlayerEQ
     private set preset(preset: Preset)
     {
         localStorage.setItem(this.KEY_LOCAL_STORE_PRESET, JSON.stringify(preset));
-    }
 
-        // fixme сохраняешь пресет но при этом не загружаешь данные из него в эквалайзер, а нужно, и делать это надо
-        //  с помощью с prep и setBand
-        // fixme может быть ты можешь хранить пресет только в одном места а именно в локалном сторе  ok
+        // добавлен чтобы не ломать твой код
+        return;
+        // fixme сохраняешь preet но при этом не загружаешь данные из него в эквалайзер, а нужно, и делать это надо
+        //  с помощью с preamp и setBand ниже примерный код как это должно быть
+        this.preamp = preset.preamp;
+        preset.bands.forEach((band, index) =>
+        {
+            this.setBand(index, band);
+        });
+    }
 
     private show()
     {
