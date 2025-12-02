@@ -1,0 +1,7 @@
+.alert {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: start;
+  box-sizing: content-box;
+}
