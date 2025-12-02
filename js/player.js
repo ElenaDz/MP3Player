@@ -11,11 +11,11 @@ class Player {
         this.initCreate();
         this.initEventsAudio();
         this.$context.on(Player.EVENT_ERROR, () => {
-            // fixme перенеси этот код в метод alert, я его создал ниже
-            this.$context.find('.alert').addClass('show');
-            setTimeout(() => {
-                this.$context.find('.show').removeClass('show');
-            }, 6000);
+            // fixme перенеси этот код в метод alert, я его создал ниже ok
+            this.alert('Ошибка', 'Трек не доступен или ссылка устарела. Пожалуйста, обновите сраницу.');
+        });
+        this.$context.find('.alert').on('click', (alert) => {
+            $(alert.currentTarget).removeClass('show');
         });
     }
     initCreate() {
@@ -172,6 +172,12 @@ class Player {
         return !this.audio.paused;
     }
     alert(title, msg) {
+        this.$context.find('.alert').addClass('show');
+        this.$context.find('.alert .title').text(title);
+        this.$context.find('.alert .msg').text(msg);
+        setTimeout(() => {
+            this.$context.find('.alert').removeClass('show');
+        }, 6000);
     }
     static create($context = $('.b_player')) {
         return new Player($context);

@@ -844,7 +844,7 @@
 }
 
 .alert {
-  display: flex !important;
+  display: none;
   justify-content: center;
   flex-direction: column;
   align-items: start;
@@ -854,10 +854,11 @@
   padding: 16px;
   max-width: 240px;
   color: #666666;
-  opacity: 0;
+  cursor: default;
+  z-index: -5;
 }
 .alert.show {
-  opacity: 1;
+  display: flex !important;
 }
 .alert h3 {
   width: 100%;
@@ -868,6 +869,7 @@
 .alert span {
   display: flex;
   justify-content: start;
+  cursor: default;
 }
 
 .b_player {

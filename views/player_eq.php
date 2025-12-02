@@ -1,5 +1,5 @@
 
-<div class="b_player_eq">
+<div class="b_player_eq show">
     <button class="eq elem""></button>
 
     <div class="b_popup">

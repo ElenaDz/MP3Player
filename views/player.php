@@ -20,9 +20,11 @@
 
         <?php require __DIR__ . '/player_volume.php'; ?>
         <?php require __DIR__ . '/player_info.php'; ?>
-        <?php require __DIR__ . '/player_alert.php'; ?>
     </div>
 
-    <!-- todo подходящее место для алерта -->
-
+    <!-- todo подходящее место для алерта ok-->
+    <div class="alert b_popup">
+        <h3 class="title"></h3>
+        <span class="msg"></span>
+    </div>
 </div>

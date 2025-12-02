@@ -20,6 +20,8 @@ class PlayerEQ
     // fixme избавимся от этого события в пользу двух других EVENT_UPDATE_BANDS (генерируется в setBands) и
     //  EVENT_UPDATE_PREAMP (генерируется в set preamp)
     static readonly EVENT_UPDATE_BANDS_PREAMP = 'PlayerEQ.EVENT_UPDATE_BANDS_PREAMP';
+    static readonly EVENT_UPDATE_BANDS = 'PlayerEQ.EVENT_UPDATE_BANDS';
+    static readonly EVENT_UPDATE_PREAMP = 'PlayerEQ.EVENT_UPDATE_PREAMP';
 
     private $context: JQuery;
     private player: Player;
@@ -54,22 +56,22 @@ class PlayerEQ
             slider.disabled = false;
         })
 
-        this.$context.on(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP, () => {
-            this.sliders.forEach((slider, index) =>
+        this.$context.on(PlayerEQ.EVENT_UPDATE_BANDS, () => {
+            this.sliders_bands.forEach((slider, index) =>
             {
                 let slader_value = +slider.value.toFixed(2);
 
-                if (index == 0) {
-                    if ( slader_value != this.preamp) {
-                        slider.value = this.preamp;
-                    }
-
-                } else {
-                    if (slader_value != this.getBand(index-1)) {
-                        slider.value = this.getBand(index-1);
-                    }
+                if (slader_value != this.getBand(index)) {
+                    slider.value = this.getBand(index);
                 }
             })
+        });
+
+        this.$context.on(PlayerEQ.EVENT_UPDATE_PREAMP, () =>
+        {
+            if ( this.slider_preamp.value != this.preamp) {
+                this.slider_preamp.value = this.preamp;
+            }
         });
 
         this.initEq();
@@ -96,13 +98,9 @@ class PlayerEQ
 
                 if (key == preset_name)
                 {
-                    this.eq.loadPreset(EQ_PRESETS[key]);
-
                     this.preset = (EQ_PRESETS[key]);
                 }
             }
-
-            this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP);
         });
 
         this.sliders.forEach((slider, index) =>
@@ -125,30 +123,22 @@ class PlayerEQ
                 })
 
                 this.preset = preset;
-
-                this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP);
             });
         });
 
+        this.slider_preamp.$context.on(SliderEvents.ValueUpdate, ( ) =>
+        {
+            this.preamp = this.slider_preamp.value;
+        });
 
-        // fixme здесь вместо работы с sliders лучше отдельно работать с slider_preamp и sliders_bands
-        this.sliders.forEach((slider, index) =>
+        // fixme здесь вместо работы с sliders лучше отдельно работать с slider_preamp и sliders_bands  ok
+        this.sliders_bands.forEach((slider, index) =>
         {
             slider.$context.on(SliderEvents.ValueUpdate, ( ) =>
             {
-                let value = slider.value;
-
                 // fixme это проверка должна быть внутри setBand и сетера preamp
-                if (value < slider.value_min || value > slider.value_max) {
-                    throw new Error(`Недопустимое значение EQ "${value}". Диапозон от -5 до 5.`);
-                }
 
-                if (index !== 0) {
-                    this.setBand(index-1, value)
-
-                } else {
-                    this.preamp = value;
-                }
+                this.setBand(index, slider.value)
             });
         })
     }
@@ -202,9 +192,7 @@ class PlayerEQ
         equalizerManager.enable();
         this.eq = equalizerManager.equalizer;
 
-        this.eq.loadPreset(this.preset);
-
-        this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP);
+        this.preset = this.preset;
 
        this.updateChecked(this.preset.name);
     }
@@ -213,23 +201,18 @@ class PlayerEQ
     {
         let preset_store = localStorage.getItem(this.KEY_LOCAL_STORE_PRESET);
 
-        // fixme здесь больше подходит тернарный оператор чем if
-        if (preset_store) {
-            return JSON.parse(preset_store);
-        } else {
-            return EQ_PRESETS.Default;
-        }
+        // fixme здесь больше подходит тернарный оператор чем if ok
+         return preset_store ? JSON.parse(preset_store) : EQ_PRESETS.Default;
     }
 
     private set preset(preset: Preset)
     {
         localStorage.setItem(this.KEY_LOCAL_STORE_PRESET, JSON.stringify(preset));
 
-        // добавлен чтобы не ломать твой код
-        return;
         // fixme сохраняешь preet но при этом не загружаешь данные из него в эквалайзер, а нужно, и делать это надо
         //  с помощью с preamp и setBand ниже примерный код как это должно быть
         this.preamp = preset.preamp;
+
         preset.bands.forEach((band, index) =>
         {
             this.setBand(index, band);
@@ -258,7 +241,12 @@ class PlayerEQ
 
     public set preamp(preamp: number)
     {
+        // if (value < slider.value_min || value > slider.value_max) {
+        //     throw new Error(`Недопустимое значение EQ "${value}". Диапозон от -5 до 5.`);
+        // }
         this.eq.preamp.setValue(preamp);
+
+        this.$context.trigger(PlayerEQ.EVENT_UPDATE_PREAMP);
     }
 
     public get preamp(): number
@@ -268,10 +256,13 @@ class PlayerEQ
 
     public setBand(index: number, value: number)
     {
+        // if (value < slider.value_min || value > slider.value_max) {
+        //     throw new Error(`Недопустимое значение EQ "${value}". Диапозон от -5 до 5.`);
+        // }
         // просто пример кода, допиши/исправь как нужно
         this.eq.bands[index].setValue(value);
 
-        this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS_PREAMP);
+        this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS);
     }
 
     public getBand(index: number): number
