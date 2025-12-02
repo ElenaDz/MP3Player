@@ -1,5 +1,5 @@
 
-<div class="b_player_eq show">
+<div class="b_player_eq">
     <button class="eq elem""></button>
 
     <div class="b_popup">
@@ -20,14 +20,10 @@
                         'Funk' => 'Фонк'
                     ];
 
-                    // fixme попробуй поставить 6, имя "По умолчанию" занимает две строки, исправь с помощью white-space: nowrap; ok
-                    // fixme если поставить 7 то вообще выпадающий список не нужен, добавь проверку нужен он или нет ok
                     $show = 5;
 
                     $presets_show = array_slice($presets, 0, $show+1);
                     $presets_hide = array_slice($presets, $show+1);
-
-                    // fixme переименую $preset_name_rus > $preset_name а $preset_name_eng > $preset_id ok
                     ?>
                     <?php foreach ($presets_show as $preset_id => $preset_name): ?>
 

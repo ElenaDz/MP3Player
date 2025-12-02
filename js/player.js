@@ -11,6 +11,7 @@ class Player {
         this.initCreate();
         this.initEventsAudio();
         this.$context.on(Player.EVENT_ERROR, () => {
+            // fixme перенеси этот код в метод alert, я его создал ниже
             this.$context.find('.alert').addClass('show');
             setTimeout(() => {
                 this.$context.find('.show').removeClass('show');
@@ -169,6 +170,8 @@ class Player {
     }
     get playing() {
         return !this.audio.paused;
+    }
+    alert(title, msg) {
     }
     static create($context = $('.b_player')) {
         return new Player($context);

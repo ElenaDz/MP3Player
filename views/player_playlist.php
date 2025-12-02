@@ -1,8 +1,6 @@
 <div class="b_player_playlist disabled">
 
     <div class="order">
-        <!--
-        fixme если воспроизведение поставлено на паузу, нажатие на эту кнопку приводит к началу воспроизведения, а не должно ok-->
         <button class="shuffle elem" title="Перемешать"></button>
         <button class="repeat_playlist elem" title="Повторять плейлист"></button>
     </div>
