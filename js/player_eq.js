@@ -76,7 +76,7 @@ class PlayerEQ {
         // fixme здесь вместо работы с sliders лучше отдельно работать с slider_preamp и sliders_bands  ok
         this.sliders_bands.forEach((slider, index) => {
             slider.$context.on(SliderEvents.ValueUpdate, () => {
-                // fixme это проверка должна быть внутри setBand и сетера preamp
+                // fixme это проверка должна быть внутри setBand и сетера preamp ok
                 this.setBand(index, slider.value);
             });
         });
@@ -115,7 +115,7 @@ class PlayerEQ {
         equalizerManager.enable();
         this.eq = equalizerManager.equalizer;
         this.preset = this.preset;
-        this.updateChecked(this.preset.name);
+        this.$context.find(`[data-preset_name='${this.preset.name}']`).prop('checked', 1);
     }
     get preset() {
         let preset_store = localStorage.getItem(this.KEY_LOCAL_STORE_PRESET);
@@ -123,13 +123,13 @@ class PlayerEQ {
         return preset_store ? JSON.parse(preset_store) : EQ_PRESETS.Default;
     }
     set preset(preset) {
-        localStorage.setItem(this.KEY_LOCAL_STORE_PRESET, JSON.stringify(preset));
         // fixme сохраняешь preet но при этом не загружаешь данные из него в эквалайзер, а нужно, и делать это надо
-        //  с помощью с preamp и setBand ниже примерный код как это должно быть
+        //  с помощью с preamp и setBand ниже примерный код как это должно быть ok
         this.preamp = preset.preamp;
         preset.bands.forEach((band, index) => {
             this.setBand(index, band);
         });
+        localStorage.setItem(this.KEY_LOCAL_STORE_PRESET, JSON.stringify(preset));
     }
     show() {
         this.$context.addClass('show');
@@ -143,38 +143,38 @@ class PlayerEQ {
     disabled(disabled = true) {
         disabled ? this.$context.addClass('disabled') : this.$context.removeClass('disabled');
     }
-    set preamp(preamp) {
-        // if (value < slider.value_min || value > slider.value_max) {
-        //     throw new Error(`Недопустимое значение EQ "${value}". Диапозон от -5 до 5.`);
-        // }
-        this.eq.preamp.setValue(preamp);
-        this.$context.trigger(PlayerEQ.EVENT_UPDATE_PREAMP);
+    set preamp(preamp_value) {
+        if (preamp_value < this.slider_preamp.value_min || preamp_value > this.slider_preamp.value_max) {
+            throw new Error(`Недопустимое значение Preamp = "${preamp_value.toFixed(2)}". 
+                Диапозон от "${this.slider_preamp.value_min}" до "${this.slider_preamp.value_max}".`);
+        }
+        if (this.eq.preamp.getValue().toFixed(2) != preamp_value.toFixed(2)) {
+            this.eq.preamp.setValue(preamp_value);
+            this.$context.trigger(PlayerEQ.EVENT_UPDATE_PREAMP);
+        }
     }
     get preamp() {
         return +this.eq.preamp.getValue().toFixed(2);
     }
     setBand(index, value) {
-        // if (value < slider.value_min || value > slider.value_max) {
-        //     throw new Error(`Недопустимое значение EQ "${value}". Диапозон от -5 до 5.`);
-        // }
-        // просто пример кода, допиши/исправь как нужно
-        this.eq.bands[index].setValue(value);
-        this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS);
+        if (value < this.sliders_bands[index].value_min || value > this.sliders_bands[index].value_max) {
+            throw new Error(`Недопустимое значение Band["${index}"] = "${value}". 
+                Диапозон от "${this.sliders_bands[index].value_min}" до "${this.sliders_bands[index].value_max}".`);
+        }
+        if (this.eq.bands[index].getValue().toFixed(2) != value.toFixed(2)) {
+            this.eq.bands[index].setValue(value);
+            this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS);
+        }
     }
     getBand(index) {
-        // просто пример кода, допиши/исправь как нужно
         return +this.eq.bands[index].getValue().toFixed(2);
     }
-    // fixme не нужно выность это в метод
-    updateChecked(name) {
-        this.$context.find(`[data-preset_name='${name}']`).prop('checked', 1);
-    }
+    // fixme не нужно выность это в метод ok
     static create($context = $('.b_player_eq')) {
         return new PlayerEQ($context);
     }
 }
 // fixme избавимся от этого события в пользу двух других EVENT_UPDATE_BANDS (генерируется в setBands) и
-//  EVENT_UPDATE_PREAMP (генерируется в set preamp)
-PlayerEQ.EVENT_UPDATE_BANDS_PREAMP = 'PlayerEQ.EVENT_UPDATE_BANDS_PREAMP';
+//  EVENT_UPDATE_PREAMP (генерируется в set preamp) ok
 PlayerEQ.EVENT_UPDATE_BANDS = 'PlayerEQ.EVENT_UPDATE_BANDS';
 PlayerEQ.EVENT_UPDATE_PREAMP = 'PlayerEQ.EVENT_UPDATE_PREAMP';

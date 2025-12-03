@@ -18,8 +18,7 @@ const EQ_PRESETS: Record<"Default" | "Disco" | "Rok"| "Dance"| "Rap"| "Minimal"|
 class PlayerEQ
 {
     // fixme избавимся от этого события в пользу двух других EVENT_UPDATE_BANDS (генерируется в setBands) и
-    //  EVENT_UPDATE_PREAMP (генерируется в set preamp)
-    static readonly EVENT_UPDATE_BANDS_PREAMP = 'PlayerEQ.EVENT_UPDATE_BANDS_PREAMP';
+    //  EVENT_UPDATE_PREAMP (генерируется в set preamp) ok
     static readonly EVENT_UPDATE_BANDS = 'PlayerEQ.EVENT_UPDATE_BANDS';
     static readonly EVENT_UPDATE_PREAMP = 'PlayerEQ.EVENT_UPDATE_PREAMP';
 
@@ -28,7 +27,6 @@ class PlayerEQ
     private sliders: Slider[];
     private slider_preamp: Slider;
     private sliders_bands: Slider[];
-    private _preset: Preset;
     private eq : Equalizer;
 
     private KEY_LOCAL_STORE_PRESET = 'PlayerEQ.KEY_LOCAL_STORE_PRESET';
@@ -96,8 +94,7 @@ class PlayerEQ
 
             for (const key in EQ_PRESETS) {
 
-                if (key == preset_name)
-                {
+                if (key == preset_name) {
                     this.preset = (EQ_PRESETS[key]);
                 }
             }
@@ -136,9 +133,8 @@ class PlayerEQ
         {
             slider.$context.on(SliderEvents.ValueUpdate, ( ) =>
             {
-                // fixme это проверка должна быть внутри setBand и сетера preamp
-
-                this.setBand(index, slider.value)
+                // fixme это проверка должна быть внутри setBand и сетера preamp ok
+                this.setBand(index, slider.value);
             });
         })
     }
@@ -194,7 +190,7 @@ class PlayerEQ
 
         this.preset = this.preset;
 
-       this.updateChecked(this.preset.name);
+        this.$context.find(`[data-preset_name='${this.preset.name}']`).prop('checked', 1);
     }
 
     private get preset(): Preset
@@ -207,16 +203,16 @@ class PlayerEQ
 
     private set preset(preset: Preset)
     {
-        localStorage.setItem(this.KEY_LOCAL_STORE_PRESET, JSON.stringify(preset));
-
         // fixme сохраняешь preet но при этом не загружаешь данные из него в эквалайзер, а нужно, и делать это надо
-        //  с помощью с preamp и setBand ниже примерный код как это должно быть
+        //  с помощью с preamp и setBand ниже примерный код как это должно быть ok
         this.preamp = preset.preamp;
 
         preset.bands.forEach((band, index) =>
         {
             this.setBand(index, band);
         });
+
+        localStorage.setItem(this.KEY_LOCAL_STORE_PRESET, JSON.stringify(preset));
     }
 
     private show()
@@ -239,14 +235,19 @@ class PlayerEQ
         disabled ? this.$context.addClass('disabled') : this.$context.removeClass('disabled');
     }
 
-    public set preamp(preamp: number)
+    public set preamp(preamp_value: number)
     {
-        // if (value < slider.value_min || value > slider.value_max) {
-        //     throw new Error(`Недопустимое значение EQ "${value}". Диапозон от -5 до 5.`);
-        // }
-        this.eq.preamp.setValue(preamp);
+        if (preamp_value < this.slider_preamp.value_min || preamp_value > this.slider_preamp.value_max) {
+            throw new Error
+                (`Недопустимое значение Preamp = "${preamp_value.toFixed(2)}". 
+                Диапозон от "${this.slider_preamp.value_min}" до "${this.slider_preamp.value_max}".`);
+        }
 
-        this.$context.trigger(PlayerEQ.EVENT_UPDATE_PREAMP);
+        if (this.eq.preamp.getValue().toFixed(2) != preamp_value.toFixed(2)) {
+            this.eq.preamp.setValue(preamp_value);
+
+            this.$context.trigger(PlayerEQ.EVENT_UPDATE_PREAMP);
+        }
     }
 
     public get preamp(): number
@@ -256,27 +257,24 @@ class PlayerEQ
 
     public setBand(index: number, value: number)
     {
-        // if (value < slider.value_min || value > slider.value_max) {
-        //     throw new Error(`Недопустимое значение EQ "${value}". Диапозон от -5 до 5.`);
-        // }
-        // просто пример кода, допиши/исправь как нужно
-        this.eq.bands[index].setValue(value);
+        if (value < this.sliders_bands[index].value_min || value > this.sliders_bands[index].value_max) {
+            throw new Error
+                (`Недопустимое значение Band["${index}"] = "${value}". 
+                Диапозон от "${this.sliders_bands[index].value_min}" до "${this.sliders_bands[index].value_max}".`);
+        }
 
-        this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS);
+        if (this.eq.bands[index].getValue().toFixed(2) != value.toFixed(2)) {
+            this.eq.bands[index].setValue(value);
+            this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS);
+        }
     }
 
     public getBand(index: number): number
     {
-        // просто пример кода, допиши/исправь как нужно
         return +this.eq.bands[index].getValue().toFixed(2);
     }
 
-    // fixme не нужно выность это в метод
-    private updateChecked(name: string)
-    {
-        this.$context.find(`[data-preset_name='${name}']`).prop('checked', 1);
-    }
-
+    // fixme не нужно выность это в метод ok
     public static create($context = $('.b_player_eq')): PlayerEQ
     {
         return new PlayerEQ($context);

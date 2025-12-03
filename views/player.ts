@@ -55,6 +55,12 @@ class Player
         {
             $(alert.currentTarget).removeClass('show');
         });
+
+        this.$context.on(Player.EVENT_LOADED_META_DATA,() =>
+        {
+            // можно ли в этом случае обращаться к dom элементу?
+            this.$context.find('.alert').removeClass('show');
+        })
     }
 
     private initCreate()
@@ -248,7 +254,10 @@ class Player
 
     public play()
     {
-        this.audio.play();
+        this.audio.play().then(() => {
+        }).catch(error => {
+           this.$context.trigger(Player.EVENT_ERROR)
+        });
     }
 
     public pause()
@@ -304,7 +313,6 @@ class Player
     {
         return ! this.audio.paused;
     }
-
 
     public alert(title: string, msg: string)
     {

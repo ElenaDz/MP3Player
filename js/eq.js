@@ -44,7 +44,7 @@ class Equalizer {
         this.output = this.bands[this.bands.length - 1].filter;
     }
     // fixme кажеться этот метод лишний в нашем случает и им лучше не пользоваться чтобы избежать ошибок,
-    //  у нас есть preap и setBand для этого, важно использовать именно их чтобы все работало корректно
+    //  у нас есть preap и setBand для этого, важно использовать именно их чтобы все работало корректно ok
     loadPreset(preset) {
         preset.bands.forEach((value, i) => {
             this.bands[i].setValue(value);
