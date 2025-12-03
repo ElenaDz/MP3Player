@@ -9,8 +9,6 @@
 @import "player_info";
 @import "player_hq";
 @import "player_eq";
-@import "popup";
-@import "player_alert";
 
 // fixme исправить все цвета в соответствии с шаблоном в figma, для проверки цвета можно использовать Just Color Picker
 .b_player {
@@ -158,6 +156,48 @@
         display: none;
       }
     }
+  }
+
+  .alert {
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+    align-items: start;
+    box-sizing: content-box;
+    bottom: 79px;
+    right: 50px;
+    padding: 16px;
+    max-width: 240px;
+    color: #666666;
+    cursor: default;
+    // fixme alert должен быть поверх всех других элементов а ты его наоборот спрятала тут должно быть что то вроде 999
+    z-index: -5;
+
+    &.show {
+      display: flex!important;
+    }
+
+    h3 {
+      width: 100%;
+      display: flex;
+      justify-content: start;
+      margin: 0 0 10px;
+    }
+
+    span {
+      display: flex;
+      justify-content: start;
+      cursor: default;
+    }
+  }
+
+  .b_popup {
+    display: none;
+    position: absolute;
+    border: 1px solid #CCCCCC;
+    box-shadow: 0 0 4px #CCCCCC;
+    background-color: white;
+    border-radius: 8px;
   }
 }
 

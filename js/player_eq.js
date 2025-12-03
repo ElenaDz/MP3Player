@@ -73,10 +73,8 @@ class PlayerEQ {
         this.slider_preamp.$context.on(SliderEvents.ValueUpdate, () => {
             this.preamp = this.slider_preamp.value;
         });
-        // fixme здесь вместо работы с sliders лучше отдельно работать с slider_preamp и sliders_bands  ok
         this.sliders_bands.forEach((slider, index) => {
             slider.$context.on(SliderEvents.ValueUpdate, () => {
-                // fixme это проверка должна быть внутри setBand и сетера preamp ok
                 this.setBand(index, slider.value);
             });
         });
@@ -119,12 +117,9 @@ class PlayerEQ {
     }
     get preset() {
         let preset_store = localStorage.getItem(this.KEY_LOCAL_STORE_PRESET);
-        // fixme здесь больше подходит тернарный оператор чем if ok
         return preset_store ? JSON.parse(preset_store) : EQ_PRESETS.Default;
     }
     set preset(preset) {
-        // fixme сохраняешь preet но при этом не загружаешь данные из него в эквалайзер, а нужно, и делать это надо
-        //  с помощью с preamp и setBand ниже примерный код как это должно быть ok
         this.preamp = preset.preamp;
         preset.bands.forEach((band, index) => {
             this.setBand(index, band);
@@ -146,7 +141,7 @@ class PlayerEQ {
     set preamp(preamp_value) {
         if (preamp_value < this.slider_preamp.value_min || preamp_value > this.slider_preamp.value_max) {
             throw new Error(`Недопустимое значение Preamp = "${preamp_value.toFixed(2)}". 
-                Диапозон от "${this.slider_preamp.value_min}" до "${this.slider_preamp.value_max}".`);
+                Диапазон от "${this.slider_preamp.value_min}" до "${this.slider_preamp.value_max}".`);
         }
         if (this.eq.preamp.getValue().toFixed(2) != preamp_value.toFixed(2)) {
             this.eq.preamp.setValue(preamp_value);
@@ -157,24 +152,25 @@ class PlayerEQ {
         return +this.eq.preamp.getValue().toFixed(2);
     }
     setBand(index, value) {
+        // fixme лучше вынести в переменную this.sliders_bands[index]
         if (value < this.sliders_bands[index].value_min || value > this.sliders_bands[index].value_max) {
             throw new Error(`Недопустимое значение Band["${index}"] = "${value}". 
-                Диапозон от "${this.sliders_bands[index].value_min}" до "${this.sliders_bands[index].value_max}".`);
+                Диапазон от "${this.sliders_bands[index].value_min}" до "${this.sliders_bands[index].value_max}".`);
         }
+        // fixme не нужная вложенность Используй здесь return, проверок может быть много и что каждая из них будет создавать вложенность?
         if (this.eq.bands[index].getValue().toFixed(2) != value.toFixed(2)) {
             this.eq.bands[index].setValue(value);
+            // fixme вторым параметром здесь можно передать дополнительные параметры, здесь напрашивается передача index,
+            //  чтобы знать какой именно bands обновился
             this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS);
         }
     }
     getBand(index) {
         return +this.eq.bands[index].getValue().toFixed(2);
     }
-    // fixme не нужно выность это в метод ok
     static create($context = $('.b_player_eq')) {
         return new PlayerEQ($context);
     }
 }
-// fixme избавимся от этого события в пользу двух других EVENT_UPDATE_BANDS (генерируется в setBands) и
-//  EVENT_UPDATE_PREAMP (генерируется в set preamp) ok
 PlayerEQ.EVENT_UPDATE_BANDS = 'PlayerEQ.EVENT_UPDATE_BANDS';
 PlayerEQ.EVENT_UPDATE_PREAMP = 'PlayerEQ.EVENT_UPDATE_PREAMP';

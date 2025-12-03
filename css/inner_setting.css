@@ -1,8 +1,0 @@
-.inner_setting {
-  margin-left: 16px;
-}
-@media (max-width: 767px) {
-  .inner_setting {
-    display: none;
-  }
-}

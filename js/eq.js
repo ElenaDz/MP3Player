@@ -43,24 +43,6 @@ class Equalizer {
         this.input = this.preamp.filter;
         this.output = this.bands[this.bands.length - 1].filter;
     }
-    // fixme кажеться этот метод лишний в нашем случает и им лучше не пользоваться чтобы избежать ошибок,
-    //  у нас есть preap и setBand для этого, важно использовать именно их чтобы все работало корректно ok
-    loadPreset(preset) {
-        preset.bands.forEach((value, i) => {
-            this.bands[i].setValue(value);
-        });
-        this.preamp.setValue(preset.preamp);
-    }
-    savePreset() {
-        return {
-            preamp: this.preamp.getValue(),
-            bands: this.bands.map(b => b.getValue())
-        };
-    }
-    guessPreamp() {
-        const total = this.bands.reduce((sum, b) => sum + b.getValue(), 0);
-        return -total / 6;
-    }
 }
 // Обёртка EqualizerManager
 class EqualizerManager {

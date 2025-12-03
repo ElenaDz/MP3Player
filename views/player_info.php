@@ -1,5 +1,7 @@
 
 <div class="b_player_info disabled">
+
+    <!-- fixme должна быть картинка артиста в аудио расскажу подробнее  -->
     <div class="artist_img elem"></div>
 
     <div class="names">

@@ -22,7 +22,6 @@
         <?php require __DIR__ . '/player_info.php'; ?>
     </div>
 
-    <!-- todo подходящее место для алерта ok-->
     <div class="alert b_popup">
         <h3 class="title"></h3>
         <span class="msg"></span>

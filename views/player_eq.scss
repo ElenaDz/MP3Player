@@ -205,6 +205,7 @@
           }
         }
 
+        // fixme положение этого элемента зависит от выбранного пресета, а так не должно быть
         .other_presets {
           display: none;
           flex-direction: column;

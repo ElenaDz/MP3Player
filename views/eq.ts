@@ -2,10 +2,12 @@
 const DEFAULT_BAND_FREQUENCIES = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 
 // Класс Biquad-полосы
-class EQBand {
+class EQBand
+{
     filter: BiquadFilterNode;
     private type: any;
     private listeners: any[];
+
     constructor(context, type, frequency) {
         this.filter = context.context.createBiquadFilter();
         this.filter.type = type;
@@ -39,11 +41,13 @@ class EQBand {
 }
 
 // Класс Equalizer
-class Equalizer {
+class Equalizer
+{
     public preamp: EQBand;
     bands: any[];
     input: BiquadFilterNode;
     output: any;
+
     constructor(audioContext, bandsFrequencies = DEFAULT_BAND_FREQUENCIES) {
         this.preamp = new EQBand(audioContext, 'highshelf', 0);
         this.bands = [];
@@ -61,34 +65,15 @@ class Equalizer {
         this.input = this.preamp.filter;
         this.output = this.bands[this.bands.length - 1].filter;
     }
-
-    // fixme кажеться этот метод лишний в нашем случает и им лучше не пользоваться чтобы избежать ошибок,
-    //  у нас есть preap и setBand для этого, важно использовать именно их чтобы все работало корректно ok
-    loadPreset(preset) {
-        preset.bands.forEach((value, i) => {
-            this.bands[i].setValue(value);
-        });
-        this.preamp.setValue(preset.preamp);
-    }
-
-    savePreset() {
-        return {
-            preamp: this.preamp.getValue(),
-            bands: this.bands.map(b => b.getValue())
-        };
-    }
-
-    guessPreamp() {
-        const total = this.bands.reduce((sum, b) => sum + b.getValue(), 0);
-        return -total / 6;
-    }
 }
 
 // Обёртка EqualizerManager
-class EqualizerManager {
+class EqualizerManager
+{
     private audioContext: AudioContext;
     private audioSource: any;
     public equalizer: Equalizer;
+
     constructor(audioContext , audioSource) {
         this.audioContext = audioContext;
         this.audioSource = audioSource;

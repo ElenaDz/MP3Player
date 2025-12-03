@@ -496,7 +496,7 @@
   right: 45px;
   padding: 14px 16px 16px 16px;
   border-radius: 8px;
-  border: 1px solid rgb(237, 237, 237);
+  border: 1px solid #ededed;
   background-color: white;
   z-index: 10;
 }
@@ -512,8 +512,10 @@
 .b_player_info .inner_download .inner_favorite.is_favorite .b_popup {
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.5s ease-out; /* Плавное исчезновение за 0.5 секунды */
-  animation: fadeOut 5s forwards; /* Анимация исчезновения */
+  transition: opacity 0.5s ease-out;
+  /* Плавное исчезновение за 0.5 секунды */
+  animation: fadeOut 5s forwards;
+  /* Анимация исчезновения */
 }
 @keyframes fadeOut {
   from {
@@ -554,7 +556,7 @@
   right: 45px;
   padding: 16px;
   border-radius: 8px;
-  border: 1px solid rgb(237, 237, 237);
+  border: 1px solid #ededed;
   background-color: white;
 }
 .b_player_info .inner_download .inner_dots .b_popup div {
@@ -834,44 +836,6 @@
   background-repeat: no-repeat;
 }
 
-.b_popup {
-  display: none;
-  position: absolute;
-  border: 1px solid #CCCCCC;
-  box-shadow: 0 0 4px #CCCCCC;
-  background-color: white;
-  border-radius: 8px;
-}
-
-.alert {
-  display: none;
-  justify-content: center;
-  flex-direction: column;
-  align-items: start;
-  box-sizing: content-box;
-  bottom: 79px;
-  right: 50px;
-  padding: 16px;
-  max-width: 240px;
-  color: #666666;
-  cursor: default;
-  z-index: -5;
-}
-.alert.show {
-  display: flex !important;
-}
-.alert h3 {
-  width: 100%;
-  display: flex;
-  justify-content: start;
-  margin: 0 0 10px;
-}
-.alert span {
-  display: flex;
-  justify-content: start;
-  cursor: default;
-}
-
 .b_player {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   position: fixed;
@@ -883,8 +847,8 @@
   z-index: 100;
   font-size: 14px;
   font-weight: 400;
-  border-top: 1px solid rgb(237, 237, 237);
-  box-shadow: 0 0 7px rgb(195, 195, 195);
+  border-top: 1px solid #ededed;
+  box-shadow: 0 0 7px #c3c3c3;
 }
 @media (max-width: 767px) {
   .b_player {
@@ -1010,4 +974,40 @@
   .b_player .inner_player .inner_setting {
     display: none;
   }
+}
+.b_player .alert {
+  display: none;
+  justify-content: center;
+  flex-direction: column;
+  align-items: start;
+  box-sizing: content-box;
+  bottom: 79px;
+  right: 50px;
+  padding: 16px;
+  max-width: 240px;
+  color: #666666;
+  cursor: default;
+  z-index: -5;
+}
+.b_player .alert.show {
+  display: flex !important;
+}
+.b_player .alert h3 {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  margin: 0 0 10px;
+}
+.b_player .alert span {
+  display: flex;
+  justify-content: start;
+  cursor: default;
+}
+.b_player .b_popup {
+  display: none;
+  position: absolute;
+  border: 1px solid #CCCCCC;
+  box-shadow: 0 0 4px #CCCCCC;
+  background-color: white;
+  border-radius: 8px;
 }

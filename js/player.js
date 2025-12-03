@@ -10,15 +10,15 @@ class Player {
         this.audio = this.$context.find('audio')[0];
         this.initCreate();
         this.initEventsAudio();
+        // fixme вынеси весь нижележащий код в метод initAlert
         this.$context.on(Player.EVENT_ERROR, () => {
-            // fixme перенеси этот код в метод alert, я его создал ниже ok
-            this.alert('Ошибка', 'Трек не доступен или ссылка устарела. Пожалуйста, обновите сраницу.');
+            this.alert('Ошибка', 'Трек не доступен или ссылка устарела. Пожалуйста, обновите страницу.');
         });
         this.$context.find('.alert').on('click', (alert) => {
             $(alert.currentTarget).removeClass('show');
         });
         this.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            // можно ли в этом случае обращаться к dom элементу?
+            // так как здесь работа с алертом сделана костыльно, то можно
             this.$context.find('.alert').removeClass('show');
         });
     }
@@ -179,6 +179,7 @@ class Player {
         return !this.audio.paused;
     }
     alert(title, msg) {
+        // fixme не слишком ли много повторов this.$context.find('.alert')
         this.$context.find('.alert').addClass('show');
         this.$context.find('.alert .title').text(title);
         this.$context.find('.alert .msg').text(msg);
