@@ -7,6 +7,12 @@
 
   @include for_phone {
     order: 1;
+
+    &.open {
+      .b_popup {
+        display: flex;
+      }
+    }
   };
 
   &.disabled {

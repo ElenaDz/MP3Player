@@ -203,6 +203,9 @@
   .b_player_playlist {
     order: 1;
   }
+  .b_player_playlist.open .b_popup {
+    display: flex;
+  }
 }
 .b_player_playlist.disabled .playlist_btn, .b_player_playlist.disabled .shuffle, .b_player_playlist.disabled .repeat_playlist {
   pointer-events: none;
@@ -496,7 +499,7 @@
   right: 45px;
   padding: 14px 16px 16px 16px;
   border-radius: 8px;
-  border: 1px solid #ededed;
+  border: 1px solid rgb(237, 237, 237);
   background-color: white;
   z-index: 10;
 }
@@ -512,10 +515,8 @@
 .b_player_info .inner_download .inner_favorite.is_favorite .b_popup {
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.5s ease-out;
-  /* Плавное исчезновение за 0.5 секунды */
-  animation: fadeOut 5s forwards;
-  /* Анимация исчезновения */
+  transition: opacity 0.5s ease-out; /* Плавное исчезновение за 0.5 секунды */
+  animation: fadeOut 5s forwards; /* Анимация исчезновения */
 }
 @keyframes fadeOut {
   from {
@@ -556,7 +557,7 @@
   right: 45px;
   padding: 16px;
   border-radius: 8px;
-  border: 1px solid #ededed;
+  border: 1px solid rgb(237, 237, 237);
   background-color: white;
 }
 .b_player_info .inner_download .inner_dots .b_popup div {
@@ -847,8 +848,8 @@
   z-index: 100;
   font-size: 14px;
   font-weight: 400;
-  border-top: 1px solid #ededed;
-  box-shadow: 0 0 7px #c3c3c3;
+  border-top: 1px solid rgb(237, 237, 237);
+  box-shadow: 0 0 7px rgb(195, 195, 195);
 }
 @media (max-width: 767px) {
   .b_player {
@@ -987,7 +988,13 @@
   max-width: 240px;
   color: #666666;
   cursor: default;
-  z-index: -5;
+  z-index: 999;
+}
+@media (max-width: 767px) {
+  .b_player .alert {
+    right: calc((100% - 274px) / 2);
+    bottom: 109px;
+  }
 }
 .b_player .alert.show {
   display: flex !important;

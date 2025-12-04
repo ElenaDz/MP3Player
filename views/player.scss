@@ -171,7 +171,12 @@
     color: #666666;
     cursor: default;
     // fixme alert должен быть поверх всех других элементов а ты его наоборот спрятала тут должно быть что то вроде 999
-    z-index: -5;
+    z-index: 999;
+
+    @include for_phone {
+      right:  calc((100% - 274px) / 2);
+      bottom: 109px;
+    }
 
     &.show {
       display: flex!important;
