@@ -426,18 +426,20 @@
   }
 }
 .b_player_info .artist_img {
+  display: flex;
   border-radius: 10px;
   background-color: #f0f1f4;
   margin-right: 10px;
   opacity: 1;
-  background-image: url("/img/note.svg");
-  background-repeat: no-repeat;
-  background-position: center;
 }
-@media (max-width: 1317px) {
+@media (max-width: 1024px) {
   .b_player_info .artist_img {
     display: none;
   }
+}
+.b_player_info .artist_img img {
+  display: flex;
+  border-radius: 10px;
 }
 .b_player_info .names {
   display: flex;
@@ -527,8 +529,12 @@
     visibility: hidden;
   }
 }
+.b_player_info .inner_download .inner_dots {
+  display: none;
+}
 @media (max-width: 767px) {
   .b_player_info .inner_download .inner_dots {
+    display: flex;
     position: absolute;
     left: 60px;
     top: 15px;
@@ -548,8 +554,8 @@
   display: none;
   flex-direction: column;
   align-items: start;
-  justify-content: space-between;
-  height: 120px;
+  justify-content: center;
+  height: fit-content;
   width: 222px;
   box-sizing: border-box;
   position: absolute;
@@ -559,6 +565,38 @@
   border-radius: 8px;
   border: 1px solid rgb(237, 237, 237);
   background-color: white;
+}
+@media (max-width: 767px) {
+  .b_player_info .inner_download .inner_dots .b_popup {
+    bottom: 64px;
+    left: -50px;
+    top: unset;
+    right: unset;
+  }
+  .b_player_info .inner_download .inner_dots .b_popup .hq, .b_player_info .inner_download .inner_dots .b_popup .eq {
+    width: 100%;
+    height: 24px;
+    display: flex;
+  }
+  .b_player_info .inner_download .inner_dots .b_popup .hq i, .b_player_info .inner_download .inner_dots .b_popup .eq i {
+    min-width: 35px;
+    opacity: 0.3;
+  }
+  .b_player_info .inner_download .inner_dots .b_popup .hq.show i, .b_player_info .inner_download .inner_dots .b_popup .eq.show i {
+    opacity: 0.7;
+  }
+  .b_player_info .inner_download .inner_dots .b_popup div:not(:last-child) {
+    margin-bottom: 10px;
+  }
+  .b_player_info .inner_download .inner_dots .b_popup .hq i {
+    background-image: url("/img/hq.svg");
+  }
+  .b_player_info .inner_download .inner_dots .b_popup .eq i {
+    background-image: url("/img/eq.svg");
+  }
+}
+.b_player_info .inner_download .inner_dots .b_popup .hq .eq {
+  display: none;
 }
 .b_player_info .inner_download .inner_dots .b_popup div {
   display: flex;
@@ -674,7 +712,7 @@
   display: flex;
 }
 .b_player_eq .eq {
-  background-image: url("/img/equalizer.svg");
+  background-image: url("/img/eq.svg");
   opacity: 0.7;
 }
 .b_player_eq .eq:hover {

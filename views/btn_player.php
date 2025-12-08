@@ -3,6 +3,7 @@
 /** @var string $file_name_hq */
 /** @var string $clicks */
 /** @var string $song_id */
+/** @var string $url_song_img */
 
 $song_title = strstr($file_name, '.', true);
 
@@ -21,6 +22,7 @@ list($artist_name, $song_name) = explode(' - ', $song_title);
                 data-url="/mp3s/<?= rawurlencode($file_name); ?>"
                 data-url_hq="/mp3s/<?= rawurlencode($file_name_hq); ?>"
                 data-clicks="<?= rawurlencode($clicks); ?>"
+                data-url_song_img="<?= $url_song_img ?? '/img/note.svg'; ?>"
             >
                 <button class="play"></button>
             </div>

@@ -152,18 +152,19 @@ class PlayerEQ {
         return +this.eq.preamp.getValue().toFixed(2);
     }
     setBand(index, value) {
-        // fixme лучше вынести в переменную this.sliders_bands[index]
-        if (value < this.sliders_bands[index].value_min || value > this.sliders_bands[index].value_max) {
+        // fixme лучше вынести в переменную this.sliders_bands[index] ok
+        let $slader_band = this.sliders_bands[index];
+        if (value < $slader_band.value_min || value > $slader_band.value_max) {
             throw new Error(`Недопустимое значение Band["${index}"] = "${value}". 
-                Диапазон от "${this.sliders_bands[index].value_min}" до "${this.sliders_bands[index].value_max}".`);
+                Диапазон от "${$slader_band.value_min}" до "${$slader_band.value_max}".`);
         }
-        // fixme не нужная вложенность Используй здесь return, проверок может быть много и что каждая из них будет создавать вложенность?
-        if (this.eq.bands[index].getValue().toFixed(2) != value.toFixed(2)) {
-            this.eq.bands[index].setValue(value);
-            // fixme вторым параметром здесь можно передать дополнительные параметры, здесь напрашивается передача index,
-            //  чтобы знать какой именно bands обновился
-            this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS);
-        }
+        // fixme не нужная вложенность Используй здесь return, проверок может быть много и что каждая из них будет создавать вложенность? ok
+        if (this.eq.bands[index].getValue().toFixed(2) == value.toFixed(2))
+            return;
+        this.eq.bands[index].setValue(value);
+        // fixme вторым параметром здесь можно передать дополнительные параметры, здесь напрашивается передача index,
+        //  чтобы знать какой именно bands обновился ok
+        this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS, index);
     }
     getBand(index) {
         return +this.eq.bands[index].getValue().toFixed(2);

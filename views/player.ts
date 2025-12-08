@@ -7,6 +7,7 @@ interface SongPlayer {
     songName: string;
     urlSong: string;
     clicks: number;
+    urlSongImg: string;
 }
 
 class Player
@@ -45,7 +46,24 @@ class Player
 
         this.initEventsAudio();
 
-        // fixme вынеси весь нижележащий код в метод initAlert
+        this.initAlert();
+
+        // fixme вынеси весь нижележащий код в метод initAlert ok
+    }
+
+    private initCreate()
+    {
+        PlayerControls.create();
+        PlayerProgress.create();
+        PlayerVolume.create();
+        PlayerInfo.create();
+        PlayerPlaylist.create();
+        PlayerHQ.create();
+        PlayerEQ.create();
+    }
+
+    private initAlert()
+    {
         this.$context.on(Player.EVENT_ERROR, () =>
         {
             this.alert('Ошибка', 'Трек не доступен или ссылка устарела. Пожалуйста, обновите страницу.')
@@ -58,20 +76,8 @@ class Player
 
         this.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
-            // так как здесь работа с алертом сделана костыльно, то можно
             this.$context.find('.alert').removeClass('show');
         });
-    }
-
-    private initCreate()
-    {
-        PlayerControls.create();
-        PlayerProgress.create();
-        PlayerVolume.create();
-        PlayerInfo.create();
-        PlayerPlaylist.create();
-        PlayerHQ.create();
-        PlayerEQ.create();
     }
 
     private initEventsAudio()
@@ -316,13 +322,15 @@ class Player
 
     public alert(title: string, msg: string)
     {
-        // fixme не слишком ли много повторов this.$context.find('.alert')
-        this.$context.find('.alert').addClass('show');
-        this.$context.find('.alert .title').text(title);
-        this.$context.find('.alert .msg').text(msg);
+        // fixme не слишком ли много повторов this.$context.find('.alert') ok
+        let $alert = this.$context.find('.alert');
+
+        $alert.addClass('show');
+        $alert.find('.title').text(title);
+        $alert.find('.msg').text(msg);
 
         setTimeout(() => {
-            this.$context.find('.alert').removeClass('show');
+            $alert.removeClass('show');
         }, 6000);
     }
 

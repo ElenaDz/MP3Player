@@ -49,16 +49,19 @@
   }
 
   .artist_img {
+    display: flex;
     border-radius: 10px;
     background-color: #f0f1f4;
     margin-right: 10px;
     opacity: $opacity-grey-max;
-    background-image: url("/img/note.svg");
-    background-repeat: no-repeat;
-    background-position: center;
 
-    @include for_laptopL {
+    @include for_laptopS {
       display: none;
+    }
+
+    img {
+      display: flex;
+      border-radius: 10px;
     }
   }
 
@@ -88,6 +91,8 @@
       }
     }
   }
+
+
   .inner_download {
     display: flex;
     margin-left: 16px;
@@ -163,7 +168,10 @@
     }
 
     .inner_dots {
+      display: none;
+
       @include for_phone {
+        display: flex;
         position: absolute;
         left: 60px;
         top: 15px;
@@ -186,8 +194,8 @@
         display: none;
         flex-direction: column;
         align-items: start;
-        justify-content: space-between;
-        height: 120px;
+        justify-content: center;
+        height: fit-content;
         width: 222px;
         box-sizing: border-box;
         position: absolute;
@@ -198,6 +206,49 @@
         border: 1px solid rgb(237, 237, 237);
         background-color: white;
 
+        @include for_phone {
+          bottom: 64px;
+          left: -50px;
+          top: unset;
+          right: unset;
+
+          .hq, .eq {
+            width: 100%;
+            height: 24px;
+            display: flex;
+
+            i {
+              min-width: 35px;
+              opacity: $opacity-grey-min;
+            }
+
+            &.show {
+              i {
+                opacity: $opacity-grey-middle;
+              }
+            }
+          }
+
+          div:not(:last-child) {
+            margin-bottom: 10px;
+          }
+
+          .hq {
+            i {
+              background-image: url("/img/hq.svg");
+            }
+          }
+
+          .eq {
+            i {
+              background-image: url("/img/eq.svg");
+            }
+          }
+        }
+
+        .hq .eq {
+          display: none;
+        }
         div {
           display: flex;
         }

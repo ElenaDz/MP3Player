@@ -10,17 +10,8 @@ class Player {
         this.audio = this.$context.find('audio')[0];
         this.initCreate();
         this.initEventsAudio();
-        // fixme вынеси весь нижележащий код в метод initAlert
-        this.$context.on(Player.EVENT_ERROR, () => {
-            this.alert('Ошибка', 'Трек не доступен или ссылка устарела. Пожалуйста, обновите страницу.');
-        });
-        this.$context.find('.alert').on('click', (alert) => {
-            $(alert.currentTarget).removeClass('show');
-        });
-        this.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            // так как здесь работа с алертом сделана костыльно, то можно
-            this.$context.find('.alert').removeClass('show');
-        });
+        this.initAlert();
+        // fixme вынеси весь нижележащий код в метод initAlert ok
     }
     initCreate() {
         PlayerControls.create();
@@ -30,6 +21,17 @@ class Player {
         PlayerPlaylist.create();
         PlayerHQ.create();
         PlayerEQ.create();
+    }
+    initAlert() {
+        this.$context.on(Player.EVENT_ERROR, () => {
+            this.alert('Ошибка', 'Трек не доступен или ссылка устарела. Пожалуйста, обновите страницу.');
+        });
+        this.$context.find('.alert').on('click', (alert) => {
+            $(alert.currentTarget).removeClass('show');
+        });
+        this.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+            this.$context.find('.alert').removeClass('show');
+        });
     }
     initEventsAudio() {
         this.audio.addEventListener('play', () => {
@@ -179,12 +181,13 @@ class Player {
         return !this.audio.paused;
     }
     alert(title, msg) {
-        // fixme не слишком ли много повторов this.$context.find('.alert')
-        this.$context.find('.alert').addClass('show');
-        this.$context.find('.alert .title').text(title);
-        this.$context.find('.alert .msg').text(msg);
+        // fixme не слишком ли много повторов this.$context.find('.alert') ok
+        let $alert = this.$context.find('.alert');
+        $alert.addClass('show');
+        $alert.find('.title').text(title);
+        $alert.find('.msg').text(msg);
         setTimeout(() => {
-            this.$context.find('.alert').removeClass('show');
+            $alert.removeClass('show');
         }, 6000);
     }
     static create($context = $('.b_player')) {

@@ -7,12 +7,20 @@ class PlayerInfo {
         // @ts-ignore
         this.$context[0].Info = this;
         this.player = Player.create();
+        this.eq = PlayerEQ.create();
+        this.hq = PlayerHQ.create();
         this.disabled();
         this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_META_DATA, () => {
             this.load();
         });
         this.initDots();
         this.initFavorite();
+        this.$context.find('.eq').on('click', () => {
+            console.log(1);
+        });
+        this.$context.find('.hq').on('click', () => {
+            console.log(2);
+        });
     }
     initDots() {
         this.$context.find('button.dots').on('click', () => {
@@ -30,6 +38,7 @@ class PlayerInfo {
         this.$context.find('.inner_song').text(songPlayer.songName);
         this.$context.find('.inner_song').attr('href', songPlayer.urlSong);
         this.$context.find('.download_song').attr('href', songPlayer.urlSong);
+        this.$context.find('.artist_img img').attr('src', songPlayer.urlSongImg);
         if (navigator.mediaSession) {
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: songPlayer.songName,

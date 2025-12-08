@@ -62,6 +62,11 @@ class BtnPlayer
         return parseInt(this.$context.data('clicks'));
     }
 
+    private get url_song_img(): string
+    {
+        return this.$context.data('url_song_img');
+    }
+
     public get songName()
     {
         return this.$context.data('song_name')
@@ -122,7 +127,8 @@ class BtnPlayer
             artistHtml: this.artistHtml,
             songName: this.songName,
             urlSong: this.urlSong,
-            clicks: this.clicks
+            clicks: this.clicks,
+            urlSongImg: this.url_song_img
         }
     }
 

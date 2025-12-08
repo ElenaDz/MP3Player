@@ -2,6 +2,8 @@ class PlayerInfo
 {
     private $context: JQuery;
     private player: Player;
+    private eq: PlayerEQ;
+    private hq: PlayerHQ;
 
     constructor($context: JQuery) {
 
@@ -14,6 +16,8 @@ class PlayerInfo
         this.$context[0].Info = this;
 
         this.player = Player.create();
+        this.eq = PlayerEQ.create()
+        this.hq = PlayerHQ.create();
 
         this.disabled();
 
@@ -24,6 +28,16 @@ class PlayerInfo
 
         this.initDots();
         this.initFavorite();
+
+        this.$context.find('.eq').on('click',() =>
+        {
+           console.log(1)
+        });
+
+        this.$context.find('.hq').on('click',() =>
+        {
+            console.log(2)
+        });
     }
 
     private initDots()
@@ -53,6 +67,8 @@ class PlayerInfo
         this.$context.find('.inner_song').attr('href', songPlayer.urlSong);
 
         this.$context.find('.download_song').attr('href', songPlayer.urlSong);
+
+        this.$context.find('.artist_img img').attr('src', songPlayer.urlSongImg);
 
         if (navigator.mediaSession)
         {
