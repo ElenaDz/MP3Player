@@ -47,8 +47,6 @@ class Player
         this.initEventsAudio();
 
         this.initAlert();
-
-        // fixme вынеси весь нижележащий код в метод initAlert ok
     }
 
     private initCreate()

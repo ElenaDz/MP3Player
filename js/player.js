@@ -11,7 +11,6 @@ class Player {
         this.initCreate();
         this.initEventsAudio();
         this.initAlert();
-        // fixme вынеси весь нижележащий код в метод initAlert ok
     }
     initCreate() {
         PlayerControls.create();

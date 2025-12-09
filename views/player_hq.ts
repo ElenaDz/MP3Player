@@ -22,11 +22,21 @@ class PlayerHQ
             this.disabled(false);
         });
 
+        this.player.$context.on(Player.EVENT_UPDATE_HQ,() =>
+        {
+            this.setActive();
+        });
+
         this.$context.find('button.hq').on('click',() =>
         {
-            this.active = ! this.active;
-            this.player.hq = this.active
+            this.setActive();
         });
+    }
+
+    private setActive()
+    {
+        this.active = ! this.active;
+        this.player.hq = this.active;
     }
 
     private set active(active: boolean)

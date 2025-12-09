@@ -11,10 +11,16 @@ class PlayerHQ {
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
             this.disabled(false);
         });
-        this.$context.find('button.hq').on('click', () => {
-            this.active = !this.active;
-            this.player.hq = this.active;
+        this.player.$context.on(Player.EVENT_UPDATE_HQ, () => {
+            this.setActive();
         });
+        this.$context.find('button.hq').on('click', () => {
+            this.setActive();
+        });
+    }
+    setActive() {
+        this.active = !this.active;
+        this.player.hq = this.active;
     }
     set active(active) {
         active

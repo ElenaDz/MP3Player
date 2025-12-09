@@ -131,6 +131,7 @@ class PlayerEQ {
     }
     close() {
         this.$context.removeClass('show');
+        this.$context.trigger(PlayerEQ.EVENT_CLOSE);
     }
     get isShow() {
         return this.$context.hasClass('show');
@@ -175,3 +176,4 @@ class PlayerEQ {
 }
 PlayerEQ.EVENT_UPDATE_BANDS = 'PlayerEQ.EVENT_UPDATE_BANDS';
 PlayerEQ.EVENT_UPDATE_PREAMP = 'PlayerEQ.EVENT_UPDATE_PREAMP';
+PlayerEQ.EVENT_CLOSE = 'PlayerEQ.EVENT_CLOSE';

@@ -80,6 +80,7 @@
     width: 100%;
     order: 4;
     margin: 0;
+    max-width: unset;
   }
 }
 .b_player_progress .b_slider {
@@ -92,6 +93,12 @@
     min-width: unset;
     width: 100%;
     margin: 0 10px;
+    max-width: unset;
+  }
+}
+@media (max-width: 1024px) {
+  .b_player_progress .b_slider {
+    min-width: 210px;
   }
 }
 .b_player_progress .time_current,
@@ -203,9 +210,6 @@
   .b_player_playlist {
     order: 1;
   }
-  .b_player_playlist.open .b_popup {
-    display: flex;
-  }
 }
 .b_player_playlist.disabled .playlist_btn, .b_player_playlist.disabled .shuffle, .b_player_playlist.disabled .repeat_playlist {
   pointer-events: none;
@@ -256,7 +260,7 @@
   }
 }
 .b_player_playlist .b_popup {
-  display: flex;
+  display: flex !important;
   position: absolute;
   transform: translate(30%, -100%);
   width: 900px;
@@ -264,24 +268,25 @@
   background-color: #fff;
   border: 1px solid #e3e3e3;
   opacity: 1;
-  z-index: -1;
+  z-index: -5;
   top: 16px;
   left: -130px;
   padding-bottom: 15px;
   transition-duration: 0.35s;
   transition-property: height;
 }
-@media (max-width: 767px) {
-  .b_player_playlist .b_popup {
-    transform: translate(-3%, -76%);
-    width: calc(100% + 15px);
-  }
-}
 @media (max-width: 1024px) {
   .b_player_playlist .b_popup {
     transform: translate(-3%, -76%);
     width: calc(100% + 15px);
-    left: 0;
+    left: 16px;
+  }
+}
+@media (max-width: 767px) {
+  .b_player_playlist .b_popup {
+    transform: translate(-3%, -76%);
+    width: calc(100% + 15px);
+    left: 12px;
   }
 }
 .b_player_playlist .b_popup .inner_popup {
@@ -558,13 +563,9 @@
   height: fit-content;
   width: 222px;
   box-sizing: border-box;
-  position: absolute;
   top: -131px;
   right: 45px;
   padding: 16px;
-  border-radius: 8px;
-  border: 1px solid rgb(237, 237, 237);
-  background-color: white;
 }
 @media (max-width: 767px) {
   .b_player_info .inner_download .inner_dots .b_popup {
@@ -591,8 +592,14 @@
   .b_player_info .inner_download .inner_dots .b_popup .hq i {
     background-image: url("/img/hq.svg");
   }
+  .b_player_info .inner_download .inner_dots .b_popup .hq.active i {
+    opacity: 0.7;
+  }
   .b_player_info .inner_download .inner_dots .b_popup .eq i {
     background-image: url("/img/eq.svg");
+  }
+  .b_player_info .inner_download .inner_dots .b_popup .eq.show i {
+    opacity: 0.7;
   }
 }
 .b_player_info .inner_download .inner_dots .b_popup .hq .eq {
@@ -698,7 +705,8 @@
 }
 @media (max-width: 767px) {
   .b_player_eq {
-    display: none;
+    position: absolute;
+    z-index: -5;
   }
 }
 .b_player_eq.disabled .eq {
@@ -715,6 +723,11 @@
   background-image: url("/img/eq.svg");
   opacity: 0.7;
 }
+@media (max-width: 767px) {
+  .b_player_eq .eq {
+    display: none !important;
+  }
+}
 .b_player_eq .eq:hover {
   cursor: pointer;
   opacity: 1;
@@ -722,11 +735,23 @@
 .b_player_eq .b_popup {
   border-radius: 8px;
   box-sizing: border-box;
-  height: 202px;
+  height: fit-content;
   width: 465px;
   top: -225px;
-  left: -212px;
+  right: 0;
   padding: 24px;
+}
+@media (max-width: 767px) {
+  .b_player_eq .b_popup {
+    bottom: 187px;
+    left: -2px;
+    min-width: min-content;
+    width: fit-content;
+    top: unset;
+    right: unset;
+    z-index: 8;
+    padding: 16px;
+  }
 }
 .b_player_eq .b_popup .inner_eq {
   width: 100%;
@@ -821,9 +846,6 @@
   right: -3px;
   bottom: -6px;
 }
-.b_player_eq .b_popup .inner_eq .inner_dots {
-  position: relative;
-}
 .b_player_eq .b_popup .inner_eq .inner_dots.open .other_presets {
   display: flex;
 }
@@ -844,16 +866,23 @@
   align-items: start;
   justify-content: start;
   height: fit-content;
-  width: 222px;
+  width: 170px;
   box-sizing: border-box;
   position: absolute;
-  bottom: 54px;
-  right: -92px;
+  bottom: 184px;
+  right: -24px;
   padding: 16px;
   border-radius: 8px;
   border: 1px solid #CCCCCC;
   background-color: white;
   box-shadow: 0 0 4px #CCCCCC;
+}
+@media (max-width: 767px) {
+  .b_player_eq .b_popup .inner_eq .inner_dots .other_presets {
+    padding: 8px;
+    bottom: 176px;
+    right: -18px;
+  }
 }
 .b_player_eq .b_popup .inner_eq .inner_dots .other_presets .preset:not(:last-child) {
   margin: 0 0 10px;
@@ -863,8 +892,8 @@
   position: absolute;
   width: 24px;
   height: 24px;
-  top: -15px;
-  right: -15px;
+  top: -10px;
+  right: -10px;
   cursor: pointer;
 }
 .b_player_eq .b_popup .inner_eq .close i {
@@ -1008,11 +1037,6 @@
 }
 .b_player .inner_player .inner_setting {
   margin-left: 16px;
-}
-@media (max-width: 767px) {
-  .b_player .inner_player .inner_setting {
-    display: none;
-  }
 }
 .b_player .alert {
   display: none;

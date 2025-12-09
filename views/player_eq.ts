@@ -19,8 +19,9 @@ class PlayerEQ
 {
     static readonly EVENT_UPDATE_BANDS = 'PlayerEQ.EVENT_UPDATE_BANDS';
     static readonly EVENT_UPDATE_PREAMP = 'PlayerEQ.EVENT_UPDATE_PREAMP';
+    static readonly EVENT_CLOSE = 'PlayerEQ.EVENT_CLOSE';
 
-    private $context: JQuery;
+    public $context: JQuery;
     private player: Player;
     private sliders: Slider[];
     private slider_preamp: Slider;
@@ -209,17 +210,19 @@ class PlayerEQ
         localStorage.setItem(this.KEY_LOCAL_STORE_PRESET, JSON.stringify(preset));
     }
 
-    private show()
+    public show()
     {
         this.$context.addClass('show');
     }
 
-    private close()
+    public close()
     {
         this.$context.removeClass('show');
+
+        this.$context.trigger(PlayerEQ.EVENT_CLOSE);
     }
 
-    private get isShow()
+    public get isShow()
     {
         return this.$context.hasClass('show');
     }

@@ -198,13 +198,9 @@
         height: fit-content;
         width: 222px;
         box-sizing: border-box;
-        position: absolute;
         top: -131px;
         right: 45px;
         padding: 16px;
-        border-radius: 8px;
-        border: 1px solid rgb(237, 237, 237);
-        background-color: white;
 
         @include for_phone {
           bottom: 64px;
@@ -237,11 +233,22 @@
             i {
               background-image: url("/img/hq.svg");
             }
+
+            &.active {
+              i {
+                opacity: $opacity-grey-middle;
+              }
+            }
           }
 
           .eq {
             i {
               background-image: url("/img/eq.svg");
+            }
+            &.show {
+              i {
+                opacity: $opacity-grey-middle;
+              }
             }
           }
         }

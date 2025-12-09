@@ -23,7 +23,7 @@
             </a>
         </div>
 
-        <div class="inner_dots open">
+        <div class="inner_dots">
             <button class="dots elem"></button>
             <div class="b_popup">
                 <div class="hq">

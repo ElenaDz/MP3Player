@@ -8,18 +8,39 @@ class PlayerInfo {
         this.$context[0].Info = this;
         this.player = Player.create();
         this.eq = PlayerEQ.create();
-        this.hq = PlayerHQ.create();
         this.disabled();
         this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_META_DATA, () => {
             this.load();
         });
         this.initDots();
         this.initFavorite();
-        this.$context.find('.eq').on('click', () => {
-            console.log(1);
+        this.initEq();
+        this.initHq();
+        this.eq.$context.on(PlayerEQ.EVENT_CLOSE, () => {
+            this.$context.find('.eq').removeClass('show');
         });
+        $('html').on('click', (e) => {
+            if (!$(e.target).hasClass('b_popup')
+                && !$(e.target).hasClass('dots')
+                && !$(e.target).parents().hasClass('b_popup')) {
+                this.closeDots();
+            }
+        });
+    }
+    initHq() {
         this.$context.find('.hq').on('click', () => {
-            console.log(2);
+            this.player.$context.trigger(Player.EVENT_UPDATE_HQ);
+        });
+        this.player.$context.on(Player.EVENT_UPDATE_HQ, () => {
+            let $hq = this.$context.find('.hq');
+            this.player.hq ? $hq.addClass('active') : $hq.removeClass('active');
+        });
+    }
+    initEq() {
+        this.$context.find('.eq').on('click', () => {
+            let $eq = this.$context.find('.eq');
+            this.eq.isShow ? this.eq.close() : this.eq.show();
+            this.eq.isShow ? $eq.addClass('show') : $eq.removeClass('show');
         });
     }
     initDots() {

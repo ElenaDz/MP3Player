@@ -15,11 +15,12 @@
     pointer-events: none;
     opacity: 0.5;
   }
-  
+
   @include for_phone {
     width: 100%;
     order: 4;
     margin: 0;
+    max-width: unset;
   }
 
   .b_slider {
@@ -31,6 +32,11 @@
       min-width: unset;
       width: 100%;
       margin: 0 10px;
+      max-width: unset;
+    }
+
+    @include for_laptopS {
+      min-width: 210px;
     }
   }
 
