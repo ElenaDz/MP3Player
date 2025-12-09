@@ -180,11 +180,11 @@ class Player {
         return !this.audio.paused;
     }
     alert(title, msg) {
-        // fixme не слишком ли много повторов this.$context.find('.alert') ok
         let $alert = this.$context.find('.alert');
         $alert.addClass('show');
         $alert.find('.title').text(title);
         $alert.find('.msg').text(msg);
+        // fixme удалять таймаут при закрытии таймаута кликом, подробнее описал в аудио сообщении
         setTimeout(() => {
             $alert.removeClass('show');
         }, 6000);

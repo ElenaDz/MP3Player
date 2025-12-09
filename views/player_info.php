@@ -1,7 +1,6 @@
 
 <div class="b_player_info disabled">
 
-    <!-- fixme должна быть картинка артиста в аудио расскажу подробнее  ( Александр написал, что будет подставляться картинка песни)-->
     <div class="artist_img elem">
         <img src="/img/note.svg" alt="Картинка песни">
     </div>

@@ -26,6 +26,7 @@ class PlayerEQ {
             slider.disabled = false;
         });
         this.$context.on(PlayerEQ.EVENT_UPDATE_BANDS, () => {
+            // fixme используй здесь index band который передается вместе с событием, вместо перебора всех
             this.sliders_bands.forEach((slider, index) => {
                 let slader_value = +slider.value.toFixed(2);
                 if (slader_value != this.getBand(index)) {
@@ -153,18 +154,14 @@ class PlayerEQ {
         return +this.eq.preamp.getValue().toFixed(2);
     }
     setBand(index, value) {
-        // fixme лучше вынести в переменную this.sliders_bands[index] ok
         let $slader_band = this.sliders_bands[index];
         if (value < $slader_band.value_min || value > $slader_band.value_max) {
             throw new Error(`Недопустимое значение Band["${index}"] = "${value}". 
                 Диапазон от "${$slader_band.value_min}" до "${$slader_band.value_max}".`);
         }
-        // fixme не нужная вложенность Используй здесь return, проверок может быть много и что каждая из них будет создавать вложенность? ok
         if (this.eq.bands[index].getValue().toFixed(2) == value.toFixed(2))
             return;
         this.eq.bands[index].setValue(value);
-        // fixme вторым параметром здесь можно передать дополнительные параметры, здесь напрашивается передача index,
-        //  чтобы знать какой именно bands обновился ok
         this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS, index);
     }
     getBand(index) {

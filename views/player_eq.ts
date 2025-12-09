@@ -53,7 +53,9 @@ class PlayerEQ
             slider.disabled = false;
         })
 
-        this.$context.on(PlayerEQ.EVENT_UPDATE_BANDS, () => {
+        this.$context.on(PlayerEQ.EVENT_UPDATE_BANDS, () =>
+        {
+            // fixme используй здесь index band который передается вместе с событием, вместо перебора всех
             this.sliders_bands.forEach((slider, index) =>
             {
                 let slader_value = +slider.value.toFixed(2);
@@ -255,7 +257,6 @@ class PlayerEQ
 
     public setBand(index: number, value: number)
     {
-        // fixme лучше вынести в переменную this.sliders_bands[index] ok
         let $slader_band = this.sliders_bands[index];
 
         if (value < $slader_band.value_min || value > $slader_band.value_max)
@@ -266,13 +267,10 @@ class PlayerEQ
             );
         }
 
-        // fixme не нужная вложенность Используй здесь return, проверок может быть много и что каждая из них будет создавать вложенность? ok
         if (this.eq.bands[index].getValue().toFixed(2) == value.toFixed(2)) return;
 
         this.eq.bands[index].setValue(value);
 
-        // fixme вторым параметром здесь можно передать дополнительные параметры, здесь напрашивается передача index,
-        //  чтобы знать какой именно bands обновился ok
         this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS, index);
     }
 

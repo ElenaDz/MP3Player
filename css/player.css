@@ -506,7 +506,7 @@
   right: 45px;
   padding: 14px 16px 16px 16px;
   border-radius: 8px;
-  border: 1px solid rgb(237, 237, 237);
+  border: 1px solid #ededed;
   background-color: white;
   z-index: 10;
 }
@@ -522,8 +522,10 @@
 .b_player_info .inner_download .inner_favorite.is_favorite .b_popup {
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.5s ease-out; /* Плавное исчезновение за 0.5 секунды */
-  animation: fadeOut 5s forwards; /* Анимация исчезновения */
+  transition: opacity 0.5s ease-out;
+  /* Плавное исчезновение за 0.5 секунды */
+  animation: fadeOut 5s forwards;
+  /* Анимация исчезновения */
 }
 @keyframes fadeOut {
   from {
@@ -915,8 +917,8 @@
   z-index: 100;
   font-size: 14px;
   font-weight: 400;
-  border-top: 1px solid rgb(237, 237, 237);
-  box-shadow: 0 0 7px rgb(195, 195, 195);
+  border-top: 1px solid #ededed;
+  box-shadow: 0 0 7px #c3c3c3;
 }
 @media (max-width: 767px) {
   .b_player {
