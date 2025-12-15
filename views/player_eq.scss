@@ -32,7 +32,7 @@
   }
 
   .eq {
-    background-image: url("/img/eq.svg");
+    background-image: url($eq-svg);
     opacity: $opacity-grey-middle;
 
     @include for_phone {
@@ -209,7 +209,7 @@
 
         .dots {
           padding: 0;
-          background-image: url("/img/dots.svg");
+          background-image: url($dots-svg);
           opacity: $opacity-grey-middle;
           width: 40px;
           height: 16px;
@@ -263,7 +263,7 @@
           display: flex;
           width: 100%;
           height: 100%;
-          background-image: url("/img/close_equalizer.svg");
+          background-image: url($close_eq-svg);
           background-repeat: no-repeat;
         }
       }

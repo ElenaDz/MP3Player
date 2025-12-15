@@ -28,6 +28,7 @@ class Player
     private _playlist: Playlist;
     private _repeat_playlist: boolean;
     private _hq: boolean = false;
+    private _timeout_id: number;
 
 
     constructor($context: JQuery)
@@ -64,18 +65,25 @@ class Player
     {
         this.$context.on(Player.EVENT_ERROR, () =>
         {
-            this.alert('Ошибка', 'Трек не доступен или ссылка устарела. Пожалуйста, обновите страницу.')
+            clearTimeout(this.timeout_id);
+
+            this.alert('Ошибка', 'Трек не доступен или ссылка устарела. Пожалуйста, обновите страницу.');
         });
 
         this.$context.find('.alert').on('click',(alert) =>
         {
-            $(alert.currentTarget).removeClass('show');
+            this.alert_close();
         });
 
         this.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
-            this.$context.find('.alert').removeClass('show');
+            this.alert_close();
         });
+    }
+
+    private alert_close()
+    {
+        this.$context.find('.alert').removeClass('show');
     }
 
     private initEventsAudio()
@@ -326,10 +334,22 @@ class Player
         $alert.find('.title').text(title);
         $alert.find('.msg').text(msg);
 
-        // fixme удалять таймаут при закрытии таймаута кликом, подробнее описал в аудио сообщении
-        setTimeout(() => {
+        // fixme удалять таймаут при закрытии таймаута кликом, подробнее описал в аудио сообщении ok
+        let  timeout_id= setTimeout(() => {
             $alert.removeClass('show');
         }, 6000);
+
+        this.timeout_id = +timeout_id;
+    }
+
+    private set timeout_id(index: number)
+    {
+        this._timeout_id = index;
+    }
+
+    private get timeout_id(): number
+    {
+        return this._timeout_id;
     }
 
     public static create($context = $('.b_player')): Player

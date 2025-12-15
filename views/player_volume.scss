@@ -21,7 +21,7 @@
 
     &.mute {
       .volume_mute {
-        background-image: url("/img/volume.svg");
+        background-image: url($volume-mute-svg);
       }
     }
   }
@@ -49,12 +49,12 @@
 
 
   .volume_mute {
-    background-image: url("/img/volume.svg");
+    background-image: url($volume-svg);
   }
 
   &.mute {
     .volume_mute {
-      background-image: url("/img/volume_mute.svg");
+      background-image: url($volume-mute-svg);
     }
   }
 }

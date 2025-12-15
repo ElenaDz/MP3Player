@@ -23,14 +23,18 @@ class Player {
     }
     initAlert() {
         this.$context.on(Player.EVENT_ERROR, () => {
+            clearTimeout(this.timeout_id);
             this.alert('Ошибка', 'Трек не доступен или ссылка устарела. Пожалуйста, обновите страницу.');
         });
         this.$context.find('.alert').on('click', (alert) => {
-            $(alert.currentTarget).removeClass('show');
+            this.alert_close();
         });
         this.$context.on(Player.EVENT_LOADED_META_DATA, () => {
-            this.$context.find('.alert').removeClass('show');
+            this.alert_close();
         });
+    }
+    alert_close() {
+        this.$context.find('.alert').removeClass('show');
     }
     initEventsAudio() {
         this.audio.addEventListener('play', () => {
@@ -184,10 +188,17 @@ class Player {
         $alert.addClass('show');
         $alert.find('.title').text(title);
         $alert.find('.msg').text(msg);
-        // fixme удалять таймаут при закрытии таймаута кликом, подробнее описал в аудио сообщении
-        setTimeout(() => {
+        // fixme удалять таймаут при закрытии таймаута кликом, подробнее описал в аудио сообщении ok
+        let timeout_id = setTimeout(() => {
             $alert.removeClass('show');
         }, 6000);
+        this.timeout_id = +timeout_id;
+    }
+    set timeout_id(index) {
+        this._timeout_id = index;
+    }
+    get timeout_id() {
+        return this._timeout_id;
     }
     static create($context = $('.b_player')) {
         return new Player($context);

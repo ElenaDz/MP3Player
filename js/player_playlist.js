@@ -106,7 +106,7 @@ class PlayerPlaylist {
 
                     <div class="song_title">
                         <div class="wrap_song">
-                            <a href="#" class="inner_song">
+                            <a href="${song.urlSong}" class="inner_song">
                                 ${song.songName}
                             </a>
                         </div>

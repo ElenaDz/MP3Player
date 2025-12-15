@@ -24,7 +24,7 @@
   }
 
   .hq {
-    background-image: url("/img/hq.svg");
+    background-image: url($hq-svg);
     opacity: $opacity-grey-min;
 
     &:hover {

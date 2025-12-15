@@ -109,7 +109,7 @@
       }
 
       .favorite {
-        background-image: url("/img/favorite.svg");
+        background-image: url($favorite-svg);
         opacity: $opacity-grey-middle;
 
         &:hover {
@@ -180,7 +180,7 @@
 
       .dots {
         padding: 0;
-        background-image: url("/img/dots.svg");
+        background-image: url($dots-svg);
         opacity: $opacity-grey-middle;
 
         &:hover {
@@ -201,6 +201,7 @@
         top: -131px;
         right: 45px;
         padding: 16px;
+        cursor: pointer;
 
         @include for_phone {
           bottom: 64px;
@@ -212,6 +213,7 @@
             width: 100%;
             height: 24px;
             display: flex;
+            cursor: pointer;
 
             i {
               min-width: 35px;
@@ -231,7 +233,7 @@
 
           .hq {
             i {
-              background-image: url("/img/hq.svg");
+              background-image: url($hq-svg);
             }
 
             &.active {
@@ -243,7 +245,7 @@
 
           .eq {
             i {
-              background-image: url("/img/eq.svg");
+              background-image: url($eq-svg);
             }
             &.show {
               i {
@@ -271,17 +273,17 @@
 
         .copy{
           i{
-            background-image: url("/img/dots/copy.svg");
+            background-image: url($copy-svg);
           }
         }
         .comment{
           i{
-            background-image: url("/img/dots/comment.svg");
+            background-image: url($comment-svg);
           }
         }
         .link{
           i{
-            background-image: url("/img/dots/link.svg");
+            background-image: url($link-svg);
           }
         }
       }
@@ -326,7 +328,7 @@
         display: flex;
         width: 100%;
         height: 100%;
-        background-image: url("/img/download.svg");
+        background-image: url($download-svg);
         background-repeat: no-repeat;
         background-position: center;
       }

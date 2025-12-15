@@ -16,11 +16,11 @@
     background-color: #f3f3f3 !important;
     border-radius: 50%;
 
-    background-image: url("/img/controls/play.svg");
+    background-image: url($play-svg);
 
     .b_player.playing & {
       background-color: #d7eaff !important;
-      background-image: url("/img/controls/pause.svg") ;
+      background-image: url($pause-svg) ;
     }
 
     &:hover {
@@ -37,19 +37,17 @@
   }
 
   .next {
-    background-image: url("/img/controls/next.svg");
+    background-image: url($next-svg);
 
     &:hover {
       cursor: pointer;
-      //opacity: $opacity-grey-middle;
     }
   }
 
   .prev {
-    background-image: url("/img/controls/previous.svg");
+    background-image: url($previous-svg);
 
     &:hover {
-      //opacity: $opacity-grey-middle;
       cursor: pointer;
     }
   }

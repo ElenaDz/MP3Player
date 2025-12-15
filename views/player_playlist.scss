@@ -42,12 +42,12 @@
     }
 
     .shuffle {
-      background-image: url("/img/shuffle.svg");
+      background-image: url($shuffle-svg);
       opacity: $opacity-grey-max;
     }
 
     .repeat_playlist {
-      background-image: url("/img/repeat.svg");
+      background-image: url($repeat-svg);
       opacity: $opacity-grey-middle;
 
       &:hover {
@@ -65,7 +65,7 @@
   }
 
   .playlist_btn {
-    background-image: url("/img/playlist.svg");
+    background-image: url($playlist-svg);
     opacity: $opacity-grey-min;
     margin-left: 16px;
 
@@ -151,7 +151,7 @@
           width: 20px;
           height: 20px;
           color: black;
-          background-image: url("/img/close_playlist.svg");
+          background-image: url($close_playlist-svg);
           background-repeat: no-repeat;
         }
       }
@@ -210,7 +210,7 @@
           width: 100%;
           height: 100%;
           border-radius: 5px;
-          background-image: url("/img/download.svg");
+          background-image: url($download-svg);
           background-repeat: no-repeat;
           background-position: center;
         }
@@ -231,7 +231,7 @@
       width: 20px;
       height: 20px;
       background-repeat: no-repeat;
-      background-image: url("/img/statistics.svg");
+      background-image: url($statistics-svg);
     }
   }
 }
