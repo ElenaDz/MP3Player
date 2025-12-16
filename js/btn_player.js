@@ -41,7 +41,8 @@ class BtnPlayer {
         return this.$context.find('button').data('url_song_img') || '/img/note.svg';
     }
     get songName() {
-        return this.$context.parents().first().find('.popular-play-author').text() || this.$context.find('.music-name-text').text();
+        return this.$context.parents().first().find('.popular-play-author').text()
+            || this.$context.parents().first().find('.music-name-text').text();
     }
     get urlSong() {
         return this.$context.find('button').data('url');

@@ -69,7 +69,8 @@ class BtnPlayer
 
     public get songName()
     {
-        return this.$context.parents().first().find('.popular-play-author').text() || this.$context.find('.music-name-text').text();
+        return this.$context.parents().first().find('.popular-play-author').text()
+            || this.$context.parents().first().find('.music-name-text').text();
     }
 
     public get urlSong()
