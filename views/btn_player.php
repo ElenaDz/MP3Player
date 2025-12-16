@@ -10,34 +10,40 @@ $song_title = strstr($file_name, '.', true);
 list($artist_name, $song_name) = explode(' - ', $song_title);
 ?>
 <div class="music-popular-wrapper">
-    <div class="music-popular__item">
+    <div class="music-popular__item" style="display: flex">
         <div class="popular-play">
 
             <div
                 class="btn_player"
-                data-song_id="<?= rawurlencode($song_id); ?>"
-                data-song_name="<?= htmlspecialchars($song_name); ?>"
-                data-artist_html="<?= htmlspecialchars($artist_name)?>"
-                data-url_song="/mp3s/<?= rawurlencode($file_name); ?>"
-                data-url="/mp3s/<?= rawurlencode($file_name); ?>"
-                data-url_hq="/mp3s/<?= rawurlencode($file_name_hq); ?>"
-                data-clicks="<?= rawurlencode($clicks); ?>"
-                data-url_song_img="<?= $url_song_img ?? '/img/note.svg'; ?>"
             >
-                <button class="play"></button>
+                <button class="play"
+                        data-song_id="<?= rawurlencode($song_id); ?>"
+                        data-url="/mp3s/<?= rawurlencode($file_name); ?>"
+                        data-url_hq="/mp3s/<?= rawurlencode($file_name_hq); ?>"
+                ></button>
             </div>
 
-            <div class="wrap_song">
+            <div class="wrap_song popular-play-name">
                 <a href="/mp3s/<?= rawurlencode($file_name); ?>" class="popular-play-author">
                     <?= htmlspecialchars($song_name); ?>
                 </a>
-                <div class="wrap_author">
-                    <a href="#">
+                <div class="wrap_author popular-play-composition">
+                    <a href="">
                         <?= htmlspecialchars($artist_name); ?>
                     </a>
                 </div>
             </div>
+        </div>
 
+        <div class="popular-download" style="margin-left: 20px">
+            <div class="popular-download-number">
+                <span class="icon-vol2"></span>
+                <?= rawurlencode($clicks); ?>
+            </div>
+            <a href="<?= rawurlencode($file_name); ?>" class="popular-download-link">
+                <span class="icon-download-arrow-with-bar"></span>
+                <span class="popular-download-text" style="display: none">Скачать</span>
+            </a>
         </div>
     </div>
 </div>

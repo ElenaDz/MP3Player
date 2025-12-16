@@ -43,43 +43,43 @@ class BtnPlayer
 
     public get songId(): number
     {
-        return parseInt(this.$context.data('song_id'));
+        return parseInt(this.$context.find('button').data('song_id'));
     }
 
     // @ts-ignore
     public get url(): string
     {
-        return this.$context.data('url');
+        return this.$context.find('button').data('url');
     }
 
     public get url_hq(): string
     {
-        return this.$context.data('url_hq');
+        return this.$context.find('button').data('url_hq');
     }
 
     private get clicks(): number
     {
-        return parseInt(this.$context.data('clicks'));
+        return parseInt(this.$context.parents('.music-popular__item').find('.popular-download-number').text()) || 0;
     }
 
     private get url_song_img(): string
     {
-        return this.$context.data('url_song_img');
+        return this.$context.find('button').data('url_song_img') || '/img/note.svg';
     }
 
     public get songName()
     {
-        return this.$context.data('song_name')
+        return this.$context.parents().first().find('.popular-play-author').text() || this.$context.find('.music-name-text').text();
     }
 
     public get urlSong()
     {
-        return this.$context.data('url_song')
+        return this.$context.find('button').data('url');
     }
 
     public get artistHtml()
     {
-        return this.$context.data('artist_html')
+        return this.$context.parents().first().find('.popular-play-composition').html() || '';
     }
 
     private play()

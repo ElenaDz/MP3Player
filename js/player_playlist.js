@@ -96,24 +96,26 @@ class PlayerPlaylist {
                         class="btn_player"
                         data-song_id=" ${song.songId}"
                         data-song_name=" ${song.songName}"
-                        data-artist_html="${song.artistHtml}"
                         data-url_song="${song.urlSong}"
                         data-url="${song.url}"
+                        data-url_hq="${song.url_hq}"
                         data-clicks="${song.clicks}"
                     >    
-                        <button class="play"></button>
+                        <button class="play"
+                        data-song_id=" ${song.songId}"
+                        data-url="${song.url}"
+                        data-url_hq="${song.url_hq}"
+                        ></button>
                     </div>
 
                     <div class="song_title">
-                        <div class="wrap_song">
+                        <div class="wrap_song popular-play-author" >
                             <a href="${song.urlSong}" class="inner_song">
                                 ${song.songName}
                             </a>
                         </div>
-                        <div class="wrap_author">
-                            <a href="#">
-                                ${song.artistHtml}
-                            </a>
+                        <div class="wrap_author popular-play-composition">
+                            ${song.artistHtml}
                         </div>
                     </div>
                 </div>

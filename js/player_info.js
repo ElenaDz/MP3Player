@@ -55,7 +55,7 @@ class PlayerInfo {
     }
     load() {
         let songPlayer = this.player.songPlayer;
-        this.$context.find('.wrap_author').text(songPlayer.artistHtml);
+        this.$context.find('.wrap_author').html(songPlayer.artistHtml);
         this.$context.find('.inner_song').text(songPlayer.songName);
         this.$context.find('.inner_song').attr('href', songPlayer.urlSong);
         this.$context.find('.download_song').attr('href', songPlayer.urlSong);
