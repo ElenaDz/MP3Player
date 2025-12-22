@@ -79,10 +79,25 @@
         display: flex;
         width: 100%;
 
+        .inner_dots{
+          .other_presets {
+            .preset {
+              input {
+                display: none;
+              }
+
+              input[type="radio"]:checked + span {
+                font-weight: 700;
+              }
+            }
+          }
+        }
+
         .presets {
           display: flex;
           width: 100%;
           justify-content: start;
+
 
           .preset {
             &.hide {

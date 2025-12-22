@@ -42,9 +42,12 @@ class PlayerEQ
 
         this.player = Player.create();
 
+        this.addEq();
+
         this.sliders = Slider.create(this.$context);
         this.sliders_bands = Slider.create(this.$context.find('.bands'));
         this.slider_preamp = Slider.create(this.$context.find('.preamp'))[0];
+
 
         this.disabled();
 
@@ -81,6 +84,93 @@ class PlayerEQ
         {
             this.disabled(false);
         })
+    }
+
+    private addEq()
+    {
+        let presets: Record<string, string> = {
+            Custom: 'Моя настройка',
+            Default: 'По умолчанию',
+            Disco: 'Диско',
+            Rok: 'Рок',
+            Dance: 'Dance',
+            Rap: 'Рэп',
+            Minimal: 'Минимал',
+            Funk: 'Фонк'
+        };
+
+        let show = 5;
+
+        let $dots = $(`
+            <div class="inner_dots">
+                <button class="dots elem" type="button"></button>
+                <div class="other_presets"></div>
+            </div>
+        `);
+
+        Object.entries(presets).forEach(([key, value], index) => {
+            if (index <= show) {
+                $('.presets').append(this.presetItem(key, value));
+            } else {
+                if (this.$context.find('.inner_dots').length == 0){
+                    this.$context.find('.presets').append($dots);
+                }
+
+                $('.other_presets').append(this.presetItem(key, value));
+            }
+        });
+
+        let frequencies = ['60', '170', '310', '600', '1к', '3к', '6к', '12к', '14к', '16к'];
+        let $settings = this.$context.find('.settings');
+
+        $settings.append(`
+            <div class="setting" style="width:45px">
+                <div class="slider_eq preamp">
+                    ${this.createSlider()}
+                    </div>
+                <span class="name">Уровень</span>
+            </div>
+        `);
+
+        // Bands
+        frequencies.forEach(freq => {
+                $settings.append(`
+                <div class="setting bands">
+                    <div class="slider_eq">
+                    ${this.createSlider()}
+                    </div>
+                    <span class="name">${freq}</span>
+                </div>
+            `);
+        });
+
+    }
+
+    private  createSlider() {
+        return `
+                <div class="b_slider mini ver" data-value_min="-5" data-value_max="5">
+                    <div class="slider">
+                        <div
+                            class="value"
+                            style="height:100%"
+                        >
+                            <div class="thumb"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+    }
+
+    private presetItem(id, name) {
+        const hide = id === 'Custom' ? 'hide' : '';
+        return `
+            <div class="preset ${hide}">
+                <label>
+                    <input type="radio" name="preset" data-preset_name="${id}">
+                    <span>${name}</span>
+                </label>
+            </div>
+        `;
     }
 
     private initPresets()
@@ -170,6 +260,7 @@ class PlayerEQ
 
         this.$context.find('button.dots').on('click',() =>
         {
+            console.log('cl')
             this.$context.find('.inner_dots').toggleClass('open');
         });
     }

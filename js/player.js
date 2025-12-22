@@ -18,7 +18,7 @@ class Player {
         PlayerVolume.create();
         PlayerInfo.create();
         PlayerPlaylist.create();
-        PlayerHQ.create();
+        // PlayerHQ.create();
         PlayerEQ.create();
     }
     initAlert() {

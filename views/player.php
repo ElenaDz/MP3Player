@@ -14,7 +14,7 @@
         <?php require __DIR__ . '/player_progress.php'; ?>
 
         <div class="inner_setting">
-            <?php require __DIR__ . '/player_hq.php'; ?>
+<!--            --><?php //require __DIR__ . '/player_hq.php'; ?>
             <?php require __DIR__ . '/player_eq.php'; ?>
         </div>
 

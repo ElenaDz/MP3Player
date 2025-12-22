@@ -768,6 +768,12 @@
   display: flex;
   width: 100%;
 }
+.b_player_eq .b_popup .inner_eq .music_presets .inner_dots .other_presets .preset input {
+  display: none;
+}
+.b_player_eq .b_popup .inner_eq .music_presets .inner_dots .other_presets .preset input[type=radio]:checked + span {
+  font-weight: 700;
+}
 .b_player_eq .b_popup .inner_eq .music_presets .presets {
   display: flex;
   width: 100%;
