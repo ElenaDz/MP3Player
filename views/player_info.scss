@@ -291,6 +291,11 @@
       &.open {
         .b_popup {
           display: flex;
+
+          // удалить при добавлении HQ
+          .hq {
+            display: none;
+          }
         }
       }
     }

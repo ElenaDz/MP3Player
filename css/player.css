@@ -630,6 +630,9 @@
 .b_player_info .inner_download .inner_dots.open .b_popup {
   display: flex;
 }
+.b_player_info .inner_download .inner_dots.open .b_popup .hq {
+  display: none;
+}
 .b_player_info .download {
   display: flex;
   justify-content: center;
@@ -702,7 +705,6 @@
   width: 40px;
   height: 40px;
   display: flex;
-  margin-left: 8px;
   position: relative;
 }
 @media (max-width: 767px) {

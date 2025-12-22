@@ -22,8 +22,4 @@
         <?php require __DIR__ . '/player_info.php'; ?>
     </div>
 
-    <div class="alert b_popup">
-        <h3 class="title"></h3>
-        <span class="msg"></span>
-    </div>
 </div>

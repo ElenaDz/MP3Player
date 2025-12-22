@@ -68,11 +68,11 @@ class Player
             clearTimeout(this.timeout_id);
 
             this.alert('Ошибка', 'Трек не доступен или ссылка устарела. Пожалуйста, обновите страницу.');
-        });
 
-        this.$context.find('.alert').on('click',(alert) =>
-        {
-            this.alert_close();
+            this.$context.find('.alert').on('click',(alert) =>
+            {
+                this.alert_close();
+            });
         });
 
         this.$context.on(Player.EVENT_LOADED_META_DATA,() =>
@@ -328,6 +328,17 @@ class Player
 
     public alert(title: string, msg: string)
     {
+        let alert = $(`
+            <div class="alert b_popup">
+                <h3 class="title"></h3>
+                <span class="msg"></span>
+            </div>
+        `);
+
+        if (this.$context.find('.alert').length == 0){
+            this.$context.append(alert);
+        }
+
         let $alert = this.$context.find('.alert');
 
         $alert.addClass('show');

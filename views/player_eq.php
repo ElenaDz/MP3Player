@@ -1,4 +1,4 @@
-<div class="b_player_eq show">
+<div class="b_player_eq">
     <button class="eq elem"></button>
 
     <div class="b_popup">
