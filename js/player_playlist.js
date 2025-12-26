@@ -11,6 +11,14 @@ class PlayerPlaylist {
         this.player.$context.on(Player.EVENT_ERROR, () => {
             // this.disabled();
         });
+        $('html').on('click', (e) => {
+            if (!$(e.target).hasClass('b_popup')
+                && !$(e.target).hasClass('playlist_btn')
+                && !$(e.target).parents().hasClass('b_popup')) {
+                this.close();
+                this.$context.find('.inner_dots').removeClass('open');
+            }
+        });
         this.player.$context.on(Player.EVENT_UPDATE_REPEAT_PLAYLIST, () => {
             this.setActiveRepeat();
         });
