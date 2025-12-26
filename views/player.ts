@@ -28,8 +28,8 @@ class Player
     private _playlist: Playlist;
     private _repeat_playlist: boolean;
     private _hq: boolean = false;
-    // fixme нужно бы добавить что это timeout_id алерта
-    private _timeout_id: number;
+    // fixme нужно бы добавить что это timeout_id алерта ok
+    private timeout_alert_id: number;
 
 
     constructor($context: JQuery)
@@ -66,7 +66,7 @@ class Player
     {
         this.$context.on(Player.EVENT_ERROR, () =>
         {
-            clearTimeout(this.timeout_id);
+            clearTimeout(this.timeout_alert_id);
 
             this.alert('Ошибка', 'Трек не доступен или ссылка устарела. Пожалуйста, обновите страницу.');
 
@@ -354,19 +354,10 @@ class Player
             6*1000
         );
 
-        this.timeout_id = +timeout_id;
+        this.timeout_alert_id = +timeout_id;
     }
 
-    // fixme не нужны setter и getter для timeout_id
-    private set timeout_id(index: number)
-    {
-        this._timeout_id = index;
-    }
-
-    private get timeout_id(): number
-    {
-        return this._timeout_id;
-    }
+    // fixme не нужны setter и getter для timeout_id ok
 
     public static create($context = $('.b_player')): Player
     {

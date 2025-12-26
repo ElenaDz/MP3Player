@@ -23,7 +23,7 @@ class Player {
     }
     initAlert() {
         this.$context.on(Player.EVENT_ERROR, () => {
-            clearTimeout(this.timeout_id);
+            clearTimeout(this.timeout_alert_id);
             this.alert('Ошибка', 'Трек не доступен или ссылка устарела. Пожалуйста, обновите страницу.');
             this.$context.find('.alert').on('click', (alert) => {
                 this.alert_close();
@@ -200,15 +200,9 @@ class Player {
         let timeout_id = setTimeout(() => {
             $alert.removeClass('show');
         }, 6 * 1000);
-        this.timeout_id = +timeout_id;
+        this.timeout_alert_id = +timeout_id;
     }
-    // fixme не нужны setter и getter для timeout_id
-    set timeout_id(index) {
-        this._timeout_id = index;
-    }
-    get timeout_id() {
-        return this._timeout_id;
-    }
+    // fixme не нужны setter и getter для timeout_id ok
     static create($context = $('.b_player')) {
         return new Player($context);
     }
