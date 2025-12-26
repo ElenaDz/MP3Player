@@ -2,7 +2,7 @@
 <div class="b_player_info disabled">
 
     <div class="artist_img elem">
-        <img src="/img/note.svg" alt="Картинка песни">
+        <img src="/templates/drivemusic/img/note.svg"  alt="Картинка песни">
     </div>
 
     <div class="names">

@@ -1,7 +1,7 @@
 <div class="b_player">
 
     <div class="audio">
-        <audio id="audio_player" controls="controls" preload="metadata"></audio>
+        <audio id="audio_player" controls="controls"  crossorigin="anonymous" preload="metadata"></audio>
     </div>
 
     <div class="inner_player">
@@ -14,7 +14,7 @@
         <?php require __DIR__ . '/player_progress.php'; ?>
 
         <div class="inner_setting">
-<!--            --><?php //require __DIR__ . '/player_hq.php'; ?>
+<!--             здесь подключить hq-->
             <?php require __DIR__ . '/player_eq.php'; ?>
         </div>
 

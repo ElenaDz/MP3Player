@@ -43,7 +43,7 @@ class BtnPlayer
 
     public get songId(): number
     {
-        return parseInt(this.$context.find('button').data('song_id'));
+        return parseInt(this.$context.find('button').data('song-id'));
     }
 
     // @ts-ignore
@@ -64,7 +64,7 @@ class BtnPlayer
 
     private get url_song_img(): string
     {
-        return this.$context.find('button').data('url_song_img') || '/img/note.svg';
+        return this.$context.find('button').data('url_song_img') || '/templates/drivemusic/img/note.svg';
     }
 
     public get songName()
@@ -143,6 +143,10 @@ class BtnPlayer
         playing
             ? this.$context.addClass('playing')
             : this.$context.removeClass('playing');
+
+        playing
+            ? this.$context.addClass('pause')
+            : this.$context.removeClass('pause');
     }
 
     public get playing(): boolean

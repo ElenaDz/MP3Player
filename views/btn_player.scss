@@ -11,7 +11,7 @@
     height: fit-content;
     border-radius: 10px;
 
-    .play {
+    .play, .popular-play__item, .icon-music-player-pla, .js-btn-play-playlist, .song-author-btn {
       border: none;
       cursor: pointer;
       background-repeat: no-repeat;
@@ -33,7 +33,7 @@
     }
 
     &.playing {
-      .play {
+      .play, .popular-play__item, .icon-music-player-pla, .js-btn-play-playlist, .song-author-btn {
         background-image: url($pause-svg);
       }
     }

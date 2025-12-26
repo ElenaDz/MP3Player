@@ -16,8 +16,8 @@ list($artist_name, $song_name) = explode(' - ', $song_title);
             <div
                 class="btn_player"
             >
-                <button class="play"
-                        data-song_id="<?= rawurlencode($song_id); ?>"
+                <button class="play popular-play__item icon-music-player-pla js-btn-play-playlist song-author-btn"
+                        data-song-id="<?= rawurlencode($song_id); ?>"
                         data-url="/mp3s/<?= rawurlencode($file_name); ?>"
                         data-url_hq="/mp3s/<?= rawurlencode($file_name_hq); ?>"
                 ></button>

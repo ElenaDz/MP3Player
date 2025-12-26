@@ -77,13 +77,13 @@ class EqualizerManager
     constructor(audioContext , audioSource) {
         this.audioContext = audioContext;
         this.audioSource = audioSource;
-        this.equalizer = new Equalizer(audioContext);
+        this.equalizer = new Equalizer(audioSource);
     }
 
     enable() {
         this.audioSource.disconnect();
         this.audioSource.connect(this.equalizer.input);
-        this.equalizer.output.connect(this.audioContext.context.destination);
+        this.equalizer.output.connect(this.audioContext.destination);
     }
 
     disable() {

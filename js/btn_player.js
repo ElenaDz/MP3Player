@@ -25,7 +25,7 @@ class BtnPlayer {
         });
     }
     get songId() {
-        return parseInt(this.$context.find('button').data('song_id'));
+        return parseInt(this.$context.find('button').data('song-id'));
     }
     // @ts-ignore
     get url() {
@@ -38,7 +38,7 @@ class BtnPlayer {
         return parseInt(this.$context.parents('.music-popular__item').find('.popular-download-number').text()) || 0;
     }
     get url_song_img() {
-        return this.$context.find('button').data('url_song_img') || '/img/note.svg';
+        return this.$context.find('button').data('url_song_img') || '/templates/drivemusic/img/note.svg';
     }
     get songName() {
         return this.$context.parents().first().find('.popular-play-author').text()
@@ -93,6 +93,9 @@ class BtnPlayer {
         playing
             ? this.$context.addClass('playing')
             : this.$context.removeClass('playing');
+        playing
+            ? this.$context.addClass('pause')
+            : this.$context.removeClass('pause');
     }
     get playing() {
         return this.$context.hasClass('playing');

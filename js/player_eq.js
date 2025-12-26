@@ -10,6 +10,7 @@ const EQ_PRESETS = {
 };
 class PlayerEQ {
     constructor($context) {
+        this.eq_init = false;
         this.KEY_LOCAL_STORE_PRESET = 'PlayerEQ.KEY_LOCAL_STORE_PRESET';
         this.$context = $context;
         // @ts-ignore
@@ -38,10 +39,10 @@ class PlayerEQ {
                 this.slider_preamp.value = this.preamp;
             }
         });
-        this.initEq();
         this.initShow();
         this.initPresets();
         this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_META_DATA, () => {
+            this.initEq();
             this.disabled(false);
         });
     }
@@ -177,20 +178,22 @@ class PlayerEQ {
             event.preventDefault();
         });
         this.$context.find('button.dots').on('click', () => {
-            console.log('cl');
             this.$context.find('.inner_dots').toggleClass('open');
         });
     }
     initEq() {
-        const music = { Equalizer: EqualizerManager };
-        const audioElement = this.player.getAudio();
-        const audioContext = new AudioContext();
-        const audioSource = audioContext.createMediaElementSource(audioElement);
-        let equalizerManager = new music.Equalizer(audioSource, audioSource);
-        equalizerManager.enable();
-        this.eq = equalizerManager.equalizer;
-        this.preset = this.preset;
-        this.$context.find(`[data-preset_name='${this.preset.name}']`).prop('checked', 1);
+        if (this.eq_init == false) {
+            const music = { Equalizer: EqualizerManager };
+            const audioElement = this.player.getAudio();
+            const audioContext = new AudioContext();
+            const audioSource = audioContext.createMediaElementSource(audioElement);
+            let equalizerManager = new music.Equalizer(audioContext, audioSource);
+            equalizerManager.enable();
+            this.eq = equalizerManager.equalizer;
+            this.preset = this.preset;
+            this.$context.find(`[data-preset_name='${this.preset.name}']`).prop('checked', 1);
+            this.eq_init = true;
+        }
     }
     get preset() {
         let preset_store = localStorage.getItem(this.KEY_LOCAL_STORE_PRESET);

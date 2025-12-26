@@ -9,7 +9,7 @@
   height: fit-content;
   border-radius: 10px;
 }
-.popular-play .btn_player .play {
+.popular-play .btn_player .play, .popular-play .btn_player .popular-play__item, .popular-play .btn_player .icon-music-player-pla, .popular-play .btn_player .js-btn-play-playlist, .popular-play .btn_player .song-author-btn {
   border: none;
   cursor: pointer;
   background-repeat: no-repeat;
@@ -25,10 +25,10 @@
   background-image: url("data:image/svg+xml;utf8;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgICA8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDBfMzlfNDIpIj4NCiAgICAgICAgPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNGM0YzRjMiLz4NCiAgICAgICAgPHBhdGggZD0iTTI3LjYyNjggMjAuNjQ1NEMyOC4xMjQ0IDIwLjM0NzMgMjguMTI0NCAxOS42NTI3IDI3LjYyNjggMTkuMzU0NkwxNy4yMTQ4IDEzLjExNjlDMTYuNjg2IDEyLjgwMDEgMTYgMTMuMTY0NSAxNiAxMy43NjIzVjI2LjIzNzdDMTYgMjYuODM1NSAxNi42ODYgMjcuMTk5OSAxNy4yMTQ4IDI2Ljg4MzFMMjcuNjI2OCAyMC42NDU0WiIgZmlsbD0iIzE4N0ZGOCIvPg0KICAgIDwvZz4NCiAgICA8ZGVmcz4NCiAgICAgICAgPGNsaXBQYXRoIGlkPSJjbGlwMF8zOV80MiI+DQogICAgICAgICAgICA8cmVjdCB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIGZpbGw9IndoaXRlIi8+DQogICAgICAgIDwvY2xpcFBhdGg+DQogICAgPC9kZWZzPg0KPC9zdmc+DQo=");
   margin: 5px 10px;
 }
-.popular-play .btn_player .play:hover {
+.popular-play .btn_player .play:hover, .popular-play .btn_player .popular-play__item:hover, .popular-play .btn_player .icon-music-player-pla:hover, .popular-play .btn_player .js-btn-play-playlist:hover, .popular-play .btn_player .song-author-btn:hover {
   background-color: #d7eaff;
 }
-.popular-play .btn_player.playing .play {
+.popular-play .btn_player.playing .play, .popular-play .btn_player.playing .popular-play__item, .popular-play .btn_player.playing .icon-music-player-pla, .popular-play .btn_player.playing .js-btn-play-playlist, .popular-play .btn_player.playing .song-author-btn {
   background-image: url("data:image/svg+xml;utf8;base64,PCEtLSBpY29uNjY2LmNvbSAtIE1JTExJT05TIE9GIEZSRUUgVkVDVE9SIElDT05TIC0tPjxzdmcgdmlld0JveD0iMCAwIDMyIDMyIiAgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgZmlsbD0iIzFhODFmNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBpZD0iTGF5ZXJfMzMiIGRhdGEtbmFtZT0iTGF5ZXIgMzMiPjxwYXRoIGQ9Im0xNCA1djIyYTMgMyAwIDAgMSAtMyAzaC0zYTMgMyAwIDAgMSAtMy0zdi0yMmEzIDMgMCAwIDEgMy0zaDNhMyAzIDAgMCAxIDMgM3ptMTAtM2gtM2EzIDMgMCAwIDAgLTMgM3YyMmEzIDMgMCAwIDAgMyAzaDNhMyAzIDAgMCAwIDMtM3YtMjJhMyAzIDAgMCAwIC0zLTN6Ij48L3BhdGg+PC9nPjwvc3ZnPg==");
 }
 .popular-play .wrap_song .wrap_author {

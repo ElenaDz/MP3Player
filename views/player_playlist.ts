@@ -158,20 +158,15 @@ class PlayerPlaylist
         return `
             <li class="item">
                 <div class="popular-play">
-                    <div
-                        class="btn_player"
-                        data-song_id=" ${song.songId}"
-                        data-song_name=" ${song.songName}"
-                        data-url_song="${song.urlSong}"
+                    <div class="btn_player">    
+                        <button class="play popular-play__item icon-music-player-pla js-btn-play-playlist song-author-btn"
+                        data-song-id=" ${song.songId}"
                         data-url="${song.url}"
                         data-url_hq="${song.url_hq}"
-                        data-clicks="${song.clicks}"
-                    >    
-                        <button class="play"
-                        data-song_id=" ${song.songId}"
-                        data-url="${song.url}"
-                        data-url_hq="${song.url_hq}"
-                        ></button>
+                        >
+                            <span class="icon-music-player-play icon-js"></span>
+                        </button>
+                        
                     </div>
 
                     <div class="song_title">

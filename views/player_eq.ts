@@ -27,6 +27,7 @@ class PlayerEQ
     private slider_preamp: Slider;
     private sliders_bands: Slider[];
     private eq : Equalizer;
+    private eq_init: boolean = false;
 
     private KEY_LOCAL_STORE_PRESET = 'PlayerEQ.KEY_LOCAL_STORE_PRESET';
 
@@ -74,7 +75,7 @@ class PlayerEQ
             }
         });
 
-        this.initEq();
+
 
         this.initShow();
 
@@ -82,6 +83,7 @@ class PlayerEQ
 
         this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_META_DATA,() =>
         {
+            this.initEq();
             this.disabled(false);
         })
     }
@@ -260,26 +262,29 @@ class PlayerEQ
 
         this.$context.find('button.dots').on('click',() =>
         {
-            console.log('cl')
             this.$context.find('.inner_dots').toggleClass('open');
         });
     }
 
     private initEq()
     {
-        const music = { Equalizer: EqualizerManager };
-        const audioElement = this.player.getAudio();
-        const audioContext = new AudioContext();
-        const audioSource = audioContext.createMediaElementSource(audioElement);
-        let equalizerManager = new music.Equalizer(audioSource, audioSource);
+        if (this.eq_init == false) {
+            const music = { Equalizer: EqualizerManager };
+            const audioElement = this.player.getAudio();
+            const audioContext = new AudioContext();
+            const audioSource = audioContext.createMediaElementSource(audioElement);
+            let equalizerManager = new music.Equalizer(audioContext, audioSource);
 
-        equalizerManager.enable();
+            equalizerManager.enable();
 
-        this.eq = equalizerManager.equalizer;
+            this.eq = equalizerManager.equalizer;
 
-        this.preset = this.preset;
+            this.preset = this.preset;
 
-        this.$context.find(`[data-preset_name='${this.preset.name}']`).prop('checked', 1);
+            this.$context.find(`[data-preset_name='${this.preset.name}']`).prop('checked', 1);
+
+            this.eq_init = true;
+        }
     }
 
     private get preset(): Preset
