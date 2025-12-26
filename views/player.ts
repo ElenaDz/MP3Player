@@ -297,6 +297,7 @@ class Player
         return this.audio.volume;
     }
 
+
     public set volume(volume: number)
     {
         this.audio.volume = Number(volume.toFixed(2));
