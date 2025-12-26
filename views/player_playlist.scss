@@ -24,7 +24,7 @@
 
   &.open {
     .b_popup {
-      height: calc(-156px + 100vh);
+      height: fit-content;
 
     }
 
@@ -153,6 +153,7 @@
           align-items: center;
           width: 20px;
           height: 20px;
+          background-size: 30px;
           color: black;
           background-image: url($close_playlist-svg);
           background-repeat: no-repeat;
