@@ -93,7 +93,7 @@ class PlayerPlaylist {
             <li class="item">
                 <div class="popular-play">
                     <div class="btn_player">    
-                        <button class="play popular-play__item icon-music-player-pla js-btn-play-playlist song-author-btn"
+                        <button class="play popular-play__item"
                         data-song-id=" ${song.songId}"
                         data-url="${song.url}"
                         data-url_hq="${song.url_hq}"
@@ -105,7 +105,7 @@ class PlayerPlaylist {
 
                     <div class="song_title">
                         <div class="wrap_song popular-play-author" >
-                            <a href="${song.urlSong}" class="inner_song">
+                            <a href="${song.urlSongPage}" class="inner_song">
                                 ${song.songName}
                             </a>
                         </div>
@@ -122,7 +122,7 @@ class PlayerPlaylist {
                     </div>
 
                     <div class="download elem">
-                        <a class="download_song" href="${song.urlSong}">
+                        <a class="download_song" href="${song.urlSongPage}">
                             <i></i>
                         </a>
                     </div>

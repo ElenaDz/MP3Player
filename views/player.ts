@@ -5,7 +5,7 @@ interface SongPlayer {
     url_hq: string;
     artistHtml: string;
     songName: string;
-    urlSong: string;
+    urlSongPage: string;
     clicks: number;
     urlSongImg: string;
 }

@@ -73,9 +73,11 @@ class BtnPlayer
             || this.$context.parents().first().find('.music-name-text').text();
     }
 
-    public get urlSong()
+    //  страница песни
+    public get urlSongPage()
     {
-        return this.$context.find('button').data('url');
+        return this.$context.parents().first().find('.popular-play-author').attr('href')
+            || this.$context.parents().first().find('.music-name-text').attr('href');
     }
 
     public get artistHtml()
@@ -127,7 +129,7 @@ class BtnPlayer
             url_hq: this.url_hq,
             artistHtml: this.artistHtml,
             songName: this.songName,
-            urlSong: this.urlSong,
+            urlSongPage: this.urlSongPage,
             clicks: this.clicks,
             urlSongImg: this.url_song_img
         }

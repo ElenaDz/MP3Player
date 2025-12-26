@@ -96,9 +96,9 @@ class PlayerInfo
 
         this.$context.find('.inner_song').text(songPlayer.songName);
 
-        this.$context.find('.inner_song').attr('href', songPlayer.urlSong);
+        this.$context.find('.inner_song').attr('href', songPlayer.urlSongPage);
 
-        this.$context.find('.download_song').attr('href', songPlayer.urlSong);
+        this.$context.find('.download_song').attr('href', songPlayer.urlSongPage);
 
         this.$context.find('.artist_img img').attr('src', songPlayer.urlSongImg);
 

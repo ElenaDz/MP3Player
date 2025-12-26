@@ -93,6 +93,7 @@
     padding-bottom: 15px;
     transition-duration: .35s;
     transition-property: height;
+    max-height: 750px;
 
     @include for_laptopS {
       transform: translate(-3%, -76%);
@@ -111,7 +112,7 @@
       height: 100%;
 
       .playlist {
-        overflow: scroll;
+        overflow-y: scroll;
         max-height: 750px;
         padding: 10px 30px;
         margin: 0;
@@ -127,7 +128,7 @@
       }
 
       .header {
-        height: 50px;
+        height: 75px;
         display: flex;
         justify-content: space-between;
         align-items: center;

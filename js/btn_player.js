@@ -44,8 +44,10 @@ class BtnPlayer {
         return this.$context.parents().first().find('.popular-play-author').text()
             || this.$context.parents().first().find('.music-name-text').text();
     }
-    get urlSong() {
-        return this.$context.find('button').data('url');
+    //  страница песни
+    get urlSongPage() {
+        return this.$context.parents().first().find('.popular-play-author').attr('href')
+            || this.$context.parents().first().find('.music-name-text').attr('href');
     }
     get artistHtml() {
         return this.$context.parents().first().find('.popular-play-composition').html() || '';
@@ -81,7 +83,7 @@ class BtnPlayer {
             url_hq: this.url_hq,
             artistHtml: this.artistHtml,
             songName: this.songName,
-            urlSong: this.urlSong,
+            urlSongPage: this.urlSongPage,
             clicks: this.clicks,
             urlSongImg: this.url_song_img
         };
