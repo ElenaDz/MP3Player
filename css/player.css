@@ -216,7 +216,7 @@
   opacity: 0.3 !important;
 }
 .b_player_playlist.open .b_popup {
-  height: fit-content;
+  height: 750px;
 }
 .b_player_playlist.open .playlist_btn {
   opacity: 1;
