@@ -28,11 +28,10 @@ class PlayerEQ {
             slider.disabled = false;
         });
         this.$context.on(PlayerEQ.EVENT_UPDATE_BANDS, (e, index) => {
-            let slader_value = +this.sliders_bands[index].value.toFixed(2);
-            if (slader_value != this.getBand(index)) {
+            let slider_value = +this.sliders_bands[index].value.toFixed(2);
+            if (slider_value != this.getBand(index)) {
                 this.sliders_bands[index].value = this.getBand(index);
             }
-            // fixme используй здесь index band который передается вместе с событием, вместо перебора всех ok
         });
         this.$context.on(PlayerEQ.EVENT_UPDATE_PREAMP, () => {
             if (this.slider_preamp.value != this.preamp) {

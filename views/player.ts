@@ -28,6 +28,7 @@ class Player
     private _playlist: Playlist;
     private _repeat_playlist: boolean;
     private _hq: boolean = false;
+    // fixme нужно бы добавить что это timeout_id алерта
     private _timeout_id: number;
 
 
@@ -346,14 +347,17 @@ class Player
         $alert.find('.title').text(title);
         $alert.find('.msg').text(msg);
 
-        // fixme удалять таймаут при закрытии таймаута кликом, подробнее описал в аудио сообщении ok
-        let  timeout_id= setTimeout(() => {
-            $alert.removeClass('show');
-        }, 6000);
+        let  timeout_id= setTimeout(
+            () => {
+                $alert.removeClass('show');
+            },
+            6*1000
+        );
 
         this.timeout_id = +timeout_id;
     }
 
+    // fixme не нужны setter и getter для timeout_id
     private set timeout_id(index: number)
     {
         this._timeout_id = index;

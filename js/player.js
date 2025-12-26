@@ -197,12 +197,12 @@ class Player {
         $alert.addClass('show');
         $alert.find('.title').text(title);
         $alert.find('.msg').text(msg);
-        // fixme удалять таймаут при закрытии таймаута кликом, подробнее описал в аудио сообщении ok
         let timeout_id = setTimeout(() => {
             $alert.removeClass('show');
-        }, 6000);
+        }, 6 * 1000);
         this.timeout_id = +timeout_id;
     }
+    // fixme не нужны setter и getter для timeout_id
     set timeout_id(index) {
         this._timeout_id = index;
     }

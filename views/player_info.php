@@ -2,6 +2,8 @@
 <div class="b_player_info disabled">
 
     <div class="artist_img elem">
+        <!-- fixme лучшим решением было бы эту картинку размещать как фон, а реальную картинку как img и она будет перекрывать фон -->
+        <!-- fixme картинка на найдена 404 -->
         <img src="/templates/drivemusic/img/note.svg"  alt="Картинка песни">
     </div>
 
