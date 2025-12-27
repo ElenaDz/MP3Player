@@ -216,7 +216,7 @@
   opacity: 0.3 !important;
 }
 .b_player_playlist.open .b_popup {
-  height: 100vh;
+  height: calc(100vh - 167px);
   max-height: 785px;
 }
 .b_player_playlist.open .playlist_btn {
@@ -294,12 +294,17 @@
 .b_player_playlist .b_popup .inner_popup {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .b_player_playlist .b_popup .inner_popup .playlist {
   overflow-y: scroll;
   max-height: 685px;
   padding: 10px 30px;
   margin: 0;
+  display: flex;
+  height: 100%;
+  flex-flow: column nowrap;
 }
 .b_player_playlist .b_popup .inner_popup .playlist .item .song_title a:hover {
   color: #187FF8;

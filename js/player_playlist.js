@@ -45,6 +45,10 @@ class PlayerPlaylist {
         });
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
             this.loadPlaylist(this.player.playlist);
+            this.$context.find('.playing')[0].scrollIntoView({
+                block: "center",
+                behavior: "smooth"
+            });
         });
     }
     initRepeat() {
