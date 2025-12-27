@@ -37,6 +37,10 @@ class BtnPlayer {
     get clicks() {
         return parseInt(this.$context.parents('.music-popular__item').find('.popular-download-number').text()) || 0;
     }
+    get song_time() {
+        return this.$context.parents('.music-popular__item')
+            .find('.popular-download-number').text() || this.$context.parents('.music-popular__item').find('.time-hover').text();
+    }
     get url_song_img() {
         return this.$context.find('button').data('url_song_img') || '/templates/drivemusic/img/note.svg';
     }
@@ -85,7 +89,8 @@ class BtnPlayer {
             songName: this.songName,
             urlSongPage: this.urlSongPage,
             clicks: this.clicks,
-            urlSongImg: this.url_song_img
+            urlSongImg: this.url_song_img,
+            songTime: this.song_time
         };
     }
     pause() {

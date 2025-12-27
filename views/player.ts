@@ -8,6 +8,7 @@ interface SongPlayer {
     urlSongPage: string;
     clicks: number;
     urlSongImg: string;
+    songTime: string;
 }
 
 class Player
@@ -68,7 +69,14 @@ class Player
         {
             clearTimeout(this.timeout_alert_id);
 
-            this.alert('Ошибка', 'Трек не доступен или ссылка устарела. Пожалуйста, обновите страницу.');
+            setTimeout(
+                () => {
+                    if (!this.playing) {
+                        this.alert('Ошибка', 'Трек не доступен или ссылка устарела. Пожалуйста, обновите страницу.');
+                    }
+                },
+                1*1000
+            );
 
             this.$context.find('.alert').on('click',(alert) =>
             {

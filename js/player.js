@@ -24,7 +24,11 @@ class Player {
     initAlert() {
         this.$context.on(Player.EVENT_ERROR, () => {
             clearTimeout(this.timeout_alert_id);
-            this.alert('Ошибка', 'Трек не доступен или ссылка устарела. Пожалуйста, обновите страницу.');
+            setTimeout(() => {
+                if (!this.playing) {
+                    this.alert('Ошибка', 'Трек не доступен или ссылка устарела. Пожалуйста, обновите страницу.');
+                }
+            }, 1 * 1000);
             this.$context.find('.alert').on('click', (alert) => {
                 this.alert_close();
             });

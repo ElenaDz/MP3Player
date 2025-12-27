@@ -94,6 +94,7 @@ class PlayerPlaylist {
         playlist.songsPlayer.forEach((song_player) => {
             html_playlist = !html_playlist ? this.getHtml(song_player) : html_playlist + (this.getHtml(song_player));
         });
+        html_playlist = html_playlist + '<div style="height: 80px"> </div>';
         return html_playlist;
     }
     getHtml(song) {
@@ -124,9 +125,8 @@ class PlayerPlaylist {
                 </div>
 
                 <div class="wrap_right">
-                    <div class="count_clicks">
-                        <span class="icon-vol2"></span>
-                        <span>${song.clicks}</span>
+                    <div class="song_time">
+                        <span>${song.songTime}</span>
                     </div>
 
                     <div class="download elem">

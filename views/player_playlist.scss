@@ -25,6 +25,7 @@
   &.open {
     .b_popup {
       height: 100vh;
+      max-height: 785px;
 
     }
 
@@ -93,7 +94,6 @@
     padding-bottom: 15px;
     transition-duration: .35s;
     transition-property: height;
-    max-height: 785px;
     border-radius: 0!important;
 
     @include for_laptopS {
@@ -114,7 +114,7 @@
 
       .playlist {
         overflow-y: scroll;
-        max-height: 750px;
+        max-height: 685px;
         padding: 10px 30px;
         margin: 0;
 
@@ -223,7 +223,7 @@
     }
   }
 
-  .count_clicks {
+  .song_time {
     display: flex;
     width: 80px;
     align-items: center;

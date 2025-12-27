@@ -37,9 +37,9 @@ list($artist_name, $song_name) = explode(' - ', $song_title);
 
         <div class="popular-download" style="margin-left: 20px">
             <div class="popular-download-number">
-                <span class="icon-vol2"></span>
-                <?= rawurlencode($clicks); ?>
+                <span class="time-hover">04:44</span>
             </div>
+
             <a href="<?= rawurlencode($file_name); ?>" class="popular-download-link">
                 <span class="icon-download-arrow-with-bar"></span>
                 <span class="popular-download-text" style="display: none">Скачать</span>
@@ -50,3 +50,4 @@ list($artist_name, $song_name) = explode(' - ', $song_title);
 
 <?php
 unset($file_name);
+

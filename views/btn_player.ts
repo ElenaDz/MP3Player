@@ -38,7 +38,6 @@ class BtnPlayer
                 this.playing = false;
             }
         })
-
     }
 
     public get songId(): number
@@ -60,6 +59,12 @@ class BtnPlayer
     private get clicks(): number
     {
         return parseInt(this.$context.parents('.music-popular__item').find('.popular-download-number').text()) || 0;
+    }
+
+    private get song_time(): string
+    {
+        return this.$context.parents('.music-popular__item')
+            .find('.popular-download-number').text() || this.$context.parents('.music-popular__item').find('.time-hover').text();
     }
 
     private get url_song_img(): string
@@ -131,7 +136,8 @@ class BtnPlayer
             songName: this.songName,
             urlSongPage: this.urlSongPage,
             clicks: this.clicks,
-            urlSongImg: this.url_song_img
+            urlSongImg: this.url_song_img,
+            songTime: this.song_time
         }
     }
 

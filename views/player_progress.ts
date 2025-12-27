@@ -20,6 +20,7 @@ class PlayerProgress
 
         this.disabled();
 
+
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
             this.$context.find('.b_slider').removeClass('disabled');

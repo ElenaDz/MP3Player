@@ -92,7 +92,10 @@ class PlayerInfo
     {
         let songPlayer = this.player.songPlayer;
 
-        this.$context.find('.wrap_author').html(songPlayer.artistHtml);
+        // fixme вставить название плейлиста, если нет имени артиста (просьба заказчика)
+        songPlayer.artistHtml
+            ? this.$context.find('.wrap_author').html(songPlayer.artistHtml)
+            :  this.$context.find('.wrap_author').text('Название плейлиста');
 
         this.$context.find('.inner_song').text(songPlayer.songName);
 

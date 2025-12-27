@@ -217,6 +217,7 @@
 }
 .b_player_playlist.open .b_popup {
   height: 100vh;
+  max-height: 785px;
 }
 .b_player_playlist.open .playlist_btn {
   opacity: 1;
@@ -274,7 +275,6 @@
   padding-bottom: 15px;
   transition-duration: 0.35s;
   transition-property: height;
-  max-height: 785px;
   border-radius: 0 !important;
 }
 @media (max-width: 1024px) {
@@ -297,7 +297,7 @@
 }
 .b_player_playlist .b_popup .inner_popup .playlist {
   overflow-y: scroll;
-  max-height: 750px;
+  max-height: 685px;
   padding: 10px 30px;
   margin: 0;
 }
@@ -380,14 +380,14 @@
   background-repeat: no-repeat;
   background-position: center;
 }
-.b_player_playlist .count_clicks {
+.b_player_playlist .song_time {
   display: flex;
   width: 80px;
   align-items: center;
   margin-right: 10px;
   color: #746a74;
 }
-.b_player_playlist .count_clicks i {
+.b_player_playlist .song_time i {
   display: flex;
   margin-right: 5px;
   width: 20px;
