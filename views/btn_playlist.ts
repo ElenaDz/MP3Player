@@ -2,6 +2,7 @@ class BtnPlaylist
 {
     public $context: JQuery;
     private player: Player;
+    private playlist: Playlist;
 
     constructor($context: JQuery)
     {
@@ -15,9 +16,11 @@ class BtnPlaylist
 
         this.player = Player.create();
 
+
+
         this.$context.on('click',() =>
         {
-
+            console.log(this.playlist.id)
         });
     }
 

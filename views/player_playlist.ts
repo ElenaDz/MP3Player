@@ -30,6 +30,8 @@ class PlayerPlaylist
         {
             if (!$(e.target).hasClass('b_popup')
                 && !$(e.target).hasClass('playlist_btn')
+                && !$(e.target).hasClass('shuffle')
+                && !$(e.target).hasClass('repeat_playlist')
                 && !$(e.target).parents().hasClass('b_popup'))
             {
                 this.close();
