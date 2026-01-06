@@ -136,7 +136,8 @@ class BtnPlayer
             || this.$context.parents('.main-music-popular').find('.music-title').text()
             || this.$context.parents('.main-music-content').find('.song-top-title .music-title .music-title-link').text()
             || this.$context.parents('.main-music-content').find('.main-music-top-title .music-title').text()
-            || this.$context.parents('.main-music-content').find('.music-title .music-title-link').text();
+            || this.$context.parents('.main-music-content').find('.music-title .music-title-link').text()
+            || this.player.$context.find('.music_title').text();
 
 
         return new Playlist(songs_player, title);
