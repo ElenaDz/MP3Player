@@ -73,9 +73,11 @@ class BtnPlayer {
         btns_player.forEach((btn_player) => {
             songs_player.push(btn_player.songPlayer);
         });
-        let title = this.$context.parents('.main-music-content').parent().find('.music-music-title-link').text()
-            || this.$context.parents('.main-music-content').parent().find('.c-playlist-content__title').text()
-            || this.$context.parents('.main-music-content').parent().find('.genre-title-text').text();
+        let title = this.$context.parents('.inline_player_playlist_main').find('.music-title-link').text()
+            || this.$context.parents('.main-music-popular').find('.music-title-link').text()
+            || this.$context.parents('.box-player__item').find('.picture-text__link').text()
+            || this.$context.parents('.main-music-content').find('.c-playlist-content__title').text()
+            || this.$context.parents('.main-music-content').find('.music-title').text();
         return new Playlist(songs_player, title);
     }
     get songPlayer() {

@@ -322,7 +322,7 @@
   font-weight: 650;
 }
 .b_player_playlist .b_popup .inner_popup .header .name_chart .music_title::before {
-  content: "Сейчас играет:";
+  content: "Сейчас играет: ";
   cursor: default;
 }
 .b_player_playlist .b_popup .inner_popup .header .close {
