@@ -117,9 +117,10 @@ class BtnPlayer
             songs_player.push(btn_player.songPlayer)
         });
 
-        let title = $('body').find('music-title').text()
-            || $('body').find('c-playlist-content__title').text()
-            || $('body').find('genre-title-text').text();
+        let title = $('body').find('.music-title').text()
+            || $('body').find('.c-playlist-content__title').text()
+            || $('body').find('.genre-title-text').text()
+            || $('body').find('.music-title-link').text();
 
         return new Playlist(songs_player, title);
     }
