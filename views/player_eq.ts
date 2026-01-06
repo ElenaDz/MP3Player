@@ -150,7 +150,6 @@ class PlayerEQ
                     <div class="slider">
                         <div
                             class="value"
-                            style="height:100%"
                         >
                             <div class="thumb"></div>
                         </div>
@@ -276,7 +275,6 @@ class PlayerEQ
             this.eq = equalizerManager.equalizer;
 
             this.preset = this.preset;
-
             this.$context.find(`[data-preset_name='${this.preset.name}']`).prop('checked', 1);
 
             this.eq_init = true;
@@ -293,7 +291,6 @@ class PlayerEQ
     private set preset(preset: Preset)
     {
         this.preamp = preset.preamp;
-
         preset.bands.forEach((band, index) =>
         {
             this.setBand(index, band);
@@ -333,7 +330,8 @@ class PlayerEQ
             );
         }
 
-        if (this.eq.preamp.getValue().toFixed(2) != preamp_value.toFixed(2)) {
+        if (this.eq.preamp.getValue().toFixed(2) != preamp_value.toFixed(2)
+            || this.eq.preamp.getValue().toFixed(2) !== this.sliders[0].value.toFixed(2)) {
             this.eq.preamp.setValue(preamp_value);
 
             this.$context.trigger(PlayerEQ.EVENT_UPDATE_PREAMP);
@@ -348,7 +346,6 @@ class PlayerEQ
     public setBand(index: number, value: number)
     {
         let $slader_band = this.sliders_bands[index];
-
         if (value < $slader_band.value_min || value > $slader_band.value_max)
         {
             throw new Error(
@@ -357,10 +354,10 @@ class PlayerEQ
             );
         }
 
-        if (this.eq.bands[index].getValue().toFixed(2) == value.toFixed(2)) return;
+        if (this.eq.bands[index].getValue().toFixed(2) == value.toFixed(2)
+            && this.eq.bands[index].getValue().toFixed(2) == this.sliders[index].value) return;
 
         this.eq.bands[index].setValue(value);
-
         this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS, index);
     }
 

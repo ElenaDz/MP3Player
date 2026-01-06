@@ -102,7 +102,6 @@ class PlayerEQ {
                     <div class="slider">
                         <div
                             class="value"
-                            style="height:100%"
                         >
                             <div class="thumb"></div>
                         </div>
@@ -223,7 +222,8 @@ class PlayerEQ {
             throw new Error(`Недопустимое значение Preamp = "${preamp_value.toFixed(2)}". 
                 Диапазон от "${this.slider_preamp.value_min}" до "${this.slider_preamp.value_max}".`);
         }
-        if (this.eq.preamp.getValue().toFixed(2) != preamp_value.toFixed(2)) {
+        if (this.eq.preamp.getValue().toFixed(2) != preamp_value.toFixed(2)
+            || this.eq.preamp.getValue().toFixed(2) !== this.sliders[0].value.toFixed(2)) {
             this.eq.preamp.setValue(preamp_value);
             this.$context.trigger(PlayerEQ.EVENT_UPDATE_PREAMP);
         }
@@ -237,7 +237,8 @@ class PlayerEQ {
             throw new Error(`Недопустимое значение Band["${index}"] = "${value}". 
                 Диапазон от "${$slader_band.value_min}" до "${$slader_band.value_max}".`);
         }
-        if (this.eq.bands[index].getValue().toFixed(2) == value.toFixed(2))
+        if (this.eq.bands[index].getValue().toFixed(2) == value.toFixed(2)
+            && this.eq.bands[index].getValue().toFixed(2) == this.sliders[index].value)
             return;
         this.eq.bands[index].setValue(value);
         this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS, index);
