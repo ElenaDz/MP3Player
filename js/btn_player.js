@@ -38,8 +38,10 @@ class BtnPlayer {
         return parseInt(this.$context.parents('.music-popular__item').find('.popular-download-number').text()) || 0;
     }
     get song_time() {
+        console.log(this.$context);
         return this.$context.parents('.music-popular__item').find('.time-hover').text()
-            || this.$context.parents('.music-popular__item').find('.popular-download-number').text();
+            || this.$context.parents('.music-popular__item').find('.popular-download-number').text()
+            || this.$context.parents('.item').find('.song_time').text();
     }
     get url_song_img() {
         return this.$context.find('button').data('url_song_img') || '/templates/drivemusic/img/note.svg';

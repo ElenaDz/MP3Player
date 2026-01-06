@@ -63,8 +63,10 @@ class BtnPlayer
 
     public get song_time(): string
     {
+        console.log(this.$context)
         return this.$context.parents('.music-popular__item').find('.time-hover').text()
-            || this.$context.parents('.music-popular__item').find('.popular-download-number').text();
+            || this.$context.parents('.music-popular__item').find('.popular-download-number').text()
+            || this.$context.parents('.item').find('.song_time').text();
     }
 
     private get url_song_img(): string

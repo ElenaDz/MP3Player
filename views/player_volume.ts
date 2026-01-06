@@ -57,11 +57,6 @@ class PlayerVolume
         {
             this.mute = ! this.mute;
         });
-
-        this.player.$context.on(Player.EVENT_ERROR,() =>
-        {
-            // this.disabled();
-        })
     }
 
     private disabled()

@@ -8,9 +8,6 @@ class PlayerPlaylist {
         this.$context[0].Playlist = this;
         this.disabled();
         this.player = Player.create();
-        this.player.$context.on(Player.EVENT_ERROR, () => {
-            // this.disabled();
-        });
         $('html').on('click', (e) => {
             if (!$(e.target).hasClass('b_popup')
                 && !$(e.target).hasClass('playlist_btn')

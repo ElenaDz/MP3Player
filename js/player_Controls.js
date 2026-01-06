@@ -11,9 +11,6 @@ class PlayerControls {
         this.player.$context.on(Player.EVENT_LOADED_META_DATA + ' ' + Player.EVENT_UPDATE_REPEAT_PLAYLIST + ' ' + PlayerPlaylist.EVENT_UPDATE_PLAYLIST, () => {
             this.updateDisabled();
         });
-        this.player.$context.on(Player.EVENT_ERROR, () => {
-            // this.disabled();
-        });
         this.initPlay();
         this.initNext();
         this.initPrev();
