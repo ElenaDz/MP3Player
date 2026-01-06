@@ -117,15 +117,14 @@ class BtnPlayer
             songs_player.push(btn_player.songPlayer)
         });
 
-        let parent_title = this.$context.parents('.inline_player_playlist_main').not('.song-comments')
-            || this.$context.parents('.main-music-content').not('.song-comments')
-            || this.$context.parents('.box-player__item').not('.song-comments');
-
-        let title = parent_title.find('.music-title-link, .music-title').text()
-            || parent_title.find('.song-top-title .music-title .music-title-link').text()
-            || parent_title.find('.main-music-top-title .music-title').text()
-            || parent_title.find('.picture-text__link').text()
-            || parent_title.find('.c-playlist-content__title').text();
+        let title = this.$context.parents('.inline_player_playlist_main').find('.music-title, .music-title-link').text()
+            || this.$context.parents('.main-music-content').find('.song-top-title .music-title .music-title-link').text()
+            || this.$context.parents('.main-music-content').find('.main-music-top-title .music-title').text()
+            || this.$context.parents('.main-music-content').find('.music-title .music-title-link').text()
+            || this.$context.parents('.main-music-content').find('.music-title').text()
+            || this.$context.parents('.main-music-popular').find('.music-title-link').text()
+            || this.$context.parents('.box-player__item').find('.picture-text__link').text()
+            || this.$context.parents('.main-music-content').find('.c-playlist-content__title').text();
 
         return new Playlist(songs_player, title);
     }
