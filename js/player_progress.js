@@ -13,7 +13,7 @@ class PlayerProgress {
             this.$context.find('.b_slider').removeClass('disabled');
             this.slider.value_max = this.player.duration;
             this.currentTimeText = this.player.currentTime;
-            this.durationText = this.player.duration;
+            // this.durationText = this.player.duration;
         });
         this.player.$context.on(Player.EVENT_UPDATE_TIME, () => {
             this.currentTimeText = this.player.currentTime;
@@ -33,7 +33,7 @@ class PlayerProgress {
         this.$context.find('.time_current').text(PlayerProgress.formatTime(current_time));
     }
     set durationText(duration) {
-        this.$context.find('.time_duration').text(PlayerProgress.formatTime(duration));
+        this.$context.find('.time_duration').text(duration);
     }
     static formatTime(sec = 0) {
         let min = (Math.floor(Math.trunc(sec / 60))).toString();

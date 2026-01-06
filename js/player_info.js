@@ -55,11 +55,11 @@ class PlayerInfo {
     }
     load() {
         let songPlayer = this.player.songPlayer;
-        // fixme вставить название плейлиста, если нет имени артиста (просьба заказчика)
-        songPlayer.artistHtml
-            ? this.$context.find('.wrap_author').html(songPlayer.artistHtml)
-            : this.$context.find('.wrap_author').text('Название плейлиста');
-        this.$context.find('.inner_song').text(songPlayer.songName);
+        // songPlayer.artistHtml
+        //     ? this.$context.find('.wrap_author').html(songPlayer.artistHtml)
+        //     :  this.$context.find('.wrap_author').text('Название плейлиста');
+        //
+        // this.$context.find('.inner_song').text(songPlayer.songName);
         this.$context.find('.inner_song').attr('href', songPlayer.urlSongPage);
         this.$context.find('.download_song').attr('href', songPlayer.urlSongPage);
         this.$context.find('.artist_img img').attr('src', songPlayer.urlSongImg);
@@ -70,6 +70,14 @@ class PlayerInfo {
             });
         }
         this.disabled(false);
+    }
+    setSongName(song_name) {
+        this.$context.find('.inner_song').text(song_name);
+    }
+    setArtistHtml(artist_html) {
+        artist_html
+            ? this.$context.find('.wrap_author').html(artist_html)
+            : this.$context.find('.wrap_author').text('Название плейлиста');
     }
     disabled(disabled = true) {
         if (disabled) {

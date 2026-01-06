@@ -92,12 +92,11 @@ class PlayerInfo
     {
         let songPlayer = this.player.songPlayer;
 
-        // fixme вставить название плейлиста, если нет имени артиста (просьба заказчика)
-        songPlayer.artistHtml
-            ? this.$context.find('.wrap_author').html(songPlayer.artistHtml)
-            :  this.$context.find('.wrap_author').text('Название плейлиста');
-
-        this.$context.find('.inner_song').text(songPlayer.songName);
+        // songPlayer.artistHtml
+        //     ? this.$context.find('.wrap_author').html(songPlayer.artistHtml)
+        //     :  this.$context.find('.wrap_author').text('Название плейлиста');
+        //
+        // this.$context.find('.inner_song').text(songPlayer.songName);
 
         this.$context.find('.inner_song').attr('href', songPlayer.urlSongPage);
 
@@ -114,6 +113,16 @@ class PlayerInfo
         }
 
         this.disabled(false);
+    }
+
+    public setSongName(song_name: string) {
+        this.$context.find('.inner_song').text(song_name);
+    }
+
+    public setArtistHtml(artist_html) {
+        artist_html
+            ? this.$context.find('.wrap_author').html(artist_html)
+            :  this.$context.find('.wrap_author').text('Название плейлиста');
     }
 
     private disabled(disabled: boolean = true)

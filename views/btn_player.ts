@@ -63,8 +63,8 @@ class BtnPlayer
 
     public get song_time(): string
     {
-        return this.$context.parents('.music-popular__item')
-            .find('.popular-download-number').text() || this.$context.parents('.music-popular__item').find('.time-hover').text();
+        return this.$context.parents('.music-popular__item').find('.time-hover').text()
+            || this.$context.parents('.music-popular__item').find('.popular-download-number').text();
     }
 
     private get url_song_img(): string
@@ -99,6 +99,15 @@ class BtnPlayer
 
     private load()
     {
+        let player_progress = PlayerProgress.create();
+
+        player_progress.durationText = this.song_time;
+
+        let player_info = PlayerInfo.create();
+
+        player_info.setSongName(this.songName);
+        player_info.setArtistHtml(this.artistHtml);
+
         if (this.player.songId !== this.songId || this.getPlaylist().id !== this.player.playlist.id)
         {
             if (this.url) {
@@ -117,14 +126,16 @@ class BtnPlayer
             songs_player.push(btn_player.songPlayer)
         });
 
-        let title = this.$context.parents('.inline_player_playlist_main').find('.music-title, .music-title-link').text()
+        let title = this.$context.parents('.inline_player_playlist_main').find('.music-title-link').text()
+            || this.$context.parents('.inline_player_playlist_main').find('.music-title').text()
+            || this.$context.parents('.box-player__item').find('.picture-text__link').text()
+            || this.$context.parents('.main-music-content').find('.c-playlist-content__title').text()
+            || this.$context.parents('.main-music-popular').find('.music-title-link').text()
+            || this.$context.parents('.main-music-popular').find('.music-title').text()
             || this.$context.parents('.main-music-content').find('.song-top-title .music-title .music-title-link').text()
             || this.$context.parents('.main-music-content').find('.main-music-top-title .music-title').text()
-            || this.$context.parents('.main-music-content').find('.music-title .music-title-link').text()
-            || this.$context.parents('.main-music-content').find('.music-title').text()
-            || this.$context.parents('.main-music-popular').find('.music-title-link').text()
-            || this.$context.parents('.box-player__item').find('.picture-text__link').text()
-            || this.$context.parents('.main-music-content').find('.c-playlist-content__title').text();
+            || this.$context.parents('.main-music-content').find('.music-title .music-title-link').text();
+
 
         return new Playlist(songs_player, title);
     }
