@@ -73,7 +73,10 @@ class BtnPlayer {
         btns_player.forEach((btn_player) => {
             songs_player.push(btn_player.songPlayer);
         });
-        let title = this.$context.parents('.inline_player_playlist_main').find('.music-title-link').text()
+        let title = this.$context.parents('.inline_player_playlist_main').find('.music-title, .music-title-link').text()
+            || this.$context.parents('.main-music-content').find('.song-top-title .music-title .music-title-link').text()
+            || this.$context.parents('.main-music-content').find('.main-music-top-title .music-title').text()
+            || this.$context.parents('.main-music-content').find('.music-title .music-title-link').text()
             || this.$context.parents('.main-music-content').find('.music-title').text()
             || this.$context.parents('.main-music-popular').find('.music-title-link').text()
             || this.$context.parents('.box-player__item').find('.picture-text__link').text()
