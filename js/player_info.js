@@ -55,11 +55,10 @@ class PlayerInfo {
     }
     load() {
         let songPlayer = this.player.songPlayer;
-        // songPlayer.artistHtml
-        //     ? this.$context.find('.wrap_author').html(songPlayer.artistHtml)
-        //     :  this.$context.find('.wrap_author').text('Название плейлиста');
-        //
-        // this.$context.find('.inner_song').text(songPlayer.songName);
+        songPlayer.artistHtml
+            ? this.$context.find('.wrap_author').html(songPlayer.artistHtml)
+            : this.$context.find('.wrap_author').text('Название плейлиста');
+        this.$context.find('.inner_song').text(songPlayer.songName);
         this.$context.find('.inner_song').attr('href', songPlayer.urlSongPage);
         this.$context.find('.download_song').attr('href', songPlayer.urlSongPage);
         this.$context.find('.artist_img img').attr('src', songPlayer.urlSongImg);

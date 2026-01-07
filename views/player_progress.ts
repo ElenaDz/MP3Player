@@ -27,6 +27,7 @@ class PlayerProgress
 
             this.slider.value_max = this.player.duration;
             this.currentTimeText = this.player.currentTime;
+            this.durationText = this.player.duration;
         });
 
         this.player.$context.on(Player.EVENT_UPDATE_TIME,() =>
@@ -51,13 +52,16 @@ class PlayerProgress
         this.$context.find('.time_current').text(PlayerProgress.formatTime(current_time));
     }
 
-    public set durationText(duration: string)
+    public set durationText(duration: any)
     {
-        this.$context.find('.time_duration').text(duration);
-
+        if (typeof duration == "number") {
+            this.$context.find('.time_duration').text(PlayerProgress.formatTime(duration));
+        } else {
+            this.$context.find('.time_duration').text(duration);
+        }
     }
 
-    private static formatTime(sec = 0)
+    public static formatTime(sec = 0)
     {
         let min = (Math.floor(Math.trunc(sec / 60))).toString();
 

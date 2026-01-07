@@ -20,7 +20,7 @@ class BtnPlaylist
 
         this.$context.on('click',() =>
         {
-            console.log(this.playlist.id)
+
         });
     }
 

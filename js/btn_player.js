@@ -38,7 +38,6 @@ class BtnPlayer {
         return parseInt(this.$context.parents('.music-popular__item').find('.popular-download-number').text()) || 0;
     }
     get song_time() {
-        console.log(this.$context);
         return this.$context.parents('.music-popular__item').find('.time-hover').text()
             || this.$context.parents('.music-popular__item').find('.popular-download-number').text()
             || this.$context.parents('.item').find('.song_time').text();
@@ -80,7 +79,8 @@ class BtnPlayer {
         btns_player.forEach((btn_player) => {
             songs_player.push(btn_player.songPlayer);
         });
-        let title = this.$context.parents('.inline_player_playlist_main').find('.music-title-link').text()
+        let title = this.$context.parents('.main-music-content').find('h1').not('.song-title-text').text()
+            || this.$context.parents('.inline_player_playlist_main').find('.music-title-link').text()
             || this.$context.parents('.inline_player_playlist_main').find('.music-title').text()
             || this.$context.parents('.box-player__item').find('.picture-text__link').text()
             || this.$context.parents('.main-music-content').find('.c-playlist-content__title').text()
