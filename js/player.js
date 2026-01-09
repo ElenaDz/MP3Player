@@ -207,7 +207,6 @@ class Player {
         }, 6 * 1000);
         this.timeout_alert_id = +timeout_id;
     }
-    // fixme не нужны setter и getter для timeout_id ok
     static create($context = $('.b_player')) {
         return new Player($context);
     }

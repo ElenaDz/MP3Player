@@ -48,8 +48,6 @@ class PlayerEQ
         this.sliders = Slider.create(this.$context);
         this.sliders_bands = Slider.create(this.$context.find('.bands'));
         this.slider_preamp = Slider.create(this.$context.find('.preamp'))[0];
-        console.log(this.slider_preamp.value)
-
 
         this.disabled();
 
@@ -60,7 +58,7 @@ class PlayerEQ
 
         this.$context.on(PlayerEQ.EVENT_UPDATE_BANDS,  (e, index) =>
         {
-            let slider_value = +this.sliders_bands[index].value.toFixed(2);
+            let slider_value = +this.sliders_bands[index].value;
 
             if (slider_value != this.getBand(index)) {
                 this.sliders_bands[index].value = this.getBand(index);
@@ -210,20 +208,6 @@ class PlayerEQ
                 this.preset = preset;
             });
         });
-
-        this.slider_preamp.$context.on(SliderEvents.ValueUpdate, ( ) =>
-        {
-            console.log(this.slider_preamp.value)
-            this.preamp = this.slider_preamp.value;
-        });
-
-        this.sliders_bands.forEach((slider, index) =>
-        {
-            slider.$context.on(SliderEvents.ValueUpdate, ( ) =>
-            {
-                this.setBand(index, slider.value);
-            });
-        })
     }
 
     private initShow()
@@ -278,8 +262,7 @@ class PlayerEQ
             this.eq = equalizerManager.equalizer;
 
             this.preset = this.preset;
-            // console.log(this.eq.bands[3].value)
-            // console.log(this.eq.preamp.getValue())
+
             this.$context.find(`[data-preset_name='${this.preset.name}']`).prop('checked', 1);
 
             this.eq_init = true;
@@ -296,7 +279,6 @@ class PlayerEQ
     private set preset(preset: Preset)
     {
 
-        console.log(preset.preamp)
         this.preamp = preset.preamp;
 
         preset.bands.forEach((band, index) =>
@@ -331,6 +313,7 @@ class PlayerEQ
 
     public set preamp(preamp_value: number)
     {
+
         if (preamp_value < this.slider_preamp.value_min || preamp_value > this.slider_preamp.value_max) {
             throw new Error(
                 `Недопустимое значение Preamp = "${preamp_value.toFixed(2)}". 
@@ -338,20 +321,13 @@ class PlayerEQ
             );
         }
 
-        if (this.eq.preamp.getValue().toFixed(2) == preamp_value.toFixed(2)
-            && this.eq.preamp.getValue().toFixed(2) == this.sliders[0].value.toFixed(2)) return;
+        if (this.eq.preamp.getValue().toFixed(2) != preamp_value.toFixed(2)
+            || this.eq.preamp.getValue().toFixed(2) != this.sliders[0].value.toFixed(2))
+        {
+            this.eq.preamp.setValue(preamp_value);
 
-        console.log(preamp_value)
-        // if (this.eq.preamp.getValue().toFixed(2) != preamp_value.toFixed(2)
-        //     || this.eq.preamp.getValue().toFixed(2) != this.sliders[0].value.toFixed(2)) {
-        //     this.eq.preamp.setValue(preamp_value);
-        //
-        //     this.$context.trigger(PlayerEQ.EVENT_UPDATE_PREAMP);
-        // }
-        this.eq.preamp.setValue(preamp_value);
-
-        console.log(this.eq.preamp.getValue())
-        this.$context.trigger(PlayerEQ.EVENT_UPDATE_PREAMP);
+            this.$context.trigger(PlayerEQ.EVENT_UPDATE_PREAMP);
+        }
     }
 
     public get preamp(): number
@@ -369,11 +345,10 @@ class PlayerEQ
                 Диапазон от "${$slader_band.value_min}" до "${$slader_band.value_max}".`
             );
         }
-
-        if (this.eq.bands[index].getValue().toFixed(2) == value.toFixed(2)
-            && this.eq.bands[index].getValue().toFixed(2) == this.sliders[index].value) return;
+        if (this.eq.bands[index].getValue().toFixed(2) == value.toFixed(2)) return;
 
         this.eq.bands[index].setValue(value);
+        console.log( this.eq.bands[index].getValue().toFixed(2))
         this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS, index);
     }
 

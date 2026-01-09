@@ -23,13 +23,12 @@ class PlayerEQ {
         this.sliders = Slider.create(this.$context);
         this.sliders_bands = Slider.create(this.$context.find('.bands'));
         this.slider_preamp = Slider.create(this.$context.find('.preamp'))[0];
-        console.log(this.slider_preamp.value);
         this.disabled();
         this.sliders.forEach((slider, index) => {
             slider.disabled = false;
         });
         this.$context.on(PlayerEQ.EVENT_UPDATE_BANDS, (e, index) => {
-            let slider_value = +this.sliders_bands[index].value.toFixed(2);
+            let slider_value = +this.sliders_bands[index].value;
             if (slider_value != this.getBand(index)) {
                 this.sliders_bands[index].value = this.getBand(index);
             }
@@ -146,15 +145,6 @@ class PlayerEQ {
                 this.preset = preset;
             });
         });
-        this.slider_preamp.$context.on(SliderEvents.ValueUpdate, () => {
-            console.log(this.slider_preamp.value);
-            this.preamp = this.slider_preamp.value;
-        });
-        this.sliders_bands.forEach((slider, index) => {
-            slider.$context.on(SliderEvents.ValueUpdate, () => {
-                this.setBand(index, slider.value);
-            });
-        });
     }
     initShow() {
         this.$context.find('button.eq').on('click', () => {
@@ -191,8 +181,6 @@ class PlayerEQ {
             equalizerManager.enable();
             this.eq = equalizerManager.equalizer;
             this.preset = this.preset;
-            // console.log(this.eq.bands[3].value)
-            // console.log(this.eq.preamp.getValue())
             this.$context.find(`[data-preset_name='${this.preset.name}']`).prop('checked', 1);
             this.eq_init = true;
         }
@@ -202,7 +190,6 @@ class PlayerEQ {
         return preset_store ? JSON.parse(preset_store) : EQ_PRESETS.Default;
     }
     set preset(preset) {
-        console.log(preset.preamp);
         this.preamp = preset.preamp;
         preset.bands.forEach((band, index) => {
             this.setBand(index, band);
@@ -227,19 +214,11 @@ class PlayerEQ {
             throw new Error(`Недопустимое значение Preamp = "${preamp_value.toFixed(2)}". 
                 Диапазон от "${this.slider_preamp.value_min}" до "${this.slider_preamp.value_max}".`);
         }
-        if (this.eq.preamp.getValue().toFixed(2) == preamp_value.toFixed(2)
-            && this.eq.preamp.getValue().toFixed(2) == this.sliders[0].value.toFixed(2))
-            return;
-        console.log(preamp_value);
-        // if (this.eq.preamp.getValue().toFixed(2) != preamp_value.toFixed(2)
-        //     || this.eq.preamp.getValue().toFixed(2) != this.sliders[0].value.toFixed(2)) {
-        //     this.eq.preamp.setValue(preamp_value);
-        //
-        //     this.$context.trigger(PlayerEQ.EVENT_UPDATE_PREAMP);
-        // }
-        this.eq.preamp.setValue(preamp_value);
-        console.log(this.eq.preamp.getValue());
-        this.$context.trigger(PlayerEQ.EVENT_UPDATE_PREAMP);
+        if (this.eq.preamp.getValue().toFixed(2) != preamp_value.toFixed(2)
+            || this.eq.preamp.getValue().toFixed(2) != this.sliders[0].value.toFixed(2)) {
+            this.eq.preamp.setValue(preamp_value);
+            this.$context.trigger(PlayerEQ.EVENT_UPDATE_PREAMP);
+        }
     }
     get preamp() {
         return +this.eq.preamp.getValue().toFixed(2);
@@ -250,10 +229,10 @@ class PlayerEQ {
             throw new Error(`Недопустимое значение Band["${index}"] = "${value}". 
                 Диапазон от "${$slader_band.value_min}" до "${$slader_band.value_max}".`);
         }
-        if (this.eq.bands[index].getValue().toFixed(2) == value.toFixed(2)
-            && this.eq.bands[index].getValue().toFixed(2) == this.sliders[index].value)
+        if (this.eq.bands[index].getValue().toFixed(2) == value.toFixed(2))
             return;
         this.eq.bands[index].setValue(value);
+        console.log(this.eq.bands[index].getValue().toFixed(2));
         this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS, index);
     }
     getBand(index) {

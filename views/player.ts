@@ -29,7 +29,6 @@ class Player
     private _playlist: Playlist;
     private _repeat_playlist: boolean;
     private _hq: boolean = false;
-    // fixme нужно бы добавить что это timeout_id алерта ok
     private timeout_alert_id: number;
 
 
@@ -365,8 +364,6 @@ class Player
 
         this.timeout_alert_id = +timeout_id;
     }
-
-    // fixme не нужны setter и getter для timeout_id ok
 
     public static create($context = $('.b_player')): Player
     {
