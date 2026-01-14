@@ -76,7 +76,7 @@ class PlayerEQ
 
         this.initPresets();
 
-        this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_META_DATA,() =>
+        this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_SONG_PLAYER,() =>
         {
             this.initEq();
 

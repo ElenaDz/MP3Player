@@ -11,6 +11,7 @@ class PlayerPlaylist {
         $('html').on('click', (e) => {
             if (!$(e.target).hasClass('b_popup')
                 && !$(e.target).hasClass('playlist_btn')
+                && !$(e.target).parents().hasClass('item_playlist')
                 && !$(e.target).hasClass('shuffle')
                 && !$(e.target).hasClass('prev elem')
                 && !$(e.target).hasClass('play elem')
@@ -37,6 +38,29 @@ class PlayerPlaylist {
         this.initPlaylist();
         this.initRepeat();
         this.initShuffle();
+        this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+            if (!this.isElementPartiallyVisible(this.$context.find('.playing ').parents('.item_playlist'), this.$context.find('.playlist '))) {
+                this.$context.find('.playing')[0].scrollIntoView({
+                    block: "center",
+                    behavior: "smooth"
+                });
+            }
+        });
+    }
+    isElementPartiallyVisible($el, $container) {
+        if (!$el.length || !$container.length) {
+            return false;
+        }
+        // Позиция контейнера и элемента относительно документа
+        const containerOffsetTop = $container.offset().top;
+        const containerOffsetBottom = $container.offset().bottom;
+        const containerHeight = $container.innerHeight();
+        const elOffsetTop = $el.offset().top;
+        const elOffsetBottom = $el.offset().bottom;
+        const elHeight = $el.outerHeight();
+        // Сравниваем с видимой частью контейнера
+        return (elOffsetTop > containerOffsetTop &&
+            elOffsetTop < containerOffsetTop + containerHeight);
     }
     initPlaylist() {
         this.$context.find('button.close').on('click', () => {
@@ -45,7 +69,7 @@ class PlayerPlaylist {
         this.$context.find('button.playlist_btn').on('click', () => {
             this.isOpen ? this.close() : this.open();
         });
-        this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+        this.player.$context.on(Player.EVENT_LOADED_SONG_PLAYER, () => {
             this.loadPlaylist(this.player.playlist);
         });
     }
@@ -101,7 +125,7 @@ class PlayerPlaylist {
     }
     getHtml(song) {
         return `
-            <li class="item">
+            <li class="item item_playlist">
                 <div class="popular-play">
                     <div class="btn_player">    
                         <button class="play popular-play__item"
@@ -142,10 +166,6 @@ class PlayerPlaylist {
     }
     open() {
         this.$context.addClass('open');
-        this.$context.find('.playing')[0].scrollIntoView({
-            block: "center",
-            behavior: "smooth"
-        });
     }
     close() {
         this.$context.removeClass('open');

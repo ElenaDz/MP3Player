@@ -20,6 +20,12 @@ class PlayerProgress
 
         this.disabled();
 
+        this.player.$context.on(Player.EVENT_LOADED_SONG_PLAYER,() =>
+        {
+            this.$context.find('.b_slider').removeClass('disabled');
+
+            this.durationText = this.player.songPlayer.songTime;
+        });
 
         this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
         {
@@ -27,7 +33,6 @@ class PlayerProgress
 
             this.slider.value_max = this.player.duration;
             this.currentTimeText = this.player.currentTime;
-            this.durationText = this.player.duration;
         });
 
         this.player.$context.on(Player.EVENT_UPDATE_TIME,() =>

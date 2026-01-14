@@ -65,7 +65,8 @@ class BtnPlayer
     {
         return this.$context.parents('.music-popular__item').find('.time-hover').text()
             || this.$context.parents('.music-popular__item').find('.popular-download-number').text()
-            || this.$context.parents('.item').find('.song_time').text();
+            || this.$context.parents('.item').find('.song_time').text()
+            || this.$context.parents('.player-music__item').find('.player-time').text();
     }
 
     private get url_song_img(): string
@@ -100,15 +101,6 @@ class BtnPlayer
 
     private load()
     {
-        let player_progress = PlayerProgress.create();
-
-        player_progress.durationText = this.song_time;
-
-        let player_info = PlayerInfo.create();
-
-        player_info.setSongName(this.songName);
-        player_info.setArtistHtml(this.artistHtml);
-
         if (this.player.songId !== this.songId || this.getPlaylist().id !== this.player.playlist.id)
         {
             if (this.url) {
@@ -119,7 +111,15 @@ class BtnPlayer
 
     private getPlaylist(): Playlist
     {
-        let btns_player = BtnPlayer.create($(this.$context.parents('.inline_player_playlist_main')))
+        let playlist: JQuery;
+
+        if ($(this.$context.parents('.inline_player_playlist_main')).length > 0) {
+            playlist = $(this.$context.parents('.inline_player_playlist_main'));
+        } else  {
+            playlist = $(this.$context.parents('.box-player-music'));
+        }
+
+        let btns_player = BtnPlayer.create(playlist);
 
         let songs_player: SongPlayer[] = [];
 

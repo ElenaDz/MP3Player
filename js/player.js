@@ -141,6 +141,7 @@ class Player {
             this.play();
         }
         this._songPlayer = songPlayer;
+        this.$context.trigger(Player.EVENT_LOADED_SONG_PLAYER);
     }
     get songPlayer() {
         return this._songPlayer;
@@ -217,5 +218,6 @@ Player.EVENT_UPDATE_TIME = 'Player.EVENT_UPDATE_TIME';
 Player.EVENT_UPDATE_VOLUME = 'Player.EVENT_UPDATE_VOLUME';
 Player.EVENT_UPDATE_HQ = 'Player.EVENT_UPDATE_HQ';
 Player.EVENT_LOADED_META_DATA = 'Player.EVENT_LOADED_META_DATA';
+Player.EVENT_LOADED_SONG_PLAYER = 'Player.EVENT_LOADED_SONG_PLAYER';
 Player.EVENT_ERROR = 'Player.EVENT_ERROR';
 Player.EVENT_ENDED = 'Player.EVENT_ENDED';

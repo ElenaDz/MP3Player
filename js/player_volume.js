@@ -11,7 +11,7 @@ class PlayerVolume {
         this.slider = Slider.create(this.$context)[0];
         this.disabled();
         this.volume = this.volume;
-        this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+        this.player.$context.on(Player.EVENT_LOADED_SONG_PLAYER, () => {
             this.removeDisabled();
         });
         this.slider.$context.on(SliderEvents.ValueUpdate, () => {

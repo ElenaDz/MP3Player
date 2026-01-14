@@ -17,7 +17,7 @@ class PlayerHQ
 
         this.disabled();
 
-        this.player.$context.on(Player.EVENT_LOADED_META_DATA,() =>
+        this.player.$context.on(Player.EVENT_LOADED_SONG_PLAYER,() =>
         {
             this.disabled(false);
         });

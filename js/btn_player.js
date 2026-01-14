@@ -40,7 +40,8 @@ class BtnPlayer {
     get song_time() {
         return this.$context.parents('.music-popular__item').find('.time-hover').text()
             || this.$context.parents('.music-popular__item').find('.popular-download-number').text()
-            || this.$context.parents('.item').find('.song_time').text();
+            || this.$context.parents('.item').find('.song_time').text()
+            || this.$context.parents('.player-music__item').find('.player-time').text();
     }
     get url_song_img() {
         return this.$context.find('button').data('url_song_img') || '/templates/drivemusic/img/note.svg';
@@ -62,11 +63,6 @@ class BtnPlayer {
         this.player.play();
     }
     load() {
-        let player_progress = PlayerProgress.create();
-        player_progress.durationText = this.song_time;
-        let player_info = PlayerInfo.create();
-        player_info.setSongName(this.songName);
-        player_info.setArtistHtml(this.artistHtml);
         if (this.player.songId !== this.songId || this.getPlaylist().id !== this.player.playlist.id) {
             if (this.url) {
                 this.player.loadSongPlayer(this.songPlayer, this.getPlaylist());
@@ -74,7 +70,14 @@ class BtnPlayer {
         }
     }
     getPlaylist() {
-        let btns_player = BtnPlayer.create($(this.$context.parents('.inline_player_playlist_main')));
+        let playlist;
+        if ($(this.$context.parents('.inline_player_playlist_main')).length > 0) {
+            playlist = $(this.$context.parents('.inline_player_playlist_main'));
+        }
+        else {
+            playlist = $(this.$context.parents('.box-player-music'));
+        }
+        let btns_player = BtnPlayer.create(playlist);
         let songs_player = [];
         btns_player.forEach((btn_player) => {
             songs_player.push(btn_player.songPlayer);

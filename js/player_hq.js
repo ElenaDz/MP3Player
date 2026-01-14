@@ -8,7 +8,7 @@ class PlayerHQ {
         this.$context[0].HQ = this;
         this.player = Player.create();
         this.disabled();
-        this.player.$context.on(Player.EVENT_LOADED_META_DATA, () => {
+        this.player.$context.on(Player.EVENT_LOADED_SONG_PLAYER, () => {
             this.disabled(false);
         });
         this.player.$context.on(Player.EVENT_UPDATE_HQ, () => {

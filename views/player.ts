@@ -19,6 +19,7 @@ class Player
     static readonly EVENT_UPDATE_VOLUME = 'Player.EVENT_UPDATE_VOLUME';
     static readonly EVENT_UPDATE_HQ = 'Player.EVENT_UPDATE_HQ';
     static readonly EVENT_LOADED_META_DATA = 'Player.EVENT_LOADED_META_DATA';
+    static readonly EVENT_LOADED_SONG_PLAYER = 'Player.EVENT_LOADED_SONG_PLAYER';
     static readonly EVENT_ERROR = 'Player.EVENT_ERROR';
     static readonly EVENT_ENDED = 'Player.EVENT_ENDED';
 
@@ -49,7 +50,9 @@ class Player
         this.initEventsAudio();
 
         this.initAlert();
+
     }
+
 
     private initCreate()
     {
@@ -57,7 +60,7 @@ class Player
         PlayerProgress.create();
         PlayerVolume.create();
         PlayerInfo.create();
-        PlayerPlaylist.create();
+        PlayerPlaylist.create()
         // PlayerHQ.create();
         PlayerEQ.create();
     }
@@ -260,6 +263,8 @@ class Player
         }
 
         this._songPlayer = songPlayer;
+
+        this.$context.trigger(Player.EVENT_LOADED_SONG_PLAYER);
     }
 
     public get songPlayer(): SongPlayer

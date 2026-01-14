@@ -9,7 +9,7 @@ class PlayerInfo {
         this.player = Player.create();
         this.eq = PlayerEQ.create();
         this.disabled();
-        this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_META_DATA, () => {
+        this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_SONG_PLAYER, () => {
             this.load();
         });
         this.initDots();
@@ -57,7 +57,7 @@ class PlayerInfo {
         let songPlayer = this.player.songPlayer;
         songPlayer.artistHtml
             ? this.$context.find('.wrap_author').html(songPlayer.artistHtml)
-            : this.$context.find('.wrap_author').text('Название плейлиста');
+            : this.$context.find('.wrap_author').text(this.player.playlist.title);
         this.$context.find('.inner_song').text(songPlayer.songName);
         this.$context.find('.inner_song').attr('href', songPlayer.urlSongPage);
         this.$context.find('.download_song').attr('href', songPlayer.urlSongPage);

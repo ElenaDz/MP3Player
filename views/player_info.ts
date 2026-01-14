@@ -19,7 +19,7 @@ class PlayerInfo
 
         this.disabled();
 
-        this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_META_DATA,() =>
+        this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_SONG_PLAYER,() =>
         {
             this.load();
         })
@@ -94,7 +94,7 @@ class PlayerInfo
 
         songPlayer.artistHtml
             ? this.$context.find('.wrap_author').html(songPlayer.artistHtml)
-            :  this.$context.find('.wrap_author').text('Название плейлиста');
+            :  this.$context.find('.wrap_author').text(this.player.playlist.title);
 
         this.$context.find('.inner_song').text(songPlayer.songName);
 
