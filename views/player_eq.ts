@@ -348,7 +348,7 @@ class PlayerEQ
         if (this.eq.bands[index].getValue().toFixed(2) == value.toFixed(2)) return;
 
         this.eq.bands[index].setValue(value);
-        console.log( this.eq.bands[index].getValue().toFixed(2))
+
         this.$context.trigger(PlayerEQ.EVENT_UPDATE_BANDS, index);
     }
 
