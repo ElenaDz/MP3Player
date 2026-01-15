@@ -279,7 +279,9 @@ class Player
 
     public play()
     {
-        this.audio.play();
+        this.audio.play()
+            .then(() => {})
+            .catch(error => {});
     }
 
     public pause()

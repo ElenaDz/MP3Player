@@ -150,7 +150,9 @@ class Player {
         return this._playlist;
     }
     play() {
-        this.audio.play();
+        this.audio.play()
+            .then(() => { })
+            .catch(error => { });
     }
     pause() {
         this.audio.pause();

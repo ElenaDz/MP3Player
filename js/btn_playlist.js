@@ -8,6 +8,7 @@ class BtnPlaylist {
         this.$context[0].BtnPlaylist = this;
         this.player = Player.create();
         this.$context.on('click', () => {
+            console.log(this.$context);
         });
     }
     static create($context) {

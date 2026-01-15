@@ -16,11 +16,9 @@ class BtnPlaylist
 
         this.player = Player.create();
 
-
-
         this.$context.on('click',() =>
         {
-
+            console.log(this.$context)
         });
     }
 
