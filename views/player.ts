@@ -279,11 +279,7 @@ class Player
 
     public play()
     {
-        this.audio.play()
-            .then(() => {})
-            .catch(error => {
-               this.$context.trigger(Player.EVENT_ERROR)
-            });
+        this.audio.play();
     }
 
     public pause()

@@ -65,6 +65,7 @@ class PlayerPlaylist
         this.player.$context.on(Player.EVENT_LOADED_META_DATA, () =>
         {
             if (!this.isElementPartiallyVisible(this.$context.find('.playing ').parents('.item_playlist'), this.$context.find('.playlist '))){
+                if (!this.$context.find('.playing')[0])  return;
                 this.$context.find('.playing')[0].scrollIntoView({
                     block: "center",
                     behavior: "smooth"

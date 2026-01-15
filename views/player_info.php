@@ -9,9 +9,8 @@
         <div class="wrap_song">
             <a class="inner_song"></a>
         </div>
-        <div class="wrap_author">
 
-        </div>
+        <div class="wrap_author"></div>
     </div>
 
     <div class="inner_download">

@@ -476,10 +476,8 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.b_player_info .names .wrap_author {
-  font-weight: 600;
-}
 .b_player_info .names .wrap_author a {
+  font-weight: 600 !important;
   margin-right: 5px;
 }
 .b_player_info .inner_download {

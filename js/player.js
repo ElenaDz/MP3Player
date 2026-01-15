@@ -150,11 +150,7 @@ class Player {
         return this._playlist;
     }
     play() {
-        this.audio.play()
-            .then(() => { })
-            .catch(error => {
-            this.$context.trigger(Player.EVENT_ERROR);
-        });
+        this.audio.play();
     }
     pause() {
         this.audio.pause();

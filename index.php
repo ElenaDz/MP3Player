@@ -78,6 +78,13 @@
         $url_song_img = '/img/artist.webp';
         require __DIR__ . '/views/btn_player.php';
 
+        $file_name = '5УТРА - Этой песни нету.mp3';
+        $file_name_hq = '5УТРА - Этой песни нету 320.mp3';
+        $song_id = '771';
+        $clicks = 1;
+        $url_song_img = '/img/artist.webp';
+        require __DIR__ . '/views/btn_player.php';
+
         $song_id = '2';
         $clicks = 2;
         $file_name = 'Niletto - Счастливым (длинное название).mp3';
