@@ -71,7 +71,9 @@ class BtnPlayer
 
     private get url_song_img(): string
     {
-        return this.$context.find('button').data('url_song_img') || '/templates/drivemusic/img/note.svg';
+        return this.$context.find('button').data('image')
+            || this.$context.parents('.music-popular__item').find('.lazyloaded').data('src')
+            || '/templates/drivemusic/img/note.svg';
     }
 
     public get songName()

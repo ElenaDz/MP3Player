@@ -44,7 +44,9 @@ class BtnPlayer {
             || this.$context.parents('.player-music__item').find('.player-time').text();
     }
     get url_song_img() {
-        return this.$context.find('button').data('url_song_img') || '/templates/drivemusic/img/note.svg';
+        return this.$context.find('button').data('image')
+            || this.$context.parents('.music-popular__item').find('.lazyloaded').data('src')
+            || '/templates/drivemusic/img/note.svg';
     }
     get songName() {
         return this.$context.parents().first().find('.popular-play-author').text()

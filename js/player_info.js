@@ -11,6 +11,7 @@ class PlayerInfo {
         this.disabled();
         this.player.$context.on(Player.EVENT_ERROR + " || " + Player.EVENT_LOADED_SONG_PLAYER, () => {
             this.load();
+            this.initComment();
         });
         this.initDots();
         this.initFavorite();
@@ -26,6 +27,36 @@ class PlayerInfo {
                 this.closeDots();
             }
         });
+        this.initCopy();
+    }
+    initCopy() {
+        this.$context.find('.copy').on('click', () => {
+            let url_song_page = this.player.songPlayer.urlSongPage;
+            if (navigator.clipboard && window.isSecureContext) {
+                return navigator.clipboard.writeText(url_song_page);
+            }
+            this.closeDots();
+            this.$context.find('.is_copy').addClass('active');
+            setTimeout(() => {
+                this.removeActiveForCopy();
+            }, 2 * 1000);
+            setTimeout(() => {
+                $('html').on('click', (e) => {
+                    if (!$(e.target).hasClass('copy')) {
+                        this.removeActiveForCopy();
+                        $('html').off('click');
+                    }
+                });
+            }, 0);
+        });
+    }
+    removeActiveForCopy() {
+        this.$context.find('.is_copy').removeClass('active');
+    }
+    initComment() {
+        let hostname = window.location.hostname; // например, "example.com"
+        let url = hostname + '/' + this.player.songPlayer.urlSongPage + '#uname';
+        this.$context.find('.wrap_comment').attr('href', url);
     }
     initHq() {
         this.$context.find('.hq').on('click', () => {

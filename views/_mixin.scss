@@ -16,3 +16,9 @@
     @content;
   }
 }
+
+@mixin for_screen {
+  @media (min-width: 1700px) {
+    @content;
+  }
+}

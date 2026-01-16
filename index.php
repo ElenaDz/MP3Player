@@ -68,7 +68,7 @@
 </div>
 
 <div>
-    <h2 class="music-title"> Заголовок 2</h2>
+    <h1 class="music-title"> Заголовок 2</h1>
     <div class="inline_player_playlist_main">
         <?php
         $file_name = '5УТРА - Ромашки.mp3';

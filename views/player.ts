@@ -53,7 +53,6 @@ class Player
 
     }
 
-
     private initCreate()
     {
         PlayerControls.create();

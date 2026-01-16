@@ -13,6 +13,7 @@
             <div class="header">
                 <div class="name_chart">
 
+                    <h2>Сейчас играет: </h2>
                     <h2 class="music_title"></h2>
                 </div>
                 <button class="close"></button>

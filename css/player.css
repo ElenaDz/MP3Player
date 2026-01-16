@@ -218,6 +218,11 @@
 .b_player_playlist.open .b_popup {
   top: 16px;
 }
+@media (max-width: 767px) {
+  .b_player_playlist.open .b_popup {
+    top: -100px;
+  }
+}
 .b_player_playlist.open .playlist_btn {
   opacity: 1;
 }
@@ -231,20 +236,20 @@
 }
 .b_player_playlist .order .shuffle {
   background-image: url("data:image/svg+xml;utf8;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0iIzY2NjY2NiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgICA8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE5LjI0NDYgMjIuMzczNkMxOS41NTU0IDIyLjA0MSAyMC4wNzA2IDIyLjAyOTMgMjAuMzk1NSAyMi4zNDc1QzIxLjEzODkgMjMuMDc1OSAyMi4xNDAzIDIzLjUwNDUgMjMuMjA5OSAyMy41MDQ1QzIzLjY1OTUgMjMuNTA0NSAyNC4wMjM5IDIzLjg3NzcgMjQuMDIzOSAyNC4zMzhDMjQuMDIzOSAyNC43OTg0IDIzLjY1OTUgMjUuMTcxNiAyMy4yMDk5IDI1LjE3MTZDMjEuNzEyIDI1LjE3MTYgMjAuMzA5OSAyNC41NzA5IDE5LjI3MDEgMjMuNTUyMUMxOC45NDUyIDIzLjIzMzkgMTguOTMzOCAyMi43MDYzIDE5LjI0NDYgMjIuMzczNloiIGZpbGw9IiM2ODY4NjgiLz4NCiAgICA8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTExIDE0LjMzNTRDMTEgMTMuODc1MSAxMS4zNjQ0IDEzLjUwMTkgMTEuODE0IDEzLjUwMTlDMTMuNjE5IDEzLjUwMTkgMTUuMzA5NSAxNC4yMjAyIDE2LjU2OTIgMTUuNDQwMkMxNi44OTU5IDE1Ljc1NjUgMTYuOTEwMiAxNi4yODQxIDE2LjYwMTMgMTYuNjE4NkMxNi4yOTI0IDE2Ljk1MyAxNS43NzcyIDE2Ljk2NzggMTUuNDUwNiAxNi42NTE0QzE0LjQ4NjYgMTUuNzE3OCAxMy4xOTM5IDE1LjE2OSAxMS44MTQgMTUuMTY5QzExLjM2NDQgMTUuMTY5IDExIDE0Ljc5NTggMTEgMTQuMzM1NFoiIGZpbGw9IiM2ODY4NjgiLz4NCiAgICA8cGF0aCBkPSJNMjguNjE3NCAyNS4yMDgxQzI5LjEyNzUgMjQuODgxNyAyOS4xMjc1IDI0LjEyMDkgMjguNjE3NCAyMy43OTQ1TDI0LjQ1NTMgMjEuMTMwNkMyMy45MTMxIDIwLjc4MzYgMjMuMjA5OSAyMS4xODI4IDIzLjIwOTkgMjEuODM3NVYyNy4xNjUxQzIzLjIwOTkgMjcuODE5OCAyMy45MTMxIDI4LjIxOSAyNC40NTUzIDI3Ljg3MkwyOC42MTc0IDI1LjIwODFaIiBmaWxsPSIjNjg2ODY4Ii8+DQogICAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNy45NTAzIDE3LjA5MjVDMTguODM1IDE0LjkxODIgMjAuOTA5NiAxMy41MDE5IDIzLjIwOTkgMTMuNTAxOUMyMy42NTk1IDEzLjUwMTkgMjQuMDIzOSAxMy44NzUxIDI0LjAyMzkgMTQuMzM1NEMyNC4wMjM5IDE0Ljc5NTggMjMuNjU5NSAxNS4xNjkgMjMuMjA5OSAxNS4xNjlDMjEuNTY2OSAxNS4xNjkgMjAuMDg0OSAxNi4xODA2IDE5LjQ1MyAxNy43MzM3TDE4LjIwMDcgMjAuODExNUMxNy4xMjY0IDIzLjQ1MTcgMTQuNjA3MiAyNS4xNzE2IDExLjgxNCAyNS4xNzE2QzExLjM2NDQgMjUuMTcxNiAxMSAyNC43OTg0IDExIDI0LjMzOEMxMSAyMy44Nzc3IDExLjM2NDQgMjMuNTA0NSAxMS44MTQgMjMuNTA0NUMxMy45NSAyMy41MDQ1IDE1Ljg3NjQgMjIuMTg5MyAxNi42OTggMjAuMTcwM0wxNy45NTAzIDE3LjA5MjVaIiBmaWxsPSIjNjg2ODY4Ii8+DQogICAgPHBhdGggZD0iTTI3LjgwMzQgMTUuMjA1NUMyOC4zMTM1IDE0Ljg3OTEgMjguMzEzNSAxNC4xMTgzIDI3LjgwMzQgMTMuNzkxOUwyMy42NDEzIDExLjEyOEMyMy4wOTkyIDEwLjc4MSAyMi4zOTU5IDExLjE4MDIgMjIuMzk1OSAxMS44MzQ5VjE3LjE2MjVDMjIuMzk1OSAxNy44MTcyIDIzLjA5OTIgMTguMjE2NCAyMy42NDEzIDE3Ljg2OTRMMjcuODAzNCAxNS4yMDU1WiIgZmlsbD0iIzY4Njg2OCIvPg0KPC9zdmc+DQo=");
+  opacity: 0.3;
+}
+.b_player_playlist .order .shuffle:hover {
   opacity: 1;
 }
 .b_player_playlist .order .repeat_playlist {
   background-image: url("data:image/svg+xml;utf8;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0iIzY2NjY2NiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgICA8cGF0aCBkPSJNMjguNjAyNyAxNS4yNDQ4QzI5LjEzMjQgMTQuOTE1MyAyOS4xMzI0IDE0LjE0NzQgMjguNjAyNyAxMy44MTc5TDI0LjI4MSAxMS4xMjkyQzIzLjcxOCAxMC43NzkgMjIuOTg3OCAxMS4xODE5IDIyLjk4NzggMTEuODQyN1YxNy4yMkMyMi45ODc4IDE3Ljg4MDggMjMuNzE4IDE4LjI4MzcgMjQuMjgxIDE3LjkzMzVMMjguNjAyNyAxNS4yNDQ4WiIgZmlsbD0iIzY2NjY2NiIvPg0KICAgIDxwYXRoIGQ9Ik0xMi4zOTczIDI2LjE4MjFDMTEuODY3NiAyNS44NTI2IDExLjg2NzYgMjUuMDg0NyAxMi4zOTczIDI0Ljc1NTJMMTYuNzE5IDIyLjA2NjVDMTcuMjgyIDIxLjcxNjMgMTguMDEyMiAyMi4xMTkyIDE4LjAxMjIgMjIuNzhWMjguMTU3M0MxOC4wMTIyIDI4LjgxODEgMTcuMjgyIDI5LjIyMSAxNi43MTkgMjguODcwOEwxMi4zOTczIDI2LjE4MjFaIiBmaWxsPSIjNjY2NjY2Ii8+DQogICAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xOC43NjE3IDE1LjIwNzlDMTYuNDI3NiAxNS4yMDc5IDE0LjUzNTYgMTcuMDkxMyAxNC41MzU2IDE5LjQxNDVIMTIuODQ1MUMxMi44NDUxIDE2LjE2MiAxNS40OTQgMTMuNTI1MiAxOC43NjE3IDEzLjUyNTJIMjIuOTg3OEMyMy40NTQ2IDEzLjUyNTIgMjMuODMzIDEzLjkwMTkgMjMuODMzIDE0LjM2NjZDMjMuODMzIDE0LjgzMTIgMjMuNDU0NiAxNS4yMDc5IDIyLjk4NzggMTUuMjA3OUgxOC43NjE3WiIgZmlsbD0iIzY2NjY2NiIvPg0KICAgIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjEuMjk3MyAyNC40NjI1QzIzLjYzMTMgMjQuNDYyNSAyNS41MjM0IDIyLjU3OTEgMjUuNTIzNCAyMC4yNTU5SDI3LjIxMzlDMjcuMjEzOSAyMy41MDg0IDI0LjU2NDkgMjYuMTQ1MiAyMS4yOTczIDI2LjE0NTJIMTcuMDcxMkMxNi42MDQ0IDI2LjE0NTIgMTYuMjI2IDI1Ljc2ODUgMTYuMjI2IDI1LjMwMzhDMTYuMjI2IDI0LjgzOTIgMTYuNjA0NCAyNC40NjI1IDE3LjA3MTIgMjQuNDYyNUgyMS4yOTczWiIgZmlsbD0iIzY2NjY2NiIvPg0KPC9zdmc+DQo=");
-  opacity: 0.7;
-}
-.b_player_playlist .order .repeat_playlist:hover {
-  opacity: 1;
+  opacity: 0.3;
 }
 .b_player_playlist .order .repeat_playlist.active {
-  opacity: 1;
+  opacity: 0.7;
 }
 .b_player_playlist .order .repeat_playlist.active:hover {
-  opacity: unset;
+  opacity: 1;
 }
 .b_player_playlist .playlist_btn {
   background-image: url("data:image/svg+xml;utf8;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0iIzY2NjY2NiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgICA8cGF0aCBkPSJNMTEgMTRIMjkiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4NCiAgICA8cGF0aCBkPSJNMTEgMjBIMjkiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4NCiAgICA8cGF0aCBkPSJNMTEgMjZIMjkiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4NCjwvc3ZnPg0K");
@@ -297,6 +302,11 @@
   display: flex;
   flex-direction: column;
 }
+@media (max-width: 1024px) {
+  .b_player_playlist .b_popup .inner_popup {
+    width: 100vw;
+  }
+}
 .b_player_playlist .b_popup .inner_popup .playlist {
   overflow-y: scroll;
   max-height: 685px;
@@ -306,6 +316,11 @@
   height: 100%;
   flex-flow: column nowrap;
   scroll-behavior: smooth;
+}
+@media (max-width: 767px) {
+  .b_player_playlist .b_popup .inner_popup .playlist {
+    padding: 10px 15px;
+  }
 }
 .b_player_playlist .b_popup .inner_popup .playlist .item .song_title a:hover {
   color: #187FF8;
@@ -317,14 +332,28 @@
   align-items: center;
   padding: 5px 30px 0 30px;
 }
+@media (max-width: 767px) {
+  .b_player_playlist .b_popup .inner_popup .header {
+    padding: 5px 15px 0 15px;
+  }
+}
+.b_player_playlist .b_popup .inner_popup .header .name_chart {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.b_player_playlist .b_popup .inner_popup .header .name_chart h2 {
+  margin-right: 10px;
+}
 .b_player_playlist .b_popup .inner_popup .header .name_chart .music_title {
   cursor: default;
   font-size: 20px;
   font-weight: 650;
 }
-.b_player_playlist .b_popup .inner_popup .header .name_chart .music_title::before {
-  content: "Сейчас играет: ";
-  cursor: default;
+@media (max-width: 767px) {
+  .b_player_playlist .b_popup .inner_popup .header .name_chart .music_title {
+    display: none;
+  }
 }
 .b_player_playlist .b_popup .inner_popup .header .close {
   display: flex;
@@ -392,6 +421,11 @@
   align-items: center;
   margin-right: 10px;
   color: #746a74;
+}
+@media (max-width: 767px) {
+  .b_player_playlist .song_time {
+    display: none;
+  }
 }
 .b_player_playlist .song_time i {
   display: flex;
@@ -478,7 +512,6 @@
 }
 .b_player_info .names .wrap_author a {
   font-weight: 600 !important;
-  margin-right: 5px;
 }
 .b_player_info .inner_download {
   display: flex;
@@ -586,17 +619,19 @@
     top: unset;
     right: unset;
   }
-  .b_player_info .inner_download .inner_dots .b_popup .hq, .b_player_info .inner_download .inner_dots .b_popup .eq {
+  .b_player_info .inner_download .inner_dots .b_popup .hq, .b_player_info .inner_download .inner_dots .b_popup .eq .is_copy {
     width: 100%;
     height: 24px;
     display: flex;
     cursor: pointer;
+    justify-content: start;
+    align-items: center;
   }
-  .b_player_info .inner_download .inner_dots .b_popup .hq i, .b_player_info .inner_download .inner_dots .b_popup .eq i {
+  .b_player_info .inner_download .inner_dots .b_popup .hq i, .b_player_info .inner_download .inner_dots .b_popup .eq .is_copy i {
     min-width: 35px;
     opacity: 0.3;
   }
-  .b_player_info .inner_download .inner_dots .b_popup .hq.show i, .b_player_info .inner_download .inner_dots .b_popup .eq.show i {
+  .b_player_info .inner_download .inner_dots .b_popup .hq.show i, .b_player_info .inner_download .inner_dots .b_popup .eq .is_copy.show i {
     opacity: 0.7;
   }
   .b_player_info .inner_download .inner_dots .b_popup div:not(:last-child) {
@@ -610,6 +645,7 @@
   }
   .b_player_info .inner_download .inner_dots .b_popup .eq i {
     background-image: url("data:image/svg+xml;utf8;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0iIzY2NjY2NiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgICA8cGF0aCBkPSJNMTMgMjlMMTMgMTMiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4NCiAgICA8cGF0aCBkPSJNMjAgMjlMMjAgMTMiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4NCiAgICA8cGF0aCBkPSJNMjcgMjlMMjcgMTMiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4NCiAgICA8Y2lyY2xlIGN4PSIyNyIgY3k9IjE3IiByPSIyIiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjIiLz4NCiAgICA8Y2lyY2xlIGN4PSIyMCIgY3k9IjI1IiByPSIyIiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjIiLz4NCiAgICA8Y2lyY2xlIGN4PSIxMyIgY3k9IjE5IiByPSIyIiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjIiLz4NCjwvc3ZnPg0K");
+    opacity: 0.3;
   }
   .b_player_info .inner_download .inner_dots .b_popup .eq.show i {
     opacity: 0.7;
@@ -637,6 +673,14 @@
 }
 .b_player_info .inner_download .inner_dots .b_popup .link i {
   background-image: url("data:image/svg+xml;utf8;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSI3IiByPSIyLjIiIHN0cm9rZT0iI0NDQ0NDQyIgc3Ryb2tlLXdpZHRoPSIxLjYiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNyIgcj0iMi4yIiBzdHJva2U9IiNDQ0NDQ0MiIHN0cm9rZS13aWR0aD0iMS42Ii8+CjxjaXJjbGUgY3g9IjYiIGN5PSIxMiIgcj0iMi4yIiBzdHJva2U9IiNDQ0NDQ0MiIHN0cm9rZS13aWR0aD0iMS42Ii8+CjxwYXRoIGQ9Ik0xNCA4TDcuNSAxMS41IiBzdHJva2U9IiNDQ0NDQ0MiIHN0cm9rZS13aWR0aD0iMS42Ii8+CjxwYXRoIGQ9Ik0xNCAxNkw3LjUgMTIuNSIgc3Ryb2tlPSIjQ0NDQ0NDIiBzdHJva2Utd2lkdGg9IjEuNiIvPgo8L3N2Zz4K");
+}
+.b_player_info .inner_download .inner_dots .is_copy {
+  display: none !important;
+  justify-content: center;
+  align-items: center;
+}
+.b_player_info .inner_download .inner_dots .is_copy.active {
+  display: flex !important;
 }
 .b_player_info .inner_download .inner_dots.open .b_popup {
   display: flex;
@@ -758,7 +802,7 @@
 }
 @media (max-width: 767px) {
   .b_player_eq .b_popup {
-    bottom: 187px;
+    bottom: 220px;
     left: -2px;
     min-width: min-content;
     width: fit-content;

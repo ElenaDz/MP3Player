@@ -26,6 +26,9 @@
     .b_popup {
       top: 16px;
 
+      @include for_phone {
+        top: -100px;
+      }
     }
 
     .playlist_btn {
@@ -43,22 +46,22 @@
 
     .shuffle {
       background-image: url($shuffle-svg);
-      opacity: $opacity-grey-max;
-    }
-
-    .repeat_playlist {
-      background-image: url($repeat-svg);
-      opacity: $opacity-grey-middle;
+      opacity: $opacity-grey-min;
 
       &:hover {
         opacity: $opacity-grey-max;
       }
+    }
+
+    .repeat_playlist {
+      background-image: url($repeat-svg);
+      opacity: $opacity-grey-min;
 
       &.active{
-        opacity: $opacity-grey-max;
+        opacity: $opacity-grey-middle;
 
         &:hover {
-          opacity: unset;
+          opacity: $opacity-grey-max;
         }
       }
     }
@@ -115,6 +118,10 @@
       display: flex;
       flex-direction: column;
 
+      @include for_laptopS {
+        width: 100vw;
+      }
+
       .playlist {
         overflow-y: scroll;
         max-height: 685px;
@@ -124,6 +131,10 @@
         height: 100%;
         flex-flow: column nowrap;
         scroll-behavior: smooth;
+
+        @include for_phone {
+          padding: 10px 15px;
+        }
 
         .item{
 
@@ -142,16 +153,27 @@
         align-items: center;
         padding: 5px 30px 0 30px;
 
+        @include for_phone {
+          padding: 5px 15px 0 15px;
+        }
+
         .name_chart {
+          display: flex;
+          justify-content: start;
+          align-items: center;
+
+          h2 {
+            margin-right: 10px;
+          }
+
           .music_title {
             cursor: default;
             font-size: 20px;
             font-weight: 650;
-          }
 
-          .music_title::before {
-            content: "Сейчас играет: ";
-            cursor: default;
+            @include for_phone {
+              display: none;
+            }
           }
         }
 
@@ -236,6 +258,10 @@
     align-items: center;
     margin-right: 10px;
     color: #746a74;
+
+    @include for_phone {
+      display: none;
+    }
 
     i {
       display: flex;
