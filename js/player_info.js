@@ -31,7 +31,8 @@ class PlayerInfo {
     }
     initCopy() {
         this.$context.find('.copy').on('click', () => {
-            let url_song_page = this.player.songPlayer.urlSongPage;
+            let hostname = window.location.hostname;
+            let url_song_page = hostname + '/' + this.player.songPlayer.urlSongPage;
             if (navigator.clipboard && window.isSecureContext) {
                 return navigator.clipboard.writeText(url_song_page);
             }
@@ -54,8 +55,7 @@ class PlayerInfo {
         this.$context.find('.is_copy').removeClass('active');
     }
     initComment() {
-        let hostname = window.location.hostname; // например, "example.com"
-        let url = hostname + '/' + this.player.songPlayer.urlSongPage + '#uname';
+        let url = this.player.songPlayer.urlSongPage + '#uname';
         this.$context.find('.wrap_comment').attr('href', url);
     }
     initHq() {
