@@ -344,6 +344,7 @@
 }
 .b_player_playlist .b_popup .inner_popup .header .name_chart h2 {
   margin-right: 10px;
+  font-size: 24px;
 }
 .b_player_playlist .b_popup .inner_popup .header .name_chart .music_title {
   cursor: default;

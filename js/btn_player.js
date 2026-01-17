@@ -44,7 +44,7 @@ class BtnPlayer {
             || this.$context.parents('.player-music__item').find('.player-time').text();
     }
     get url_song_img() {
-        return this.$context.find('button').data('image')
+        return this.$context.find('button').data('song-image')
             || this.$context.parents('.music-popular__item').find('.lazyloaded').data('src')
             || '/templates/drivemusic/img/note.svg';
     }
