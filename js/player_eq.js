@@ -153,7 +153,7 @@ class PlayerEQ {
         this.$context.find('.close').on('click', () => {
             this.close();
         });
-        $('html').on('click', (e) => {
+        $('body').on('click', (e) => {
             if (!$(e.target).hasClass('b_popup')
                 && !$(e.target).hasClass('eq')
                 && !$(e.target).parents().hasClass('b_popup')) {

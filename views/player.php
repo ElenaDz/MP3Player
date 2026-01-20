@@ -23,3 +23,5 @@
     </div>
 
 </div>
+<div class="modal"></div>
+<div class="main-music" style="width: 800px"></div>

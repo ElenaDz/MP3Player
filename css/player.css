@@ -282,6 +282,11 @@
   transition-property: top;
   border-radius: 0 !important;
 }
+@media (min-width: 1700px) {
+  .b_player_playlist .b_popup {
+    right: calc((100vw - 107px) / 2);
+  }
+}
 @media (max-width: 1024px) {
   .b_player_playlist .b_popup {
     transform: translate(-3%, -76%);
@@ -968,6 +973,18 @@
   height: 100%;
   background-image: url("data:image/svg+xml;utf8;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTcgN0wxMiAxMk0xMiAxMkwxNyAxN00xMiAxMkw3IDE3TTEyIDEyTDE3IDciIHN0cm9rZT0iIzg5QkZGRiIgc3Ryb2tlLXdpZHRoPSIxLjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K");
   background-repeat: no-repeat;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: 0.5;
+  z-index: 55;
 }
 
 .b_player {

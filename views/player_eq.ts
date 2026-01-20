@@ -222,7 +222,7 @@ class PlayerEQ
             this.close();
         });
 
-        $('html').on('click',(e) =>
+        $('body').on('click',(e) =>
         {
             if (!$(e.target).hasClass('b_popup')
                 && !$(e.target).hasClass('eq')

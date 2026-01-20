@@ -7,6 +7,9 @@ class PlayerPlaylist {
         // @ts-ignore
         this.$context[0].Playlist = this;
         this.disabled();
+        this.$context.find('.b_popup').append(this.renderPopup);
+        let width_playlist = $('body').find('.main-music').innerWidth();
+        this.$context.find('.b_popup').css('width', width_playlist);
         this.player = Player.create();
         $('html').on('click', (e) => {
             if (!$(e.target).hasClass('b_popup')
@@ -74,6 +77,22 @@ class PlayerPlaylist {
         this.player.$context.on(Player.EVENT_LOADED_SONG_PLAYER, () => {
             this.loadPlaylist(this.player.playlist);
         });
+    }
+    renderPopup() {
+        return `<div class="inner_popup">
+            <div class="header">
+                <div class="name_chart">
+
+                    <h2>Сейчас играет: </h2>
+                    <h2 class="music_title"></h2>
+                </div>
+                <button class="close"></button>
+            </div>
+
+            <ul class="playlist inline_player_playlist_main">
+            </ul>
+        </div>
+        `;
     }
     initRepeat() {
         this.$context.find('button.repeat_playlist').on('click', () => {
@@ -167,10 +186,12 @@ class PlayerPlaylist {
         `;
     }
     open() {
+        $('body').find('.modal').show();
         this.$context.addClass('open');
     }
     close() {
         this.$context.removeClass('open');
+        $('body').find('.modal').hide();
     }
     get isOpen() {
         return this.$context.hasClass('open');

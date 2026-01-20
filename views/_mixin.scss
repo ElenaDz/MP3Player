@@ -17,7 +17,7 @@
   }
 }
 
-@mixin for_screen {
+@mixin for_min_1700 {
   @media (min-width: 1700px) {
     @content;
   }

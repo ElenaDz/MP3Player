@@ -99,6 +99,9 @@
     transition-property: top;
     border-radius: 0!important;
 
+    @include for_min_1700 {
+      right: calc((100vw - 107px) / 2);
+    }
 
     @include for_laptopS {
       transform: translate(-3%, -76%);

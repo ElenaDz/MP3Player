@@ -35,7 +35,7 @@ class PlayerInfo
             this.$context.find('.eq').removeClass('show');
         });
 
-        $('html').on('click',(e) =>
+        $('body').on('click',(e) =>
         {
             if (!$(e.target).hasClass('b_popup')
                 && !$(e.target).hasClass('dots')
@@ -76,6 +76,7 @@ class PlayerInfo
                     $('html').on('click',(e) =>
                     {
                         if (!$(e.target).hasClass('copy')){
+                            console.log(e)
                             this.removeActiveForCopy();
                             $('html').off('click')
                         }
@@ -128,12 +129,52 @@ class PlayerInfo
 
     private initDots()
     {
+        this.renderPopup();
+
         this.$context.find('button.dots').on('click',() =>
         {
             this.isOpenDots ? this.closeDots() : this.openDots();
         });
     }
 
+    private renderPopup()
+    {
+        this.$context.find('.inner_dots').append(this.addHtmlPopup)
+    }
+
+    private addHtmlPopup()
+    {
+       return `<div class="b_popup">
+<!--                Добавить при   доабвлениее hq-->
+<!--                <div class="hq">-->
+<!--                    <i></i>-->
+<!--                    <span>HQ-качество</span>-->
+<!--                </div>-->
+                <div class="eq">
+                    <i></i>
+                    <span>Эквалайзер</span>
+                </div>
+                <div class="copy">
+                    <i></i>
+                    <span>
+                        Скопировать ссылку
+                    </span>
+                </div>
+                <a class="wrap_comment" href="">
+                    <div class="comment">
+                        <i></i>
+                        <span>
+                            Оставить отзыв
+                        </span>
+                    </div>
+                </a>
+
+            </div>
+            <div class="b_popup is_copy">
+                <span> Ссылка скопирована</span>
+            </div>
+        `;
+    }
     private initFavorite()
     {
         this.$context.find('button.favorite').on('click',() =>
