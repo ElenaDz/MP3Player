@@ -15,11 +15,14 @@ class Player {
     }
     initMediaSession() {
         this.$context.on(Player.EVENT_LOADED_SONG_PLAYER, () => {
+            let { protocol, hostname } = window.location;
+            let urlImgSong = this.getBaseDomain() || `${protocol}//${hostname}`;
+            urlImgSong = urlImgSong + this.songPlayer.urlSongImg;
             if ("mediaSession" in navigator) {
                 navigator.mediaSession.metadata = new MediaMetadata({
                     title: this.songPlayer.songName.trim(),
                     artist: this.songPlayer.artistName.trim(),
-                    artwork: [{ src: this.songPlayer.urlSongImg }],
+                    artwork: [{ src: urlImgSong }],
                 });
             }
         });
@@ -29,6 +32,28 @@ class Player {
         navigator.mediaSession.setActionHandler("previoustrack", () => {
             this.previous();
         });
+    }
+    getBaseDomain() {
+        let { protocol, hostname } = window.location;
+        // localhost или IP
+        if (hostname === "localhost" ||
+            /^\d{1,3}(\.\d{1,3}){3}$/.test(hostname)) {
+            return "";
+        }
+        let parts = hostname.split(".");
+        // нет поддоменов (example.com)
+        if (parts.length <= 2) {
+            return "";
+        }
+        let subdomain = parts.slice(0, -2).join(".");
+        let hasNumberInSubdomain = /\d/.test(subdomain);
+        // поддомен есть, но без цифр → пусто
+        if (!hasNumberInSubdomain) {
+            return "";
+        }
+        // поддомен есть и содержит цифры → базовый домен
+        let baseDomain = parts.slice(-2).join(".");
+        return `${protocol}//${baseDomain}`;
     }
     initCreate() {
         PlayerControls.create();

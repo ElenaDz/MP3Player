@@ -197,7 +197,7 @@
         align-items: start;
         justify-content: center;
         height: fit-content;
-        width: 222px;
+        width: auto;
         box-sizing: border-box;
         bottom: 80px;
         right: 27px;
@@ -206,6 +206,10 @@
 
         .eq {
           display: none;
+        }
+
+        .copy {
+          margin-bottom: 4px;
         }
 
         @include for_phone {

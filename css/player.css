@@ -273,8 +273,8 @@
   position: absolute;
   transform: translate(30%, -100%);
   width: 800px;
-  height: calc(100vh - 167px);
-  max-height: 785px;
+  height: calc(100vh - 166px);
+  max-height: 788px;
   background-color: #fff;
   border: 1px solid #e3e3e3;
   opacity: 1;
@@ -618,7 +618,7 @@
   align-items: start;
   justify-content: center;
   height: fit-content;
-  width: 222px;
+  width: auto;
   box-sizing: border-box;
   bottom: 80px;
   right: 27px;
@@ -627,6 +627,9 @@
 }
 .b_player_info .inner_download .inner_dots .b_popup .eq {
   display: none;
+}
+.b_player_info .inner_download .inner_dots .b_popup .copy {
+  margin-bottom: 4px;
 }
 @media (max-width: 767px) {
   .b_player_info .inner_download .inner_dots .b_popup {

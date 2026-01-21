@@ -24,7 +24,5 @@
         <div class="inner_dots">
             <button class="dots elem"></button>
         </div>
-
     </div>
-
 </div>
