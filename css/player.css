@@ -217,10 +217,14 @@
 }
 .b_player_playlist.open .b_popup {
   top: 16px;
+  bottom: unset;
 }
 @media (max-width: 767px) {
   .b_player_playlist.open .b_popup {
-    top: -100px;
+    top: unset;
+    transition-property: bottom;
+    transform: translate(-3%, -573px);
+    bottom: -544px;
   }
 }
 .b_player_playlist.open .playlist_btn {
@@ -276,6 +280,7 @@
   opacity: 1;
   z-index: -5;
   top: 823px;
+  bottom: -1230px;
   right: calc((100vw - 69px) / 2);
   padding-bottom: 15px;
   transition-duration: 0.35s;
@@ -296,7 +301,9 @@
 }
 @media (max-width: 767px) {
   .b_player_playlist .b_popup {
-    transform: translate(-3%, -76%);
+    top: unset;
+    transition-property: bottom;
+    transform: translate(-3%, -573px);
     width: calc(100% + 15px);
     left: 12px;
   }
@@ -585,7 +592,7 @@
   }
 }
 .b_player_info .inner_download .inner_dots {
-  display: none;
+  display: flex;
 }
 @media (max-width: 767px) {
   .b_player_info .inner_download .inner_dots {
@@ -613,10 +620,13 @@
   height: fit-content;
   width: 222px;
   box-sizing: border-box;
-  top: -131px;
-  right: 45px;
+  bottom: 80px;
+  right: 27px;
   padding: 16px;
   cursor: pointer;
+}
+.b_player_info .inner_download .inner_dots .b_popup .eq {
+  display: none;
 }
 @media (max-width: 767px) {
   .b_player_info .inner_download .inner_dots .b_popup {
@@ -690,6 +700,11 @@
 }
 .b_player_info .inner_download .inner_dots.open .b_popup {
   display: flex;
+}
+.b_player_info .inner_download .inner_dots.open .b_popup span {
+  display: flex;
+  justify-content: start;
+  align-items: center;
 }
 .b_player_info .inner_download .inner_dots.open .b_popup .hq {
   display: none;
@@ -1159,7 +1174,7 @@
   display: none;
   position: absolute;
   border: 1px solid #CCCCCC;
-  box-shadow: 0 0 4px #CCCCCC;
+  box-shadow: 0px -2px 8px 0px rgba(0, 0, 0, 0.1019607843);
   background-color: white;
   border-radius: 8px;
 }
