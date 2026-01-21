@@ -4,6 +4,7 @@ interface SongPlayer {
     url: string;
     url_hq: string;
     artistHtml: string;
+    artistName: string;
     songName: string;
     urlSongPage: string;
     clicks: number;
@@ -51,6 +52,28 @@ class Player
 
         this.initAlert();
 
+        this.initMediaSession();
+    }
+
+    private initMediaSession()
+    {
+        this.$context.on(Player.EVENT_LOADED_SONG_PLAYER, () =>
+        {
+            if ("mediaSession" in navigator) {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: this.songPlayer.songName.trim(),
+                    artist: this.songPlayer.artistName.trim(),
+                    artwork: [{src: this.songPlayer.urlSongImg}],
+                });
+            }
+        })
+        navigator.mediaSession.setActionHandler("nexttrack", () => {
+            this.next();
+        });
+
+        navigator.mediaSession.setActionHandler("previoustrack", () => {
+            this.previous();
+        });
     }
 
     private initCreate()

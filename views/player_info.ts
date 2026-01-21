@@ -57,7 +57,7 @@ class PlayerInfo
             let url_song_page = hostname + '/' + this.player.songPlayer.urlSongPage;
 
             if (navigator.clipboard && window.isSecureContext) {
-                return navigator.clipboard.writeText(url_song_page);
+                navigator.clipboard.writeText(url_song_page);
             }
 
             this.closeDots();
@@ -76,7 +76,6 @@ class PlayerInfo
                     $('html').on('click',(e) =>
                     {
                         if (!$(e.target).hasClass('copy')){
-                            console.log(e)
                             this.removeActiveForCopy();
                             $('html').off('click')
                         }
@@ -145,11 +144,6 @@ class PlayerInfo
     private addHtmlPopup()
     {
        return `<div class="b_popup">
-<!--                Добавить при   доабвлениее hq-->
-<!--                <div class="hq">-->
-<!--                    <i></i>-->
-<!--                    <span>HQ-качество</span>-->
-<!--                </div>-->
                 <div class="eq">
                     <i></i>
                     <span>Эквалайзер</span>

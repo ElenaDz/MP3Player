@@ -9,7 +9,8 @@ class PlayerPlaylist {
         this.disabled();
         this.$context.find('.b_popup').append(this.renderPopup);
         let width_playlist = $('body').find('.main-music').innerWidth();
-        this.$context.find('.b_popup').css('width', width_playlist);
+        if (width_playlist > 768)
+            this.$context.find('.b_popup').css('width', width_playlist);
         this.player = Player.create();
         $('html').on('click', (e) => {
             if (!$(e.target).hasClass('b_popup')

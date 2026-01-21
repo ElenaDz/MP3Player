@@ -22,7 +22,7 @@ class PlayerPlaylist
 
         let width_playlist = $('body').find('.main-music').innerWidth();
 
-        this.$context.find('.b_popup').css('width', width_playlist);
+        if (width_playlist > 768) this.$context.find('.b_popup').css('width', width_playlist);
 
         this.player = Player.create();
 

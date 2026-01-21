@@ -11,6 +11,24 @@ class Player {
         this.initCreate();
         this.initEventsAudio();
         this.initAlert();
+        this.initMediaSession();
+    }
+    initMediaSession() {
+        this.$context.on(Player.EVENT_LOADED_SONG_PLAYER, () => {
+            if ("mediaSession" in navigator) {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: this.songPlayer.songName.trim(),
+                    artist: this.songPlayer.artistName.trim(),
+                    artwork: [{ src: this.songPlayer.urlSongImg }],
+                });
+            }
+        });
+        navigator.mediaSession.setActionHandler("nexttrack", () => {
+            this.next();
+        });
+        navigator.mediaSession.setActionHandler("previoustrack", () => {
+            this.previous();
+        });
     }
     initCreate() {
         PlayerControls.create();

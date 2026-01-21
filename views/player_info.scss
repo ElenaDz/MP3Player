@@ -169,7 +169,7 @@
     }
 
     .inner_dots {
-      display: none;
+      display: flex;
 
       @include for_phone {
         display: flex;
@@ -199,11 +199,14 @@
         height: fit-content;
         width: 222px;
         box-sizing: border-box;
-        top: -131px;
-        right: 45px;
+        bottom: 80px;
+        right: 27px;
         padding: 16px;
         cursor: pointer;
 
+        .eq {
+          display: none;
+        }
 
         @include for_phone {
           bottom: 64px;
@@ -307,6 +310,12 @@
       &.open {
         .b_popup {
           display: flex;
+
+          span {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+          }
 
           // удалить при добавлении HQ
           .hq {

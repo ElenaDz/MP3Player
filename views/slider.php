@@ -15,38 +15,36 @@ if (
     $value_pct = $value_rate * 100;
 }
 
+$data_value = "";
+$data_value_min = "";
+$data_value_max = "";
+if (is_null($value_pct)) {
+    if ($value) {
+        $data_value = " data-value=".$value;
+    }
+}
+
+if (!is_null($value_min)) {
+    $data_value_min = " data-value_min=".$value_min;
+}
+
+if (!is_null($value_max)) {
+    $data_value_max = " data-value_max=".$value_max  ;
+}
+$slider_style = $vertical ? ' ver' : '';
+$slider_style.= $class ?' '.$class : '';
 ?>
 
 <div
-    class="b_slider disabled <?= $vertical ? 'ver' : null; ?> <?= $class; ?>"
-
-    <?php if (is_null($value_pct)): ?>
-
-        data-value="<?= $value; ?>"
-
-    <?php endif; ?>
-
-    <?php if ( ! is_null($value_min)): ?>
-
-        data-value_min="<?= $value_min; ?>"
-
-    <?php endif; ?>
-
-    <?php if ( ! is_null($value_max)): ?>
-
-        data-value_max="<?= $value_max; ?>"
-
-    <?php endif; ?>
->
+    class="b_slider disabled<?= $slider_style; ?>"<?= $data_value; ?><?= $data_value_min; ?><?= $data_value_max; ?>>
     <div class="slider">
         <div
-            class="value"
-            style="<?=
-            ( $value_pct )
-                ? $vertical ? "height: {$value_pct}%" : "width: {$value_pct}%"
-                : null;
-            ?>"
-        >
+            class="value"<?php if ($value_pct): ?>
+                style="<?=
+                ( $value_pct )
+                    ? $vertical ? "height: {$value_pct}%" : "width: {$value_pct}%"
+                    : null;
+                ?>"<?php endif; ?>>
             <div class="thumb"></div>
         </div>
     </div>

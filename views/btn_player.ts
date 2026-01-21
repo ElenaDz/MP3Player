@@ -94,6 +94,11 @@ class BtnPlayer
         return this.$context.parents().first().find('.popular-play-composition').html() || '';
     }
 
+    public get artistName()
+    {
+        return this.$context.parents().first().find('.popular-play-composition').text() || '';
+    }
+
     private play()
     {
         this.load();
@@ -151,6 +156,7 @@ class BtnPlayer
             url: this.url,
             url_hq: this.url_hq,
             artistHtml: this.artistHtml,
+            artistName: this.artistName,
             songName: this.songName,
             urlSongPage: this.urlSongPage,
             clicks: this.clicks,
