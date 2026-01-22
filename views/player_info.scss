@@ -198,6 +198,7 @@
         justify-content: center;
         height: fit-content;
         width: auto;
+        min-width: 200px;
         box-sizing: border-box;
         bottom: 80px;
         right: 27px;
@@ -213,11 +214,15 @@
         }
 
         @include for_phone {
-          bottom: 64px;
-          left: -50px;
+          bottom: 76px;
+          left: -53px;
           top: unset;
           right: unset;
 
+
+          .eq {
+            display: flex !important;
+          }
 
           .hq, .eq .is_copy {
             width: 100%;

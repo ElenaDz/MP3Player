@@ -57,7 +57,7 @@
 
 
     @include for_phone {
-      bottom: 220px;
+      bottom: 230px;
       left: -2px;
       min-width: min-content;
       width: fit-content;
@@ -243,7 +243,7 @@
           align-items: start;
           justify-content: start;
           height: fit-content;
-          width: 170px;
+          width: 200px;
           box-sizing: border-box;
           position: absolute;
           bottom: 184px;
@@ -253,6 +253,19 @@
           border: 1px solid #CCCCCC;
           background-color: white;
           box-shadow: 0 0 4px #CCCCCC;
+          overflow-y: scroll;
+          max-height: 175px;
+
+          &::-webkit-scrollbar {
+            width: 6px;
+            border: 1px solid #d4d4d4;
+            background-color: #F5F5F5;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            width: 6px;
+            background-color: #d4d4d4;
+          }
 
           @include for_phone {
             padding: 8px;

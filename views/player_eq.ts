@@ -4,14 +4,29 @@ interface Preset {
     bands: number[]
 }
 
-const EQ_PRESETS: Record<"Default" | "Disco" | "Rok"| "Dance"| "Rap"| "Minimal"| "Funk"| "Custom", Preset>  = {
+const EQ_PRESETS: Record<"Default" | "Classical" | "Club" | "Full_Bass" | "Full_Bass_Treble"| "Full_Treble"
+    | "Large_hall" | "Live" | "Party" | "Pop" | "Reggae" | "Techno" | "Soft" | "Soft_Rock" | "Disco"
+    | "Rok"| "Dance"| "Rap"| "Minimal"| "Funk"| "Custom", Preset>  = {
     Default:  {name: "Default", preamp: 0, bands: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
-    Disco: {name: "Disco", preamp: -2.5, bands: [-0.5, -0.5, 4, 2.5, 2.5, 2.5, 1.5, -0.5, -0.5, -0.5]},
-    Rok: {name: "Rok", preamp: -3.36, bands: [-0.5, -1, 4, 2.5, 2.5, 1, 1.5, -0.5, -0.5, -0.5]},
-    Dance: {name: "Dance", preamp: -4, bands: [-0.5, -0.5, -4.5, 2.5, 3.4, 2.5, -3.5, -1.5, -4.5, -0.5]},
-    Rap: {name: "Rap", preamp: 1.36, bands: [-2.6, -0.5, 1.5, 3.3, 1.5, -0.5, 2.5, -4.5, -2.8, -0.9]},
-    Minimal: {name: "Minimal", preamp: 2.2, bands: [2, 2.5, -0.5, -2.5, -2, -0.5, 4, -4.5, -4.5, 4]},
-    Funk: {name: "Funk", preamp: 3.7, bands: [4.1, 2.5, -0.5, -2.5, -2, -0.5, 4, 4.5, 4.5, 4]},
+    Classical: {name: "Classical", preamp: -1, bands: [0, 0.5, 1, 2, 2, 1.5, 1, 0.5, 0, -0.5]},
+    Club: {name: "Club", preamp: 2, bands: [0, 0, 0.5, 0.7, 0.7, 0.7, 0.5, 0, 0, 0]},
+    Full_Bass: {name: "Full Bass", preamp: 3, bands: [2, 2, 2, 0.9, 0, -0.9, -1.5, -2, -2, -2]},
+    Full_Bass_Treble: {name: "Full Bass & Treble", preamp: 0, bands: [1.5, 1, 0, -1.8, -1, 0, 1.5, 2.2, 3, 3]},
+    Full_Treble: {name: "Full Treble", preamp: 0, bands: [-2.5, -2.5, -2.5, -0.5, 0.5, 2.5, 4, 4, 4, 4]},
+    Large_hall: {name: "Large hall", preamp: 0, bands: [2.5, 2.5, 1, 1, 0, -1, -1, -1, 0, 0]},
+    Live: {name: "Live", preamp: 0, bands: [-1, 0, 0.5, 1, 1, 1.5, 1.5, 0.5, 0.3, 0.2]},
+    Party: {name: "Party", preamp: 0, bands: [1.5, 1.5, 0, 0, 0, 0, 0, 0, 1.5, 1.5]},
+    Pop: {name: "Pop", preamp: 0, bands: [-0.7, 0.7, 1.5, 1.5, 1, -0.7, -1, -1, -1, -1]},
+    Reggae: {name: "Reggae", preamp: 0, bands: [0, 0, -0.5, -1.5, 0, 1.5, 1.5, 0, 0, 0]},
+    Soft: {name: "Soft", preamp: 0, bands: [1, 0, -0.5, -1, -0.5, 1, 2, 2.5, 3, 3.7]},
+    Soft_Rock: {name: "Soft_Rock", preamp: 0, bands: [1, 1, 0.5, -0.3, -1, -1.4, -1, -0.3, 0.5, 2.3]},
+    Disco: {name: "Disco", preamp: -2.5, bands: [3.5, 3, 1, -1, -2, -1, 1.5, 3, 3.5, 4]},
+    Techno: {name: "Techno", preamp: -1.5, bands: [2, 1.5, 0, -1.5, -0.9, 0, 1.6, 2, 2, 1.8]},
+    Rok: {name: "Rok", preamp: 0, bands: [1.19,  0.5,  -1.3,  -2.03, -0.7, 0.5, 2.2, 2.7, 2.7, 2.7]},
+    Dance: {name: "Dance", preamp: 0, bands: [2.5, 1.8, 0.6, -0.1, -0.1, -1.7, -2.0, -2.0, -0.1, -0.1]},
+    Rap: {name: "Rap", preamp: -3, bands: [5, 4, 2, 0, -1, 1.5, 3, 2, 1, 0]},
+    Minimal: {name: "Minimal", preamp: -1.5, bands: [2, 1.5, 0.5, 0, -0.5, 0, 0.5, 1.5, 2, 2.5]},
+    Funk: {name: "Funk", preamp: -2, bands: [3, 2.5, 1, 1.5, 2, 1.5, 1, 2.5, 3, 2]},
     Custom: null
 };
 
@@ -94,7 +109,20 @@ class PlayerEQ
             Dance: 'Dance',
             Rap: 'Рэп',
             Minimal: 'Минимал',
-            Funk: 'Фонк'
+            Funk: 'Фонк',
+            Classical: 'Классика',
+            Club: 'Клубная',
+            Full_Bass: 'Полный бас',
+            Full_Bass_Treble: 'Полный бас и Требл',
+            Full_Treble: 'Полный Требл',
+            Large_hall: 'Большой зал',
+            Live: 'Live',
+            Party: 'Вечеринка',
+            Pop: 'Поп',
+            Reggae: 'Регги',
+            Soft: 'Мягкий',
+            Soft_Rock: 'Мягкий Рок',
+            Techno: 'Техно'
         };
 
         let show = 5;
