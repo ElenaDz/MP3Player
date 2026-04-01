@@ -47,6 +47,21 @@ class PlayerInfo
 
         this.initCopy();
         this.initClickComment();
+        this.initRepeat()
+    }
+
+    private initRepeat()
+    {
+        let $btn_repeat_playlist =  this.$context.find('.repeat_playlist');
+
+        $btn_repeat_playlist.on('click',() =>
+        {
+            this.player.repeat_playlist = ! this.player.repeat_playlist;
+
+            this.player.repeat_playlist
+                ? $btn_repeat_playlist.addClass('active')
+                : $btn_repeat_playlist.removeClass('active');
+        });
     }
 
     private initClickComment()
@@ -157,6 +172,12 @@ class PlayerInfo
                 <div class="eq">
                     <i></i>
                     <span>Эквалайзер</span>
+                </div>
+                <div class="repeat_playlist">
+                    <i></i>
+                    <span>
+                        Повторять плейлист
+                    </span>
                 </div>
                 <div class="copy">
                     <i></i>
