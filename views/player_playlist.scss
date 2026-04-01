@@ -56,6 +56,10 @@
       &:hover {
         opacity: $opacity-grey-max;
       }
+
+      &.active {
+        opacity: $opacity-grey-max;
+      }
     }
 
     .repeat_playlist {
@@ -142,6 +146,17 @@
         height: 100%;
         flex-flow: column nowrap;
         scroll-behavior: smooth;
+
+        &::-webkit-scrollbar {
+          width: 9px;
+          //border: 1px solid #d4d4d4;
+          background-color: #F5F5F5;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          width: 9px;
+          background-color: #d4d4d4;
+        }
 
         @include for_phone {
           padding: 10px 15px;

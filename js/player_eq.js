@@ -85,7 +85,7 @@ class PlayerEQ {
         let show = 5;
         let $dots = $(`
             <div class="inner_dots">
-                <button class="dots elem" type="button"></button>
+                <button aria-label="Показать все пресеты" class="dots elem" type="button"></button>
                 <div class="other_presets"></div>
             </div>
         `);
@@ -136,12 +136,12 @@ class PlayerEQ {
             `;
     }
     presetItem(id, name) {
-        const hide = id === 'Custom' ? 'hide' : '';
+        const hide = id === 'Custom' ? 'hide ' : '';
         return `
-            <div class="preset ${hide}">
+            <div class="${hide}preset">
                 <label>
                     <input type="radio" name="preset" data-preset_name="${id}">
-                    <span>${name}</span>
+                    <span class="name_preset">${name}</span>
                 </label>
             </div>
         `;

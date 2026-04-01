@@ -46,8 +46,16 @@ class PlayerInfo
         });
 
         this.initCopy();
+        this.initClickComment();
     }
 
+    private initClickComment()
+    {
+        this.$context.find('.wrap_comment').on('click',() =>
+        {
+            this.closeDots();
+        });
+    }
     private initCopy()
     {
         this.$context.find('.copy').on('click',() =>
@@ -93,7 +101,7 @@ class PlayerInfo
     }
     private initComment()
     {
-        let url = this.player.songPlayer.urlSongPage + '#uname';
+        let url = this.player.songPlayer.urlSongPage + '#song-comments';
 
         this.$context.find('.wrap_comment').attr('href', url);
     }
@@ -123,6 +131,8 @@ class PlayerInfo
             this.eq.isShow ? this.eq.close() : this.eq.show();
 
             this.eq.isShow ? $eq.addClass('show') : $eq.removeClass('show');
+
+            this.closeDots();
         });
     }
 

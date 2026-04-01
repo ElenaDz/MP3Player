@@ -28,6 +28,12 @@ class PlayerInfo {
             }
         });
         this.initCopy();
+        this.initClickComment();
+    }
+    initClickComment() {
+        this.$context.find('.wrap_comment').on('click', () => {
+            this.closeDots();
+        });
     }
     initCopy() {
         this.$context.find('.copy').on('click', () => {
@@ -55,7 +61,7 @@ class PlayerInfo {
         this.$context.find('.is_copy').removeClass('active');
     }
     initComment() {
-        let url = this.player.songPlayer.urlSongPage + '#uname';
+        let url = this.player.songPlayer.urlSongPage + '#song-comments';
         this.$context.find('.wrap_comment').attr('href', url);
     }
     initHq() {
@@ -72,6 +78,7 @@ class PlayerInfo {
             let $eq = this.$context.find('.eq');
             this.eq.isShow ? this.eq.close() : this.eq.show();
             this.eq.isShow ? $eq.addClass('show') : $eq.removeClass('show');
+            this.closeDots();
         });
     }
     initDots() {

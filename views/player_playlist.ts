@@ -26,7 +26,7 @@ class PlayerPlaylist
 
         this.player = Player.create();
 
-        $('html').on('click',(e) =>
+        $('body').on('click',(e) =>
         {
             if (!$(e.target).hasClass('b_popup')
                 && !$(e.target).hasClass('playlist_btn')
@@ -116,6 +116,13 @@ class PlayerPlaylist
         this.player.$context.on(Player.EVENT_LOADED_SONG_PLAYER,() =>
         {
             this.loadPlaylist(this.player.playlist);
+
+            let $playlist = this.$context.find('.playlist');
+
+            $playlist.find('a').on('click',(e) =>
+            {
+                this.close();
+            });
         });
     }
 
@@ -128,7 +135,7 @@ class PlayerPlaylist
                     <h2>Сейчас играет: </h2>
                     <h2 class="music_title"></h2>
                 </div>
-                <button class="close"></button>
+                <button aria-label="Закрыть" class="close"></button>
             </div>
 
             <ul class="playlist inline_player_playlist_main">
@@ -150,6 +157,8 @@ class PlayerPlaylist
         this.$context.find('button.shuffle').on('click',() =>
         {
             this.shufflePlaylist();
+
+            this.$context.find('.shuffle').addClass('active');
         });
     }
 
@@ -202,6 +211,8 @@ class PlayerPlaylist
         this.$context.find('.music_title').text(playlist.title);
 
         BtnPlayer.create(this.$context.find('.playlist'));
+
+        this.$context.find('.shuffle').removeClass('active');
     }
 
     private get playlist_id()
@@ -229,6 +240,7 @@ class PlayerPlaylist
                 <div class="popular-play">
                     <div class="btn_player">    
                         <button class="play popular-play__item"
+						aria-label="Воспроизвести"
                         data-song-id=" ${song.songId}"
                         data-url="${song.url}"
                         data-url_hq="${song.url_hq}"
@@ -257,7 +269,7 @@ class PlayerPlaylist
 
                     <div class="download elem">
                         <a class="download_song" href="${song.urlSongPage}">
-                            <i></i>
+                            <span class="icon-download-arrow-with-bar"></span>
                         </a>
                     </div>
                 </div>
@@ -267,16 +279,17 @@ class PlayerPlaylist
 
     private open()
     {
-        $('body').find('.modal').show();
+        $('body').find('.modal').addClass('active');
 
         this.$context.addClass('open');
+
     }
 
     private close()
     {
         this.$context.removeClass('open');
 
-        $('body').find('.modal').hide();
+        $('body').find('.modal').removeClass('active');
     }
 
     private get isOpen()

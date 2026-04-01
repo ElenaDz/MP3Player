@@ -51,6 +51,7 @@ class PlayerVolume
             }
 
             this.volume = this.player.volume;
+            console.log(this.volume)
         });
 
         this.$context.find('button.volume_mute').on('click', () =>

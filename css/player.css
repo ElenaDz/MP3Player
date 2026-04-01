@@ -245,6 +245,9 @@
 .b_player_playlist .order .shuffle:hover {
   opacity: 1;
 }
+.b_player_playlist .order .shuffle.active {
+  opacity: 1;
+}
 .b_player_playlist .order .repeat_playlist {
   background-image: url("data:image/svg+xml;utf8;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0iIzY2NjY2NiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgICA8cGF0aCBkPSJNMjguNjAyNyAxNS4yNDQ4QzI5LjEzMjQgMTQuOTE1MyAyOS4xMzI0IDE0LjE0NzQgMjguNjAyNyAxMy44MTc5TDI0LjI4MSAxMS4xMjkyQzIzLjcxOCAxMC43NzkgMjIuOTg3OCAxMS4xODE5IDIyLjk4NzggMTEuODQyN1YxNy4yMkMyMi45ODc4IDE3Ljg4MDggMjMuNzE4IDE4LjI4MzcgMjQuMjgxIDE3LjkzMzVMMjguNjAyNyAxNS4yNDQ4WiIgZmlsbD0iIzY2NjY2NiIvPg0KICAgIDxwYXRoIGQ9Ik0xMi4zOTczIDI2LjE4MjFDMTEuODY3NiAyNS44NTI2IDExLjg2NzYgMjUuMDg0NyAxMi4zOTczIDI0Ljc1NTJMMTYuNzE5IDIyLjA2NjVDMTcuMjgyIDIxLjcxNjMgMTguMDEyMiAyMi4xMTkyIDE4LjAxMjIgMjIuNzhWMjguMTU3M0MxOC4wMTIyIDI4LjgxODEgMTcuMjgyIDI5LjIyMSAxNi43MTkgMjguODcwOEwxMi4zOTczIDI2LjE4MjFaIiBmaWxsPSIjNjY2NjY2Ii8+DQogICAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xOC43NjE3IDE1LjIwNzlDMTYuNDI3NiAxNS4yMDc5IDE0LjUzNTYgMTcuMDkxMyAxNC41MzU2IDE5LjQxNDVIMTIuODQ1MUMxMi44NDUxIDE2LjE2MiAxNS40OTQgMTMuNTI1MiAxOC43NjE3IDEzLjUyNTJIMjIuOTg3OEMyMy40NTQ2IDEzLjUyNTIgMjMuODMzIDEzLjkwMTkgMjMuODMzIDE0LjM2NjZDMjMuODMzIDE0LjgzMTIgMjMuNDU0NiAxNS4yMDc5IDIyLjk4NzggMTUuMjA3OUgxOC43NjE3WiIgZmlsbD0iIzY2NjY2NiIvPg0KICAgIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjEuMjk3MyAyNC40NjI1QzIzLjYzMTMgMjQuNDYyNSAyNS41MjM0IDIyLjU3OTEgMjUuNTIzNCAyMC4yNTU5SDI3LjIxMzlDMjcuMjEzOSAyMy41MDg0IDI0LjU2NDkgMjYuMTQ1MiAyMS4yOTczIDI2LjE0NTJIMTcuMDcxMkMxNi42MDQ0IDI2LjE0NTIgMTYuMjI2IDI1Ljc2ODUgMTYuMjI2IDI1LjMwMzhDMTYuMjI2IDI0LjgzOTIgMTYuNjA0NCAyNC40NjI1IDE3LjA3MTIgMjQuNDYyNUgyMS4yOTczWiIgZmlsbD0iIzY2NjY2NiIvPg0KPC9zdmc+DQo=");
   opacity: 0.3;
@@ -328,6 +331,14 @@
   height: 100%;
   flex-flow: column nowrap;
   scroll-behavior: smooth;
+}
+.b_player_playlist .b_popup .inner_popup .playlist::-webkit-scrollbar {
+  width: 9px;
+  background-color: #F5F5F5;
+}
+.b_player_playlist .b_popup .inner_popup .playlist::-webkit-scrollbar-thumb {
+  width: 9px;
+  background-color: #d4d4d4;
 }
 @media (max-width: 767px) {
   .b_player_playlist .b_popup .inner_popup .playlist {
@@ -830,8 +841,8 @@
 }
 @media (max-width: 767px) {
   .b_player_eq .b_popup {
-    bottom: 230px;
-    left: -2px;
+    bottom: 90px;
+    left: calc(50% - 8px);
     min-width: min-content;
     width: fit-content;
     top: unset;
@@ -866,6 +877,12 @@
 }
 .b_player_eq .b_popup .inner_eq .music_presets .presets .preset.hide {
   display: none;
+}
+.b_player_eq .b_popup .inner_eq .music_presets .presets .preset .name_preset {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .b_player_eq .b_popup .inner_eq .music_presets .presets .preset label {
   cursor: pointer;
@@ -1009,15 +1026,23 @@
 }
 
 .modal {
-  display: none;
+  display: block; /* Элемент всегда в DOM */
   position: fixed;
   top: 0;
   right: 0;
   height: 100%;
-  width: 100%;
+  width: 0;
   background-color: black;
-  opacity: 0.5;
+  opacity: 0;
+  visibility: hidden; /* Скрыт для кликов и чтения */
   z-index: 55;
+  transition: opacity 0.5s, visibility 0.5s;
+}
+
+.modal.active {
+  opacity: 0.5;
+  visibility: visible;
+  width: 100%;
 }
 
 .b_player {

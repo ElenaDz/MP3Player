@@ -57,8 +57,8 @@
 
 
     @include for_phone {
-      bottom: 230px;
-      left: -2px;
+      bottom: 90px;
+      left: calc(50% - 8px);
       min-width: min-content;
       width: fit-content;
       top: unset;
@@ -103,6 +103,13 @@
           .preset {
             &.hide {
               display: none;
+            }
+
+            .name_preset {
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
             }
 
             label {

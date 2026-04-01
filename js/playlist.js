@@ -6,7 +6,7 @@ class Playlist {
     get id() {
         let id = '';
         this.songsPlayer.map((songPlayer) => {
-            id = id + songPlayer.songName + "\n";
+            id = id + $.trim(songPlayer.songName);
         });
         return id;
     }

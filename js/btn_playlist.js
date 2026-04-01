@@ -7,9 +7,6 @@ class BtnPlaylist {
         // @ts-ignore
         this.$context[0].BtnPlaylist = this;
         this.player = Player.create();
-        this.$context.on('click', () => {
-            console.log(this.$context);
-        });
     }
     static create($context) {
         $context.find('.song-author-btn.btn-play, .c-button.js-btn-play-playlist').each((index, element) => {
