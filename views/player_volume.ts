@@ -5,6 +5,7 @@ class PlayerVolume
     private slider: Slider;
 
     private KEY_LOCAL_STORE_VOLUME = 'volume';
+    private KEY_LOCAL_STORE_MUTE = 'mute';
 
     constructor($context: JQuery)
     {
@@ -23,6 +24,8 @@ class PlayerVolume
         this.disabled();
 
         this.volume =  this.volume;
+
+        this.mute = this.mute;
 
         this.player.$context.on(Player.EVENT_LOADED_SONG_PLAYER,() =>
         {
@@ -71,13 +74,11 @@ class PlayerVolume
         this.slider.$context.removeClass('disabled');
     }
 
-    private get mute() {
-        return this.player.mute;
-    }
-
     private set mute(mute)
     {
         this.player.mute = mute;
+
+        this.muteStore = mute;
 
         if (mute) {
             this.slider.value = 0;
@@ -95,6 +96,11 @@ class PlayerVolume
         return this.volumeStore ?  this.volumeStore : this.player.volume;
     }
 
+    private get mute(): boolean
+    {
+        return this.muteStore || false;
+    }
+
     private get volumeStore(): number
     {
         return parseFloat(localStorage.getItem(this.KEY_LOCAL_STORE_VOLUME));
@@ -103,6 +109,16 @@ class PlayerVolume
     private set volumeStore(volume)
     {
         localStorage.setItem(this.KEY_LOCAL_STORE_VOLUME, String(volume));
+    }
+
+    private get muteStore(): boolean
+    {
+        return JSON.parse(localStorage.getItem(this.KEY_LOCAL_STORE_MUTE));
+    }
+
+    private set muteStore(mute: boolean)
+    {
+        localStorage.setItem(this.KEY_LOCAL_STORE_MUTE, String(mute));
     }
 
     private set volume(volume)

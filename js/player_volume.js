@@ -1,6 +1,7 @@
 class PlayerVolume {
     constructor($context) {
         this.KEY_LOCAL_STORE_VOLUME = 'volume';
+        this.KEY_LOCAL_STORE_MUTE = 'mute';
         this.$context = $context;
         // @ts-ignore
         if (this.$context[0].Volume)
@@ -11,6 +12,7 @@ class PlayerVolume {
         this.slider = Slider.create(this.$context)[0];
         this.disabled();
         this.volume = this.volume;
+        this.mute = this.mute;
         this.player.$context.on(Player.EVENT_LOADED_SONG_PLAYER, () => {
             this.removeDisabled();
         });
@@ -45,11 +47,9 @@ class PlayerVolume {
         this.$context.removeClass('disabled');
         this.slider.$context.removeClass('disabled');
     }
-    get mute() {
-        return this.player.mute;
-    }
     set mute(mute) {
         this.player.mute = mute;
+        this.muteStore = mute;
         if (mute) {
             this.slider.value = 0;
             this.$context.addClass('mute');
@@ -62,11 +62,20 @@ class PlayerVolume {
     get volume() {
         return this.volumeStore ? this.volumeStore : this.player.volume;
     }
+    get mute() {
+        return this.muteStore || false;
+    }
     get volumeStore() {
         return parseFloat(localStorage.getItem(this.KEY_LOCAL_STORE_VOLUME));
     }
     set volumeStore(volume) {
         localStorage.setItem(this.KEY_LOCAL_STORE_VOLUME, String(volume));
+    }
+    get muteStore() {
+        return JSON.parse(localStorage.getItem(this.KEY_LOCAL_STORE_MUTE));
+    }
+    set muteStore(mute) {
+        localStorage.setItem(this.KEY_LOCAL_STORE_MUTE, String(mute));
     }
     set volume(volume) {
         if (volume < this.slider.value_min || volume > this.slider.value_max) {
