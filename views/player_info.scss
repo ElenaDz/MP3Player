@@ -320,10 +320,11 @@
         }
       }
 
-      .is_copy {
+      .is_copy, .is_repeat {
         display: none !important;
         justify-content: center;
         align-items: center;
+        white-space: nowrap;
 
         &.active {
           display: flex !important;

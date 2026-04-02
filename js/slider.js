@@ -21,25 +21,34 @@ class Slider {
             return this.$context.data('Slider');
         this.$context.data('Slider', this);
         this.value = this.$context.data('value');
-        this.$context.mousedown((e) => {
-            if (e.which !== 1)
-                return;
+        this.$context.on('mousedown touchstart', (e) => {
+            let event = e;
+            if (e.type === 'touchstart') {
+                event = e.originalEvent.touches[0];
+            }
+            else {
+                if (e.which !== 1)
+                    return;
+            }
             this.start_move = true;
-            this.value_pct = this.getValuePctFromEvent(e);
-            $(window)
-                .on('mousemove.slider', (e) => {
+            this.value_pct = this.getValuePctFromEvent(event);
+            $(window).on('mousemove.slider touchmove.slider', (e) => {
                 if (!this.start_move)
                     return;
-                this.value_pct = this.getValuePctFromEvent(e);
+                let moveEvent = e;
+                if (e.type === 'touchmove') {
+                    moveEvent = e.originalEvent.touches[0];
+                }
+                this.value_pct = this.getValuePctFromEvent(moveEvent);
             });
-            return this;
         });
-        $(window)
-            .on('mouseup', (e) => {
-            if (e.which !== 1 || !this.start_move)
+        $(window).on('mouseup touchend', (e) => {
+            if (!this.start_move)
+                return;
+            if (e.type === 'mouseup' && e.which !== 1)
                 return;
             this.start_move = false;
-            $(window).off('mousemove.slider');
+            $(window).off('mousemove.slider touchmove.slider');
             return this;
         });
         this.$context.on(SliderEvents.StartMove, () => {

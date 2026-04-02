@@ -40,36 +40,42 @@ class Slider
 
 		this.value = this.$context.data('value');
 
-		this.$context.mousedown((e:JQueryMouseEventObject) =>
-		{
-			if (e.which !== 1) return;
+		this.$context.on('mousedown touchstart', (e: any) => {
+			let event = e;
+
+			if (e.type === 'touchstart') {
+				event = e.originalEvent.touches[0];
+			} else {
+				if (e.which !== 1) return;
+			}
 
 			this.start_move = true;
+			this.value_pct = this.getValuePctFromEvent(event);
 
-			this.value_pct = this.getValuePctFromEvent(e);
+			$(window).on('mousemove.slider touchmove.slider', (e: any) => {
+				if (!this.start_move) return;
 
-			$(window)
-				.on('mousemove.slider', (e:JQueryMouseEventObject) =>
-				{
-					if ( ! this.start_move) return;
+				let moveEvent = e;
 
-					this.value_pct = this.getValuePctFromEvent(e);
-				});
+				if (e.type === 'touchmove') {
+					moveEvent = e.originalEvent.touches[0];
+				}
+
+				this.value_pct = this.getValuePctFromEvent(moveEvent);
+			});
+		});
+
+		$(window).on('mouseup touchend', (e: any) => {
+			if (!this.start_move) return;
+
+			if (e.type === 'mouseup' && e.which !== 1) return;
+
+			this.start_move = false;
+
+			$(window).off('mousemove.slider touchmove.slider');
 
 			return this;
 		});
-
-		$(window)
-			.on('mouseup', (e:JQueryMouseEventObject) =>
-			{
-				if (e.which !== 1 || ! this.start_move) return;
-
-				this.start_move = false;
-
-				$(window).off('mousemove.slider')
-
-				return this;
-			});
 
 		this.$context.on(
 			SliderEvents.StartMove,

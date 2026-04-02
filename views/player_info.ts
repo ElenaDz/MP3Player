@@ -61,6 +61,32 @@ class PlayerInfo
             this.player.repeat_playlist
                 ? $btn_repeat_playlist.addClass('active')
                 : $btn_repeat_playlist.removeClass('active');
+
+            if ( ! this.player.repeat_playlist) return;
+
+            this.closeDots();
+
+            this.$context.find('.is_repeat').addClass('active');
+
+            setTimeout(
+                () => {
+                    this.removeActiveForRepeat();
+                },
+                2*1000
+            );
+
+            setTimeout(
+                () => {
+                    $('body').on('click',(e) =>
+                    {
+                        if (!$(e.target).hasClass('repeat_playlist')){
+                            this.removeActiveForRepeat();
+                            $('body').off('click')
+                        }
+                    });
+                },
+                0
+            );
         });
     }
 
@@ -114,6 +140,11 @@ class PlayerInfo
     {
         this.$context.find('.is_copy').removeClass('active');
     }
+    private removeActiveForRepeat ()
+    {
+        this.$context.find('.is_repeat').removeClass('active');
+    }
+
     private initComment()
     {
         let url = this.player.songPlayer.urlSongPage + '#song-comments';
@@ -196,7 +227,10 @@ class PlayerInfo
 
             </div>
             <div class="b_popup is_copy">
-                <span> Ссылка скопирована</span>
+                <span>Ссылка скопирована</span>
+            </div>
+            <div class="b_popup is_repeat">
+                <span>Режим повтора активирован</span>
             </div>
         `;
     }
