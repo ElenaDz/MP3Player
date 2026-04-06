@@ -326,6 +326,8 @@ class PlayerEQ
     {
         this.$context.removeClass('show');
 
+        this.$context.find('.inner_dots').removeClass('open');
+
         this.$context.trigger(PlayerEQ.EVENT_CLOSE);
     }
 

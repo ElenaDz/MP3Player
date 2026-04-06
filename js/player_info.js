@@ -38,22 +38,25 @@ class PlayerInfo {
             this.player.repeat_playlist
                 ? $btn_repeat_playlist.addClass('active')
                 : $btn_repeat_playlist.removeClass('active');
-            if (!this.player.repeat_playlist)
-                return;
-            this.closeDots();
-            this.$context.find('.is_repeat').addClass('active');
-            setTimeout(() => {
-                this.removeActiveForRepeat();
-            }, 2 * 1000);
-            setTimeout(() => {
-                $('body').on('click', (e) => {
-                    if (!$(e.target).hasClass('repeat_playlist')) {
-                        this.removeActiveForRepeat();
-                        $('body').off('click');
-                    }
-                });
-            }, 0);
+            this.player.repeat_playlist
+                ? this.updateRepeat('.is_repeat')
+                : this.updateRepeat('.is_repeat_off');
         });
+    }
+    updateRepeat(name_class) {
+        this.closeDots();
+        this.addActiveForClass(name_class);
+        setTimeout(() => {
+            this.removeActiveForClass(name_class);
+        }, 2 * 1000);
+        setTimeout(() => {
+            $('body').on('click', (e) => {
+                if (!$(e.target).hasClass('repeat_playlist')) {
+                    this.removeActiveForClass(name_class);
+                    $('body').off('click');
+                }
+            });
+        }, 0);
     }
     initClickComment() {
         this.$context.find('.wrap_comment').on('click', () => {
@@ -68,25 +71,25 @@ class PlayerInfo {
                 navigator.clipboard.writeText(url_song_page);
             }
             this.closeDots();
-            this.$context.find('.is_copy').addClass('active');
+            this.addActiveForClass('.is_copy');
             setTimeout(() => {
-                this.removeActiveForCopy();
+                this.removeActiveForClass('.is_copy');
             }, 2 * 1000);
             setTimeout(() => {
                 $('html').on('click', (e) => {
                     if (!$(e.target).hasClass('copy')) {
-                        this.removeActiveForCopy();
+                        this.removeActiveForClass('.is_copy');
                         $('html').off('click');
                     }
                 });
             }, 0);
         });
     }
-    removeActiveForCopy() {
-        this.$context.find('.is_copy').removeClass('active');
+    removeActiveForClass(name_class) {
+        this.$context.find(name_class).removeClass('active');
     }
-    removeActiveForRepeat() {
-        this.$context.find('.is_repeat').removeClass('active');
+    addActiveForClass(name_class) {
+        this.$context.find(name_class).addClass('active');
     }
     initComment() {
         let url = this.player.songPlayer.urlSongPage + '#song-comments';
@@ -102,8 +105,8 @@ class PlayerInfo {
         });
     }
     initEq() {
-        this.$context.find('.eq').on('click', () => {
-            let $eq = this.$context.find('.eq');
+        let $eq = this.$context.find('.eq');
+        $eq.on('click', () => {
             this.eq.isShow ? this.eq.close() : this.eq.show();
             this.eq.isShow ? $eq.addClass('show') : $eq.removeClass('show');
             this.closeDots();
@@ -151,6 +154,9 @@ class PlayerInfo {
             </div>
             <div class="b_popup is_repeat">
                 <span>Режим повтора активирован</span>
+            </div>
+            <div class="b_popup is_repeat_off">
+                <span>Режим повтора снят</span>
             </div>
         `;
     }

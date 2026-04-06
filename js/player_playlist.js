@@ -196,10 +196,12 @@ class PlayerPlaylist {
     open() {
         $('body').find('.modal').addClass('active');
         this.$context.addClass('open');
+        $('body').css('overflow', 'hidden');
     }
     close() {
         this.$context.removeClass('open');
         $('body').find('.modal').removeClass('active');
+        $('body').css('overflow', '');
     }
     get isOpen() {
         return this.$context.hasClass('open');

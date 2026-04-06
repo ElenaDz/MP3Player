@@ -216,7 +216,8 @@
 	        __DIR__ . '/js/player_hq.js',
 	        __DIR__ . '/js/eq.js',
 	        __DIR__ . '/js/player_eq.js',
-	        __DIR__ . '/js/btn_playlist.js'
+	        __DIR__ . '/js/btn_playlist.js',
+	        __DIR__ . '/js/btn_play.js'
         ],
 	    __DIR__ . '/js/player.one_file.js'
     );
@@ -227,6 +228,8 @@
         $(function() {
             BtnPlayer.create($('body'));
             BtnPlaylist.create($('body'));
+            BtnPlay.create($('body'));
+
         });
     </script>
 </body>

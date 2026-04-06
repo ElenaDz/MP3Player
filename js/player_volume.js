@@ -34,7 +34,6 @@ class PlayerVolume {
                 this.mute = false;
             }
             this.volume = this.player.volume;
-            console.log(this.volume);
         });
         this.$context.find('button.volume_mute').on('click', () => {
             this.mute = !this.mute;
@@ -78,8 +77,11 @@ class PlayerVolume {
         localStorage.setItem(this.KEY_LOCAL_STORE_MUTE, String(mute));
     }
     set volume(volume) {
-        if (volume < this.slider.value_min || volume > this.slider.value_max) {
-            throw new Error(`Invalid volume "${volume}"`);
+        if (volume < this.slider.value_min) {
+            volume = this.slider.value_min;
+        }
+        else if (volume > this.slider.value_max) {
+            volume = this.slider.value_max;
         }
         this.slider.value = volume;
         if (this.player.volume != volume) {

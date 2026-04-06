@@ -54,7 +54,6 @@ class PlayerVolume
             }
 
             this.volume = this.player.volume;
-            console.log(this.volume)
         });
 
         this.$context.find('button.volume_mute').on('click', () =>
@@ -123,8 +122,11 @@ class PlayerVolume
 
     private set volume(volume)
     {
-        if (volume < this.slider.value_min || volume > this.slider.value_max) {
-            throw new Error(`Invalid volume "${volume}"`);
+        if (volume < this.slider.value_min ) {
+            volume = this.slider.value_min;
+
+        } else if (volume > this.slider.value_max) {
+            volume = this.slider.value_max;
         }
 
         this.slider.value = volume;

@@ -283,6 +283,8 @@ class PlayerPlaylist
 
         this.$context.addClass('open');
 
+        $('body').css('overflow','hidden')
+
     }
 
     private close()
@@ -290,6 +292,8 @@ class PlayerPlaylist
         this.$context.removeClass('open');
 
         $('body').find('.modal').removeClass('active');
+
+        $('body').css('overflow','')
     }
 
     private get isOpen()
