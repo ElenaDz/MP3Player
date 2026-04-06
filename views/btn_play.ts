@@ -20,11 +20,20 @@ class BtnPlay
 
         this.player = Player.create();
 
+        this.initClick();
+        this.updatePause();
+    }
+
+    private initClick()
+    {
         this.$context.on('click',()=>
         {
             this.$context.find('.icon-music-player-play').toggleClass('pause');
         })
+    }
 
+    private updatePause()
+    {
         this.player.$context.on(Player.EVENT_UPDATE_PLAYING,() =>
         {
             if (this.$context.data('song-id') == this.player.songId)
