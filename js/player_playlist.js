@@ -12,6 +12,10 @@ class PlayerPlaylist {
         if (width_playlist > 768)
             this.$context.find('.b_popup').css('width', width_playlist);
         this.player = Player.create();
+        this.player_info = PlayerInfo.create();
+        $('.modal').on('click', (e) => {
+            this.close();
+        });
         $('body').on('click', (e) => {
             if (!$(e.target).hasClass('b_popup')
                 && !$(e.target).hasClass('playlist_btn')
@@ -125,6 +129,9 @@ class PlayerPlaylist {
         this.player.repeat_playlist
             ? this.$context.find('button.repeat_playlist').addClass('active')
             : this.$context.find('button.repeat_playlist').removeClass('active');
+        this.player.repeat_playlist
+            ? this.player_info.updateRepeat('.is_repeat')
+            : this.player_info.updateRepeat('.is_repeat_off');
     }
     disabled() {
         this.$context.addClass('disabled');
@@ -196,12 +203,16 @@ class PlayerPlaylist {
     open() {
         $('body').find('.modal').addClass('active');
         this.$context.addClass('open');
-        $('body').css('overflow', 'hidden');
+        if ($(window).width() <= 768) {
+            $('body').css('overflow', 'hidden');
+        }
     }
     close() {
         this.$context.removeClass('open');
         $('body').find('.modal').removeClass('active');
-        $('body').css('overflow', '');
+        if ($(window).width() <= 768) {
+            $('body').css('overflow', '');
+        }
     }
     get isOpen() {
         return this.$context.hasClass('open');

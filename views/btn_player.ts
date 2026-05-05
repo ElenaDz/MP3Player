@@ -121,7 +121,11 @@ class BtnPlayer
         let playlist: JQuery;
 
         if ($(this.$context.parents('.inline_player_playlist_main')).length > 0) {
-            playlist = $(this.$context.parents('.inline_player_playlist_main'));
+            let playlistClone = $(this.$context.parents('.inline_player_playlist_main')).first().clone();
+
+            playlistClone.find('.inline_player_playlist_main').remove();
+
+            playlist = playlistClone;
         } else  {
             playlist = $(this.$context.parents('.box-player-music'));
         }

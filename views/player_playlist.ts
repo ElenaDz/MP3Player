@@ -4,6 +4,7 @@ class PlayerPlaylist
 
     private $context: JQuery;
     private player: Player;
+    private player_info: PlayerInfo;
     private _playlist_id: string;
 
     constructor($context: JQuery)
@@ -25,6 +26,13 @@ class PlayerPlaylist
         if (width_playlist > 768) this.$context.find('.b_popup').css('width', width_playlist);
 
         this.player = Player.create();
+
+        this.player_info = PlayerInfo.create();
+
+        $('.modal').on('click',(e) =>
+        {
+            this.close();
+        });
 
         $('body').on('click',(e) =>
         {
@@ -190,7 +198,12 @@ class PlayerPlaylist
         this.player.repeat_playlist
             ? this.$context.find('button.repeat_playlist').addClass('active')
             : this.$context.find('button.repeat_playlist').removeClass('active');
+
+        this.player.repeat_playlist
+            ? this.player_info.updateRepeat('.is_repeat')
+            : this.player_info.updateRepeat('.is_repeat_off');
     }
+
 
     private disabled()
     {
@@ -283,8 +296,9 @@ class PlayerPlaylist
 
         this.$context.addClass('open');
 
-        $('body').css('overflow','hidden')
-
+        if ($(window).width() <= 768) {
+            $('body').css('overflow', 'hidden');
+        }
     }
 
     private close()
@@ -293,7 +307,9 @@ class PlayerPlaylist
 
         $('body').find('.modal').removeClass('active');
 
-        $('body').css('overflow','')
+        if ($(window).width() <= 768) {
+            $('body').css('overflow', '');
+        }
     }
 
     private get isOpen()

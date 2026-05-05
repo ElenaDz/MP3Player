@@ -1,6 +1,6 @@
 class PlayerInfo
 {
-    private $context: JQuery;
+    public $context: JQuery;
     private player: Player;
     private eq: PlayerEQ;
 
@@ -69,7 +69,7 @@ class PlayerInfo
         });
     }
 
-    private updateRepeat(name_class: string)
+    public updateRepeat(name_class: string)
     {
         this.closeDots();
 
