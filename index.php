@@ -208,7 +208,10 @@
         .done((response) =>
         {
             $('.lk').html(response);
+            setTimeout(() => LK.create(), 5);
+
         });
+
 </script>
 
 <hr>

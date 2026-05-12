@@ -12,6 +12,7 @@ class Player {
         this.initEventsAudio();
         this.initAlert();
         this.initMediaSession();
+        this.initHistory();
     }
     initMediaSession() {
         this.$context.on(Player.EVENT_LOADED_SONG_PLAYER, () => {
@@ -105,6 +106,18 @@ class Player {
         });
         this.audio.addEventListener('error', () => {
             this.$context.trigger(Player.EVENT_ERROR);
+        });
+    }
+    initHistory() {
+        this.$context.on(Player.EVENT_LOADED_SONG_PLAYER, () => {
+            if (!LK.is_authorized())
+                return;
+            let song_id = this.songPlayer.songId;
+            $.ajax({
+                url: 'http://authorization/Auth/?action=Auth%5CApp%5CAction%5CApi%5CHistoryAdd',
+                type: 'POST',
+                data: { song_id: song_id },
+            });
         });
     }
     getAudio() {
