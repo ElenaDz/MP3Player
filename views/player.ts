@@ -54,7 +54,6 @@ class Player
 
         this.initMediaSession();
 
-
     }
 
     private initMediaSession()
